@@ -1,0 +1,429 @@
+<!-- START module_newsletter_user_overview.html -->
+<script type="text/javascript">
+// <![CDATA[
+var cxDataList = function() {
+    var $ = cx.jQuery;
+    var pagePos = 0;
+    var entryLimit = {NEWSLETTER_PAGING_LIMIT};
+    var entryCount = 0;
+    var orderByField = {};
+    var orderDirection = '';
+    var sortButtons = [];
+    var listId = {NEWSLETTER_LIST_ID};
+    var searchKeyword = '{NEWSLETTER_FILTER_KEYWORD}';
+    var filterAttribute = '{NEWSLETTER_FILTER_ATTRIBUTE}';
+    var filterStatus = '{NEWSLETTER_FILTER_STATUS}';
+
+    var htmlRow = '<tr class="row[i]"></tr>';
+    var htmlTd = '<td style="white-space:nowrap;"></td>';
+    var htmlInput = '<input type="checkbox" name="userid[]" value="[id]" />';
+    var htmlAEditNewsletter = '<a href="index.php?cmd=newsletter&act=users&tpl=edit&id=[id]" title="{TXT_NEWSLETTER_MODIFY_RECIPIENT}"></a>';
+    var htmlACopyUser = '<a href="index.php?cmd=newsletter&act=users&tpl=edit&copy=1&id=[id]" title="{TXT_NEWSLETTER_MODIFY_RECIPIENT}"></a>';
+    var htmlAEditAccess = '<a href="index.php?cmd=access&act=user&tpl=modify&id=[id]&source=newsletter" title="{TXT_NEWSLETTER_MODIFY_RECIPIENT}"></a>';
+    var htmlADelete = '<a href="javascript:void(0)" onclick="DeleteUser([id],\'[email]\')" title="{TXT_NEWSLETTER_DELETE_RECIPIENT}"></a>';
+    var htmlUserFunctions = '<td style="text-align:right;"></td>';
+    var htmlImageLedRed = '<img src="images/icons/led_red.gif" title="{TXT_OPEN_ISSUE}" alt="{TXT_OPEN_ISSUE}" border="0" />';
+    var htmlImageLedGreen = '<img src="images/icons/led_green.gif" title="{TXT_ACTIVE}" alt="{TXT_ACTIVE}" border="0" />';
+    var htmlImageEdit = '<img src="images/icons/edit.gif" title="{TXT_NEWSLETTER_MODIFY_RECIPIENT}" alt="{TXT_NEWSLETTER_MODIFY_RECIPIENT}" border="0" />';
+    var htmlImageCopy = '<img src="images/icons/copy.gif" title="{TXT_NEWSLETTER_COPY_RECIPIENT}" alt="{TXT_NEWSLETTER_COPY_RECIPIENT}" border="0" />';
+    var htmlImageIconSpacer = '<img src="images/icons/pixel.gif" width="17" height="17" border="0" />';
+    var htmlImageDelete = '<img src="images/icons/delete.gif" title="{TXT_NEWSLETTER_DELETE_RECIPIENT}" alt="{TXT_NEWSLETTER_DELETE_RECIPIENT}" border="0" />';
+    var htmlAFeedback = '<a href="index.php?cmd=newsletter&act=users&tpl=feedback&id=[id]&recipient_type=[type]" title="{TXT_NEWSLETTER_FEEDBACK_OVERVIEW}"></a>';
+
+    var searchFunc = function(keyword, attribute, status) {
+        pagePos = 0;
+        searchKeyword = keyword;
+        filterAttribute = attribute;
+        filterStatus = status;
+        getList();
+    }
+
+    var setListFunc = function(list) {
+        pagePos = 0;
+        listId = list;
+        getList();
+    }
+
+    var sortFunc = function(field) {
+        removeSortOrderArrow();
+        orderByField = field;
+        setSortOrderArrow();
+        getList();
+    }
+
+    var setPagingPosFunc = function(pos) {
+        pagePos = pos;
+        getList();
+    }
+
+    var firstPageFunc = function() {
+        pagePos = 0;
+        getList();
+    }
+
+    var lastPageFunc = function() {
+        offset = 0;
+        do {
+            pageNr =(entryCount - offset) / entryLimit;
+            offset++;
+        } while (pageNr != Math.round(pageNr))
+
+        pagePos = pageNr * entryLimit;
+
+        getList();
+    }
+
+    var setEntryLimitFunc = function(limit) {
+        entryLimit = limit;
+        listPaging.setEntryLimit(limit);
+        getList();
+    }
+
+    var setSortOrderDirection = function() {
+        if (orderDirection == 'asc') {
+            orderDirection = 'desc';
+        } else if (orderDirection == 'desc') {
+            orderDirection = 'asc';
+        } else {
+            orderDirection = 'asc';
+        }
+    }
+
+    var setSortOrderArrow = function() {
+        var htmlArrow = '\u2193';
+        if (orderDirection == 'asc') {
+            htmlArrow = '\u2191';
+        }
+        $(orderByField).append('<span>'+htmlArrow+'</span>');
+    }
+
+    var removeSortOrderArrow = function () {
+        $(orderByField).find('span').remove();
+    }
+
+    var getList = function() {
+        $.ajax({
+            url: 'index.php?cmd=newsletter&standalone=1&act=editusersort'+
+                    '&field='+orderByField.sortField+
+                    '&order='+orderDirection+
+                    '&limit='+entryLimit+
+                    '&pos='+pagePos+
+                    '&list='+listId+
+                    '&keyword='+searchKeyword+
+                    '&filter_attribute='+filterAttribute+
+                    '&filter_status='+filterStatus,
+            success: updateUserlist
+        });
+    }
+    
+    var setFilterParamsInUrl = function() {
+        $('#tbluserlist tbody tr').each(function(){
+            var endOfNormalUrl;
+            if($(this).find('td:last a:first').attr('href').indexOf('&filterlistid=') != -1){
+                endOfNormalUrl = $(this).find('td:last a:first').attr('href').indexOf('&filterlistid=');
+            }else{
+                endOfNormalUrl = $(this).find('td:last a:first').attr('href').length;
+            }
+            $(this).find('td:last a:first').attr(
+                'href', 
+                $(this).find('td:last a:first').attr('href').substring(0, endOfNormalUrl)+
+                    '&newsletterListId='+listId+
+                    '&filterkeyword='+searchKeyword+
+                    '&filterattribute='+filterAttribute+
+                    '&filterStatus='+filterStatus
+            );
+        });
+    }
+
+    var updateUserlist = function(data) {
+        eval('response='+data);
+
+        entryCount = response.recipient_count;
+
+        htmlList = $('#tbluserlist tbody');
+        htmlList.empty();
+
+        $(response.user).each(function(i){
+            user = response.user[i];
+            userFunctions = $(htmlUserFunctions);
+    
+            if (user.type == 'newsletter') {
+                userFunctions.append($(htmlACopyUser.replace('[id]', user.id)).append($(htmlImageCopy)));
+                userFunctions.append($(htmlAEditNewsletter.replace('[id]', user.id)).append($(htmlImageEdit)));                                
+                userFunctions.append($(htmlADelete.replace('[id]', user.id).replace('[email]', user.email)).append($(htmlImageDelete)));
+            } else {
+                userFunctions.append($(htmlACopyUser.replace('[id]', user.id)).append($(htmlImageCopy)));
+                userFunctions.append($(htmlAEditAccess.replace('[id]', user.id)).append($(htmlImageEdit)));                
+                userFunctions.append($(htmlImageIconSpacer));
+            }
+
+            recipientRow = $(htmlRow.replace('[i]',(i%2)+1));
+            recipientRow.append($(htmlTd).append($(htmlInput.replace('[id]', user.id)))
+                                          .append(user.status == '1' ? $(htmlImageLedGreen) : $(htmlImageLedRed)));
+            recipientRow.append($(htmlTd).append(user.email));
+            recipientRow.append($(htmlTd).append(user.company));
+            recipientRow.append($(htmlTd).append(user.lastname));
+            recipientRow.append($(htmlTd).append(user.firstname));
+            recipientRow.append($(htmlTd).append(user.address));
+            recipientRow.append($(htmlTd).append(user.zip));
+            recipientRow.append($(htmlTd).append(user.city));
+            recipientRow.append($(htmlTd).append(user.country));
+            recipientRow.append($(htmlTd).append($(htmlAFeedback.replace('[id]', user.id).replace('[type]', user.type)).append(user.feedback)));
+            recipientRow.append($(htmlTd).append(user.emaildate));
+            recipientRow.append(userFunctions);
+
+            htmlList.append(recipientRow);
+        });
+
+        listPaging.setEntryCount(entryCount);
+        listPaging.setPage(pagePos);
+
+        $('#newsletterListLoading').css({display: 'none'});
+        $('#recipientList').css({display: ''});
+        
+        setFilterParamsInUrl();
+    }
+
+
+    var registerSortButtons = function() {
+        $('a[name^=listSort]').each(
+            function(index,element) {
+                var sortField = element.name.match(/^listSort\[(.*)\]$/)[1];
+                element.sortField = sortField;
+                $(element).click(function(){
+                    setSortOrderDirection();
+                    sortFunc(element);
+                });
+                $(element).attr('href', 'javascript:void(0)');
+                sortButtons.push(element);
+
+                if (sortField == 'emaildate') {
+                    orderByField = element;
+                    orderDirection = 'asc';
+                }
+            }
+        );
+
+    }
+
+    var Paging = function(entryCount, entryLimit) {
+        var htmlCode = '[from] to [to] from [count] &nbsp;&nbsp;[&nbsp;<a href="javascript:void(0)" onclick="newsletterList.firstPage()">&lt;&lt;</a>&nbsp;&nbsp;[pages]&nbsp;&nbsp;<a href="javascript:void(0)" onclick="newsletterList.lastPage()">&gt;&gt;</a>&nbsp;]';
+        var htmlCodePage = '<a href="javascript:void(0)" onclick="newsletterList.setPagingPos([pos])">[page]</a>';
+        var htmlCodeCurrentPage = '<strong>[page]</strong>';
+        var entryPosition = 0;
+        var entryPositionStartLabel = 0;
+        var entryPositionEndLabel = 0;
+
+        entryPositionEndLabel = entryCount > entryLimit ? entryLimit : entryCount;
+
+        var setPageFunc = function(pagePos) {
+            entryPosition = pagePos;
+            setEntryPositionEndLabel();
+            setEntryPositionStartLabel();
+
+            $('.paging').each(function(index,element) {
+                $(element).empty();
+                $(element).append(
+                    htmlCode.replace('[from]', entryPositionStartLabel)
+                            .replace('[to]', entryPositionEndLabel)
+                            .replace('[count]', entryCount)
+                            .replace('[pages]', generatePagesCode()));
+            });
+        }
+
+        var generatePagesCode = function() {
+            pages = [];
+            stepLimit = 3;
+            step = 0;
+
+            for (position = entryPosition - entryLimit * stepLimit; position < entryPosition; position += entryLimit) {
+                step++;
+                if (position >= 0) {
+                    pageNr = position / entryLimit + 1;
+                    pages.push(htmlCodePage.replace('[pos]', position).replace('[page]', pageNr));
+                }
+
+                if (step == stepLimit) {
+                    step = 0;
+                    break;
+                }
+            }
+
+            pageNr = entryPosition / entryLimit + 1;
+            pages.push(htmlCodeCurrentPage.replace('[page]', pageNr));
+
+            for (position = entryPosition + entryLimit ; position < entryCount; position += entryLimit) {
+                step++;
+                pageNr = position / entryLimit + 1;
+                pages.push(htmlCodePage.replace('[pos]', position).replace('[page]', pageNr));
+
+                if (step == stepLimit) {
+                    step = 0;
+                    break;
+                }
+            }
+
+            return pages.join('&nbsp;');
+        }    
+
+        var setEntryPositionStartLabel = function() {
+            if (entryPositionEndLabel != 0) {
+                entryPositionStartLabel = entryPosition + 1;
+            } else {
+                entryPositionStartLabel = 0;
+            }
+        }
+    
+        var setEntryPositionEndLabel = function() {
+            entryPositionEndLabel = entryPosition + entryLimit;
+            if (entryPositionEndLabel > entryCount) {
+                entryPositionEndLabel = entryCount;
+            }
+        }
+
+        var setEntryCountFunc = function(count) {
+            entryCount = count;
+        }
+
+        var setEntryLimitFunc = function(limit) {
+            entryLimit = limit;
+        }
+
+        return { 
+            setPage: setPageFunc,
+            setEntryCount: setEntryCountFunc,
+            setEntryLimit: setEntryLimitFunc
+        }
+    }
+    
+    var setFilterInputsByVars = function(){
+        $('#newsletterListId').val(listId);
+        $('#newsletterRecipientSearchKeyword').val(searchKeyword);
+        $('#newsletterRecipientFilterAttribute').val(filterAttribute);
+        $('#newsletterRecipientFilterStatus').val(filterStatus);
+    }
+
+    setFilterInputsByVars();
+    registerSortButtons();
+    setSortOrderDirection();
+
+    listPaging = new Paging(entryCount, entryLimit); 
+
+    sortFunc(orderByField);
+
+    return {
+        sort: sortFunc,
+        setPagingPos: setPagingPosFunc,
+        firstPage: firstPageFunc,
+        lastPage: lastPageFunc,
+        setEntryLimit: setEntryLimitFunc,
+        setList: setListFunc,
+        search: searchFunc
+    }
+}
+
+cx.ready(function() {newsletterList = new cxDataList()});
+
+var confirmDeleteInactive = function() {
+    return confirm("{TXT_NEWSLETTER_REALLY_DELETE_ALL_INACTIVE}\n{TXT_ACTION_IS_IRREVERSIBLE}");
+}
+//]]>
+</script>
+
+{JAVASCRIPTCODE}
+
+<table width="100%" border="0" cellpadding="3" cellspacing="0" class="adminlist">
+    <tr>
+        <th>{TXT_TITLE}</th>
+    </tr>
+    <tr class="row1">
+        <td>
+            {NEWSLETTER_LIST_MENU}
+            <input type="text" id="newsletterRecipientSearchKeyword" onkeypress="if(event.keyCode==13)newsletterList.search($J('#newsletterRecipientSearchKeyword').val(),$J('#newsletterRecipientFilterAttribute').val(),$J('#newsletterRecipientFilterStatus').val())" size="40" maxlength="255" />
+            {SELECTLIST_FIELDS}
+            {SELECTLIST_STATUS}
+            <input type="button" value="{TXT_SEARCH}" onclick="newsletterList.search($J('#newsletterRecipientSearchKeyword').val(),$J('#newsletterRecipientFilterAttribute').val(),$J('#newsletterRecipientFilterStatus').val())" />
+        </td>
+    </tr>
+</table>
+<br />{EMAIL_CODE_CHECK}
+
+<img id="newsletterListLoading" src="../core_modules/frontendEditing/images/loading.gif" />
+<div id="recipientList" style="display:none;">
+    {TXT_NEWSLETTER_ROWS_PER_PAGE}:
+    <a href="javascript:void(0)" onclick="newsletterList.setEntryLimit(50)">50</a>
+    <a href="javascript:void(0)" onclick="newsletterList.setEntryLimit(250)">250</a>
+    <a href="javascript:void(0)" onclick="newsletterList.setEntryLimit(500)">500</a>
+    <br />
+    <div class="paging"></div>
+    <br />
+
+    <form name="userlist" action="index.php?cmd=newsletter&amp;act=users&amp;bulkdelete=1" method="post">
+        <table id="tbluserlist" width="100%" border="0" cellpadding="3" cellspacing="0" class="adminlist">
+            <thead>
+                <tr>
+                    <th colspan="12">
+                        <span style="float: left; width: auto;">{TXT_NEWSLETTER_RECIPIENTS}</span>
+                        <a href="index.php?cmd=newsletter&amp;act=deleteInactive" onclick="return confirmDeleteInactive();" title="{TXT_NEWSLETTER_DELETE_ALL_INACTIVE}" style="float: right; width: auto;">[ {TXT_NEWSLETTER_DELETE_ALL_INACTIVE} ] </span></a>
+                    </th>
+                </tr>
+                <tr class="row3" style="font-weight:bold;">
+                    <td nowrap width="1%">
+                        {TXT_STATUS}
+                    </td>
+                    <td nowrap width="20%">
+                        <a name="listSort[email]">{TXT_EMAIL_ADDRESS}</a>
+                    </td>
+                    <td nowrap width="15%">
+                        <a name="listSort[company]">{TXT_NEWSLETTER_COMPANY}</a>
+                    </td>
+                    <td nowrap width="15%">
+                        <a name="listSort[lastname]">{TXT_LASTNAME}</a>
+                    </td>
+                    <td nowrap width="15%">
+                        <a name="listSort[firstname]">{TXT_FIRSTNAME}</a>
+                    </td>
+                    <td nowrap width="10%">
+                        <a name="listSort[address]">{TXT_NEWSLETTER_ADDRESS}</a>
+                    </td>
+                    <td nowrap width="5%">
+                        <a name="listSort[zip]">{TXT_ZIP}</a>
+                    </td>
+                    <td nowrap width="5%">
+                        <a name="listSort[city]">{TXT_CITY}</a>
+                    </td>
+                    <td nowrap width="10%">
+                        {TXT_COUNTRY}
+                    </td>
+                    <td nowrap width="1%">
+                        {TXT_NEWSLETTER_USER_FEEDBACK}
+                    </td>
+                    <td nowrap width="5%">
+                        <a name="listSort[emaildate]" rel="desc">{TXT_NEWSLETTER_REGISTRATION_DATE}</a>
+                    </td>
+                    <td width="3%" style="text-align:right;">{TXT_FUNCTIONS}</td>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <div>
+            <img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="arrow" />
+            <a href="javascript:void(0)" onclick="changeCheckboxes('userlist','userid[]',true); return false;">{TXT_NEWSLETTER_CHECK_ALL}</a> /
+            <a href="javascript:void(0)" onclick="changeCheckboxes('userlist','userid[]',false); return false;">{TXT_NEWSLETTER_UNCHECK_ALL}</a>
+            <img src="images/icons/strike.gif" alt="strike" title="strike" />
+            <select name="userlist_MultiAction" onchange="MultiAction();">
+                <option value="0">{TXT_NEWSLETTER_WITH_SELECTED}:</option>
+                <option value="delete">{TXT_NEWSLETTER_DELETE}</option>
+            </select>
+        </div>
+    </form>
+    <br />
+    {TXT_NEWSLETTER_ROWS_PER_PAGE}:
+    <a href="javascript:void(0)" onclick="newsletterList.setEntryLimit(50)">50</a>
+    <a href="javascript:void(0)" onclick="newsletterList.setEntryLimit(250)">250</a>
+    <a href="javascript:void(0)" onclick="newsletterList.setEntryLimit(500)">500</a>
+    <br />
+    <div class="paging"></div>
+</div>
+<!-- END module_newsletter_user_overview.html -->

@@ -1,0 +1,113 @@
+<div id="shop"><!-- BEGIN core_message -->
+    <div class="[[MESSAGE_CLASS]]">[[MESSAGE_TEXT]]</div><!-- END core_message -->
+    <!-- BEGIN shopCart -->
+    <form action="index.php?section=shop&amp;cmd=cart" name="shopForm" method="post">
+        <table summary="" cellspacing="0">
+            <tr valign="top" id="th_bg">
+                <th width="50%">[[TXT_PRODUCT]]</th>
+                <th width="12%">[[TXT_UNIT_PRICE]]</th>
+                <th width="12%">[[TXT_QUANTITY]]</th>
+                <th width="14%" colspan="2">[[TXT_TAX_PREFIX]]</th>
+                <th width="12%" class="a_right">[[TXT_TOTAL]]</th>
+            </tr>
+            <!-- BEGIN shopCartRow -->
+            <tr valign="top" class="[[SHOP_PRODUCT_ROW]]">
+                <td>
+                    <a href="index.php?section=shop&amp;cmd=details&amp;referer=cart&amp;productId=[[SHOP_PRODUCT_CART_ID]]">
+                    [[SHOP_PRODUCT_TITLE]]
+                    </a><!-- BEGIN attributes -->
+                    <br />[[SHOP_PRODUCT_OPTIONS]]
+                    <!-- END attributes -->
+                </td>
+                <td>
+                    [[SHOP_PRODUCT_ITEMPRICE]]&nbsp;[[SHOP_PRODUCT_ITEMPRICE_UNIT]]
+                </td>
+                <td>
+                    <a class="delete-icon" href="#" title="[[TXT_SHOP_REMOVE_ITEM]]" onclick="deleteProduct([[SHOP_PRODUCT_CART_ID]]); return false;">
+                        <img style="height: 18px;" alt="[[TXT_SHOP_REMOVE_ITEM]]" src="images/modules/shop/trash.png" />
+                    </a>
+                    <input type="text" name="quantity[[[SHOP_PRODUCT_CART_ID]]]" value="[[SHOP_PRODUCT_QUANTITY]]" id="quantity-[[SHOP_PRODUCT_CART_ID]]" class="shop_quantity" />
+                </td>
+                <td>[[SHOP_PRODUCT_TAX_RATE]]</td>
+                <td>[[SHOP_PRODUCT_TAX_AMOUNT]]</td>
+                <td class="a_right">
+                    [[SHOP_PRODUCT_PRICE]]&nbsp;[[SHOP_PRODUCT_PRICE_UNIT]]
+                </td>
+            </tr>
+            <!-- END shopCartRow -->
+            <!-- BEGIN totalExclTaxRow -->
+            <tr class="row1">
+                <td colspan="5">[[TXT_NET_PRICE]]</td>
+                <td style="text-align: right;">
+                    [[SHOP_GRAND_TOTAL_EXCL_TAX]]
+                </td>
+            </tr>
+            <!-- END totalExclTaxRow -->
+            <!-- BEGIN shopVat -->
+            <tr class="row1">
+                <td colspan="5" valign="top">
+                    [[TXT_TAX_PREFIX]]
+                </td>
+                <td valign="top" class="a_right">
+                    [[SHOP_TOTAL_TAX_AMOUNT]]
+                </td>
+            </tr>
+            <!-- END shopVat -->
+            <!-- BEGIN shopCouponTotal -->
+            <tr valign="top" class="row3">
+                <td colspan="5">[[SHOP_DISCOUNT_COUPON_TOTAL]]</td>
+                <td class="a_right">
+                    [[SHOP_DISCOUNT_COUPON_TOTAL_AMOUNT]]&nbsp;[[SHOP_PRICE_UNIT]]
+                </td>
+            </tr>
+            <!-- END shopCouponTotal -->
+            <tr class="row3">
+                <td colspan="5" valign="top">
+                    <strong>[[TXT_INTER_TOTAL]]</strong>
+                </td>
+                <td valign="top" class="a_right">
+                    <strong>[[SHOP_PRODUCT_TOTALPRICE_PLUS_VAT]] [[SHOP_PRODUCT_TOTALPRICE_UNIT]]</strong>
+                </td>
+            </tr>
+            <!-- BEGIN shopCoupon -->
+            <tr>
+                <td colspan="6">&nbsp;</td>
+            </tr>
+            <tr class="row3">
+                <td>
+                    [[TXT_SHOP_DISCOUNT_COUPON_CODE]]
+                </td>
+                <td colspan="5" class="a_right">
+                    <input type="text" maxlength="20" name="coupon_code" value="[[SHOP_DISCOUNT_COUPON_CODE]]" class="shop_cart_input" onchange="document.forms['shopForm'].submit();" />
+                </td>
+            </tr>
+            <!-- END shopCoupon -->
+            <!-- BEGIN shopShippingCountry -->
+            <tr class="row3">
+                <td valign="top">
+                    <label>[[TXT_SHIP_COUNTRY]]</label>
+                </td>
+                <td colspan="5" valign="top" class="a_right">
+                    <select name="countryId2" class="shop_cart_input" onchange="document.forms['shopForm'].submit()">
+                    [[SHOP_COUNTRIES_MENUOPTIONS]]
+                    </select>
+                </td>
+            </tr>
+            <!-- END shopShippingCountry -->
+        </table>
+        <div class="cart-buttons">
+            <input type="submit" name="update" value="[[TXT_UPDATE]]" />&nbsp;
+            <!-- BEGIN continue -->
+            <input type="submit" name="continue" class="continue-button" value="[[TXT_NEXT]]" />
+            <!-- END continue -->
+        </div>
+    </form>
+    <!-- END shopCart -->
+    <!-- BEGIN shopCartEmpty -->
+    [[TXT_EMPTY_SHOPPING_CART]]
+    <!-- END shopCartEmpty -->
+    <div class="cart-links">
+        <a href="index.php?section=shop" title="[[TXT_CONTINUE_SHOPPING]]">[[TXT_CONTINUE_SHOPPING]]</a><br />
+        <a href="index.php?section=shop&amp;act=destroy" title="[[TXT_EMPTY_CART]]">[[TXT_EMPTY_CART]]</a>
+    </div>
+</div>

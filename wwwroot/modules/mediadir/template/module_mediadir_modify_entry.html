@@ -1,0 +1,216 @@
+<!-- START module_mediadir_modify_category.html -->
+<script language="JavaScript" type="text/javascript">      
+function SetUrl(url, width, height, alt) {
+	document.getElementById(insertBox).value = url;
+}
+
+function getFileBrowser(name, type, path)
+{
+    insertBox = name;
+	fileType = type;
+
+	openWindow('?cmd=fileBrowser&standalone=true&type='+fileType+'&path='+path,'','width=800,height=600,resizable=yes,status=no,scrollbars=yes');
+}
+
+function openWindow(theURL,winName,features){
+	browserPopup = window.open(theURL,"Browser",features);
+	browserPopup.focus();
+}
+
+/*function ExpandMinimize(toggle){
+    elm1 = document.getElementById('{MODULE_NAME}Inputfield_' + toggle + '_Minimized');
+    elm2 = document.getElementById('{MODULE_NAME}Inputfield_' + toggle + '_Expanded');
+
+    elm1.style.display = (elm1.style.display=='none') ? 'block' : 'none';
+    elm2.style.display = (elm2.style.display=='none') ? 'block' : 'none';
+}
+*/
+function toggleDisplayDouration(){
+    elmSelect = document.getElementById('durationType');
+    elmLayer = document.getElementById('durationTypePeriod');
+
+    if(elmSelect.value == 1) {
+    	elmLayer.style.display = 'none';
+    } else {
+        elmLayer.style.display = 'inline';
+    }
+}
+
+//adds a datepicker to the display duration fields
+cx.ready(function() {
+    $J('input[name=durationStart]').datepicker();
+    $J('input[name=durationEnd]').datepicker();
+});
+</script>
+
+{MEDIADIR_JAVASCRIPT}
+
+<style type="text/css">
+    .ui-autocomplete {
+        max-height: 150px;
+        overflow-y: auto;
+    }
+    
+    .ui-autocomplete-loading {
+        background: #FFFFFF url('../lib/javascript/jquery/ui/images/ui-anim_basic_16x16.gif') 448px center no-repeat !important;
+    }
+</style>
+
+<form name="entryModfyForm" action="index.php?cmd={MODULE_NAME}&act=modify_entry" onsubmit="{MEDIADIR_FORM_ONSUBMIT}" method="post" enctype="multipart/form-data">
+<input name="entryId" type="hidden" value="{MEDIADIR_ENTRY_ID}" />
+<input name="formId" type="hidden" value="{MEDIADIR_FORM_ID}" />
+<input name="langId" type="hidden" value="{MEDIADIR_DEFAULT_LANG_ID}" />
+<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+    <tr>
+        <th colspan="2">{TXT_MEDIADIR_PAGE_TITLE}</th>
+    </tr>
+    <!-- BEGIN mediadirFormList -->
+    <tr class="row1">
+        <td width="200" valign="top">{TXT_MEDIADIR_CHOOSE_FORM}</td>
+        <td>
+            {MEDIADIR_FORM_LIST}
+        </td>
+    </tr>
+    <!-- END mediadirFormList -->
+    
+    <!-- BEGIN mediadirEntryStatus -->
+    <tr class="{MEDIADIR_INPUTFIELD_ROW_CLASS}">
+        <td width="200" valign="top">{TXT_MEDIADIR_ENTRY_STATUS}</td>
+        <td>
+            <input type="hidden" name="status" value="0" />
+            <input type="checkbox" name="status" value="1" {MEDIADIR_ENTRY_STATUS} />
+        </td>
+    </tr>
+    <!-- END mediadirEntryStatus -->
+    
+    <!-- BEGIN mediadirInputfieldList -->
+    <tr class="{MEDIADIR_INPUTFIELD_ROW_CLASS}">
+        <td width="200" valign="top">{TXT_MEDIADIR_INPUTFIELD_NAME}</td>
+        <td>
+            {MEDIADIR_INPUTFIELD_FIELD}
+        </td>
+    </tr>
+    <!-- END mediadirInputfieldList -->
+
+    <!-- BEGIN mediadirSpezfieldList -->
+    <tr class="row2">
+        <td colspan="2"><br /></td>
+    </tr>
+    <tr class="row3">
+        <td colspan="2"><b>{TXT_MEDIADIR_SPEZ_FIELDS}</b></td>
+    </tr>
+    <tr class="row1">
+        <td width="200" >{TXT_MEDIADIR_DISPLAYDURATION}</td>
+        <td>
+            <select id="durationType" name="durationType" style="width: 302px;" onchange="toggleDisplayDouration();">
+                <option value="1" {MEDIADIR_DISPLAYDURATION_SELECT_ALWAYS}>{TXT_MEDIADIR_DISPLAYDURATION_ALWAYS}</option>
+                <option value="2" {MEDIADIR_DISPLAYDURATION_SELECT_PERIOD}>{TXT_MEDIADIR_DISPLAYDURATION_PERIOD}</option>
+            </select>
+            <span id="durationTypePeriod" style="display:{MEDIADIR_DISPLAYDURATION_SHOW_PERIOD};">
+                &nbsp;&nbsp;&nbsp;{TXT_MEDIADIR_DISPLAYDURATION_FROM}&nbsp;<input type="text" name="durationStart" value="{MEDIADIR_DISPLAYDURATION_START}" style="width: 80px;" />&nbsp;&nbsp;&nbsp;{TXT_MEDIADIR_DISPLAYDURATION_TO}&nbsp;<input type="text" name="durationEnd" value="{MEDIADIR_DISPLAYDURATION_END}" style="width: 80px;" />&nbsp;&nbsp;&nbsp;{MEDIADIR_DISPLAYDURATION_RESET_NOTIFICATION_STATUS}
+            </span>
+        </td>
+    </tr>
+    <!-- BEGIN mediadirTranslationStatus -->
+    <tr class="row2">
+        <td width="200" >{TXT_MEDIADIR_TRANSLATION_STATUS}</td>
+        <td>
+            <!-- BEGIN mediadirTranslationLangList -->
+            <input type="checkbox" value="{MEDIADIR_TRANSLATION_LANG_ID}" name="translationStatus[]" {MEDIADIR_TRANSLATION_LANG_STATUS}/>&nbsp;{TXT_MEDIADIR_TRANSLATION_LANG_NAME}&nbsp;&nbsp;&nbsp;
+            <!-- END mediadirTranslationLangList -->
+        </td>
+    </tr>
+    <!-- END mediadirTranslationStatus -->
+    
+    <!-- BEGIN mediadirOwner -->
+    <tr class="{MEDIADIR_OWNER_ROW}">
+        <td width="200" >{TXT_MEDIADIR_OWNER}</td>
+        <td>
+            <input class="live-search-user-id" type="text" name="userId" value="{MEDIADIR_OWNER_ID}" />
+        </td>
+    </tr>
+    <!-- END mediadirOwner -->
+
+    <!-- END mediadirSpezfieldList -->
+    
+
+    <!-- BEGIN mediadirContactData -->
+    
+    <!--      
+    <tr class="row2">
+        <td colspan="2"><br /></td>
+    </tr>
+    <tr class="row3">
+        <td colspan="2"><b>{TXT_MEDIADIR_CONTACT_DATA}</b></td>
+    </tr>
+    <tr class="row1">
+        <td width="200" >Anrede</td>
+        <td>
+            {MEDIADIR_CONTACT_ATTRIBUT_TITLE}
+        </td>
+    </tr>
+    <tr class="row2">
+        <td>Vorname</td>
+        <td>
+            {MEDIADIR_CONTACT_ATTRIBUT_FIRSTNAME}
+        </td>
+    </tr>
+    <tr class="row1">
+        <td>Nachname</td>
+        <td>
+            {MEDIADIR_CONTACT_ATTRIBUT_LASTNAME}
+        </td>
+    </tr>
+    <tr class="row2">
+        <td>Firma</td>
+        <td>
+            {MEDIADIR_CONTACT_ATTRIBUT_COMPANY}
+        </td>
+    </tr>
+    <tr class="row1">
+        <td valign="top">Adresse</td>
+        <td>
+            {MEDIADIR_CONTACT_ATTRIBUT_ADRESS}<br />
+            {MEDIADIR_CONTACT_ATTRIBUT_ZIP} {MEDIADIR_CONTACT_ATTRIBUT_CITY}<br />
+            {MEDIADIR_CONTACT_ATTRIBUT_COUNTRY}
+        </td>
+    </tr>
+    <tr class="row2">
+        <td >Telefon</td>
+        <td>
+            {MEDIADIR_CONTACT_ATTRIBUT_PHONE}
+        </td>
+    </tr>
+    <tr class="row1">
+        <td>Fax</td>
+        <td>
+            {MEDIADIR_CONTACT_ATTRIBUT_FAX}
+        </td>
+    </tr>
+    <tr class="row2">
+        <td>E-Mail</td>
+        <td>
+            {MEDIADIR_CONTACT_ATTRIBUT_MAIL}
+        </td>
+    </tr>
+    <tr class="row1">
+        <td>Website</td>
+        <td>
+            {MEDIADIR_CONTACT_ATTRIBUT_WEBSITE}
+        </td>
+    </tr>
+    <tr class="row2">
+        <td>Sprache</td>
+        <td>
+            {MEDIADIR_CONTACT_ATTRIBUT_LANG}
+        </td>
+    </tr>
+    -->
+    
+    <!-- END mediadirContactData -->
+</table>
+<br />
+<input type="submit" name="submitEntryModfyForm" value="{TXT_MEDIADIR_SUBMIT}" />
+<div id="{MODULE_NAME}ErrorMessage" style="display:none; color: #ff0000;"><br />{TXT_MEDIADIR_PLEASE_CHECK_INPUT}</div>
+</form>
+<!-- END module_mediadir_modify_category.html -->

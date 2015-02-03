@@ -1,0 +1,48 @@
+<!-- START module_calendar_settings_forms.html -->
+<script language="JavaScript" type="text/javascript">
+//<![CDATA[
+function deleteForm(formId)
+{
+    if (confirm('{TXT_CALENDAR_CONFIRM_DELETE_DATA}\n{TXT_CALENDAR_ACTION_IS_IRREVERSIBLE}')) {
+        window.location.replace("index.php?cmd={CALENDAR_MODULE_NAME}&act=settings&tpl=forms&delete="+formId+"&{CALENDAR_CSRF}");
+    }
+}
+//]]>
+</script>
+<input type="button" name="newForm" onclick="location.href='index.php?cmd={CALENDAR_MODULE_NAME}&amp;act=settings&amp;tpl=modify_form&amp;{CALENDAR_CSRF}'" value="{TXT_CALENDAR_NEW_REGISTRATION_FORM}" /><br />
+<br />
+<form id="formSettingsForm" action="index.php?cmd={CALENDAR_MODULE_NAME}&act=settings&tpl=forms" method="post" >
+    <input name="submitSettingsMail" type="hidden" value="1" />
+	<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+	    <tr>
+	        <th colspan="4">{TXT_CALENDAR_REGISTRATION_FORMS}</th>
+	    </tr>
+	    <tr class="row3">
+	        <td width="1%"><strong>{TXT_CALENDAR_STATUS}&nbsp;&nbsp;&nbsp;</strong></td>
+            <td width="1%"><strong>{TXT_CALENDAR_SORTING}&nbsp;&nbsp;&nbsp;</strong></td>
+	        <td width="98%"><strong>{TXT_CALENDAR_TITLE}&nbsp;</strong></td>     
+	        <td width="1%" style="text-align: right;"><strong>{TXT_CALENDAR_ACTION}&nbsp;</strong></td>
+	    </tr>
+	    <!-- BEGIN formList -->
+	    <tr class="{CALENDAR_FORM_ROW}">
+	        <td style="text-align: center;"><a href="index.php?cmd={CALENDAR_MODULE_NAME}&amp;act=settings&tpl=forms&amp;switch_status={CALENDAR_FORM_ID}"><img src="images/icons/led_{CALENDAR_FORM_STATUS}.gif" border="0" alt="" title="" /></a></td>
+	        <td style="text-align: center;"><input type="text" maxlength="3" style="width: 20px;" name="formOrder[{CALENDAR_FORM_ID}]" value="{CALENDAR_FORM_SORT}" /></td>
+            <td><b><a href="index.php?cmd={CALENDAR_MODULE_NAME}&amp;act=settings&tpl=modify_form&amp;id={CALENDAR_FORM_ID}" target="_self" title="{CALENDAR_FORM_TITLE} {TXT_EDIT}">{CALENDAR_FORM_TITLE}</a></b></td>
+	        <td style="text-align: right;" nowrap="nowrap">
+                <a href="index.php?cmd={CALENDAR_MODULE_NAME}&amp;act=settings&tpl=modify_form&amp;copy={CALENDAR_FORM_ID}" target="_self" title="{CALENDAR_FORM_TITLE} {TXT_CALENDAR_COPY}"><img src="images/icons/copy.gif" border="0" alt="{CALENDAR_FORM_TITLE} {TXT_CALENDAR_COPY}" title="{CALENDAR_FORM_TITLE} {TXT_CALENDAR_COPY}" /></a>
+	            <a href="index.php?cmd={CALENDAR_MODULE_NAME}&amp;act=settings&tpl=modify_form&amp;id={CALENDAR_FORM_ID}" target="_self" title="{CALENDAR_FORM_TITLE} {TXT_CALENDAR_EDIT}"><img src="images/icons/edit.gif" border="0" alt="{CALENDAR_FORM_TITLE} {TXT_CALENDAR_EDIT}" title="{CALENDAR_FORM_TITLE} {TXT_CALENDAR_EDIT}" /></a>
+	            <a href="javascript:deleteForm('{CALENDAR_FORM_ID}');" title="{CALENDAR_FORM_TITLE} {TXT_CALENDAR_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{CALENDAR_FORM_TITLE} {TXT_CALENDAR_DELETE}" title="{CALENDAR_FORM_TITLE} {TXT_CALENDAR_DELETE}" /></a>
+	        </td>
+	    </tr>
+	    <!-- END formList -->
+	
+	    <!-- BEGIN emptyFormList -->
+	    <tr class="row1">
+	        <td colspan="4"><i>{TXT_CALENDAR_NO_FORMS_FOUND}</i></td>
+	    </tr>
+	    <!-- END emptyFormList -->
+	</table>
+    <br />
+    <input type="submit" name="submitSettingsForms" value="{TXT_CALENDAR_SAVE}" />
+</form>
+<!-- END module_calendar_settings_forms.html -->

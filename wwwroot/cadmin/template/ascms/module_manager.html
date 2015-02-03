@@ -1,0 +1,61 @@
+<!-- START module_manager.html -->
+<script language="JavaScript" type="text/javascript">
+<!-- // confirm delete variable
+function deleteVariable(id)
+{
+    if(confirm('{TXT_CONFIRM_DELETE_DATA}\n{TXT_ACTION_IS_IRREVERSIBLE} {TXT_ATTENTION_SYSTEM_FUNCTIONALITY_AT_RISK}'))
+        window.location.replace("index.php?cmd=modulemanager&{CSRF_PARAM}&act=del&maduleId="+id);
+}
+// -->
+</script>
+<br />
+<form name="moduleManagerForm" method="post" action="?cmd=modulemanager&amp;act={MODULE_ACTION}">
+  <table summary="" width="100%" cellspacing="0" cellpadding="3" border="0" style="vertical-align:top;" class="adminlist">
+    <tr>
+      <th nowrap="nowrap" width="5%">
+        <div align="left">{TXT_STATUS}</div>
+      </th>
+      <th nowrap="nowrap" width="15%">
+        <div align="left">{TXT_NAME}</div>
+      </th>
+      <th nowrap="nowrap" width="10%">
+        <div align="left">{TXT_APPLICATION}</div>
+      </th>
+      <th nowrap="nowrap" width="60%">
+        <div align="left">{TXT_DESCRIPTION} </div>
+      </th>
+      <th nowrap="nowrap" width="5%">
+        <div align="center">{TXT_INSTALL_MODULE}</div>
+      </th>
+      <th nowrap="nowrap" width="5%" >
+        <div align="center">{TXT_REMOVE_MODULE}</div>
+      </th>
+    </tr>
+    <!-- BEGIN moduleRow -->
+    <tr class="{MODULE_ROWCLASS}">
+      <td>
+        <div align="left">{MODULE_STATUS}&nbsp;</div>
+      </td>
+      <td>
+        <div align="left">{MODULE_NAME}&nbsp;</div>
+      </td>
+      <td>
+        <div align="left">{MODULE_REQUIRED}&nbsp;</div>
+      </td>
+      <td>
+        <div align="left">{MODULE_DESCRIPTON}&nbsp;</div>
+      </td>
+      <td>
+        <div align="center">{MODULE_INSTALL}&nbsp;</div>
+      </td>
+      <td>
+        <div align="center">{MODULE_REMOVE}&nbsp;</div>
+      </td>
+    </tr>
+    <!-- END moduleRow -->
+  </table>
+  <br />
+  <br />
+  <input type="submit" name="Submit" value="{TXT_ACCEPT_CHANGES}" />
+</form>
+<!-- END module_manager.html -->

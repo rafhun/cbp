@@ -1,0 +1,83 @@
+<!-- START shop_pricelist_overview.html -->
+<script type="text/javascript">
+<!-- //
+function deleteList(plid)
+{
+  if (confirm('{TXT_DELETE_PRICELIST_MSG}')) {
+    window.location.replace("index.php?cmd=shop{MODULE_INDEX}&{CSRF_PARAM}&act=categories&tpl=pricelists&delete_list_id="+plid);
+  }
+}
+
+function newPricelist()
+{
+  window.location.replace("index.php?cmd=shop{MODULE_INDEX}&{CSRF_PARAM}&act=categories&tpl=pricelist_edit&list_id");
+}
+
+function shopPricelistDoAction(strForm, strCheckbox, objSelect, strAct)
+{
+  if (checkboxIsChecked(strForm,strCheckbox) == true) {
+    switch (strAct) {
+      case 'del':
+        if (confirm('{TXT_DELETE_PRICELIST_MSG}')) {
+          document.forms[strForm].action = "index.php?cmd=shop{MODULE_INDEX}&act=categories&tpl=pricelists";
+          document.forms[strForm].submit();
+        }
+        break;
+    }
+  } else {
+    alert("{TXT_MAKE_SELECTION}");
+  }
+  objSelect.value = 0;
+}
+// -->
+</script>
+
+<div id="subnavbar_level2">
+  <ul>
+    <li><a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=categories" title="{TXT_CATEGORIES}">{TXT_CATEGORIES}</a></li>
+    <li><a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=categories&amp;tpl=pricelists" title="{TXT_PDF_OVERVIEW}">{TXT_PDF_OVERVIEW}</a></li>
+  </ul>
+</div>
+<br />
+
+<!-- BEGIN shop_pricelist_overview -->
+<form name="form_pricelist" method="post" action="index.php?cmd=shop{MODULE_INDEX}&amp;act=pricelists">
+  <table width="100%" cellspacing="0" cellpadding="2" border="0" class="adminlist">
+    <tr>
+      <th width="1%" class="a_center">#</th>
+      <th width="4%">{TXT_ID}</th>
+      <th width="20%">{TXT_NAME}</th>
+      <th width="70%">{TXT_PDF_LINK}</th>
+      <th width="5%" class="a_right">{TXT_ACTION}</th>
+    </tr>
+<!-- BEGIN shop_pricelist -->
+    <tr class="{SHOP_PRICELIST_ROWCLASS}">
+      <td>
+        <input type="checkbox" name="list_id" value="{SHOP_PRICELIST_ID}" />
+      </td>
+      <td>{SHOP_PRICELIST_ID}</td>
+      <td>{SHOP_PRICELIST_NAME}</td>
+      <td>{SHOP_PRICELIST_LINK_PDF}</td>
+      <td class="a_right">
+        <a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=categories&amp;tpl=pricelist_edit&amp;list_id={SHOP_PRICELIST_ID}" target="_self" title="{TXT_EDIT}">
+          <img border="0" src="images/icons/edit.gif" width="16" height="16" alt="{TXT_EDIT}" />
+        </a>
+        <a href="javascript:deleteList({SHOP_PRICELIST_ID})" target="_self" title="{TXT_DELETE}">
+          <img border="0" src="images/icons/delete.gif" width="16" height="16" alt="{TXT_DELETE}" />
+        </a>
+      </td>
+    </tr>
+<!-- END shop_pricelist -->
+  </table>
+  <img src="images/icons/arrow.gif" border="0" width="38" height="22" title="{TXT_MARKED}:" alt="{TXT_MARKED}:" />
+  <a href="javascript:{}" onclick="changeCheckboxes('form_pricelist','list_id',true)" title="{TXT_SELECT_ALL}">{TXT_SELECT_ALL}</a>&nbsp;/&nbsp;
+  <a href="javascript:{}" onclick="changeCheckboxes('form_pricelist','list_id',false)" title="{TXT_REMOVE_SELECTION}">{TXT_REMOVE_SELECTION}</a>&nbsp;&nbsp;&nbsp;
+  <select name="multi_action" onchange="shopPricelistDoAction('form_pricelist','list_id',this,this.value)">
+    <option value="0" selected="selected">{TXT_SELECT_ACTION}:</option>
+    <option value="del">{TXT_DELETE}</option>
+  </select>
+</form>
+<!-- END shop_pricelist_overview -->
+<br />
+<input type="button" name="newPricelist" value="{TXT_MAKE_NEW_PRICELIST}" onclick="newPricelist()" />
+<!-- END shop_pricelist_overview.html -->

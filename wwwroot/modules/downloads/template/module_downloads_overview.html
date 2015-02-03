@@ -1,0 +1,161 @@
+<script type="text/javascript">
+/* <!CDATA[[ */
+function downloadsDeleteCategory(id,name,hasSubcategories)
+{
+    strMsg = '{DOWNLOADS_CONFIRM_DELETE_CATEGORY_TXT}';
+    if (confirm(strMsg.replace('%s', '„'+name+'“')+'\n{TXT_DOWNLOADS_OPERATION_IRREVERSIBLE}')) {
+        subcategories = hasSubcategories && confirm('{TXT_DOWNLOADS_DELETE_SUBCATEGORIES}');
+        window.location.href = 'index.php?cmd=downloads&{CSRF_PARAM}&act=delete_category&parent_id={DOWNLOADS_CATEGORY_ID}&id='+id
+        +'&subcategories='+subcategories
+        +'&category_sort={DOWNLOADS_CATEGORY_CATEGORY_SORT}'
+        +'&category_by={DOWNLOADS_CATEGORY_CATEGORY_SORT_BY}'
+        +'&download_sort={DOWNLOADS_CATEGORY_DOWNLOAD_SORT}'
+        +'&download_by={DOWNLOADS_CATEGORY_DOWNLOAD_BY}'
+        +'&category_pos={DOWNLOADS_CATEGORY_CATEGORY_OFFSET}'
+        +'&download_pos={DOWNLOADS_CATEGORY_DOWNLOAD_OFFSET}';
+    }
+}
+function downloadsUpdateSortOrder(event,elForm,idMultiAction)
+{
+    if (event.which && event.which == 13 || event.which == 1 || event.keyCode == 13 || event.keyCode == 1) {
+        document.getElementById(idMultiAction).value = 'order';
+        elForm.submit();
+    }
+}
+
+function downloadsCategoryDoAction(action)
+{
+    if (action == 'order' || checkboxIsChecked('downloads_category_form', 'downloads_category_id[]')) {
+        if (action == 'order' || confirm('{DOWNLOADS_CONFIRM_DELETE_CATEGORIES_TXT}\n{TXT_DOWNLOADS_OPERATION_IRREVERSIBLE}')) {
+            if (action == 'delete' && confirm('{TXT_DOWNLOADS_DELETE_SUBCATEGORIES_MULTI}')) {
+                document.getElementById('downloads_category_delete_recursive').value = '1';
+            }
+            document.getElementById('downloads_category_form').submit(); return true;
+        }
+    }
+    document.getElementById('downloads_category_select_action').value=0;
+}
+/* ]]> */
+</script>
+
+<table width="100%" class="adminlist">
+    <tr>
+        <th>{TXT_DOWNLOADS_DOWNLOADS}</th>
+    </tr>
+    <tr>
+        <td>
+            <form action="index.php" method="get">
+                <input type="hidden" name="cmd" value="downloads" />
+                <input type="hidden" name="act" value="downloads" />
+                <input type="text" class="search" name="search_term" value="{DOWNLOADS_SEARCH_TERM}" onfocus="if(this.value=='{TXT_DOWNLOADS_SEARCH_DOWNLOAD}'){this.value='';}" onblur="if(this.value==''){this.value='{TXT_DOWNLOADS_SEARCH_DOWNLOAD}';}" style="width: 240px;" />
+                {DOWNLOADS_CATEGORY_MENU}
+                <input type="submit" value="{TXT_DOWNLOADS_SEARCH}" />
+            </form>
+        </td>
+    </tr>
+</table><br />
+
+<form name="downloads_category_form" id="downloads_category_form" action="index.php?cmd=downloads&amp;act=categories&amp;parent_id={DOWNLOADS_CATEGORY_ID}&amp;category_sort={DOWNLOADS_CATEGORY_CATEGORY_SORT}&amp;category_by={DOWNLOADS_CATEGORY_CATEGORY_SORT_BY}&amp;download_sort={DOWNLOADS_CATEGORY_DOWNLOAD_SORT}&amp;download_by={DOWNLOADS_CATEGORY_DOWNLOAD_BY}&amp;category_pos={DOWNLOADS_CATEGORY_CATEGORY_OFFSET}&amp;download_pos={DOWNLOADS_CATEGORY_DOWNLOAD_OFFSET}" method="post">
+    <input type="hidden" name="downloads_category_delete_recursive" id="downloads_category_delete_recursive" value="0" />
+    <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist" summary="category list">
+        <tr>
+            <th colspan="{DOWNLOADS_CATEGORY_COLSPAN}">
+                {TXT_DOWNLOADS_ALL_CATEGORIES}
+                {TXT_DOWNLOADS_CATEGORIES}
+                {TXT_DOWNLOADS_CATEGORIES_OF_CATEGORY}
+                <!-- BEGIN downloads_category_frontend_link -->
+                <a href="{DOWNLOADS_CATEGORY_FRONTEND_URI}" title="{TXT_DOWNLOADS_OPEN_CATEGORY_FRONTEND}" target="_blank" style="background: url(./images/icons/blue_arrow_up.png) no-repeat left center; padding: 1px 0 1px 18px; margin: 0 0 0 20px;">{TXT_DOWNLOADS_OPEN_CATEGORY_FRONTEND}</a>
+                <!-- END downloads_category_frontend_link -->
+            </th>
+        </tr>
+    <!-- BEGIN downloads_category_data -->
+        <tr class="row3" style="font-weight: bold; white-space:nowrap;">
+            <!-- BEGIN downloads_category_select_label -->
+            <td width="1%" style="text-align: center;">#</td>
+            <!-- END downloads_category_select_label -->
+            <td width="1%" style="text-align: center;"><a href="index.php?cmd=downloads&amp;act=categories&amp;parent_id={DOWNLOADS_CATEGORY_SORT_PARENT_ID}&amp;category_sort={DOWNLOADS_CATEGORY_SORT_ID}&amp;category_by=id&amp;download_sort={DOWNLOADS_CATEGORY_DOWNLOAD_SORT}&amp;download_by={DOWNLOADS_CATEGORY_DOWNLOAD_BY}&amp;download_pos={DOWNLOADS_CATEGORY_DOWNLOAD_OFFSET}" title="{TXT_DOWNLOADS_CHANGE_SORT_DIRECTION}">{DOWNLOADS_CATEGORY_SORT_ID_LABEL}</a></td>
+            <td width="1%" style="text-align: center;"><a href="index.php?cmd=downloads&amp;act=categories&amp;parent_id={DOWNLOADS_CATEGORY_SORT_PARENT_ID}&amp;category_sort={DOWNLOADS_CATEGORY_SORT_STATUS}&amp;category_by=is_active&amp;download_sort={DOWNLOADS_CATEGORY_DOWNLOAD_SORT}&amp;download_by={DOWNLOADS_CATEGORY_DOWNLOAD_BY}&amp;download_pos={DOWNLOADS_CATEGORY_DOWNLOAD_OFFSET}" title="{TXT_DOWNLOADS_CHANGE_SORT_DIRECTION}">{DOWNLOADS_CATEGORY_SORT_STATUS_LABEL}</a></td>
+            <td width="1%" style="text-align: center;"><a href="index.php?cmd=downloads&amp;act=categories&amp;parent_id={DOWNLOADS_CATEGORY_SORT_PARENT_ID}&amp;category_sort={DOWNLOADS_CATEGORY_SORT_ORDER}&amp;category_by=order&amp;download_sort={DOWNLOADS_CATEGORY_DOWNLOAD_SORT}&amp;download_by={DOWNLOADS_CATEGORY_DOWNLOAD_BY}&amp;download_pos={DOWNLOADS_CATEGORY_DOWNLOAD_OFFSET}" title="{TXT_DOWNLOADS_CHANGE_SORT_DIRECTION}">{DOWNLOADS_CATEGORY_SORT_ORDER_LABEL}</a></td>
+            <td width="15%"><a href="index.php?cmd=downloads&amp;act=categories&amp;parent_id={DOWNLOADS_CATEGORY_SORT_PARENT_ID}&amp;category_sort={DOWNLOADS_CATEGORY_SORT_NAME}&amp;category_by=name&amp;download_sort={DOWNLOADS_CATEGORY_DOWNLOAD_SORT}&amp;download_by={DOWNLOADS_CATEGORY_DOWNLOAD_BY}&amp;download_pos={DOWNLOADS_CATEGORY_DOWNLOAD_OFFSET}" title="{TXT_DOWNLOADS_CHANGE_SORT_DIRECTION}">{DOWNLOADS_CATEGORY_SORT_NAME_LABEL}</a></td>
+            <td width="65%"><a href="index.php?cmd=downloads&amp;act=categories&amp;parent_id={DOWNLOADS_CATEGORY_SORT_PARENT_ID}&amp;category_sort={DOWNLOADS_CATEGORY_SORT_DESCRIPTION}&amp;category_by=description&amp;download_sort={DOWNLOADS_CATEGORY_DOWNLOAD_SORT}&amp;download_by={DOWNLOADS_CATEGORY_DOWNLOAD_BY}&amp;download_pos={DOWNLOADS_CATEGORY_DOWNLOAD_OFFSET}" title="{TXT_DOWNLOADS_CHANGE_SORT_DIRECTION}">{DOWNLOADS_CATEGORY_SORT_DESCRIPTION_LABEL}</a></td>
+            <td width="15%">{TXT_DOWNLOADS_OWNER}</td>
+            <td width="1%">{TXT_DOWNLOADS_FUNCTIONS}</td>
+        </tr>
+        <!-- BEGIN downloads_category_list -->
+        <tr class="{DOWNLOADS_CATEGORY_ROW_CLASS}">
+            <!-- BEGIN downloads_category_checkbox -->
+            <td nowrap="nowrap" style="text-align: center;">
+                <input type="checkbox" name="downloads_category_id[]" value="{DOWNLOADS_CATEGORY_ID}" />
+            </td>
+            <!-- END downloads_category_checkbox -->
+            <td nowrap="nowrap" style="text-align: center;">{DOWNLOADS_CATEGORY_ID}</td>
+            <td nowrap="nowrap" style="text-align: center;">
+              <!-- BEGIN downloads_category_status_link_open -->
+                <a href="index.php?cmd=downloads&amp;act=switch_category_status&amp;parent_id={DOWNLOADS_CATEGORY_PARENT_ID}&amp;id={DOWNLOADS_CATEGORY_ID}&amp;category_sort={DOWNLOADS_CATEGORY_CATEGORY_SORT}&amp;category_by={DOWNLOADS_CATEGORY_CATEGORY_SORT_BY}&amp;download_sort={DOWNLOADS_CATEGORY_DOWNLOAD_SORT}&amp;download_by={DOWNLOADS_CATEGORY_DOWNLOAD_BY}&amp;category_pos={DOWNLOADS_CATEGORY_CATEGORY_OFFSET}&amp;download_pos={DOWNLOADS_CATEGORY_DOWNLOAD_OFFSET}" title="{DOWNLOADS_CATEGORY_SWITCH_STATUS_DESC}">
+              <!-- END downloads_category_status_link_open -->
+                    <img src="images/icons/{DOWNLOADS_CATEGORY_STATUS_LED}" alt="{DOWNLOADS_CATEGORY_SWITCH_STATUS_IMG_DESC}" border="0" width="13" height="13" />
+              <!-- BEGIN downloads_category_status_link_close -->
+                </a>
+              <!-- END downloads_category_status_link_close -->
+            </td>
+            <td nowrap="nowrap" style="text-align: center;">
+                <!-- BEGIN downloads_category_orderbox -->
+                <input name="downloads_category_order[{DOWNLOADS_CATEGORY_ID}]" size="5" maxlength="5" value="{DOWNLOADS_CATEGORY_ORDER}" type="text" onkeypress="downloadsUpdateSortOrder(event,this.form,'downloads_category_select_action')" />
+                <!-- END downloads_category_orderbox -->
+                <!-- BEGIN downloads_category_no_orderbox -->
+                {DOWNLOADS_CATEGORY_ORDER}
+                <!-- END downloads_category_no_orderbox -->
+            </td>
+            <td nowrap="nowrap">
+                <img src="images/icons/folder_on{DOWNLOADS_CATEGORY_PROTECTED}.gif" alt="{DOWNLOADS_CATEGORY_NAME}" />
+              <!-- BEGIN downloads_category_name_link_open -->
+                <a href="index.php?cmd=downloads&amp;act=categories&amp;parent_id={DOWNLOADS_CATEGORY_ID}" title="{DOWNLOADS_OPEN_CATEGORY_DESC}">
+              <!-- END downloads_category_name_link_open -->
+                {DOWNLOADS_CATEGORY_NAME} ({DOWNLOADS_CATEGORY_DOWNLOADS_COUNT})
+              <!-- BEGIN downloads_category_name_link_close -->
+                </a>
+              <!-- END downloads_category_name_link_close -->
+            </td>
+            <td>{DOWNLOADS_CATEGORY_DESCRIPTION}</td>
+            <td nowrap="nowrap">{DOWNLOADS_CATEGORY_AUTHOR}</td>
+            <td nowrap="nowrap" style="text-align: right;">
+                <!-- BEGIN downloads_category_function_modify_link -->
+                <a href="index.php?cmd=downloads&amp;act=category&amp;parent_id={DOWNLOADS_CATEGORY_PARENT_ID}&amp;id={DOWNLOADS_CATEGORY_ID}&amp;category_sort={DOWNLOADS_CATEGORY_CATEGORY_SORT}&amp;category_by={DOWNLOADS_CATEGORY_CATEGORY_SORT_BY}&amp;download_sort={DOWNLOADS_CATEGORY_DOWNLOAD_SORT}&amp;download_by={DOWNLOADS_CATEGORY_DOWNLOAD_BY}&amp;category_pos={DOWNLOADS_CATEGORY_CATEGORY_OFFSET}&amp;download_pos={DOWNLOADS_CATEGORY_DOWNLOAD_OFFSET}" title="{TXT_DOWNLOADS_EDIT}"><img src="images/icons/edit.gif" alt="{TXT_DOWNLOADS_EDIT}" width="16" height="16" border="0" /></a>
+                <!-- END downloads_category_function_modify_link -->
+                <!-- BEGIN downloads_category_function_no_modify_link -->
+                <img src="images/icons/pixel.gif" alt="{TXT_DOWNLOADS_EDIT}" width="16" height="16" border="0" />
+                <!-- END downloads_category_function_no_modify_link -->
+                <!-- BEGIN downloads_category_function_delete_link -->
+                <a href="javascript:void(0);" onclick="downloadsDeleteCategory({DOWNLOADS_CATEGORY_ID},'{DOWNLOADS_CATEGORY_NAME_JS}',{DOWNLOADS_CATEGORY_HAS_SUBCATEGORIES})" title="{TXT_DOWNLOADS_DELETE}"><img src="images/icons/delete.gif" alt="{TXT_DOWNLOADS_DELETE}" width="17" height="17" border="0" /></a>
+                <!-- END downloads_category_function_delete_link -->
+                <!-- BEGIN downloads_category_function_no_delete_link -->
+                <img src="images/icons/pixel.gif" alt="no permission to delete this category" width="16" height="16" border="0" />
+                <!-- END downloads_category_function_no_delete_link -->
+            </td>
+        </tr>
+        <!-- END downloads_category_list -->
+    </table>
+    <input type="button" value="{TXT_SAVE_CHANGES_CATEGORIES}" onclick="downloadsUpdateSortOrder(event, this.form, 'downloads_category_select_action')" style="float: left; margin: 10px 0 0 65px;" />
+    <!-- BEGIN downloads_category_action_dropdown -->
+    <div style="clear: left;">
+        <img src="images/icons/arrow.gif" width="38" height="22" style="margin-left:5px;" alt="arrow" />
+        <a href="javascript:void(0);" onclick="changeCheckboxes('downloads_category_form','downloads_category_id[]',true); return false;" title="{TXT_DOWNLOADS_CHECK_ALL}">{TXT_DOWNLOADS_CHECK_ALL}</a> /
+        <a href="javascript:void(0);" onclick="changeCheckboxes('downloads_category_form','downloads_category_id[]',false); return false;" title="{TXT_DOWNLOADS_UNCHECK_ALL}">{TXT_DOWNLOADS_UNCHECK_ALL}</a>
+        <img src="images/icons/strike.gif" width="34" height="22" alt="design" />
+        <select name="downloads_category_select_action" id="downloads_category_select_action" onchange="downloadsCategoryDoAction(this.value)">
+            <option value="0" selected="selected" style="border-bottom: 1px solid #000;">{TXT_DOWNLOADS_SELECT_ACTION}</option>
+            <option value="order">{TXT_DOWNLOADS_ORDER}</option>
+            <option value="delete">{TXT_DOWNLOADS_DELETE}</option>
+        </select>
+    </div>
+    <!-- END downloads_category_action_dropdown -->
+    <br />
+    {DOWNLOADS_CATEGORY_PAGING}
+    <!-- END downloads_category_data -->
+    <!-- BEGIN downloads_category_no_data -->
+        <tr class="row3">
+            <td>{TXT_DOWNLOADS_NO_CATEGORIES_AVAILABLE}</td>
+        </tr>
+    </table>
+    <!-- END downloads_category_no_data -->
+</form>

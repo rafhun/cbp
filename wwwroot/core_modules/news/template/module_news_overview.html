@@ -1,0 +1,218 @@
+<!-- START module_news_overview.html -->
+<script language="JavaScript" type="text/javascript">
+<!--
+function deletePage(pageId)
+{
+  if (confirm('{TXT_CONFIRM_DELETE_DATA}\n{TXT_ACTION_IS_IRREVERSIBLE}')) {
+    window.location.replace("index.php?cmd=news&{CSRF_PARAM}&act=delete&newsId="+pageId);
+  }
+}
+
+function deletePages(form)
+{
+  with (document.getElementById(form)) {
+    if (confirm('{TXT_CONFIRM_DELETE_DATA}\n{TXT_ACTION_IS_IRREVERSIBLE}')) {
+      action = "index.php?cmd=news&act=delete";
+      method = "post";
+      submit();
+      return true;
+    }
+  }
+}
+
+function addPlaceholder(object, placeholder) {
+    var el = cx.jQuery(object);
+    if (el.val() == "") {
+        el.val(placeholder);
+    }
+}
+
+function removePlaceholder(object, placeholder) {
+    var el = cx.jQuery(object);
+    if (el.val() == placeholder) {
+        el.val("");
+    }
+}
+
+$J(document).ready(function() {
+    var elementIds = "#categoryFilter, #monthFilter";
+    $J(elementIds).change(function(){
+        var url = "index.php?cmd=news&{CSRF_PARAM}&show=archive";
+        $J(elementIds).each(function() {
+            url += "&" + $J(this).attr("id") + "=" + $J(this).val();
+        });
+        window.location.replace(url);
+    });
+});
+
+//-->
+</script>
+<!-- BEGIN newstable -->
+<table class="adminlist" cellspacing="0" cellpadding="3" width="100%" border="0">
+  <tr>
+    <th colspan="2" valign="top">{TXT_EDIT_NEWS_MESSAGE}</th>
+  </tr>
+  <tr class="row1">
+    <td>
+      <form name="form2" method="post" action="index.php?cmd=news&amp;act=edit">
+          <input type="text" name="newsId" id="editNewsId" onblur="javascript:addPlaceholder(this, '{TXT_EDIT_NEWS_ID}')" onfocus="javascript:removePlaceholder(this, '{TXT_EDIT_NEWS_ID}')" value="{TXT_EDIT_NEWS_ID}" />
+      </form>
+    </td>
+  </tr>
+</table>
+<br />
+<!-- BEGIN news_tabmenu -->
+<ul id="tabmenu">
+<li><a id="newsTab_newsMessage1" {NEWS_ARCHIVE_TAB_CALSS} href="javascript:{}" onclick="selectTab('newsMessage1')" title="{TXT_ARCHIVE}">{TXT_ARCHIVE}</a></li>
+<li><a id="newsTab_newsMessage2" {NEWS_UNVALIDATED_TAB_CALSS} href="javascript:{}" onclick="selectTab('newsMessage2')" title="{TXT_INVALIDATED_ENTRIES}">{TXT_INVALIDATED_ENTRIES}</a></li>
+</ul>
+<!-- END news_tabmenu -->
+<!-- start newsMessage1 div -->
+<div id="newsMessage1" class="newsTab" style="display:{NEWS_ARCHIVE_DISPLAY_STATUS}">
+<form name="formNews" id="formNews" method="post" action="index.php?cmd=news&amp;act=changeStatus">
+  <table class="adminlist" cellspacing="0" cellpadding="3" width="100%" border="0">
+    <tr>
+      <th valign="top" colspan="{COLSPAN_ARCHIVE}" nowrap="nowrap">{TXT_ARCHIVE}</th>
+    </tr>
+    <tr class="row2">
+      <td valign="top" style="text-align: center;" nowrap="nowrap" width="1%"><b>#</b></td>
+      <td valign="top" nowrap="nowrap" width="1%"><b>{TXT_ID}</b></td>
+      <td valign="top" nowrap="nowrap" width="1%"><b>{TXT_STATUS}</b></td>
+      <td valign="top" nowrap="nowrap"><b>{TXT_TITLE}</b></td>
+      <td valign="top" nowrap="nowrap"><b>{TXT_VIEW}</b></td>
+      <td valign="top" nowrap="nowrap">
+          <!-- BEGIN txt_languages_block -->
+          <b>{TXT_LANGUAGE}</b>
+          <!-- END txt_languages_block -->
+          &nbsp;
+      </td>
+      <td valign="top" nowrap="nowrap" width="10%">
+        <select id="categoryFilter" style="margin-left: 0; font-weight: bold; font-size: 12px;">
+          <option value="0">{TXT_CATEGORY}</option>
+          {NEWS_CATEGORY_OPTIONS}
+        </select>
+      </td>
+      <!-- BEGIN news_type_label -->
+      <td valign="top" nowrap="nowrap" width="10%"> <b>{TXT_NEWS_TYPE}</b></td>
+      <!-- END news_type_label -->
+      <td valign="top" nowrap="nowrap" width="12%"> <b>{TXT_USER}</b></td>
+      <td valign="top" nowrap="nowrap" width="5%">
+        <select id="monthFilter" style="margin-left: 0; font-weight: bold; font-size: 12px;">
+          <option value="0">{TXT_DATE}</option>
+          <!-- BEGIN month_navigation_item -->
+          <option value="{NEWS_MONTH_KEY}" {NEWS_MONTH_SELECTED}> {NEWS_MONTH_NAME}</option>
+          <!-- END month_navigation_item -->
+        </select>
+      </td>
+      <td valign="top" nowrap="nowrap" width="4%"><div align="right"><b>{TXT_ACTION}</b></div></td>
+    </tr>
+    <!-- BEGIN newsrow -->
+      <tr class="{NEWS_CLASS}">
+        <td nowrap="nowrap"><input type="checkbox" name="selectedNewsId[]" id="selectedNewsId" value="{NEWS_ID}" /></td>
+        <td nowrap="nowrap">{NEWS_ID}</td>
+        <td nowrap="nowrap">
+          <a href="?cmd=news&amp;act=invertStatus&amp;newsId={NEWS_ID}" title="{NEWS_ACTIVATE} | {NEWS_DEACTIVATE}">
+          <img src="images/icons/{NEWS_STATUS_PICTURE}" border="0" alt="{NEWS_ACTIVATE} | {NEWS_DEACTIVATE}" title="{NEWS_ACTIVATE} | {NEWS_DEACTIVATE}"/>
+          </a>
+          <!-- BEGIN news_message_protected_icon --><img src="images/icons/lock_closed.gif" width="12" height="13" alt="{TXT_NEWS_MESSAGE_PROTECTED}" /><!-- END news_message_protected_icon -->
+          <!-- BEGIN news_message_not_protected_icon --><img src="images/icons/pixel.gif" width="12" height="13" alt="{TXT_NEWS_READ_ALL_ACCESS_DESC}" /><!-- END news_message_not_protected_icon -->
+        </td>
+        <td>
+          <a href="?cmd=news&amp;act=edit&amp;newsId={NEWS_ID}">{NEWS_TITLE}</a>&nbsp;
+          <!-- BEGIN news_comments_data -->
+          <a href="index.php?cmd=news&amp;act=comments&amp;newsId={NEWS_ID}"><img src="images/icons/comment.gif" alt="{TXT_NEWS_NUMBER_OF_COMMENTS}" class="tooltip-trigger" /><span class="tooltip-message">{TXT_NEWS_NUMBER_OF_COMMENTS}: {NEWS_COMMENTS_COUNT}</span></a>
+          <!-- END news_comments_data -->
+        </td>
+        <td>
+          <a href="{NEWS_PREVIEW_LINK_HREF}" target="_blank" title="{TXT_NEWS_PREVIEW}"><img src="images/icons/preview.png" border="0" alt="{TXT_NEWS_PREVIEW}"></a>
+        </td>
+        <td nowrap="nowrap">{NEWS_LANGUAGES}</td>
+        <td nowrap="nowrap">{NEWS_CATEGORY}&nbsp;</td>
+        <!-- BEGIN news_type_data -->
+        <td nowrap="nowrap">{NEWS_TYPE}&nbsp;</td>
+        <!-- END news_type_data -->
+        <td nowrap="nowrap"><span class="tooltip-trigger">{NEWS_USER}</span><span class="tooltip-message">{TXT_LAST_EDIT}:<br />{NEWS_CHANGELOG}</span>&nbsp;</td>
+        <td nowrap="nowrap">{NEWS_DATE}&nbsp;</td>
+        <td nowrap="nowrap">
+          <div align="right">
+            <a href="?cmd=news&amp;act=edit&amp;newsId={NEWS_ID}" title="{TXT_EDIT}"><img src="images/icons/edit.gif" border="0" alt="{TXT_EDIT}" /></a>
+            <a href="?cmd=news&amp;act=copy&amp;newsId={NEWS_ID}" title="{TXT_COPY}"><img src="images/icons/copy.gif" border="0" width="16" height="16" alt="{TXT_COPY}" /></a>
+            <a href="javascript:deletePage({NEWS_ID})" title="{TXT_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{TXT_DELETE}" /></a>
+          </div>
+        </td>
+      </tr>
+    <!-- END newsrow -->
+  </table>
+  <img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="{TXT_MARKED}:" />
+  <a href="#" onclick="changeCheckboxes('formNews','selectedNewsId[]',true); return false;">{TXT_SELECT_ALL}</a>&nbsp;/&nbsp;
+  <a href="#" onclick="changeCheckboxes('formNews','selectedNewsId[]',false); return false;">{TXT_REMOVE_SELECTION}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <input type="submit" name="delete" value="{TXT_DELETE_MARKED}" onclick="deletePages('formNews'); return false;" />&nbsp;&nbsp;
+  <input type="submit" name="activate" value="{TXT_ACTIVATE}" />&nbsp;&nbsp;
+  <input type="submit" name="deactivate" value="{TXT_DEACTIVATE}" />
+</form>
+<br />
+<br />
+{NEWS_LIST_PARSING}
+<br />
+</div>
+<!-- end newsMessage1 div -->
+<!-- END newstable -->
+<!-- BEGIN news_validator -->
+<!-- start newsMessage2 div -->
+<div id="newsMessage2" class="newsTab" style="display:{NEWS_UNVALIDATED_DISPLAY_STATUS}">
+<form name="formUnvalidatedNews" id="formUnvalidatedNews" method="post" action="index.php?cmd=news&amp;act=changeStatus">
+  <table class="adminlist" cellspacing="0" cellpadding="3" width="100%" border="0">
+    <tr>
+      <th valign="top" colspan="{COLSPAN_INVALIDATED}" nowrap="nowrap">{TXT_INVALIDATED_ENTRIES}</th>
+    </tr>
+    <tr class="row2">
+      <td valign="top" nowrap="nowrap" width="1%"><b>#</b></td>
+      <td valign="top" nowrap="nowrap" width="1%"><b>{TXT_STATUS}</b></td>
+      <td valign="top" nowrap="nowrap"><b>{TXT_TITLE}</b></td>
+      <td valign="top" nowrap="nowrap">
+          <!-- BEGIN txt_languages_block_invalidated -->
+          <b>{TXT_LANGUAGE}</b>
+          <!-- END txt_languages_block_invalidated -->
+          &nbsp;
+      </td>
+      <td valign="top" nowrap="nowrap" width="10%"> <b>{TXT_CATEGORY}</b></td>
+      <td valign="top" nowrap="nowrap" width="5%"> <b>{TXT_USER}</b></td>
+      <td valign="top" nowrap="nowrap" width="5%"><b>{TXT_DATE}</b></td>
+      <td valign="top" nowrap="nowrap" width="2%"><div align="right"><b>{TXT_ACTION}</b></div></td>
+    </tr>
+    <!-- BEGIN news_validator_row -->
+      <tr class="{NEWS_CLASS}">
+        <td nowrap="nowrap"><input type="checkbox" name="selectedUnvalidatedNewsId[]" id="selectedUnvalidatedNewsId" value="{NEWS_ID}" /></td>
+        <td nowrap="nowrap"><img src="images/icons/{NEWS_STATUS_PICTURE}" border="0" alt="{NEWS_STATUS}"/></td>
+        <td><a href="?cmd=news&amp;act=edit&amp;newsId={NEWS_ID}&amp;validate=true">{NEWS_TITLE}</a>&nbsp;</td>
+        <td nowrap="nowrap">{NEWS_LANGUAGES}&nbsp;</td>
+        <td nowrap="nowrap">{NEWS_CATEGORY}&nbsp;</td>
+        <td nowrap="nowrap"><span class="tooltip-trigger">{NEWS_USER}</span><span class="tooltip-message">{TXT_LAST_EDIT}:<br />{NEWS_CHANGELOG}</span>&nbsp;</td>
+        <td nowrap="nowrap">{NEWS_DATE}&nbsp;</td>
+        <td nowrap="nowrap">
+          <div align="right">
+            <a href="?cmd=news&amp;act=edit&amp;newsId={NEWS_ID}&amp;validate=true" title="{TXT_EDIT}"><img src="images/icons/edit.gif" border="0" alt="{TXT_EDIT}" /></a>
+            <a href="javascript:deletePage({NEWS_ID})" title="{TXT_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{TXT_DELETE}" /></a>
+          </div>
+        </td>
+      </tr>
+    <!-- END news_validator_row -->
+  </table>
+  <img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="{TXT_MARKED}:" />
+  <a href="javascript:{}" onclick="changeCheckboxes('formUnvalidatedNews','selectedUnvalidatedNewsId[]',true); return false;">{TXT_SELECT_ALL}</a>&nbsp;/&nbsp;
+  <a href="javascript:{}" onclick="changeCheckboxes('formUnvalidatedNews','selectedUnvalidatedNewsId[]',false); return false;">{TXT_REMOVE_SELECTION}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <input type="submit" name="delete" value="{TXT_DELETE_MARKED}" onclick="deletePages('formUnvalidatedNews'); return false;" />&nbsp;&nbsp;
+  <input type="submit" name="validate" value="{TXT_CONFIRM_AND_ACTIVATE}" />
+</form>
+<br />
+<br />
+<table class="adminlist" cellspacing="0" cellpadding="3" width="100%" border="0">
+  <tr>
+    <td>{NEWS_LIST_UNVALIDATED_PARSING}</td>
+  </tr>
+</table>
+<br />
+</div>
+<!-- end newsMessage2 div -->
+<!-- END news_validator -->
+<!-- END module_news_overview.html -->

@@ -1,0 +1,73 @@
+<script type="text/javascript">
+/* <![CDATA[ */
+{CXJS_INIT_JS}
+var languages = {LANGUAGE_ARRAY};
+var fallbacks = {FALLBACK_ARRAY};
+var language_labels = {LANGUAGE_LABELS};
+/* ]]> */
+</script>
+
+<script type="text/javascript" src="../lib/javascript/notificationBar.js"></script>
+<script type="text/javascript" src="../core/ContentManager/View/Script/Main.js"></script>
+
+<link href="../core/ContentManager/View/Style/Main.css" rel="stylesheet" type="text/css" />
+
+<ul class="breadcrumb">
+    <li class="level_1"><a href="index.php">Home</a></li>
+    <li class="level_2">{SUB_MENU_TITLE}</li>
+    <li class="level_3">{CONTENT_TITLE}</li>
+</ul>
+<div id="content-manager" class="sidebar-hide {EDIT_VIEW_CSS_CLASS}">
+    <div id="cm-left">
+        <div id="site-language" style="{LANGUAGE_DISPLAY}">
+            <div class="navi">
+                <!-- BEGIN content_manager_create_new_page_navigation_item -->
+                <a href="index.php?cmd=content&act=new">{TXT_NEW_PAGE}</a>
+                <!-- END content_manager_create_new_page_navigation_item -->
+                <a href="index.php?cmd=workflow">{TXT_CONTENT_HISTORY}</a>
+                <a href="index.php?cmd=media&archive=content">{TXT_IMAGE_ADMINISTRATION}</a>
+            </div>
+            <!-- BEGIN content_manager_language_selection -->
+            {LANGSWITCH_OPTIONS}
+            <!-- END content_manager_language_selection -->
+        </div>
+        <div id="site-structure">
+            <div id="tooltip_message" class="tooltip-message"></div>
+            <table class="adminlist {ADMIN_LIST_MARGIN}" width="100%">
+                <tr>
+                    <th class="page" width="42%">
+                        {TXT_CORE_CM_STATUS_PAGE}&nbsp;
+                        <span id="flip-menu">&nbsp;<a href="#" class="jstree-action open"></a>&nbsp;<a href="#" class="jstree-action close"></a></span>
+                    </th>
+                    <th class="translation" width="11%">{TXT_CORE_CM_TRANSLATIONS}</th>
+                    <th class="module" width="17%">{TXT_CORE_CM_APPLICATION}</th>
+                    <th class="preview" width="7%">{TXT_CORE_CM_VIEW}</th>
+                    <th class="actions" width="7%">{TXT_CORE_CM_ACTIONS}</th>
+                    <th class="lastupdate" width="16%">{TXT_CORE_CM_LOG}</th>
+                </tr>
+            </table>
+            <div id="site-tree"></div>
+        </div>
+        <div id="multiple-actions">
+            <img id="multiple-actions-arrow" src="images/icons/arrow.gif" border="0" width="38" height="22" alt="" />
+            <span id="multiple-actions-marking">
+                <a href="#" class="jstree-action check">{TXT_SELECT_ALL}</a> /
+                <a href="#" class="jstree-action uncheck">{TXT_DESELECT_ALL}</a>
+                <img id="multiple-actions-strike" style="{MULTIPLE_ACTIONS_STRIKE_STYLE}" src="images/icons/strike.gif" alt="Strike" />
+            </span>
+            <select action="." id="multiple-actions-select">
+                <option value="0">{TXT_MULTISELECT_SELECT}</option>
+                <option value="activate">{TXT_MULTISELECT_ACTIVATE}</option>
+                <option value="deactivate">{TXT_MULTISELECT_DEACTIVATE}</option>
+                <option value="show">{TXT_MULTISELECT_SHOW}</option>
+                <option value="hide">{TXT_MULTISELECT_HIDE}</option>
+                <option value="unprotect">{TXT_MULTISELECT_UNPROTECT}</option>
+                <option value="delete">{TXT_MULTISELECT_DELETE}</option>
+            </select>
+        </div>
+    </div>
+    <div id="cm-right" style="display: none;">
+        <div id="page">{CONTENT_MANAGER_MEAT}</div>
+    </div>
+    <div id="cm-load-lock"></div>
+</div>

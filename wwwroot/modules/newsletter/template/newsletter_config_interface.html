@@ -1,0 +1,131 @@
+<!-- START module_newsletter_config_interface.html -->
+<script type="text/javascript">
+    $J(document).ready(function() {
+        $J('.recipientAcive').click(function() {
+            elemId = $J(this).attr('id');
+            
+            if ($J(this).is(':checked')) {
+                $J('div.'+elemId).show();
+            } else {
+                $J('div.'+elemId).hide();
+            }
+        });
+    });
+</script>
+<div id="subnavbar_level2">
+<ul>
+    <li><a href="index.php?cmd=newsletter&amp;act=dispatch" title="{TXT_DISPATCH_SETINGS}">{TXT_DISPATCH_SETINGS}</a></li>
+    <li><a href="index.php?cmd=newsletter&amp;act=templates" title="{TXT_NEWSLETTER_TEMPLATES}">{TXT_NEWSLETTER_TEMPLATES}</a></li>
+    <li><a href="index.php?cmd=newsletter&amp;act=interface" title="{TXT_NEWSLETTER_INTERFACE}">{TXT_NEWSLETTER_INTERFACE}</a></li>
+    <li><a href="index.php?cmd=newsletter&amp;act=confightml" title="{TXT_GENERATE_HTML}">{TXT_GENERATE_HTML}</a></li>
+    <li><a href="index.php?cmd=newsletter&amp;act=activatemail" title="{TXT_CONFIRM_MAIL}">{TXT_ACTIVATE_MAIL}</a></li>
+    <li><a href="index.php?cmd=newsletter&amp;act=confirmmail" title="{TXT_CONFIRM_MAIL}">{TXT_CONFIRM_MAIL}</a></li>
+    <li><a href="index.php?cmd=newsletter&amp;act=notificationmail" title="{TXT_NOTIFICATION_MAIL}">{TXT_NOTIFICATION_MAIL}</a></li>
+    <li><a href="index.php?cmd=newsletter&amp;act=system" title="{TXT_DISPATCH_SETINGS}">{TXT_SYSTEM_SETINGS}</a></li>
+</ul>
+</div>
+<br />
+<form name="profileSettings" action="index.php?cmd=newsletter&amp;act=interface" method="post">
+<table width="100%" border="0" cellpadding="3" cellspacing="0" class="adminlist">
+  <tr>
+    <th colspan="3">{TXT_NEWSLETTER_INTERFACE}</th>
+  </tr>
+  <tr class="row3">
+      <td colspan="3"><strong>{TXT_NEWSLETTER_PROFILE_DETAILS}</strong></td>      
+  </tr>    
+    <tr class="row1">
+      <td valign="top">{TXT_NEWSLETTER_SEX}</td>
+      <td width="5%" nowrap="nowrap"><input type="checkbox" id="recipientSex" class="recipientAcive" name="recipientSex" value="1" {NEWSLETTER_RECIPIENT_SEX} /><label for="recipientSex">{TXT_ACTIVE}</label></td>
+      <td><div class="recipientSex" style="display: {NEWSLETTER_RECIPIENT_SEX_MANTOTRY_DISPLAY}" ><input type="checkbox" id="requiredSex" name="requiredSex" value="1" {NEWSLETTER_RECIPIENT_SEX_REQUIRED} /><label for="requiredSex">{TXT_NEWSLETTER_MANDATORY_FIELD}</label></div>
+      </td>
+    </tr>    
+    <tr class="row2">
+      <td>{TXT_NEWSLETTER_SALUTATION}</td>
+      <td><input type="checkbox" name="recipientSalutation" class="recipientAcive" id="recipientSalutation" value="1" {NEWSLETTER_RECIPIENT_SALUTATION} /><label for="recipientSalutation">{TXT_ACTIVE}</label></td>
+      <td><div class="recipientSalutation" style="display: {NEWSLETTER_RECIPIENT_SALUTATION_MANTOTRY_DISPLAY}" ><input type="checkbox" id="requiredSalutation" name="requiredSalutation" value="1" {NEWSLETTER_RECIPIENT_SALUTATION_REQUIRED} /><label for="requiredSalutation">{TXT_NEWSLETTER_MANDATORY_FIELD}</label></div></td>
+    </tr>
+    <tr class="row1">
+      <td>{TXT_NEWSLETTER_TITLE}</td>
+      <td><input type="checkbox" name="recipientTitle" class="recipientAcive" id="recipientTitle" value="1" {NEWSLETTER_RECIPIENT_TITLE} /><label for="recipientTitle">{TXT_ACTIVE}</label></td>
+      <td><div class="recipientTitle" style="display: {NEWSLETTER_RECIPIENT_TITLE_MANTOTRY_DISPLAY}" ><input type="checkbox" id="requiredTitle" name="requiredTitle" value="1" {NEWSLETTER_RECIPIENT_TITLE_REQUIRED} /><label for="requiredTitle">{TXT_NEWSLETTER_MANDATORY_FIELD}</label></div></td>
+    </tr>
+    <tr class="row2">
+      <td width="12%">{TXT_NEWSLETTER_FIRSTNAME}</td>
+      <td><input type="checkbox" name="recipientFirstName" class="recipientAcive" id="recipientFirstName" value="1" {NEWSLETTER_RECIPIENT_FIRSTNAME} /><label for="recipientFirstName">{TXT_ACTIVE}</label></td>
+      <td><div class="recipientFirstName" style="display: {NEWSLETTER_RECIPIENT_FIRSTNAME_MANTOTRY_DISPLAY}" ><input type="checkbox" id="requiredFirstName" name="requiredFirstName" value="1" {NEWSLETTER_RECIPIENT_FIRSTNAME_REQUIRED} /><label for="requiredFirstName">{TXT_NEWSLETTER_MANDATORY_FIELD}</label></div></td>
+    </tr>
+    <tr class="row1">
+      <td>{TXT_NEWSLETTER_LASTNAME}</td>
+      <td><input type="checkbox" name="recipientLastName" class="recipientAcive" id="recipientLastName" value="1" {NEWSLETTER_RECIPIENT_LASTNAME} /><label for="recipientLastName">{TXT_ACTIVE}</label></td>
+      <td><div class="recipientLastName" style="display: {NEWSLETTER_RECIPIENT_LASTNAME_MANTOTRY_DISPLAY}" ><input type="checkbox" id="requiredLastName" name="requiredLastName" value="1" {NEWSLETTER_RECIPIENT_LASTNAME_REQUIRED} /><label for="requiredLastName">{TXT_NEWSLETTER_MANDATORY_FIELD}</label></div></td>
+    </tr>
+    <tr class="row2">
+      <td>{TXT_NEWSLETTER_POSITION}</td>
+      <td><input type="checkbox" name="recipientPosition" class="recipientAcive" id="recipientPosition" value="1" {NEWSLETTER_RECIPIENT_POSITION} /><label for="recipientPosition">{TXT_ACTIVE}</label></td>
+      <td><div class="recipientPosition" style="display: {NEWSLETTER_RECIPIENT_POSITION_MANTOTRY_DISPLAY}" ><input type="checkbox" id="requiredPosition" name="requiredPosition" value="1" {NEWSLETTER_RECIPIENT_POSITION_REQUIRED} /><label for="requiredPosition">{TXT_NEWSLETTER_MANDATORY_FIELD}</label></div></td>
+    </tr>
+    <tr class="row1">
+      <td>{TXT_NEWSLETTER_COMPANY}</td>
+      <td><input type="checkbox" name="recipientCompany" class="recipientAcive" id="recipientCompany" value="1" {NEWSLETTER_RECIPIENT_COMPANY} /><label for="recipientCompany">{TXT_ACTIVE}</label></td>
+      <td><div class="recipientCompany" style="display: {NEWSLETTER_RECIPIENT_COMPANY_MANTOTRY_DISPLAY}" ><input type="checkbox" id="requiredCompany" name="requiredCompany" value="1" {NEWSLETTER_RECIPIENT_COMPANY_REQUIRED} /><label for="requiredCompany">{TXT_NEWSLETTER_MANDATORY_FIELD}</label></div></td>
+    </tr>
+    <tr class="row2">
+      <td>{TXT_NEWSLETTER_INDUSTRY_SECTOR}</td>
+      <td><input type="checkbox" name="recipientIndustry" class="recipientAcive" id="recipientIndustry" value="1" {NEWSLETTER_RECIPIENT_INDUSTRY} /><label for="recipientIndustry">{TXT_ACTIVE}</label></td>
+      <td><div class="recipientIndustry" style="display: {NEWSLETTER_RECIPIENT_INDUSTRY_MANTOTRY_DISPLAY}" ><input type="checkbox" id="requiredIndustry" name="requiredIndustry" value="1" {NEWSLETTER_RECIPIENT_INDUSTRY_REQUIRED} /><label for="requiredIndustry">{TXT_NEWSLETTER_MANDATORY_FIELD}</label></div></td>
+    </tr>
+    <tr class="row1">
+      <td>{TXT_NEWSLETTER_ADDRESS}</td>
+      <td><input type="checkbox" name="recipientAddress" class="recipientAcive" id="recipientAddress" value="1" {NEWSLETTER_RECIPIENT_ADDRESS} /><label for="recipientAddress">{TXT_ACTIVE}</label></td>
+      <td><div class="recipientAddress" style="display: {NEWSLETTER_RECIPIENT_ADDRESS_MANTOTRY_DISPLAY}" ><input type="checkbox" id="requiredAddress" name="requiredAddress" value="1" {NEWSLETTER_RECIPIENT_ADDRESS_REQUIRED} /><label for="requiredAddress">{TXT_NEWSLETTER_MANDATORY_FIELD}</label></div></td>
+    </tr>
+    <tr class="row2">
+      <td>{TXT_NEWSLETTER_CITY}</td>
+      <td><input type="checkbox" name="recipientCity" class="recipientAcive" id="recipientCity" value="1" {NEWSLETTER_RECIPIENT_CITY} /><label for="recipientCity">{TXT_ACTIVE}</label></td>
+      <td><div class="recipientCity" style="display: {NEWSLETTER_RECIPIENT_CITY_MANTOTRY_DISPLAY}" ><input type="checkbox" id="requiredCity" name="requiredCity" value="1" {NEWSLETTER_RECIPIENT_CITY_REQUIRED} /><label for="requiredCity">{TXT_NEWSLETTER_MANDATORY_FIELD}</label></div></td>
+    </tr>
+    <tr class="row1">
+      <td>{TXT_NEWSLETTER_ZIP}</td>
+      <td><input type="checkbox" name="recipientZip" class="recipientAcive" id="recipientZip" value="1" {NEWSLETTER_RECIPIENT_ZIP} /><label for="recipientZip">{TXT_ACTIVE}</label></td>
+      <td><div class="recipientZip" style="display: {NEWSLETTER_RECIPIENT_ZIP_MANTOTRY_DISPLAY}" ><input type="checkbox" id="requiredZip" name="requiredZip" value="1" {NEWSLETTER_RECIPIENT_ZIP_REQUIRED} /><label for="requiredZip">{TXT_NEWSLETTER_MANDATORY_FIELD}</label></div></td>
+    </tr>
+    <tr class="row2">
+      <td>{TXT_NEWSLETTER_COUNTRY}</td>
+      <td><input type="checkbox" name="recipientCountry" class="recipientAcive" id="recipientCountry" value="1" {NEWSLETTER_RECIPIENT_COUNTRY} /><label for="recipientCountry">{TXT_ACTIVE}</label></td>
+      <td><div class="recipientCountry" style="display: {NEWSLETTER_RECIPIENT_COUNTRY_MANTOTRY_DISPLAY}" ><input type="checkbox" id="requiredCountry" name="requiredCountry" value="1" {NEWSLETTER_RECIPIENT_COUNTRY_REQUIRED} /><label for="requiredCountry">{TXT_NEWSLETTER_MANDATORY_FIELD}</label></div></td>
+    </tr>
+    <tr class="row1">
+      <td>{TXT_NEWSLETTER_PHONE}</td>
+      <td><input type="checkbox" name="recipientPhone" class="recipientAcive" id="recipientPhone" value="1" {NEWSLETTER_RECIPIENT_PHONE} /><label for="recipientPhone">{TXT_ACTIVE}</label></td>
+      <td><div class="recipientPhone" style="display: {NEWSLETTER_RECIPIENT_PHONE_MANTOTRY_DISPLAY}" ><input type="checkbox" id="requiredPhone" name="requiredPhone" value="1" {NEWSLETTER_RECIPIENT_PHONE_REQUIRED} /><label for="requiredPhone">{TXT_NEWSLETTER_MANDATORY_FIELD}</label></div></td>
+    </tr>
+    <tr class="row2">
+      <td>{TXT_NEWSLETTER_PHONE_PRIVATE}</td>
+      <td><input type="checkbox" name="recipientPrivate" class="recipientAcive" id="recipientPrivate" value="1" {NEWSLETTER_RECIPIENT_PRIVATE} /><label for="recipientPrivate">{TXT_ACTIVE}</label></td>
+      <td><div class="recipientPrivate" style="display: {NEWSLETTER_RECIPIENT_PRIVATE_MANTOTRY_DISPLAY}" ><input type="checkbox" id="requiredPrivate" name="requiredPrivate" value="1" {NEWSLETTER_RECIPIENT_PRIVATE_REQUIRED} /><label for="requiredPrivate">{TXT_NEWSLETTER_MANDATORY_FIELD}</label></div></td>
+    </tr>
+    <tr class="row1">
+      <td>{TXT_NEWSLETTER_PHONE_MOBILE}</td>
+      <td><input type="checkbox" name="recipientMobile" class="recipientAcive" id="recipientMobile" value="1" {NEWSLETTER_RECIPIENT_MOBILE} /><label for="recipientMobile">{TXT_ACTIVE}</label></td>
+      <td><div class="recipientMobile" style="display: {NEWSLETTER_RECIPIENT_MOBILE_MANTOTRY_DISPLAY}" ><input type="checkbox" id="requiredMobile" name="requiredMobile" value="1" {NEWSLETTER_RECIPIENT_MOBILE_REQUIRED} /><label for="requiredMobile">{TXT_NEWSLETTER_MANDATORY_FIELD}</label></div></td>
+    </tr>
+    <tr class="row2">
+      <td>{TXT_NEWSLETTER_FAX}</td>
+      <td><input type="checkbox" name="recipientFax" class="recipientAcive" id="recipientFax" value="1" {NEWSLETTER_RECIPIENT_FAX} /><label for="recipientFax">{TXT_ACTIVE}</label></td>
+      <td><div class="recipientFax" style="display: {NEWSLETTER_RECIPIENT_FAX_MANTOTRY_DISPLAY}" ><input type="checkbox" id="requiredFax" name="requiredFax" value="1" {NEWSLETTER_RECIPIENT_FAX_REQUIRED} /><label for="requiredFax">{TXT_NEWSLETTER_MANDATORY_FIELD}</label></div></td>
+    </tr>
+    <tr class="row1">
+      <td width="17%">{TXT_NEWSLETTER_BIRTHDAY}</td>
+      <td><input type="checkbox" name="recipientBirthDay" class="recipientAcive" id="recipientBirthDay" value="1" {NEWSLETTER_RECIPIENT_BIRTHDAY} /><label for="recipientBirthDay">{TXT_ACTIVE}</label></td>
+      <td><div class="recipientBirthDay" style="display: {NEWSLETTER_RECIPIENT_BIRTHDAY_MANTOTRY_DISPLAY}" ><input type="checkbox" id="requiredBirthDay" name="requiredBirthDay" value="1" {NEWSLETTER_RECIPIENT_BIRTHDAY_REQUIRED} /><label for="requiredBirthDay">{TXT_NEWSLETTER_MANDATORY_FIELD}</label></div></td>
+    </tr>
+    <tr class="row2">
+      <td width="15%">{TXT_NEWSLETTER_WEBSITE}</td>
+      <td><input type="checkbox" name="recipientWebsite" class="recipientAcive" id="recipientWebsite" value="1" {NEWSLETTER_RECIPIENT_WEBSITE} /><label for="recipientWebsite">{TXT_ACTIVE}</label></td>
+      <td><div class="recipientWebsite" style="display: {NEWSLETTER_RECIPIENT_WEBSITE_MANTOTRY_DISPLAY}" ><input type="checkbox" id="requiredWebsite" name="requiredWebsite" value="1" {NEWSLETTER_RECIPIENT_WEBSITE_REQUIRED} /><label for="requiredWebsite">{TXT_NEWSLETTER_MANDATORY_FIELD}</label></div></td>
+    </tr>
+</table>
+    <br />
+<input type="submit" name="interfaceSettings" value="{TXT_SAVE}" />
+</form>    
+<!-- START module_newsletter_config_interface.html -->

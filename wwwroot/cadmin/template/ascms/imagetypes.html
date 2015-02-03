@@ -1,0 +1,86 @@
+<!-- start imagetypes.html -->
+<form name="formImagetypes" method="post" action="{URI_BASE}&amp;act=imagetypes_edit" >
+  <table class="adminlist" border="0" cellspacing="0" cellpadding="2" width="100%" summary="">
+    <thead>
+      <tr>
+        <th colspan="9">
+          <b>{TXT_CORE_IMAGETYPES_EDIT}</b>
+        </th>
+      </tr>
+      <tr class="row3">
+        <td valign="top" width="21%">
+          <b>{TXT_CORE_IMAGETYPE_KEY}</b>
+        </td>
+        <td valign="top" width="21%">
+          <b>{TXT_CORE_IMAGETYPE_NAME}</b>
+        </td>
+        <td valign="top" width="09%">
+          <b>{TXT_CORE_IMAGETYPE_WIDTH}</b>
+        </td>
+        <td valign="top" width="09%">
+          <b>{TXT_CORE_IMAGETYPE_HEIGHT}</b>
+        </td>
+        <td valign="top" width="09%">
+          <b>{TXT_CORE_IMAGETYPE_QUALITY}</b>
+        </td>
+        <td valign="top" width="09%">
+          <b>{TXT_CORE_IMAGETYPE_WIDTH_THUMB}</b>
+        </td>
+        <td valign="top" width="09%">
+          <b>{TXT_CORE_IMAGETYPE_HEIGHT_THUMB}</b>
+        </td>
+        <td valign="top" width="09%">
+          <b>{TXT_CORE_IMAGETYPE_QUALITY_THUMB}</b>
+        </td>
+        <td valign="top" width="05%">
+          <b>{TXT_CORE_IMAGETYPE_FUNCTIONS}</b>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+<!-- BEGIN core_imagetype_data -->
+<!-- BEGIN core_imagetype_section -->
+      <tr class="row3">
+        <td valign="top" colspan="9"><b>{TXT_CORE_IMAGETYPE_NEW}</b></td>
+      </tr>
+<!-- END core_imagetype_section -->
+<!-- BEGIN core_imagetype_row -->
+      <tr class="row{CORE_IMAGETYPE_ROWCLASS}">
+        <td valign="top">
+          {CORE_IMAGETYPE_KEY}
+        </td>
+        <td valign="top">
+          {CORE_IMAGETYPE_NAME}
+        </td>
+        <td valign="top">
+          {CORE_IMAGETYPE_WIDTH}
+        </td>
+        <td valign="top">
+          {CORE_IMAGETYPE_HEIGHT}
+        </td>
+        <td valign="top">
+          {CORE_IMAGETYPE_QUALITY}
+        </td>
+        <td valign="top">
+          {CORE_IMAGETYPE_WIDTH_THUMB}
+        </td>
+        <td valign="top">
+          {CORE_IMAGETYPE_HEIGHT_THUMB}
+        </td>
+        <td valign="top">
+          {CORE_IMAGETYPE_QUALITY_THUMB}
+        </td>
+        <td valign="top">
+          {CORE_IMAGETYPE_FUNCTIONS}
+        </td>
+      </tr>
+<!-- END core_imagetype_row -->
+<!-- END core_imagetype_data -->
+    </tbody>
+  </table>
+  <br />
+  <br />
+  <input type="submit" value="{TXT_CORE_IMAGETYPE_STORE}" name="bsubmit"
+      tabindex="101" />
+</form>
+<!-- end imagetypes.html -->

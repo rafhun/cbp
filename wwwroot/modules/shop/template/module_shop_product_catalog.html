@@ -1,0 +1,209 @@
+<!-- START shop_product_catalog.html -->
+<script type="text/javascript">
+// <![CDATA[
+function deleteProduct(id)
+{
+  if (confirm('{TXT_CONFIRM_DELETE_PRODUCT}\n{TXT_ACTION_IS_IRREVERSIBLE}'))
+    window.location.replace("index.php?cmd=shop{MODULE_INDEX}&{CSRF_PARAM}&act=delProduct&id="+id);
+}
+
+function shopProductsDoAction(obj,act)
+{
+  if (!shopProductsIsChecked('selectedProductId[]')) {
+    obj.value = 0;
+    return alert("{TXT_MAKE_SELECTION}");
+  }
+  switch (act) {
+    case 'delete':
+      if (confirm('{TXT_CONFIRM_DELETE_PRODUCT}\n{TXT_ACTION_IS_IRREVERSIBLE}')) {
+        document.product_list.action = "index.php?cmd=shop{MODULE_INDEX}&act=deleteProduct";
+      }
+      break;
+    case 'activate':
+      document.product_list.action = "index.php?cmd=shop{MODULE_INDEX}&act=products";
+      break;
+    case 'deactivate':
+      document.product_list.action = "index.php?cmd=shop{MODULE_INDEX}&act=products";
+      break;
+    default:
+      alert("{TXT_MAKE_SELECTION}");
+      return false;
+  }
+  document.product_list.submit();
+}
+
+function shopProductsIsChecked(fieldName)
+{
+  for (var i = 0; i < document.product_list.elements.length; ++i) {
+    var e = document.product_list.elements[i];
+    if (e.name == fieldName && e.checked == true) return true;
+  }
+  return false;
+}
+// ]]>
+</script>
+<form name="product_search" method="get" action="index.php">
+  <input type="hidden" name="cmd" value="shop{MODULE_INDEX}" />
+  <input type="hidden" name="act" value="products" />
+  <table width="100%" border="0" cellspacing="0" cellpadding="2" class="adminlist">
+    <tr>
+      <th colspan="2">{TXT_SEARCH}</th>
+    </tr>
+    <tr class="row1">
+      <td>
+        <input type="text" value="{SHOP_SEARCH_TERM}" name="searchterm" size="40" maxlength="255" />
+        {SHOP_CATEGORY_MENU}
+        <input type="submit" name="submit" value="{TXT_SEARCH}" />
+      </td>
+      <td class="a_right">
+        <a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=products&amp;specialoffer=1" title="{TXT_VIEW_SPECIAL_OFFERS}">
+          {TXT_VIEW_SPECIAL_OFFERS}
+        </a>
+      </td>
+    </tr>
+  </table>
+</form>
+
+<form name="product_list" method="post" action="index.php?cmd=shop{MODULE_INDEX}&amp;act=products">
+  <br />
+  {SHOP_PRODUCT_PAGING}
+  <br />
+  <br />
+  <table width="100%" cellspacing="0" cellpadding="2" border="0" class="adminlist">
+    <tr>
+      <th colspan="16">{TXT_PRODUCT_CATALOG}&nbsp;({TXT_TOTAL}&nbsp;{SHOP_PRODUCT_TOTAL})</th>
+    </tr>
+    <tr class="row1">
+      <td width="1%" class="a_center f_bold">#</td>
+      <td width="1%" class="a_right f_bold">{SHOP_HEADING_PRODUCT_ID}</td>
+      <td width="1%" class="a_center f_bold">
+        {SHOP_HEADING_PRODUCT_ACTIVE}&nbsp;
+      </td>
+      <td width="1%" class="a_right f_bold">{SHOP_HEADING_PRODUCT_ORD}</td>
+      <td width="1%">
+        <img src="images/icons/home.gif" alt="{TXT_SHOP_SHOW_PRODUCT_ON_START_PAGE}" />
+        <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_SHOP_SHOW_PRODUCT_ON_START_PAGE_TIP}</span>
+      </td>
+      <td width="50%" class="f_bold">{SHOP_HEADING_PRODUCT_NAME}</td>
+      <td width="1%" class="f_bold">{SHOP_HEADING_PRODUCT_CODE}</td>
+      <td width="1%" colspan="2" class="f_bold">{SHOP_HEADING_PRODUCT_DISCOUNTPRICE}</td>
+      <td width="1%" class="a_right f_bold">{SHOP_HEADING_PRODUCT_NORMALPRICE}</td>
+      <td width="1%" class="a_right f_bold">{SHOP_HEADING_PRODUCT_RESELLERPRICE}</td>
+      <td width="1%" class="a_right f_bold">{TXT_SHOP_VAT_ABBREV}</td>
+      <!--td width="5%" class="f_bold">{TXT_WEIGHT}</td-->
+      <td width="1%" class="f_bold">{SHOP_HEADING_PRODUCT_DISTRIBUTION}</td>
+      <td width="1%" class="a_right f_bold">{SHOP_HEADING_PRODUCT_STOCK}</td>
+      <td width="1%" class="a_right f_bold">{TXT_ACTION}</td>
+    </tr>
+<!-- BEGIN no_product -->
+    <tr class="row2" style="vertical-align: top;">
+      <td colspan="5">&nbsp;</td>
+      <td colspan="9">{TXT_SHOP_PRODUCT_NONE_FOUND}</td>
+    </tr>
+<!-- END no_product -->
+<!-- BEGIN productRow -->
+    <tr class="{SHOP_ROWCLASS}" style="vertical-align: top;">
+      <td class="a_center">
+        <input type="checkbox" name="selectedProductId[]" value="{SHOP_PRODUCT_ID}" />
+      </td>
+      <td class="a_right">
+        {SHOP_PRODUCT_ID}
+        <input type="hidden" name="product_id[{SHOP_PRODUCT_ID}]" value="{SHOP_PRODUCT_ID}" /></td>
+      <td class="a_center">
+        <img src="images/icons/{SHOP_PRODUCT_STATUS_PICTURE}" alt="{TXT_PRODUCT_STATUS}" title="{TXT_PRODUCT_STATUS}" />
+      </td>
+      <td>
+        <input type="text" name="ord[{SHOP_PRODUCT_ID}]" size="3" maxlength="5"
+               value="{SHOP_SORT_ORDER}" class="a_right"/>
+        <input type="hidden" name="ordOld[{SHOP_PRODUCT_ID}]" value="{SHOP_SORT_ORDER}" />
+      </td>
+      <td>
+        <input type="checkbox" name="shownonstartpage[{SHOP_PRODUCT_ID}]" value="1"{SHOP_SHOW_PRODUCT_ON_START_PAGE_CHECKED} />
+        <input type="hidden" name="shownonstartpageOld[{SHOP_PRODUCT_ID}]" value="{SHOP_SHOW_PRODUCT_ON_START_PAGE_OLD}" />
+      </td>
+      <td>
+        <a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=products&amp;tpl=manage&amp;id={SHOP_PRODUCT_ID}"
+           title="{SHOP_PRODUCT_NAME}">
+          {SHOP_PRODUCT_NAME}
+        </a>
+      </td>
+      <!-- Edit the Product title in the overview:
+      <td>
+        <input type="text" name="name[{SHOP_PRODUCT_ID}]" size="40" maxlength="255" value="{SHOP_PRODUCT_NAME}" />
+        <input type="hidden" name="nameOld[{SHOP_PRODUCT_ID}]" value="{SHOP_PRODUCT_NAME}" />
+      </td-->
+      <td>
+        <input maxlength="255" name="identifier[{SHOP_PRODUCT_ID}]" value="{SHOP_PRODUCT_CODE}" size="10" />
+        <input type="hidden" name="identifierOld[{SHOP_PRODUCT_ID}]" value="{SHOP_PRODUCT_CODE}" />
+      </td>
+      <td>
+        <input type="checkbox" name="discount_active[{SHOP_PRODUCT_ID}]" value="1"{SHOP_PRODUCT_SPECIAL_OFFER} />
+      </td>
+      <td>
+        <input type="text" class="a_right" maxlength=10 name="discount_price[{SHOP_PRODUCT_ID}]" value="{SHOP_PRODUCT_DISCOUNT}" size="6" />
+        <input type="hidden" name="discountOld[{SHOP_PRODUCT_ID}]" value="{SHOP_PRODUCT_DISCOUNT}" />
+        <input type="hidden" name="specialOfferOld[{SHOP_PRODUCT_ID}]" value="{SHOP_SPECIAL_OFFER_VALUE_OLD}" />
+      </td>
+      <td>
+        <input type="text" class="a_right" name="price1[{SHOP_PRODUCT_ID}]" value="{SHOP_PRODUCT_PRICE1}" size="6" maxlength="10" />
+        <input type="hidden" name="price1Old[{SHOP_PRODUCT_ID}]" value="{SHOP_PRODUCT_PRICE1}" />
+      </td>
+      <td>
+        <input type="text" class="a_right" name="price2[{SHOP_PRODUCT_ID}]"
+               value="{SHOP_PRODUCT_PRICE2}" size="6" maxlength="10" />
+        <input type="hidden" name="price2Old[{SHOP_PRODUCT_ID}]"
+               value="{SHOP_PRODUCT_PRICE2}" />
+      </td>
+      <td>{SHOP_PRODUCT_VAT_MENU}<input type="hidden" name="taxIdOld[{SHOP_PRODUCT_ID}]" value="{SHOP_PRODUCT_VAT_ID}" /></td>
+      <!--td><input type="text" name="weight[{SHOP_PRODUCT_ID}]" value="{SHOP_PRODUCT_WEIGHT}" size="10" maxlength="10" /><input type="hidden" name="weightOld[{SHOP_PRODUCT_ID}]" value="{SHOP_PRODUCT_WEIGHT}" /></td-->
+      <!--td>{SHOP_DISTRIBUTION_MENU}<input type="hidden" name="distributionOld[{SHOP_PRODUCT_ID}]" value="{SHOP_PRODUCT_DISTRIBUTION}" /></td-->
+      <td>{SHOP_DISTRIBUTION}</td>
+      <td>
+        <input type="text" class="a_right" name="stock[{SHOP_PRODUCT_ID}]"
+               value="{SHOP_PRODUCT_STOCK}" size="3" maxlength="5" />
+        <input type="hidden" name="stockOld[{SHOP_PRODUCT_ID}]"
+               value="{SHOP_PRODUCT_STOCK}" />
+      </td>
+      <td class="a_right">
+        <a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=products&amp;tpl=manage&amp;id={SHOP_PRODUCT_ID}&amp;new=1"
+           title="{TXT_AS_TEMPLATE}">
+          <img src="images/icons/pages.gif" alt="{TXT_AS_TEMPLATE}" border="0" />
+        </a>
+
+<!-- BEGIN product_language -->
+        <a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=products&amp;tpl=manage&amp;id={SHOP_PRODUCT_ID}&amp;userFrontendLangId={SHOP_PRODUCT_LANGUAGE_ID}">
+          <img src="images/icons/edit.gif" border="0"
+               alt="{SHOP_PRODUCT_LANGUAGE_EDIT}"
+               title="{SHOP_PRODUCT_LANGUAGE_EDIT}" />
+        </a>
+<!-- END product_language -->
+<!--        <a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=products&amp;tpl=manage&amp;id={SHOP_PRODUCT_ID}"
+           title="{TXT_SHOP_EDIT}">
+          <img src="images/icons/edit.gif"
+               alt="{TXT_SHOP_EDIT}" border="0" />
+        </a>-->
+
+        <a href="javascript:deleteProduct('{SHOP_PRODUCT_ID}')" title="{TXT_DELETE}">
+          <img src="images/icons/delete.gif" alt="{TXT_DELETE}" border="0" />
+        </a>
+      </td>
+    </tr>
+<!-- END productRow -->
+  </table>
+  <img src="images/icons/arrow.gif" border="0" width="38" height="22" title="{TXT_MARKED}:" alt="{TXT_MARKED}:" />
+  <a href="javascript:{}" onclick="changeCheckboxes('product_list','selectedProductId[]',true)" title="{TXT_SELECT_ALL}">{TXT_SELECT_ALL}</a>&nbsp;/&nbsp;
+  <a href="javascript:{}" onclick="changeCheckboxes('product_list','selectedProductId[]',false)" title="{TXT_REMOVE_SELECTION}">{TXT_REMOVE_SELECTION}</a>&nbsp;&nbsp;&nbsp;
+  <select name="multi_action" onchange="shopProductsDoAction(this,this.value)">
+    <option value="0" selected="selected">{TXT_SELECT_ACTION}:</option>
+    <option value="delete">{TXT_DELETE}</option>
+    <option value="activate">{TXT_SHOP_ACTIVATE}</option>
+    <option value="deactivate">{TXT_SHOP_DEACTIVATE}</option>
+  </select>
+  <br />
+  <br />
+  {SHOP_PRODUCT_PAGING}
+  <br />
+  <br />
+  <input type="submit" name="bsubmit" value="{TXT_ACCEPT_CHANGES}" />
+</form>
+<!-- END shop_product_catalog.html -->

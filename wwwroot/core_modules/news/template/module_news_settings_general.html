@@ -1,0 +1,358 @@
+<!-- START module_news_settings_general.html -->
+<script type="text/javascript">
+// <[![CDATA
+function SetUrl(url, width, height, alt) {
+  document.getElementById('newsFeedImage').value = url;
+}
+
+function  toggleLangFields(link)
+{
+  $J(link).next('div.news_feed_lang_div').toggle();
+}
+
+function updateLangName(input)
+{
+  $J(input).siblings('div.news_feed_lang_div').find('input').attr('value', $J(input).attr('value'));
+}
+function swapBlock( div,status ) {
+    if(status == 1){
+        document.getElementById( div ).style.display ='block';
+    }else{
+        document.getElementById( div ).style.display ='none';
+    }
+}
+function SelectAllList(CONTROL) {
+    for(var i = 0;i < CONTROL.length;i++)
+    {
+        CONTROL.options[i].selected = true;
+    }
+}
+function DeselectAllList(CONTROL) {
+    for(var i = 0;i < CONTROL.length;i++)
+    {
+        CONTROL.options[i].selected = false;
+    }
+}
+function AddToTheList(from,dest,add,remove) {
+    if ( from.selectedIndex < 0){
+        if (from.options[0] != null)
+            from.options[0].selected = true;
+        from.focus();
+        return false;
+    }else{
+        for (var i=0; i<from.length; i++) {
+            if (from.options[i].selected)
+            {
+                dest.options[dest.length] = new Option( from.options[i].text, from.options[i].value, false, false);
+            }
+        }
+        for (var i=from.length-1; i>=0; i--) {
+            if (from.options[i].selected)
+            {
+                from.options[i] = null;
+            }
+        }
+    }
+    disableButtons(from,dest,add,remove);
+}
+function RemoveFromTheList(from,dest,add,remove) {
+    if ( dest.selectedIndex < 0){
+        if (dest.options[0] != null)
+            dest.options[0].selected = true;
+        dest.focus();
+        return false;
+    }
+    else{
+        for (var i=0; i<dest.options.length; i++)
+        {
+            if (dest.options[i].selected)
+            {
+                from.options[from.options.length] = new Option( dest.options[i].text, dest.options[i].value, false, false);
+            }
+        }
+        for (var i=dest.options.length-1; i>=0; i--)
+        {
+            if (dest.options[i].selected)
+            {
+                dest.options[i] = null;
+            }
+        }
+    }
+    disableButtons(from,dest,add,remove);
+}
+function disableButtons(from,dest,add,remove) {
+    if (from.options.length > 0 )
+    {
+        add.disabled = 0;
+    }
+    else
+        add.disabled = 1;
+
+    if (dest.options.length > 0)
+        remove.disabled = 0;
+    else
+        remove.disabled = 1;
+}
+function preSubmitCheck(){
+    SelectAllList(document.settings.elements['newsAssignedAuthorGroups[]']);
+    SelectAllList(document.settings.elements['newsAssignedPublisherGroups[]']);
+    return true;
+}
+// ]]>
+</script>
+<form action="index.php?cmd=news&amp;act=settings&amp;tpl=general" method="post" name="settings" onsubmit="return preSubmitCheck()">
+  <table cellspacing="0" cellpadding="2" width="100%" border="0" class="adminlist">
+    <tr>
+      <th colspan="2">{TXT_NEWS_SETTINGS}</th>
+    </tr>
+    <tr class="row1">
+      <td width="15%" nowrap="nowrap">{TXT_NEWS_FEED_STATUS}</td>
+      <td width="85%" nowrap="nowrap"><input name="newsFeedStatus" type="checkbox" id="newsFeed" value="1" {NEWS_FEED_STATUS} />{NEWS_FEED_ICON}</td>
+    </tr>
+    <tr class="row2">
+      <td width="15%" nowrap="nowrap" valign="top">{TXT_NEWS_FEED_TITLE}</td>
+      <td width="85%" nowrap="nowrap">
+        <input type="text" value="{NEWS_FEED_TITLE}" style="width:400px;" maxlength="250" onchange="updateLangName(this);" /> <a href="#" onclick="toggleLangFields(this);" title="{TXT_NEWS_EXTENDED}">{TXT_NEWS_EXTENDED} &raquo;</a>
+        <div class="news_feed_lang_div" style="display:none;">
+<!-- BEGIN news_feed_title_list -->
+          <input type="text" name="newsFeedTitle[{NEWS_FEED_TITLE_LANG_ID}]" id="newsFeedTitle[{NEWS_FEED_TITLE_LANG_ID}]" value="{NEWS_FEED_TITLE_VALUE}" maxlength="250" style="width:400px;margin-top:1px;" /> {NEWS_FEED_LANG_NAME}<br />
+<!-- END news_feed_title_list -->
+                </div>
+      </td>
+    </tr>
+    <tr class="row1">
+      <td width="15%" nowrap="nowrap" valign="top">{TXT_NEWS_FEED_DESCRIPTION}</td>
+      <td width="85%" nowrap="nowrap">
+      <input type="text" value="{NEWS_FEED_DESCRIPTION}" style="width:400px;" maxlength="250" onchange="updateLangName(this);" /> <a href="#" onclick="toggleLangFields(this);" title="{TXT_NEWS_EXTENDED}">{TXT_NEWS_EXTENDED} &raquo;</a>
+        <div class="news_feed_lang_div" style="display:none;">
+<!-- BEGIN news_feed_description_list -->
+          <input type="text" name="newsFeedDescription[{NEWS_FEED_DESCRIPTION_LANG_ID}]" id="newsFeedDescription[{NEWS_FEED_DESCRIPTION_LANG_ID}]" value="{NEWS_FEED_DESCRIPTION_VALUE}" maxlength="250" style="width:400px;margin-top:1px;" /> {NEWS_FEED_LANG_NAME}<br />
+<!-- END news_feed_description_list -->
+        </div>
+      </td>
+    </tr>
+    <tr class="row2">
+      <td width="15%" nowrap="nowrap">{TXT_NEWS_FEED_IMAGE}</td>
+      <td width="85%" nowrap="nowrap"><input name="newsFeedImage" id="newsFeedImage" type="text" value="{NEWS_FEED_IMAGE}" style="width:287px;" /> <input type="button" onclick="fileBrowserPopup = window.open('?cmd=fileBrowser&{CSRF_PARAM}&amp;standalone=true','','width=800,height=600,resizable=yes,status=no,scrollbars=yes');fileBrowserPopup.focus()" value="{TXT_BROWSE}" style="width:110px;" /></td>
+    </tr>
+    <tr class="row1">
+      <td width="15%" nowrap="nowrap">{TXT_NEWS_HEADLINES_LIMIT}</td>
+      <td width="85%" nowrap="nowrap">
+      	<input name="headlinesLimit" type="text" id="headlinesLimit" value="{NEWS_HEADLINES_LIMIT}" style="width:400px;" maxlength="2" />
+      </td>
+    </tr>
+    <tr class="row2">
+      <td width="15%" nowrap="nowrap" style="vertical-align: top;">{TXT_NEWS_TOP}</td>
+      <td nowrap="nowrap">
+        <input type="checkbox" name="newsUseTop" id="newsUseTop" {NEWS_USE_TOP_CHECKED} value="1" onclick="swapBlock('newsMessageTopConfig',this.checked)" />
+        <label for="newsUseTop">{TXT_NEWS_TOP_LABEL}</label>
+        <br />
+
+        <div id="newsMessageTopConfig" style="display:{NEWS_MESSAGE_TOP_DISPLAY};">
+            <br />
+          <label for="newsTopDays">{TXT_NEWS_TOP_DAYS}</label>
+          <input name="newsTopDays" type="text" id="newsTopDays" value="{NEWS_TOP_DAYS}" style="width:30px;" /><br />
+          <label for="newsTopLimit">{TXT_NEWS_TOP_LIMIT}</label>
+          <input name="newsTopLimit" type="text" id="newsTopLimit" value="{NEWS_TOP_LIMIT}" style="width:30px;" />
+      </td>
+    </tr>
+    <tr class="row1">
+      <td width="15%" style="vertical-align: top;">{TXT_SUBMIT_NEWS}</td>
+      <td>
+        <input type="checkbox" name="newsSubmitNews" {NEWS_SUBMIT_NEWS} id="newsSubmitNews" value="1" onclick="swapBlock('news_submit_news_configuration',this.checked)" />
+        <label for="newsSubmitNews">{TXT_ALLOW_USERS_SUBMIT_NEWS}</label><br />
+
+        <div id="news_submit_news_configuration" style="display:{NEWS_SUBMIT_NEWS_CONFIGURATION_DISPLAY};">
+            <br />
+            <input type="checkbox" name="newsSubmitOnlyCommunity" {NEWS_SUBMIT_ONLY_COMMUNITY} id="newsSubmitOnlyCommunity" value="1" />
+            <label for="newsSubmitOnlyCommunity">{TXT_ALLOW_ONLY_MEMBERS_SUBMIT_NEWS}</label><br />
+            <input type="checkbox" name="newsActivateSubmittedNews" {NEWS_ACTIVATE_SUBMITTED_NEWS} id="newsActivateSubmittedNews" value="1" />
+            <label for="newsActivateSubmittedNews">{TXT_AUTO_ACTIVATE_SUBMITTED_NEWS}</label><br />
+            <label for="newsNotifySelectedGroup">{TXT_NOTIFY_GROUP}</label>
+            <select name="newsNotifySelectedGroup" {NEWS_NOTIFY_SELECTED_GROUP} id="newsNotifySelectedGroup">
+              {NEWS_NOTIFY_GROUP_LIST}
+            </select><br />
+            <label for="newsNotifySelectedUser">{TXT_NOTIFY_USER}</label>
+            <select name="newsNotifySelectedUser" {NEWS_NOTIFY_SELECTED_GROUP} id="newsNotifySelectedUser">
+              {NEWS_NOTIFY_USER_LIST}
+            </select><br />
+        </div>
+      </td>
+    </tr>
+    <tr class="row2">
+      <td width="15%" nowrap="nowrap" style="vertical-align:top;">{TXT_USE_TEASERS}</td>
+      <td width="85%" nowrap="nowrap">
+        <input type="checkbox" name="newsUseTeasers" id="newsUseTeasers" {NEWS_USE_TEASERS_CHECKED} value="1" onclick="swapBlock('news_teasers_configuration',this.checked);"/>
+        <label for="newsUseTeasers">{TXT_NEWS_ACTIVE}</label>
+        <br />
+        <div id="news_teasers_configuration" style="display:{NEWS_USE_TEASERS_CONFIGURATION_DISPLAY};">
+            <br />
+            {TXT_NEWS_DEFAULT_TEASERS}:
+            <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_NEWS_DEFAULT_TEASERS_HELP}</span>
+            <br />
+            <!-- BEGIN defaultTeasers -->
+            <input type="checkbox" name="newsDefaultTeaserSelected[{NEWS_TEASER_ID}]" id="newsDefaultTeaserSelected_{NEWS_TEASER_ID}" value="1" {NEWS_TEASER_CHECKED} />
+            <label for="newsDefaultTeaserSelected_{NEWS_TEASER_ID}">{NEWS_TEASER_NAME}</label>
+            <br />
+            <!-- END defaultTeasers -->
+        </div>
+      </td>
+    </tr>
+    <tr class="row1">
+        <td width="15%" nowrap="nowrap">{TXT_USE_TEASER_TEXT}</td>
+        <td width="85%" nowrap="nowrap">
+            <input type="checkbox" name="newsUseTeaserText" id="newsUseTeaserText" {NEWS_USE_TEASER_TEXT_CHECKED} value="1" />
+            <label for="newsUseTeaserText">{TXT_NEWS_ACTIVE}</label>
+            <br />
+        </td>
+    </tr>
+    <tr class="row2">
+        <td width="15%" nowrap="nowrap">{TXT_USE_TYPES}</td>
+        <td width="85%" nowrap="nowrap">
+            <input type="checkbox" name="newsUseTypes" id="newsUseTypes" {NEWS_USE_TYPES_CHECKED} value="1" />
+            <label for="newsUseTypes">{TXT_NEWS_ACTIVE}</label>
+            <br />
+        </td>
+    </tr>
+    <tr class="row1">
+      <td nowrap="nowrap" style="vertical-align:top;">{TXT_NEWS_PROTECTION}</td>
+      <td nowrap="nowrap">
+        <input type="checkbox" name="newsMessageProtection" id="newsMessageProtection" {NEWS_MESSAGE_PROTECTION_CHECKED} value="1" onclick="swapBlock('newsMessageProtectionRestrictedConfig',this.checked)" />
+        <label for="newsMessageProtection">{TXT_NEWS_ACTIVE}</label>
+
+        <div id="newsMessageProtectionRestrictedConfig" style="display:{NEWS_MESSAGE_PROTECTION_RESTRICTED_DISPLAY};">
+            <br />
+            <input type="checkbox" name="newsMessageProtectionRestricted" id="newsMessageProtectionRestricted" {NEWS_MESSAGE_PROTECTION_RESTRICTED_CHECKED} value="1" />
+            <label for="newsMessageProtectionRestricted">{TXT_NEWS_MESSAGE_PROTECTION_RESTRICTED}</label>
+        </div>
+      </td>
+    </tr>
+    <tr class="row2">
+        <td style="vertical-align: top;">{TXT_NEWS_COMMENTS}</td>
+        <td>
+            <input type="checkbox" name="newsCommentsAllow" id="newsCommentsAllow" value="1" {NEWS_SETTINGS_COMMENTS_STATUS_CHECKED} onclick="swapBlock('news_comments_configuration',this.checked);" />
+            <label for="newsCommentsAllow">{TXT_NEWS_ACTIVE}</label>
+            <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_NEWS_SETTINGS_COMMENTS_ALLOW_HELP}</span>
+
+            <div style="display:{NEWS_COMMENTS_STATUS_STYLE}" id="news_comments_configuration">
+                <br />
+                <input type="checkbox" name="newsCommentsAllowAnonymous" id="newsCommentsAllowAnonymous" value="1" {NEWS_SETTINGS_COMMENTS_ALLOW_ANONYMOUS_CHECKED} />
+                <label for="newsCommentsAllowAnonymous">{TXT_NEWS_SETTINGS_COMMENTS_ALLOW_ANONYMOUS}</label>
+                <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_NEWS_SETTINGS_COMMENTS_ALLOW_ANONYMOUS_HELP}</span>
+                <br />
+
+                <input type="checkbox" name="newsCommentsAutoActivate" id="newsCommentsAutoActivate" value="1" {NEWS_SETTINGS_COMMENTS_AUTO_ACTIVATE_CHECKED} />
+                <label for="newsCommentsAutoActivate">{TXT_NEWS_SETTINGS_COMMENTS_AUTO_ACTIVATE}</label>
+                <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_NEWS_SETTINGS_COMMENTS_AUTO_ACTIVATE_HELP}</span>
+                <br />
+
+                <input type="checkbox" name="newsCommentsNotification" id="newsCommentsNotification" value="1" {NEWS_SETTINGS_COMMENTS_NOTIFICATION_CHECKED} />
+                <label for="newsCommentsNotification">{TXT_NEWS_SETTINGS_COMMENTS_NOTIFICATION}</label>
+                <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_NEWS_SETTINGS_COMMENTS_NOTIFICATION_HELP}</span>
+                <br />
+
+                <label for="newsCommentsTimeout">{TXT_NEWS_SETTINGS_COMMENTS_TIMEOUT}</label>
+                <input type="text" name="newsCommentsTimeout" id="newsCommentsTimeout" value="{NEWS_SETTINGS_COMMENTS_TIMEOUT}" style="width:30px;" />
+                <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_NEWS_SETTINGS_COMMENTS_TIMEOUT_HELP}</span>
+                <br />
+                
+                <label for="recentNewsMessageLimit">{TXT_NEWS_RECENT_MESSAGES_LIMIT}</label>
+                <input name="recentNewsMessageLimit" type="text" id="recentNewsMessageLimit" value="{NEWS_RECENT_MESSAGES_LIMIT}" style="width:30px;" maxlength="2" />
+                <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_NEWS_SETTINGS_RECENT_MESSAGES_LIMIT_HELP}</span>
+                
+            </div>
+        </td>
+    </tr>
+    <tr class="row1">
+        <td style="vertical-align: top;">{TXT_NEWS_AUTHOR_SELECTION}</td>
+        <td>
+            <input value="0" id="noFilterAuthor" name="newsFilterAuthor" type="radio" onclick="swapBlock('filterAuthorGroups',0);" {NEWS_FILTER_AUTHOR_INACTIVE} />
+            <label for="noFilterAuthor">{TXT_NEWS_LIST_ALL}</label><br />
+            <input value="1" id="yesFilterAuthor" name="newsFilterAuthor" type="radio" onclick="swapBlock('filterAuthorGroups',1);" {NEWS_FILTER_AUTHOR_ACTIVE} />
+            <label for="yesFilterAuthor">{TXT_NEWS_LIST_SELECTED}</label>
+            <table summary="" cellspacing="0" cellpadding="3" border="0" width="100%" id="filterAuthorGroups" style="display:{NEWS_FILTER_AUTHOR_DISPLAY}; margin-top:15px;">
+                <thead style="vertical-align:top;">
+                    <tr>
+                            <td style="border-bottom:0px;" width="15%">{TXT_NEWS_AVAILABLE_GROUPS}</td>
+                            <td style="border-bottom:0px;" width="1%">&nbsp;</td>
+                            <td style="border-bottom:0px;">{TXT_NEWS_ASSIGNED_GROUPS}</td>
+                    </tr>
+                    <tr>
+                        <td style="border-bottom:0px;">
+                            <select name="newsExistingAuthorGroups[]" size="10" style="width:300px;" multiple="multiple">
+                            {NEWS_EXISTING_AUTHOR_GROUPS}
+                            </select>
+                            <br />
+                            <font>
+                                <a href="javascript:void(0);" onclick="SelectAllList(document.settings.elements['newsExistingAuthorGroups[]'])">{TXT_NEWS_CHECK_ALL}</a><br />
+                                <a href="javascript:void(0);" onclick="DeselectAllList(document.settings.elements['newsExistingAuthorGroups[]'])">{TXT_NEWS_UNCHECK_ALL}</a>
+                            </font>
+                        </td>
+                        <td style="border-bottom:0px;">
+                            <input type="button" value="&gt;&gt;" name="adduser" onclick="AddToTheList(document.settings.elements['newsExistingAuthorGroups[]'],document.settings.elements['newsAssignedAuthorGroups[]'],adduser,removeuser);" style="margin-bottom:1px;" /><br />
+                            <input type="button" value="&lt;&lt;" name="removeuser" onclick="RemoveFromTheList(document.settings.elements['newsExistingAuthorGroups[]'],document.settings.elements['newsAssignedAuthorGroups[]'],adduser,removeuser);" />
+                        </td>
+                        <td style="border-bottom:0px;">
+                            <select name="newsAssignedAuthorGroups[]" size="10" style="width:300px;" multiple="multiple">
+                            {NEWS_ASSIGNED_AUTHOR_GROUPS}
+                            </select>
+                            <br />
+                            <font>
+                                <a href="javascript:void(0);" onclick="SelectAllList(document.settings.elements['newsAssignedAuthorGroups[]'])">{TXT_NEWS_CHECK_ALL}</a><br />
+                                <a href="javascript:void(0);" onclick="DeselectAllList(document.settings.elements['newsAssignedAuthorGroups[]'])">{TXT_NEWS_UNCHECK_ALL}</a>
+                            </font>
+                        </td>
+                    </tr>
+                    </thead>
+            </table>
+        </td>
+    </tr>
+    <tr class="row2">
+        <td style="vertical-align: top;">{TXT_NEWS_PUBLISHER_SELECTION}</td>
+        <td>
+            <input value="0" id="noFilterPublisher" name="newsFilterPublisher" type="radio" onclick="swapBlock('filterPublisherGroups',0);" {NEWS_FILTER_PUBLISHER_INACTIVE} />
+            <label for="noFilterPublisher">{TXT_NEWS_LIST_ALL}</label><br />
+            <input value="1" id="yesFilterPublisher" name="newsFilterPublisher" type="radio" onclick="swapBlock('filterPublisherGroups',1);" {NEWS_FILTER_PUBLISHER_ACTIVE} />
+            <label for="yesFilterPublisher">{TXT_NEWS_LIST_SELECTED}</label>
+            <table summary="" cellspacing="0" cellpadding="3" border="0" width="100%" id="filterPublisherGroups" style="display:{NEWS_FILTER_PUBLISHER_DISPLAY}; margin-top:15px;">
+                <thead style="vertical-align:top;">
+                    <tr>
+                        <td style="border-bottom:0px;" width="15%">{TXT_NEWS_AVAILABLE_GROUPS}</td>
+                        <td style="border-bottom:0px;" width="1%">&nbsp;</td>
+                        <td style="border-bottom:0px;">{TXT_NEWS_ASSIGNED_GROUPS}</td>
+                    </tr>
+                    <tr>
+                        <td style="border-bottom:0px;">
+                            <select name="newsExistingPublisherGroups[]" size="10" style="width:300px;" multiple="multiple">
+                            {NEWS_EXISTING_PUBLISHER_GROUPS}
+                            </select>
+                            <br />
+                            <font>
+                                <a href="javascript:void(0);" onclick="SelectAllList(document.settings.elements['newsExistingPublisherGroups[]'])">{TXT_NEWS_CHECK_ALL}</a><br />
+                                <a href="javascript:void(0);" onclick="DeselectAllList(document.settings.elements['newsExistingPublisherGroups[]'])">{TXT_NEWS_UNCHECK_ALL}</a>
+                            </font>
+                        </td>
+                        <td style="border-bottom:0px;">
+                            <input type="button" value="&gt;&gt;" name="adduser" onclick="AddToTheList(document.settings.elements['newsExistingPublisherGroups[]'],document.settings.elements['newsAssignedPublisherGroups[]'],adduser,removeuser);" style="margin-bottom:1px;" /><br />
+                            <input type="button" value="&lt;&lt;" name="removeuser" onclick="RemoveFromTheList(document.settings.elements['newsExistingPublisherGroups[]'],document.settings.elements['newsAssignedPublisherGroups[]'],adduser,removeuser);" />
+                        </td>
+                        <td style="border-bottom:0px;">
+                            <select name="newsAssignedPublisherGroups[]" size="10" style="width:300px;" multiple="multiple">
+                            {NEWS_ASSIGNED_PUBLISHER_GROUPS}
+                            </select>
+                            <br />
+                            <font>
+                                    <a href="javascript:void(0);" onclick="SelectAllList(document.settings.elements['newsAssignedPublisherGroups[]'])">{TXT_NEWS_CHECK_ALL}</a><br />
+                                    <a href="javascript:void(0);" onclick="DeselectAllList(document.settings.elements['newsAssignedPublisherGroups[]'])">{TXT_NEWS_UNCHECK_ALL}</a>
+                            </font>
+                        </td>
+                    </tr>
+                    </thead>
+            </table>
+        </td>
+    </tr>
+  </table>
+  <br />
+  <input type="submit" name="store" value="{TXT_STORE}" />
+</form>
+<!-- END module_news_settings_general.html -->

@@ -1,0 +1,5 @@
+Neue Platzhalter:
+        <li>
+            <h3><a href="[[CALENDAR_EVENT_DETAIL_LINK]]">[[CALENDAR_EVENT_TITLE]]</a></h3>
+            [[CALENDAR_EVENT_START_DATE]]&nbsp;[[CALENDAR_EVENT_START_TIME]] &bull; [[CALENDAR_EVENT_CATEGORY]]
+        </li>

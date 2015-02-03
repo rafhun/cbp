@@ -1,0 +1,139 @@
+<!-- START module_shop_settings_shipment.html -->
+<script type="text/javascript">
+// <![CDATA[
+function delete_shipper(sid)
+{
+  if (confirm('{TXT_CONFIRM_DELETE_SHIPPER}\n{TXT_ACTION_IS_IRREVERSIBLE}'))
+    window.location.replace("index.php?cmd=shop{MODULE_INDEX}&{CSRF_PARAM}&act=settings&tpl=shipment&delete_shipper_id="+sid);
+}
+function delete_shipment(cid)
+{
+  if (confirm('{TXT_CONFIRM_DELETE_SHIPMENT}\n{TXT_ACTION_IS_IRREVERSIBLE}'))
+    window.location.replace("index.php?cmd=shop{MODULE_INDEX}&{CSRF_PARAM}&act=settings&tpl=shipment&delete_shipment_id="+cid);
+}
+// ]]>
+</script>
+
+<!-- BEGIN statusBar -->
+<span class="red">{CONTENT_STATUS}</span>
+<!-- END statusBar -->
+
+<ul id="tabmenu">
+  <li><a id="shipmentTab_content1" class="active" href="javascript:{}" onclick="selectTab('content1')" title="{TXT_SHIPPING_METHODS}">{TXT_SHIPPING_METHODS}</a></li>
+  <li><a id="shipmentTab_content2" href="javascript:{}" onclick="selectTab('content2')" title="{TXT_ADD}">{TXT_ADD}</a></li>
+</ul>
+
+<form name="shopForm" method="post"
+      action="index.php?cmd=shop{MODULE_INDEX}&amp;act=settings&amp;tpl=shipment">
+<!-- start content1 div -->
+  <div id="content1" class="shipmentTab" style="display:block">
+    <table border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+      <tr>
+        <th colspan="7" class="f_bold">{TXT_SHIPPING_METHODS}</th>
+      </tr>
+<!-- BEGIN shopShipper -->
+      <tr class="row1">
+        <td width="20%" class="f_bold">
+          {TXT_SHIPPING_METHOD}</td>
+        <td width="10%" class="f_bold">
+          {TXT_ZONE}</td>
+        <td width="10%" class="a_center f_bold">
+          {TXT_ACTIVE}
+        </td>
+        <td width="20%" class="f_bold">
+          {TXT_SHIPPING_MAX_WEIGHT}
+          <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MAX_WEIGHT_TIP}</span>
+        </td>
+        <td width="20%" class="f_bold">
+          {TXT_FREE_OF_CHARGE}
+          <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_FREE_OF_CHARGE_TIP}</span>
+        </td>
+        <td width="20%" class="f_bold">
+          {TXT_SHIPPING_FEE}</td>
+        <td width="5%">&nbsp;</td>
+      </tr>
+      <tr class="{SHOP_SHIPMENT_STYLE}">
+        <td>{SHOP_SHIPPER_NAME}</td>
+        <td>{SHOP_ZONE_SELECTION}</td>
+        <td class="a_center">
+          <input type="checkbox" name="active[{SHOP_SHIPPER_ID}]" value="1"
+                 {SHOP_SHIPPER_STATUS} />
+        </td>
+        <td colspan="3"></td>
+        <td class="a_right">
+          <a href="javascript:delete_shipper({SHOP_SHIPPER_ID})" title="{TXT_DELETE}">
+            <img src="images/icons/delete.gif" alt="{TXT_DELETE}" border="0" />
+          </a>
+        </td>
+      </tr>
+<!-- BEGIN shopShipment -->
+      <tr class="{SHOP_SHIPMENT_STYLE}">
+        <td>
+          <input type="hidden" name="sid[{SHOP_SHIPMENT_ID}]" value="{SHOP_SHIPPER_ID}" />
+        </td>
+        <td colspan="2">&nbsp;</td>
+        <td>
+          <input type="text" name="max_weight[{SHOP_SHIPMENT_ID}]"
+                 value="{SHOP_SHIPMENT_MAX_WEIGHT}" size="15" maxlength="50" />
+        </td>
+        <td>
+          <input type="text" name="free_from[{SHOP_SHIPMENT_ID}]"
+                 value="{SHOP_SHIPMENT_PRICE_FREE}" size="15" maxlength="50" />
+          &nbsp;{SHOP_CURRENCY}
+        </td>
+        <td>
+          <input type="text" name="fee[{SHOP_SHIPMENT_ID}]"
+                 value="{SHOP_SHIPMENT_COST}" size="15" maxlength="50" />
+          &nbsp;{SHOP_CURRENCY}
+        </td>
+        <td class="a_right">
+          <a href="javascript:delete_shipment({SHOP_SHIPMENT_ID})" title="{TXT_DELETE}">
+            <img src="images/icons/delete.gif" alt="{TXT_DELETE}" border="0" />
+          </a>
+        </td>
+      </tr>
+<!-- END shopShipment -->
+      <tr>
+        <td colspan="3">
+          {TXT_SHOP_SHIPMENT_NEW}
+          <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_SHOP_SHIPMENT_NEW_TIP}</span>
+        </td>
+        <td><input type="text" name="max_weight_new[{SHOP_SHIPPER_ID}]" value="0 g" size="15" maxlength="50" /></td>
+        <td><input type="text" name="free_from_new[{SHOP_SHIPPER_ID}]" value="0.00" size="15" maxlength="50" />&nbsp;{SHOP_CURRENCY}</td>
+        <td><input type="text" name="fee_new[{SHOP_SHIPPER_ID}]" value="0.00" size="15" maxlength="50" />&nbsp;{SHOP_CURRENCY}</td>
+        <td>&nbsp;</td>
+      </tr>
+<!-- END shopShipper -->
+    </table>
+    <br />
+    <input type="submit" name="bshipment" value="{TXT_STORE}" />
+  </div>
+<!-- end content1 div -->
+
+<!-- start content2 div -->
+  <div id="content2" class="shipmentTab" style="display:none">
+    <table border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+      <tr>
+        <th colspan="3" class="f_bold">{TXT_ADD}</th>
+      </tr>
+        <tr class="row1">
+        <td width="20%" class="f_bold">{TXT_SHIPPING_METHOD}</td>
+        <td width="10%" class="f_bold">{TXT_ZONE}</td>
+        <td width="5%" class="a_center f_bold">
+          {TXT_ACTIVE}
+        </td>
+      </tr>
+      <tr class="row2">
+        <td><input type="text" name="name_new" value="" size="30" maxlength="50" /></td>
+        <td>{SHOP_ZONE_SELECTION_NEW}</td>
+        <td class="a_center">
+          <input type="checkbox" name="active_new" value="1" checked="checked" />
+        </td>
+      </tr>
+    </table>
+    <br />
+  <input type="submit" name="bshipper_add" value="{TXT_ADD}" />
+  </div>
+<!-- end content2 div -->
+</form>
+<!-- END module_shop_settings_shipment.html -->

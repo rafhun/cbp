@@ -1,0 +1,287 @@
+<!-- START module_media.html -->
+<script language="JavaScript" type="text/JavaScript">
+function mediaCheckNewDir()
+{
+    if(document.create_dir.dirName.value == '')
+    {
+        alert("{TXT_MEDIA_CHECK_NAME}");
+        document.create_dir.dirName.focus();
+        return false;
+    }
+}
+
+
+function mediaCheckUploadFiles()
+{
+    var x = 0;
+    for(var i = 0; i < document.upload_files.elements.length; i++)
+    {
+        var e = document.upload_files.elements[i];
+        if(e.name == "fileName[]" && e.value != "")
+        {
+            x++;
+        }
+    }
+    if(x > 0)
+    {
+        return true;
+    }
+    else
+    {
+        alert("{TXT_MEDIA_SELECT_UPLOAD_FILE}");
+        return false;
+    }
+}
+
+
+function mediaConfirmDelete()
+{
+    if(!confirm("{TXT_MEDIA_CONFIRM_DELETE_2}"))
+    {
+        return false;
+    }
+}
+
+
+function mediaSelectAll(e)
+{
+    if(e.checked)
+    {  // check all
+        var ml  = document.fileList;
+      var len = ml.elements.length;
+      for(var i = 0; i < len; i++)
+      {
+          var e = ml.elements[i];
+          if(e.name == "formSelected[]")
+          {
+            e.checked = true;
+          }
+      }
+  }
+  else
+  {  // uncheck all
+      var ml  = document.fileList;
+      var len = ml.elements.length;
+      for(var i = 0; i < len; i++)
+      {
+          var e = ml.elements[i];
+          if(e.name == "formSelected[]")
+          {
+            e.checked = false;
+          }
+      }
+  }
+}
+
+
+function mediaIsChecked(fieldName)
+{
+    var x = 0;
+    for(var i = 0; i < document.fileList.elements.length; i++)
+    {
+        var e = document.fileList.elements[i];
+        if(e.name == fieldName && e.checked == true)
+        {
+            x++;
+        }
+    }
+    if(x > 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
+function mediaDoAction(action)
+{
+    if(mediaIsChecked("formSelected[]") == true)
+    {
+      if(action == "cut")
+      {
+          document.fileList.action = "index.php?cmd=media&act=cut&path={MEDIA_DO_ACTION_PATH}";
+          document.fileList.submit();
+      }
+      if(action == "copy")
+      {
+          document.fileList.action = "index.php?cmd=media&act=copy&path={MEDIA_DO_ACTION_PATH}";
+          document.fileList.submit();
+      }
+        if(action == "delete")
+      {
+          if(confirm("{TXT_MEDIA_CONFIRM_DELETE_2}"))
+            {
+              document.fileList.action = "index.php?cmd=media&act=delete&path={MEDIA_DO_ACTION_PATH}";
+              document.fileList.submit();
+          }
+      }
+    }
+    else
+    {
+        alert("{TXT_MEDIA_MAKE_SELECTION}");
+    }
+    document.fileList.selectAction.value = "0";
+}
+</script>
+
+{MEDIA_JAVA_SCRIPT_PREVIEW}
+<div align="right">
+  <ul id="tabmenu">
+      <li><img src="template/contrexx/images/icons/mkdir.gif" border="0" alt="" /><a id="mediaTab_newdir" href="javascript:{}" onclick="selectTab('newdir')" title="" hidefocus>{TXT_MEDIA_NEW_DIRECTORY}</a></li>
+      <li><img src="template/contrexx/images/icons/mkfile.gif" border="0" alt="" /><a id="mediaTab_loadfile" href="javascript:{}" onclick="selectTab('loadfile')" title="" hidefocus>{TXT_MEDIA_UPLOAD_FILES}</a></li>
+       <li><img src="template/contrexx/images/icons/cut.gif" border="0" alt="" /><a href="javascript:{}" onclick="mediaDoAction('cut')" title="" hidefocus>Ausschneiden</a></li>
+       <li><img src="template/contrexx/images/icons/copy.gif" border="0" alt="" /><a href="javascript:{}" onclick="mediaDoAction('copy')" title="" hidefocus>Kopieren</a></li>
+       <li><img src="template/contrexx/images/icons/del.gif" border="0" alt="" /><a href="javascript:{}" onclick="mediaDoAction('delete')" title="" hidefocus>Markierte Löschen</a></li>
+  </ul>
+</div>
+<div id="newdir" class="mediaTab" style="display:none;">
+    <form name="create_dir" method="post" action="{MEDIA_CREATE_DIR_ACTION}" onsubmit="return mediaCheckNewDir();">
+      <table width="100%" cellspacing="0" cellpadding="5" border="0" align="middle" class="adminlist">
+        <tr>
+            <th>{TXT_MEDIA_NEW_DIRECTORY}</th>
+        </tr>
+        <tr class="row3">
+            <td>
+                {TXT_MEDIA_NAME}: <input type="text" name="dirName" size="50" style="padding-left: 3px; padding-right: 3px;" />
+          </td>
+        </tr>
+      </table>
+      <br />
+      <input type="submit" name="submit" value="{TXT_MEDIA_CREATE}" />
+    </form>
+    <br />&nbsp;
+</div>
+
+<div id="loadfile" class="mediaTab" style="display:none;">
+    <form name="upload_files" method="post" action="{MEDIA_UPLOAD_FILES_ACTION}" enctype="multipart/form-data" onsubmit="return mediaCheckUploadFiles2();">
+    <table width="100%" cellspacing="0" cellpadding="5" border="0" align="middle" class="adminlist">
+        <tr>
+            <th>{TXT_MEDIA_UPLOAD_FILES}</th>
+        </tr>
+        <tr class="row3">
+            <td>
+                <input type="file" name="fileName[]" value="" size="80"><br />
+                <input type="file" name="fileName[]" value="" size="80"><br />
+                <input type="file" name="fileName[]" value="" size="80"><br />
+                <input type="file" name="fileName[]" value="" size="80"><br />
+                <input type="file" name="fileName[]" value="" size="80"><br />
+          </td>
+        </tr>
+      </table>
+      <br />
+      <input type="submit" name="submit" value="{TXT_MEDIA_UPLOAD}" />
+    </form>
+    <br />&nbsp;
+</div>
+
+
+<form name="fileList" method="post" action="{MEDIA_SELECT_MEDIA_ACTION}">
+    <table width="100%" cellspacing="0" cellpadding="5" border="0" align="middle" class="adminlist">
+      <tr>
+          <th width="16"><div align="center">#</div></th>
+          <th class="{MEDIA_NAME_CLASS}" colspan="2">
+              <a href="{MEDIA_NAME_HREF}" title="{TXT_MEDIA_SORT}">{TXT_MEDIA_FILE_NAME}</a>
+              {MEDIA_NAME_ICON}
+          </th>
+          <th class="{MEDIA_SIZE_CLASS}" width="90">
+              <div align="right">
+                  <a href="{MEDIA_SIZE_HREF}" name="sort_size" title="{TXT_MEDIA_SORT}">{TXT_MEDIA_FILE_SIZE}</a>
+                  {MEDIA_SIZE_ICON}
+              </div>
+          </th>
+          <th class="{MEDIA_TYPE_CLASS}" width="90">
+              <div align="right">
+                  <a href="{MEDIA_TYPE_HREF}" name="sort_type" title="{TXT_MEDIA_SORT}">{TXT_MEDIA_FILE_TYPE}</a>
+                  {MEDIA_TYPE_ICON}
+              </div>
+          </th>
+          <th class="{MEDIA_DATE_CLASS}" width="130">
+               <div align="right">
+                   <a href="{MEDIA_DATE_HREF}" name="sort_date" title="{TXT_MEDIA_SORT}">{TXT_MEDIA_FILE_DATE}</a>
+                   {MEDIA_DATE_ICON}
+               </div>
+          </th>
+          <th class="{MEDIA_PERM_CLASS}" width="110">
+              <div align="right">
+                  <a href="{MEDIA_PERM_HREF}" name="sort_perm" title="{TXT_MEDIA_SORT}">{TXT_MEDIA_FILE_PERM}</a>
+                  {MEDIA_PERM_ICON}
+              </div>
+          </th>
+          <th width="50">&nbsp;
+          </th>
+      </tr>
+       <tr valign="middle" class="row2">
+          <td width="16">
+                  <input type="checkbox" name="toggleAll" title="Select or deselect all messages" onclick="mediaSelectAll(this);"{MEDIA_SELECT_STATUS}>
+          </td>
+          <td><center><img src="template/contrexx/images/icons/folderup.gif" border="0" alt="" /></center></td>
+          <td colspan="6">
+            <a href="{MEDIA_TREE_NAV_MAIN_HREF}">{MEDIA_TREE_NAV_MAIN}</a>
+            <!-- BEGIN mediaTreeNavigation -->
+              <a href="{MEDIA_TREE_NAV_DIR_HREF}">&nbsp;{MEDIA_TREE_NAV_DIR} /</a>
+            <!-- END mediaTreeNavigation -->
+          </td>
+       </tr>
+      <!-- BEGIN mediaDirectoryTree -->
+        <tr class="{MEDIA_DIR_TREE_ROW}" valign="top">
+            <td width="16">
+                <input type="checkbox" name="formSelected[]" value="{MEDIA_FILE_NAME}" />
+            </td>
+            <td width="16">
+                <center><img src="{MEDIA_FILE_ICON}" width="16" height="16" alt="icon" /></center>
+            </td>
+            <td>
+                <a href="{MEDIA_FILE_NAME_HREF}">{MEDIA_FILE_NAME}</a>
+                  <!-- BEGIN mediaShowThumbnail -->
+                      &nbsp;&nbsp;({MEDIA_FILE_NAME_SIZE})
+                      <div id="{MEDIA_FILE_NAME_PRE}" class="switchcontent">
+                          <table cellpadding="0" cellspacing="0" width="100%" border="0">
+                              <tr class="{MEDIA_FILE_NAME_ROW}" valign="top">
+                                  <td style="border-width: 0px;">
+                                      <br />
+                                      <a href="{MEDIA_FILE_NAME_IMG_HREF}" title=""><img src="{MEDIA_FILE_NAME_IMG_SRC}" {MEDIA_FILE_NAME_IMG_SIZE} border="0" alt="" /></a>
+                                  </td>
+                              </tr>
+                          </table>
+                      </div>
+                  <!-- END mediaShowThumbnail -->
+            </td>
+          <td width="90" nowrap><div align="right"><nobr>{MEDIA_FILE_SIZE}&nbsp;</nobr></div></td>
+          <td width="90" nowrap><div align="right"><nobr>{MEDIA_FILE_TYPE}&nbsp;</nobr></div></td>
+            <td width="130" nowrap><div align="right"><nobr>{MEDIA_FILE_DATE}&nbsp;</nobr></div></td>
+            <td width="110" nowrap><div align="right"><nobr>{MEDIA_FILE_PERM}&nbsp;</nobr></div></td>
+            <td width="50"><div align="right"><nobr>
+                <a href="{MEDIA_FILE_EDIT_HREF}" name="edit" title="{MEDIA_EDIT}">
+                    <img src="images/icons/edit.gif" width="16" height="16" alt="edit" style="border: 0px;" />
+                </a>&nbsp;
+                <a href="{MEDIA_FILE_DELETE_HREF}" onclick="return mediaConfirmDelete();" name="delete" title="{MEDIA_DELETE}">
+                    <img src="images/icons/delete.gif" width="16" height="16" alt="delete" style="border: 0px;" />
+                </a>
+            </nobr></div></td>
+        </tr>
+      <!-- END mediaDirectoryTree -->
+      <!-- BEGIN mediaEmptyDirectory -->
+        <tr class="row1">
+          <td>&nbsp;</td>
+          <td colspan="7">{TXT_MEDIA_DIR_EMPTY}</td>
+        </tr>
+      <!-- END mediaEmptyDirectory -->
+    </table>
+  <!-- BEGIN mediaSelectAction -->
+  <!-- END mediaSelectAction -->
+</form>
+<!-- BEGIN mediaActionPaste -->
+  <table width="50%" height="50" cellspacing="0" cellpadding="5" border="0" align="left">
+    <tr>
+      <td valign="middle">
+        <form action="{MEDIDA_PASTE_ACTION}" method="post">
+          <input type="submit" value="{TXT_MEDIA_PASTE}" />
+        </form>
+      </td>
+    </tr>
+  </table>
+<!-- END mediaActionPaste -->
+<!-- END module_media.html -->

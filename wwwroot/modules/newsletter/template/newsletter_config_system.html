@@ -1,0 +1,36 @@
+<!-- START newsletter_config_dispatch.html -->
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+
+// ]]>
+</script>
+<div id="subnavbar_level2">
+<ul>
+<li><a href="index.php?cmd=newsletter&amp;act=dispatch" title="{TXT_DISPATCH_SETINGS}">{TXT_DISPATCH_SETINGS}</a></li>
+<li><a href="index.php?cmd=newsletter&amp;act=templates" title="{TXT_NEWSLETTER_TEMPLATES}">{TXT_NEWSLETTER_TEMPLATES}</a></li>
+<li><a href="index.php?cmd=newsletter&amp;act=interface" title="{TXT_NEWSLETTER_INTERFACE}">{TXT_NEWSLETTER_INTERFACE}</a></li>
+<li><a href="index.php?cmd=newsletter&amp;act=confightml" title="{TXT_GENERATE_HTML}">{TXT_GENERATE_HTML}</a></li>
+<li><a href="index.php?cmd=newsletter&amp;act=activatemail" title="{TXT_CONFIRM_MAIL}">{TXT_ACTIVATE_MAIL}</a></li>
+<li><a href="index.php?cmd=newsletter&amp;act=confirmmail" title="{TXT_CONFIRM_MAIL}">{TXT_CONFIRM_MAIL}</a></li>
+<li><a href="index.php?cmd=newsletter&amp;act=notificationmail" title="{TXT_NOTIFICATION_MAIL}">{TXT_NOTIFICATION_MAIL}</a></li>
+<li><a href="index.php?cmd=newsletter&amp;act=system" title="{TXT_SYSTEM_SETINGS}">{TXT_SYSTEM_SETINGS}</a></li>
+</ul>
+</div>
+<br />
+<table width="100%" border="0" cellpadding="3" cellspacing="0" class="adminlist">
+  <tr>
+    <th>{TXT_TITLE}</th>
+  </tr>
+</table>
+<form name="adduser" action="index.php?cmd=newsletter&amp;act=system" method="post">
+<input type="hidden" name="update" value="1" />
+<table width="100%" border="0" cellpadding="3" cellspacing="0" class="adminlist">
+  <tr class="row1">
+    <td width="200">{TXT_DEF_UNSUBSCRIBE}</td>
+    <td><input id="id_def_unsubscribe_on" type="radio" name="def_unsubscribe" value="1" {UNSUBSCRIBE_DELETE_ON} />  <label for="id_def_unsubscribe_on">{UNSUBSCRIBE_DELETE} &nbsp;  </label> <input id="id_def_unsubscribe_off" type="radio" name="def_unsubscribe" value="0" {UNSUBSCRIBE_DEACTIVATE_ON} />  <label for="id_def_unsubscribe_off"> {UNSUBSCRIBE_DEACTIVATE} &nbsp;  </label> </td>
+  </tr>
+</table>
+<br />
+<input type="submit" value="{TXT_SAVE}" />
+</form>
+<!-- END newsletter_config_dispatch.html -->

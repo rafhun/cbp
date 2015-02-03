@@ -1,0 +1,71 @@
+
+form {
+    clear: left;
+    margin: 0;
+    padding: 2px 0 3px 5px;
+    height: 1%;
+}
+
+form label.description {
+    font-weight: normal;
+    float: left;
+    margin: 0px 0px 0px 10px;
+    padding:  0px 0px 0px 0px;
+    width: 300px;
+}
+
+form label.noCaption {
+    float: left;
+    margin-left: 2px;
+    margin-top: 2px;
+    font-weight: normal;
+}
+
+form img.captcha {
+    float: left;
+}
+
+form#contactForm label, form#contactForm span {
+    clear: left;
+    font-weight: bold;
+    float: left;
+    width: 180px;
+    margin-top: 5px;
+}
+
+form#contactForm .noCaption{
+    clear: none;
+    width: 420px;
+    margin: 0px;
+}
+
+form#contactForm input{
+    float: left;
+    clear: right;
+}
+
+form.contactForm input[type="text"], form.contactForm input[type="password"], form.contactForm textarea, form.contactForm select{
+    width: 250px;
+}
+
+form#contactForm select, form#contactForm textarea{
+    float: left;
+}
+
+form#contactForm hr{
+    float: left;
+    width: 100%;
+}
+
+form#contactForm p{
+    float: left;
+    width: 100%;
+}
+
+form#contactForm .contactFormGroup {
+    float: left;
+}
+
+form#contactForm div.contactFormGroup input{
+    clear: left;
+}

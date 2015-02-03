@@ -1,0 +1,42 @@
+<!-- start system_config.html -->
+<script type="text/javascript">
+// <![CDATA[
+function setContactEmail(email) {
+    if (document.getElementById('contactEmail').value == '') {
+        document.getElementById('contactEmail').value = email;
+    }
+}
+//]]>
+</script>
+
+<input type="hidden" name="sysConfig" />
+<table class="adminlist" width="100%">
+    <!-- BEGIN globalErrorMsg --><tr><td colspan="2"><div class="message-alert">{GLOBAL_ERROR_MSG}</div></td></tr><!-- END globalErrorMsg -->
+    <tr class="row1">
+        <th colspan="2">{TXT_GENERAL}</th>
+    </tr>
+    <!-- BEGIN generalErrorMsg --><tr><td colspan="2"><div class="message-alert">{GENERAL_ERROR_MSG}</div></td></tr><!-- END generalErrorMsg -->
+    <tr class="row2">
+        <td width="100%">{TXT_ADMIN_EMAIL}</td>
+        <td><input type="text" name="adminEmail" tabindex="1" value="{ADMIN_EMAIL}" onchange="setContactEmail(this.value);" /></td>
+    </tr>
+    <tr class="row1">
+        <td>{TXT_ADMIN_NAME}</td>
+        <td><input type="text" name="adminName" tabindex="2" value="{ADMIN_NAME}" /></td>
+    </tr>
+    <tr class="row2">
+        <td>{TXT_DOMAIN_URL} <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_DOMAIN_URL_EXPLANATION}</span></td>
+        <td><input type="text" name="domainURL" tabindex="3" maxlength="65535" value="{DOMAIN_URL}" /></td>
+    </tr>
+    <tr class="row1"><td colspan="2"></td></tr>
+    <tr class="row2">
+        <th colspan="2">{TXT_CONTACT}</th>
+    </tr>
+    <!-- BEGIN contactErrorMsg --><tr><td colspan="2"><div class="message-alert">{CONTACT_ERROR_MSG}</div></td></tr><!-- END contactErrorMsg -->
+    <tr class="row2">
+        <td>{TXT_CONTACT_EMAIL}</td>
+        <td><input type="text" tabindex="5" name="contactEmail" id="contactEmail" value="{CONTACT_EMAIL}" /></td>
+    </tr>
+</table>
+<br />
+<!-- end system_config.html -->

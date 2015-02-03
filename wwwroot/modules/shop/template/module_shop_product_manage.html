@@ -1,0 +1,625 @@
+<!-- START shop_product_manage.html -->
+<script type="text/javascript">// <![CDATA[
+var fieldID;
+var langID;
+var langcount = 2
+var elInputID;
+var elinputid;
+var value;
+var popUp;
+var browserPopup = { "closed": true };
+var notDefined = new Array();
+var ltype;
+var elName;
+var par;
+
+function reloadPage() {
+  //save_in_textarea_all(); // needed for wysiwyg
+  document.formShopProduct.submit();
+}
+function openWindow(theURL, winName, features) {
+  window.open(theURL, winName, features);
+}
+var openBrowser = function openBrowser(url, id, attrs) {
+  fieldID = id;
+  try {
+    if (!browserPopup.closed) {
+      return browserPopup.focus();
+    }
+  } catch(e) {}
+  if (!window.focus) {
+    return true;
+  }
+  browserPopup = window.open(url, "", attrs);
+  browserPopup.focus();
+  return false;
+}
+var SetUrl = function(url, width, height, alt) {
+  notDefined[fieldID] = true;
+  var elInput = document.getElementById("hi_"+fieldID);
+  elInput.setAttribute('name', 'productImage'+fieldID);
+  elInput.setAttribute('id', 'hi_'+fieldID);
+  elInput.setAttribute('value', decodeURIComponent(url));
+  if (document.getElementById('lnk_'+fieldID) == null) {
+    notDefined[fieldID] = true;
+  } else {
+    notDefined[fieldID] = false;
+  }
+  url = url.substring(1);
+  var fileRegExp = /.+\/(.+)$/;
+  fileRegExp.exec(url);
+  var elTxt = document.createTextNode(decodeURIComponent(RegExp.$1));
+  var img = document.getElementById("img"+fieldID);
+  img.src = '/'+url;
+  var fact = 1;
+  if (width > height) {
+    fact = 80 / width;
+  } else {
+    fact = 80 / height;
+  }
+  img.style.width  = width*fact+'px';
+  img.style.height = height*fact+'px';
+  // set resized width and height in hidden fields
+  elInput_w = document.getElementById('hi_'+fieldID+'_w');
+  elInput_w.setAttribute('name', 'productImage'+fieldID+'_width');
+  elInput_w.setAttribute('value', width);
+  elInput_h = document.getElementById('hi_'+fieldID+'_h');
+  elInput_h.setAttribute('name', 'productImage'+fieldID+'_height');
+  elInput_h.setAttribute('value', height);
+  if (notDefined[fieldID]) {
+    var elALink = document.createElement('a');
+  } else {
+    var elALink = document.getElementById("lnk_"+fieldID);
+  }
+  elALink.setAttribute('href', decodeURIComponent(url));
+  elALink.setAttribute('target', '_blank');
+  elALink.setAttribute('id', 'lnk_'+fieldID);
+  elALink.setAttribute('title', 'product Image');
+  if (notDefined[fieldID]) {
+    elALink.appendChild(elTxt);
+    img.parentNode.appendChild(elALink);
+//  img.parentNode.appendChild(elInput);
+    img.parentNode.insertBefore(document.createElement('br'), elALink);
+  } else {
+    elALink = document.getElementById("lnk_"+fieldID);
+    elALink.removeChild(elALink.childNodes[0]);
+    fileRegExp = /.+\/(.+)$/;
+    fileRegExp.exec(decodeURIComponent(url));
+    elTxt = document.createTextNode(RegExp.$1);
+    elALink.appendChild(elTxt);
+    img.parentNode.appendChild(elALink);
+//  img.parentNode.appendChild(elInput);
+  }
+}
+function toggleOptions(checkboxId) {
+  if (document.getElementById('productOptions'+checkboxId).checked) {
+    document.getElementById('subOptionsProductOptions'+checkboxId).style.display = 'block';
+    for (var i = 0; i < document.getElementById('subOptionsProductOptions'+checkboxId).getElementsByTagName('input').length; ++i) {
+      objInput = document.getElementById('subOptionsProductOptions'+checkboxId).getElementsByTagName('input')[i];
+      if (objInput.getAttribute('type') == "checkbox") {
+        objInput.checked = true;
+      }
+    }
+  } else {
+    document.getElementById('subOptionsProductOptions'+checkboxId).style.display = 'none';
+    for (var i = 0; i < document.getElementById('subOptionsProductOptions'+checkboxId).getElementsByTagName('input').length; ++i) {
+      objInput = document.getElementById('subOptionsProductOptions'+checkboxId).getElementsByTagName('input')[i];
+      if (objInput.getAttribute('type') == "checkbox") {
+        objInput.checked = false;
+      }
+    }
+  }
+}
+function setDisplay(elementId, status) {
+  if (status == 1) {
+    document.getElementById(elementId).style.display = "block";
+  } else {
+    document.getElementById(elementId).style.display = "none";
+  }
+}
+function toggleDisplay(elementId) {
+  if (document.getElementById(elementId).style.display == "block") {
+    document.getElementById(elementId).style.display = "none";
+  } else {
+    document.getElementById(elementId).style.display = "block";
+  }
+}
+function distributionChanged() {
+  var selectedValue = document.getElementById("distribution").value;
+  var display = (document.all ? "block" : "table-row");
+  if (selectedValue == "delivery") {
+    if ({SHOP_WEIGHT_ENABLED})
+      document.getElementById("shopWeightRow").style.display = display;
+    document.getElementById("shopAccountRow").style.display = "none";
+    document.getElementById("shopValidityRow").style.display = "none";
+    document.getElementById("shopGroupsRow").style.display = "none";
+  } else if (selectedValue == "download") {
+    document.getElementById("shopWeightRow").style.display = "none";
+    document.getElementById("shopAccountRow").style.display = display;
+    // Disabled: accountChanged();
+    // Instead:
+    document.getElementById("shopValidityRow").style.display = display;
+    document.getElementById("shopGroupsRow").style.display = display;
+  } else {
+    document.getElementById("shopWeightRow").style.display = "none";
+    document.getElementById("shopAccountRow").style.display = "none";
+    document.getElementById("shopValidityRow").style.display = "none";
+    document.getElementById("shopGroupsRow").style.display = "none";
+  }
+}
+function accountChanged() {
+  if (document.getElementById("shopCreateAccountYes").checked) {
+    var display = (document.all ? "block" : "table-row");
+    document.getElementById("shopValidityRow").style.display = display;
+    document.getElementById("shopGroupsRow").style.display = display;
+  } else {
+    document.getElementById("shopValidityRow").style.display = "none";
+    document.getElementById("shopGroupsRow").style.display = "none";
+  }
+}
+function moveOptions(from, dest, add, remove) {
+  if (from.selectedIndex < 0) {
+    if (from.options[0] != null)
+      from.options[0].selected = true;
+    from.focus();
+    return false;
+  } else {
+    for (var i = 0; i < from.length; ++i) {
+      if (from.options[i].selected) {
+        dest.options[dest.length] = new Option(from.options[i].text, from.options[i].value, false, false);
+      }
+    }
+    for (var i = from.length-1; i >= 0; --i) {
+      if (from.options[i].selected) {
+        from.options[i] = null;
+      }
+    }
+  }
+  flagMasterChanged = 1;
+  disableButtons(from, dest, add, remove);
+}
+function selectAll(selectElement) {
+  if (selectElement) {
+    for (var i = 0; i < selectElement.length; ++i) {
+      selectElement.options[i].selected = true;
+    }
+  }
+}
+function deselectAll(selectElement) {
+  if (selectElement) {
+    for (var i = 0; i < selectElement.length; ++i) {
+      selectElement.options[i].selected = false;
+    }
+  }
+}
+function disableButtons(from, dest, add, remove) {
+  if (from.options.length > 0) {
+    add.disabled = 0;
+  } else {
+    add.disabled = 1;
+  }
+  if (dest.options.length > 0) {
+    remove.disabled = 0;
+  } else {
+    remove.disabled = 1;
+  }
+}
+// ]]></script>
+<ul id="tabmenu">
+  <li><a id="productManageTab_content1" class="active" href="javascript:{}" onclick="selectTab('content1')" title="{TXT_PRODUCT_INFORMATIONS}">{TXT_PRODUCT_INFORMATIONS}</a></li>
+  <li><a id="productManageTab_content2" href="javascript:{}" onclick="selectTab('content2')" title="{TXT_PRODUCT_OPTIONS}">{TXT_PRODUCT_OPTIONS}</a></li>
+  <li><a id="productManageTab_content3" href="javascript:{}" onclick="selectTab('content3')" title="{TXT_PRODUCT_IMAGE}">{TXT_PRODUCT_IMAGE}</a></li>
+  <li><a id="productManageTab_content4" href="javascript:{}" onclick="selectTab('content4')" title="{TXT_PRODUCT_STATUS}">{TXT_PRODUCT_STATUS}</a></li>
+</ul>
+<form name="formShopProduct" method="post"
+  action="index.php?cmd=shop{MODULE_INDEX}&amp;act=products&amp;tpl=manage"
+    onsubmit="selectAll(document.formShopProduct.elements['groupsAssigned[]']);selectAll(document.formShopProduct.elements['shopCategoriesAssigned[]']);">
+<!-- start content1 div -->
+  <div id="content1" class="productManageTab" style="display: block;">
+<!-- Unused: <input type="hidden" name="date" value="{SHOP_DATE}" />-->
+    <input type="hidden" name="id" value="{SHOP_PRODUCT_ID}" />
+    <input type="hidden" name="TempThumbnail" value="{SHOP_TEMP_THUMBNAIL}" />
+    <input type="hidden" name="edit" value="1" />
+    <input type="hidden" name="ImageName" value="{SHOP_IMAGE_NAME}" />
+    <table class="adminlist" border="0" width="100%" cellpadding="3" cellspacing="0">
+      <tr>
+        <th colspan="2">
+          {TXT_PRODUCT_INFORMATIONS}
+        </th>
+      </tr>
+      {SHOP_ID_COMMENT_START}
+      <tr class="row1">
+        <td width="25%">{TXT_ID}</td>
+        <td width="75%">{SHOP_PRODUCT_ID}</td>
+      </tr>
+      {SHOP_ID_COMMENT_END}
+      <tr class="row2">
+        <td>{TXT_PRODUCT_NAME}</td>
+        <td>
+          <input maxlength="255" name="product_name" size="40" value="{SHOP_PRODUCT_NAME}" />
+        </td>
+      </tr>
+      <tr class="row1">
+        <td>{TXT_CATEGORY}</td>
+        <td>
+          <table width="10%">
+            <tr>
+              <td style="border-bottom: 0px;">
+                {TXT_SHOP_CATEGORIES_AVAILABLE}<br />
+                <select name="shopCategoriesAvailable[]" size="10" style="width: 300px;" multiple="multiple">
+                  {SHOP_CATEGORIES_AVAILABLE}
+                </select><br />
+                <a href="javascript:void(0);" onclick="selectAll(document.formShopProduct.elements['shopCategoriesAvailable[]'])">{TXT_SHOP_SELECT_ALL}</a><br />
+                <a href="javascript:void(0);" onclick="deselectAll(document.formShopProduct.elements['shopCategoriesAvailable[]'])">{TXT_SHOP_DESELECT_ALL}</a>
+                </font>
+              </td>
+              <td style="border-bottom: 0px;">
+                &nbsp;&nbsp;&nbsp;<input type="button" value="&gt;&gt;" name="addCategory" onclick="moveOptions(document.formShopProduct.elements['shopCategoriesAvailable[]'],document.formShopProduct.elements['shopCategoriesAssigned[]'],addCategory,removeCategory);" style="margin-bottom:1px;" />&nbsp;&nbsp;
+                <br />
+                &nbsp;&nbsp;&nbsp;<input type="button" value="&lt;&lt;" name="removeCategory" onclick="moveOptions(document.formShopProduct.elements['shopCategoriesAssigned[]'],document.formShopProduct.elements['shopCategoriesAvailable[]'],removeCategory,addCategory);" />&nbsp;&nbsp;
+              </td>
+              <td style="border-bottom: 0px;">
+                {TXT_SHOP_CATEGORIES_ASSIGNED}<br />
+                <select name="shopCategoriesAssigned[]" size="10" style="width: 300px;" multiple="multiple">
+                  {SHOP_CATEGORIES_ASSIGNED}
+                </select>
+                <br />
+                <a href="javascript:void(0);" onclick="selectAll(document.formShopProduct.elements['shopCategoriesAssigned[]'])">{TXT_SHOP_SELECT_ALL}</a> <br />
+                <a href="javascript:void(0);" onclick="deselectAll(document.formShopProduct.elements['shopCategoriesAssigned[]'])">{TXT_SHOP_DESELECT_ALL}</a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr class="row2">
+        <td>{TXT_SHOP_PRODUCT_CUSTOM_ID}</td>
+        <td>
+          <input maxlength="255" name="product_code" size="40" value="{SHOP_PRODUCT_CODE}" />
+        </td>
+      </tr>
+      <tr class="row1">
+        <td>{TXT_CUSTOMER_PRICE}&nbsp;<span class="status">&nbsp;</span></td>
+        <td>
+          <input maxlength="255" name="customer_price" size="40" value="{SHOP_CUSTOMER_PRICE}" />
+        </td>
+      </tr>
+      <tr class="row2">
+        <td>{TXT_RESELLER_PRICE}</td>
+        <td>
+          <input maxlength="255" name="reseller_price" size="40" value="{SHOP_RESELLER_PRICE}" />
+        </td>
+      </tr>
+      <tr class="row1">
+        <td>{TXT_SPECIAL_OFFER}</td>
+        <td>
+          <input maxlength="10" name="discount_price" size="40" value="{SHOP_DISCOUNT}" />
+          <input type="checkbox" name="discount_active" value="1" {SHOP_SPECIAL_OFFER} />
+          &nbsp;{TXT_ACTIVE}
+        </td>
+      </tr>
+      <tr class="row2">
+        <td class="nowrap">{TXT_SHOP_DISCOUNT_GROUP_ARTICLE}</td>
+        <td>
+          <select name="discount_group_article_id" style="width: 220px;">
+            {SHOP_DISCOUNT_GROUP_ARTICLE_MENU_OPTIONS}
+          </select>
+        </td>
+      </tr>
+      <tr class="row1">
+        <td class="nowrap">{TXT_SHOP_DISCOUNT_GROUP_COUNT}</td>
+        <td>
+          <select name="discount_group_count_id" style="width: 220px;">
+            {SHOP_DISCOUNT_GROUP_COUNT_MENU_OPTIONS}
+          </select>
+        </td>
+      </tr>
+      <tr class="row2">
+        <td>{TXT_TAX_RATE}</td>
+        <td>
+          <select name="vat_id" style="width:220px;">
+            {SHOP_VAT_MENUOPTIONS}
+          </select>
+        </td>
+      </tr>
+      <tr class="row1">
+        <td>{TXT_DISTRIBUTION}</td>
+        <td>{SHOP_DISTRIBUTION_MENU}</td>
+      </tr>
+      <!-- either -->
+      <tr class="row2" id="shopWeightRow" style="display: none;">
+        <td>{TXT_WEIGHT}</td>
+        <td>
+          <input maxlength="10" name="weight" size="40" value="{SHOP_WEIGHT}" />
+        </td>
+      </tr>
+      <!-- or -->
+      <tr class="row2" id="shopAccountRow" style="display: none;">
+        <!--td>{TXT_SHOP_PROTECTED_DOWNLOAD}</td>
+        <td>
+          <input type="radio" name="createAccount" id="createAccountYes"
+            onchange="accountChanged();"{SHOP_CREATE_ACCOUNT_YES_CHECKED} />
+          <label for="createAccountYes">{TXT_SHOP_YES}</label>
+          <input type="radio" name="createAccount" id="createAccountNo"
+            onchange="accountChanged();"{SHOP_CREATE_ACCOUNT_NO_CHECKED} />
+          <label for="createAccountNo">{TXT_SHOP_NO}</label>
+        </td-->
+      </tr>
+      <!-- if shopCreateAccountYes.checked (2 rows) -->
+      <tr class="row2" id="shopValidityRow" style="display: none;">
+        <td>{TXT_SHOP_ACCOUNT_VALIDITY}</td>
+        <td>
+          <select name="accountValidity">
+            {SHOP_ACCOUNT_VALIDITY_OPTIONS}
+          </select>
+        </td>
+      </tr>
+      <tr class="row1" id="shopGroupsRow" style="display: none;">
+        <td>{TXT_SHOP_USERGROUPS}</td>
+        <td>
+          <!-- Table width contracts the select boxes and the arrows -->
+          <table width="10%">
+            <tr>
+              <td style="border-bottom: 0px;">
+                {TXT_SHOP_GROUPS_AVAILABLE}<br />
+                <select name="groupsAvailable[]" size="10" style="width: 300px;" multiple="multiple">
+                  {SHOP_GROUPS_AVAILABLE}
+                </select>
+                <br />
+                <a href="javascript:void(0);"onclick="selectAll(document.formShopProduct.elements['groupsAvailable[]'])">{TXT_SHOP_SELECT_ALL}</a><br />
+                <a href="javascript:void(0);" onclick="deselectAll(document.formShopProduct.elements['groupsAvailable[]'])">{TXT_SHOP_DESELECT_ALL}</a>
+              </td>
+              <td style="border-bottom: 0px;">
+                &nbsp;&nbsp;&nbsp;
+                <input type="button" value="&gt;&gt;" name="addGroup"
+                    onclick="moveOptions(document.formShopProduct.elements['groupsAvailable[]'],document.formShopProduct.elements['groupsAssigned[]'],addGroup,removeGroup);"
+                    style="margin-bottom:1px;" />
+                &nbsp;&nbsp;
+                <br />
+                &nbsp;&nbsp;&nbsp;
+                <input type="button" value="&lt;&lt;"  name="removeGroup"
+                    onclick="moveOptions(document.formShopProduct.elements['groupsAssigned[]'],document.formShopProduct.elements['groupsAvailable[]'],removeGroup,addGroup);" />
+                &nbsp;&nbsp;
+              </td>
+              <td style="border-bottom: 0px;">
+                {TXT_SHOP_GROUPS_ASSIGNED}<br />
+                <select name="groupsAssigned[]" size="10" style="width: 300px;" multiple="multiple">
+                  {SHOP_GROUPS_ASSIGNED}
+                </select>
+                <br />
+                <a href="javascript:void(0);" onclick="selectAll(document.formShopProduct.elements['groupsAssigned[]'])">{TXT_SHOP_SELECT_ALL}</a> <br />
+                <a href="javascript:void(0);" onclick="deselectAll(document.formShopProduct.elements['groupsAssigned[]'])">{TXT_SHOP_DESELECT_ALL}</a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+<!-- DISABLED FTTB
+BEGIN shopFlags
+      <tr class="row2">
+        <td>{TXT_SHOP_FLAGS}</td>
+        <td>{SHOP_FLAGS_SELECTION}</td>
+      </tr>
+END shopFlags -->
+      <tr class="row2">
+        <td colspan="2">{TXT_SHORT_DESCRIPTION}</td>
+      </tr>
+      <tr class="row1 reset">
+        <td colspan="2">{SHOP_SHORT_DESCRIPTION}</td>
+      </tr>
+      <tr class="row2">
+        <td colspan="2">{TXT_DESCRIPTION}</td>
+      </tr>
+      <tr class="row1 reset">
+        <td colspan="2">{SHOP_DESCRIPTION}</td>
+      </tr>
+      <tr class="row2">
+        <td>{TXT_SHOP_KEYWORDS} <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_SHOP_KEYWORDS_TOOLTIP}</span></td>
+        <td>
+          <textarea name="keywords" rows="5" cols="80">{SHOP_KEYWORDS}</textarea>
+        </td>
+      </tr>
+      <tr class="row1">
+        <td>{TXT_SHOP_MANUFACTURER}</td>
+        <td>
+          <select name="manufacturer_id" style="width: 220px;">
+            {SHOP_MANUFACTURER_MENUOPTIONS}
+          </select>
+        </td>
+      </tr>
+      <tr class="row2">
+        <td>{TXT_MANUFACTURER_URL}</td>
+        <td>
+          <input maxlength="255" name="uri" size="40" value="{SHOP_MANUFACTURER_URL}" />
+          ({TXT_WITH_HTTP})
+        </td>
+      </tr>
+      <tr class="row1">
+        <td>{TXT_STOCK}</td>
+        <td>
+          <input maxlength=10 name="stock" size="10" value="{SHOP_STOCK}" />
+          &nbsp;
+          <input type="checkbox" name="stock_visible" id="stock_visible"
+                 value="1" {SHOP_STOCK_VISIBILITY} />
+          <label for="stock_visible">{TXT_SHOP_PRODUCT_STOCK_ACTIVE}</label>
+        </td>
+      </tr>
+    </table>
+  </div>
+<!-- end content1 div -->
+<!-- start content2 div -->
+  <div id="content2" class="productManageTab" style="display: none;">
+    <table class="adminlist" border=0 width="100%" cellpadding="3" cellspacing="0">
+      <tr>
+        <th  colspan="2">{TXT_PRODUCT_OPTIONS}</th>
+      </tr>
+      <tr class="row1">
+          <td width="5%" class="f_bold">{TXT_SHOP_SORTING_ORDER}</td>
+          <td width="95%" class="f_bold">{TXT_SHOP_PRODUCT_OPTION}</td>
+      </tr>
+      <!-- BEGIN attributeList -->
+      <tr class="{SHOP_PRODUCTS_ATTRIBUTE_ROW_CLASS}">
+        <td width="5%">
+          <input style="width:25px;" type="text"
+              name="productOptionsSortId[{SHOP_PRODUCTS_ATTRIBUTE_ID}]"
+              value="{SHOP_PRODUCTS_ATTRIBUTE_SORTID}" />
+        </td>
+        <td>
+          <input id="productOptions{SHOP_PRODUCTS_ATTRIBUTE_ID}"
+              onclick="toggleOptions({SHOP_PRODUCTS_ATTRIBUTE_ID})"
+              type="checkbox" value="{SHOP_PRODUCTS_ATTRIBUTE_ID}"
+              {SHOP_PRODUCTS_ATTRIBUTE_SELECTED} />
+          <label for="productOptions{SHOP_PRODUCTS_ATTRIBUTE_ID}">
+            {SHOP_PRODUCTS_ATTRIBUTE_NAME}
+          </label>
+          <br />
+          <div style="display: {SHOP_PRODUCTS_ATTRIBUTE_DISPLAY_TYPE}; margin-left: 50px"
+              id="subOptionsProductOptions{SHOP_PRODUCTS_ATTRIBUTE_ID}">
+<!-- BEGIN optionList -->
+              <input type="checkbox" id="options{SHOP_PRODUCTS_ATTRIBUTE_VALUE_ID}"
+                  name="options[{SHOP_PRODUCTS_ATTRIBUTE_VALUE_ID}]"
+                  value="{SHOP_PRODUCTS_ATTRIBUTE_ID}"
+                  {SHOP_PRODUCTS_ATTRIBUTE_VALUE_SELECTED} />
+              <label for="options{SHOP_PRODUCTS_ATTRIBUTE_VALUE_ID}">
+                {SHOP_PRODUCTS_ATTRIBUTE_VALUE_TEXT}
+              </label>
+              <br />
+<!-- END optionList -->
+          </div>
+        </td>
+      </tr>
+<!-- END attributeList -->
+    </table>
+  </div>
+<!-- end content2 div -->
+<!-- start content3 div -->
+  <div id="content3" class="productManageTab" style="display: none;">
+    <table class="adminlist" border=0 width="100%" cellpadding="3" cellspacing="0">
+      <tr>
+        <th colspan="4">
+          {TXT_PRODUCT_IMAGE}
+        </th>
+      </tr>
+      <tr  class="row1">
+        <td width="25%"> {TXT_SHOP_EDIT_OR_ADD_IMAGE}</td>
+        <td width="25%">
+          <a href="javascript:void(0);" title="{TXT_SHOP_EDIT_OR_ADD_IMAGE}"
+              onclick="openBrowser('index.php?cmd=fileBrowser&amp;standalone=true&amp;type=shop','1','width=800,height=640,resizable=yes,status=no,scrollbars=yes','img','');">
+            {TXT_SHOP_EDIT_OR_ADD_IMAGE}<br />
+            <span id="img_1">
+              <img id="img1" style="width: {SHOP_IMG1_WIDTH}px; height: {SHOP_IMG1_HEIGHT}px; border: none;"
+                  src="{SHOP_PICTURE1_IMG_SRC}"
+                  title="{TXT_SHOP_EDIT_OR_ADD_IMAGE}" alt="{TXT_SHOP_EDIT_OR_ADD_IMAGE}" />
+            </span>
+          </a>
+          <a href="javascript:void(0);"
+              onclick="document.getElementById('img_1').innerHTML='<img src=\'{SHOP_NO_PICTURE_ICON}\' border=\'0\' id=\'img1\' title=\'{TXT_SHOP_EDIT_OR_ADD_IMAGE}\' >',document.getElementById('hi_1').value='{SHOP_NO_PICTURE_ICON}',document.getElementById('hi_1_w').value='0',document.getElementById('hi_1_h').value='0'"
+              title="{TXT_SHOP_DEL_ICON}">
+            <img src="{SHOP_DELETE_ICON}" border="0" alt="{TXT_SHOP_DEL_ICON}"/>
+          </a>
+          <input type="hidden" id="hi_1" name="productImage1"
+              value="{SHOP_PICTURE1_IMG_SRC_NO_THUMB}" />
+          <input type="hidden" id="hi_1_w" name="productImage1_width"
+              value="{SHOP_PICTURE1_IMG_WIDTH}" />
+          <input type="hidden" id="hi_1_h" name="productImage1_height"
+              value="{SHOP_PICTURE1_IMG_HEIGHT}" />
+        </td>
+        <td width="25%">
+          <a href="javascript:void(0);" title="{TXT_SHOP_EDIT_OR_ADD_IMAGE}"
+              onclick="openBrowser('index.php?cmd=fileBrowser&amp;standalone=true&amp;type=shop','2','width=800,height=640,resizable=yes,status=no,scrollbars=yes','img','');" >
+            {TXT_SHOP_EDIT_OR_ADD_IMAGE}<br />
+            <span id="img_2">
+              <img id="img2" style="width: {SHOP_IMG2_WIDTH}px; height: {SHOP_IMG2_HEIGHT}px; border: none;"
+                  src="{SHOP_PICTURE2_IMG_SRC}"
+                  title="{TXT_SHOP_EDIT_OR_ADD_IMAGE}" alt="{TXT_SHOP_EDIT_OR_ADD_IMAGE}" />
+            </span>
+          </a>
+          <a href="javascript:void(0);"
+              onclick="document.getElementById('img_2').innerHTML='<img src=\'{SHOP_NO_PICTURE_ICON}\' border=\'0\' id=\'img2\' title=\'{TXT_SHOP_EDIT_OR_ADD_IMAGE}\' >',document.getElementById('hi_2').value='{SHOP_NO_PICTURE_ICON}',document.getElementById('hi_2_w').value='0',document.getElementById('hi_2_h').value='0'"
+              title="{TXT_SHOP_DEL_ICON}">
+            <img src="{SHOP_DELETE_ICON}" border="0" alt="{TXT_SHOP_DEL_ICON}"/>
+          </a>
+          <input type="hidden" id="hi_2" name="productImage2"
+              value="{SHOP_PICTURE2_IMG_SRC_NO_THUMB}" />
+          <input type="hidden" id="hi_2_w" name="productImage2_width"
+              value="{SHOP_PICTURE2_IMG_WIDTH}" />
+          <input type="hidden" id="hi_2_h" name="productImage2_height"
+              value="{SHOP_PICTURE2_IMG_HEIGHT}" />
+        </td>
+        <td width="25%">
+          <a href="javascript:void(0);" title="{TXT_SHOP_EDIT_OR_ADD_IMAGE}"
+              onclick="openBrowser('index.php?cmd=fileBrowser&amp;standalone=true&amp;type=shop','3','width=800,height=640,resizable=yes,status=no,scrollbars=yes','img','');">
+            {TXT_SHOP_EDIT_OR_ADD_IMAGE}<br />
+            <span id="img_3">
+              <img id="img3" style="width: {SHOP_IMG3_WIDTH}px; height: {SHOP_IMG3_HEIGHT}px; border: none;"
+                  src="{SHOP_PICTURE3_IMG_SRC}"
+                  title="{TXT_SHOP_EDIT_OR_ADD_IMAGE}" alt="{TXT_SHOP_EDIT_OR_ADD_IMAGE}" />
+            </span>
+          </a>
+          <a href="javascript:void(0);"
+              onclick="document.getElementById('img_3').innerHTML='<img src=\'{SHOP_NO_PICTURE_ICON}\' border=\'0\' id=\'img3\' title=\'{TXT_SHOP_EDIT_OR_ADD_IMAGE}\'>',document.getElementById('hi_3').value='{SHOP_NO_PICTURE_ICON}',document.getElementById('hi_3_w').value='0',document.getElementById('hi_3_h').value='0'"
+              title="{TXT_SHOP_DEL_ICON}">
+            <img src="{SHOP_DELETE_ICON}" border="0" alt="{TXT_SHOP_DEL_ICON}"/>
+          </a>
+          <input type="hidden" id="hi_3" name="productImage3"
+              value="{SHOP_PICTURE3_IMG_SRC_NO_THUMB}" />
+          <input type="hidden" id="hi_3_w" name="productImage3_width"
+              value="{SHOP_PICTURE3_IMG_WIDTH}" />
+          <input type="hidden" id="hi_3_h" name="productImage3_height"
+              value="{SHOP_PICTURE3_IMG_HEIGHT}" />
+        </td>
+      </tr>
+    </table>
+  </div>
+<!-- end content3 div -->
+<!-- start content4 div -->
+  <div id="content4" class="productManageTab" style="display: none;">
+    <table class="adminlist" border=0 width="100%" cellpadding="3" cellspacing="0">
+      <tr>
+        <th colspan="2">
+          {TXT_PRODUCT_STATUS}
+        </th>
+      </tr>
+      <tr class="row1">
+        <td>{TXT_ACTIVE}</td>
+        <td><input type="checkbox" name="articleActive" value="1" {SHOP_ARTICLE_ACTIVE} /></td>
+      </tr>
+      <tr class="row2">
+        <td>{TXT_B2B}</td>
+        <td><input type="checkbox" name="B2B" value="1" {SHOP_B2B} /></td>
+      </tr>
+      <tr class="row1">
+        <td>{TXT_B2C}</td>
+        <td><input type="checkbox" name="B2C" value="1" {SHOP_B2C} /></td>
+      </tr>
+      <tr class="row2">
+        <td>{TXT_START_DATE}</td>
+        <td>
+          {SHOP_DATE_START}
+        </td>
+      </tr>
+      <tr class="row1">
+        <td>{TXT_END_DATE}</td>
+        <td>
+          {SHOP_DATE_END}
+        </td>
+      </tr>
+    </table>
+  </div>
+<!-- end content4 div -->
+  <br />
+    <input type="button" value="{TXT_SHOP_CANCEL}"
+           onclick="location='index.php?cmd=shop&act=products&{CSRF_PARAM}';" />
+    <input type="submit" value="{TXT_STORE}" name="bstore" />
+  {TXT_ACTION_AFTER_SAVEING}
+  <select name="afterStoreAction">
+    <option value="catalog" selected="selected">{TXT_PRODUCT_CATALOG}</option>
+    <option value="newEmpty">{TXT_ADD_PRODUCTS}</option>
+    <option value="newTemplate">{TXT_ADD_PRODUCTS} ({TXT_FROM_TEMPLATE})</option>
+  </select>
+</form>
+<script type="text/javascript">
+/* <![CDATA[ */
+distributionChanged();
+/* ]]> */
+</script>
+<!-- END shop_product_manage.html-->

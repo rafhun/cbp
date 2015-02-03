@@ -1,0 +1,43 @@
+<!-- START log.html -->
+<form name="form_logs" method="post" action="index.php?cmd=log">
+    <table class="adminlist" border="0" width="100%" cellpadding="3" cellspacing="0">
+        <tr>
+            <th>{TXT_SEARCH}</th>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    <input type="text" name="term" value="{LOG_SEARCHTERM}" />
+                    <input type="submit" name="submit" value="{TXT_SEARCH}" />
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>
+<br />
+<table class="adminlist" border="0" width="100%" cellpadding="3" cellspacing="0">
+    <tr>
+        <th colspan="6">{TXT_SYSTEM_LOGS}</th>
+    </tr>
+    <tr class="row3">
+        <td width="13%">{TXT_LOGTIME}</td>
+        <td width="13%">{TXT_USER_NAME}</td>
+        <td width="17%">{TXT_HOSTNAME}</td>
+        <td width="17%">{TXT_IP_ADDRESS}</td>
+        <td width="22%">{TXT_BROWSERLANGUAGE}</td>
+        <td width="18%">{TXT_USERAGENT}</td>
+    </tr>
+    <!-- BEGIN logRow -->
+    <tr class="{LOG_ROWCLASS}">
+        <td>{LOG_TIME}</td>
+        <td><a href="index.php?cmd=log&amp;user={LOG_USERID}"><img src="images/icons/logged_as.gif" alt="User Stats" border="0" />&nbsp;{LOG_USERNAME}</a></td>
+        <td><a href="index.php?cmd=nettools&amp;tpl=whois&amp;address={LOG_REMOTE_HOST}">{LOG_REMOTE_HOST}</a></td>
+        <td><a href="index.php?cmd=nettools&amp;tpl=whois&amp;address={LOG_REMOTE_ADDR}">{LOG_REMOTE_ADDR}</a></td>
+        <td>{LOG_USERLANGUAGE}</td>
+        <td><span class="icon-info tooltip-trigger" style="margin-top: 6px;"></span><span class="tooltip-message">{LOG_USERAGENT}</span></td>
+    </tr>
+    <!-- END logRow -->
+</table>
+<br />
+{LOG_PAGING}
+<!-- END log.html -->

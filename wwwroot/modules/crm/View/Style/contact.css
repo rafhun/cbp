@@ -1,0 +1,267 @@
+#loading {
+    background: url(../../../../cadmin/images/icons/loading.gif) no-repeat center center #D3D0D0;
+    display: none;
+    height: 100%;
+    left: 0;
+    opacity: 0.8;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1003;
+}
+.dropDownDialog {
+    background-color: #FFFFFF;
+    border: 1px solid #D1D1D1;
+    display: none;
+    padding: 10px;
+    position: absolute;
+    z-index: 150;
+}
+.dropDownDialog div.dropDownContent {
+    padding-right: 3px;
+}
+.dropDownDialog a.dropDownItem {
+    color: #333333;
+    cursor: pointer;
+    display: block;
+    font-size: 11px;
+    padding: 3px 0 3px 3px;
+    text-decoration: none;
+    width: 100%;
+}
+.actions_for_item {
+    float: left;
+    /*clear: right;*/
+    display: inline-block;
+    min-width: 70px;
+}
+.crm-deleteLink, .crm_deleteLink_address {
+    background: url("../../../../cadmin/images/icons/empty.gif") no-repeat scroll left center transparent;
+    cursor: pointer;
+    display: inline-block;
+    height: 16px;
+    text-decoration: none;
+    width: 16px;
+}
+.is_primary, .is_primary_address {
+    cursor: pointer;
+    display: inline-block;
+    height: 16px;
+    margin: 1px;
+    position: relative;
+    width: 16px;
+}
+.crm-addNewLink, .crm_addNewLink_address {
+    background: url("../../../../cadmin/images/icons/add-crm.png") no-repeat scroll left center transparent;
+    cursor: pointer;
+    display: inline-block;
+    height: 16px;
+    text-decoration: none;
+    width: 16px;
+}
+.crm-addNewLink, .crm-deleteLink, .crm_deleteLink, .crm_addNewLink_address {
+    margin: 2px;
+    position: relative;
+}
+.not_primary_field, .not_primary_field_address {
+    background: url("../../../../cadmin/images/icons/Tick-icon.png") no-repeat scroll left center transparent;
+}
+.primary_field, .primary_field_address {
+    background: url("../../../../cadmin/images/icons/Tick-primary.png") no-repeat scroll left center transparent;
+}
+.address_list_container {
+    float: left;
+    width: 100%;
+    padding-bottom: 15px;
+}
+body .address_list_container .cCountry,body .address_list_container .contactType {
+    background-color: #cfcfcf;
+}
+body .address_list_container select {
+    height: 26px !important;
+}
+body .address_list_container textarea, body .contactNotes, .notes {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 392px;
+}
+.notes {
+    width: 872px;
+    height: 100px;
+}
+table.innerTable tr td.addressline-2 input {
+    width: 121px !important;
+}
+#content #access table.innerTable tr td.addressline-3 select.cCountry {
+    width: 204px !important;
+    margin-right: 10px;
+}
+#content #access table.innerTable tr td.addressline-3 select.contactType {
+    width: 179px !important;
+}
+
+body .address_list_container input {
+    margin: 0;
+}
+.address_list {
+    float: left;
+    width: 399px;
+}
+/*
+* Customer
+*/
+#selectContact{width: 300px;}
+#content #selectContact,#content .selectCustomer {
+    padding-left: 20px;
+    height: 16px;
+    background: url("../../../../cadmin/images/icons/search_lens.jpg") no-repeat scroll left center transparent;
+    border-right: 1px solid #BBB;
+}
+.newContactSelecter {
+    height: 60px;
+    width: 315px;
+    padding: 5px;
+    background: #DDE4FF;
+}
+.noMatch{
+    padding: 10px 0;
+}
+#contactContainer{
+    float: left;
+    width: 100%;
+    /*margin-bottom: 8px;*/
+}
+/*table#contacts, table#websitesTable {
+    width: 44%;
+}*/
+table#contacts thead tr th, table#websitesTable thead tr th {
+  /*  background-color: white;
+    border-bottom: 1px solid #BBB;*/
+}
+table#contacts tfoot tr td, table#websitesTable tfoot tr td {
+    border: medium none;
+}
+/*table#contacts tr td, table#websitesTable tr td{
+    height: 25px;
+}*/
+.header-description, #addContact, #addWebsite {
+    /*color: #BBB;*/
+    cursor: pointer;
+    float: left;
+    /*font-size: 14px;*/
+    /*font-weight: bold;*/
+    padding-left: 15px;
+}
+#addContact, #addWebsite {
+    background-image: url("../../../../cadmin/images/icons/icon-user-add.png");
+    background-position: left top;
+    padding-left: 20px;
+    background-repeat: no-repeat;
+    font-size: 11px;    
+    text-align: right;
+    float: right;
+    border-bottom: 1px dotted #BBB;
+    margin-top: 2px;
+    height: 17px;
+}
+.header-expand{
+    background: url("../../../../cadmin/images/icons/collapce_right.gif") no-repeat scroll left center transparent;
+}
+.header-collapse{
+    background: url("../../../../cadmin/images/icons/expand-header.gif") no-repeat scroll left center transparent;
+}
+.clear {clear: both;float: none;}
+#access .input-addcontact {width: 156px !important;}
+#access select.input-addcontact {width: 158px !important;}
+#contactsContainer {
+    float: left;
+    width: 100%;
+}
+#websiteContainer {
+    float: left;
+    width: 100%;
+}
+.spacing{float: left;width: 1%;}
+.delete-customer{
+    background: url("../../../../cadmin/images/icons/cross-grey.png") no-repeat scroll left center white;
+    cursor: pointer;
+    height: 16px;
+    margin-left: -20px;
+    margin-top: 4px;
+    position: absolute;
+    width: 16px;
+}
+
+#content .chzn-container {
+    float: left;
+    height: auto;
+    z-index: 1;
+    width: 262px !important;
+}
+#content .chzn-container .chzn-results {
+    width: 260px;
+}
+table#profile-info tr td {
+    border-bottom: 0px none;
+}
+table#profile-info tr.row0:hover, table#profile-info tr.row1:hover, table#profile-info tr.row2:hover {
+    background: #fff;
+}
+.contact_user_container .error {
+    color: red;
+}
+.contact_user_container .success {
+    color: green;
+}
+.email_list, .phone_list, .website_list, .social_list {
+    background-color: #fff;
+    border: 1px solid #BBB;
+    float: left;
+    width: 260px;
+}
+.website_list_container, .social_list_container {
+    float: left;
+    width: 100%;
+}
+#content .email_list_container .email_list input.mInput,
+#content .website_list_container .website_list input.mInput,
+#content .social_list_container .social_list input.mInput,
+#content .phone_list_container .phone_list input.mInput {
+    border: medium none;
+    width: 184px;
+    float: left;
+}
+#content .email_list_container .email_list input.mInput:focus,
+#content .website_list_container .website_list input.mInput:focus,
+#content .social_list_container .social_list input.mInput:focus,
+#content .phone_list_container .phone_list input.mInput:focus {
+    outline: none;
+}
+
+#content .website_list_container .website_list a,
+#content .social_list_container .social_list a,
+#content .email_list_container .email_list a,
+#content .phone_list_container .phone_list a {
+    text-align: center;
+    border-bottom: 1px solid #A49191;
+    float: left;
+    margin-right: 5px;
+    padding-top: 2px;
+    width: 65px;
+    height: 19px;
+    cursor: pointer;
+}
+
+#phoneContainer,
+#phoneContainer .phone_list_container,
+#websiteContainer,
+#socialContainer,
+#websiteContainer .website_list_container,
+#socialContainer .social_list_container,
+#emailContainer,
+#content .email_list_container {
+    float: left;
+    width: 100%;
+    padding: 1px 0;
+}

@@ -1,0 +1,35 @@
+<!-- START themes_activate.html -->
+<script language="JavaScript" type="text/javascript">
+<!-- // confirm delete variable
+function deleteLanguage(id)
+{
+    if(confirm('{TXT_CONFIRM_DELETE_DATA}\n{TXT_ACTION_IS_IRREVERSIBLE} {TXT_ATTENTION_SYSTEM_FUNCTIONALLY_AT_RISK}'))
+        window.location.replace("index.php?cmd=language&{CSRF_PARAM}&act=dellang&languageId="+id);
+}
+
+function reloadThemesPage()
+{
+	document.themesFormActivate.action = 'index.php?cmd=skins&act=activate';
+	document.themesFormActivate.submit();
+}
+// -->
+</script>
+<form name="create_dir" method="post" action="{CREATE_DIR_ACTION}">
+	<table summary="" width="100%" cellspacing="0" cellpadding="5" border="0" align="middle" class="adminlist">
+		<tr>
+		    <th colspan="2">{TXT_IMPORT_THEME}</th>
+		</tr>
+		<tr class="row1">
+	    	<td width="20%">
+	    	    {TXT_SELECT_ARCHIVE}:
+			</td>
+			<td width="80%">
+				<select name="existingdirName" onchange="deactivateDirName()" style="WIDTH: 285px"><option value="" SELECTED>--- {TXT_SELECT_ARCHIVE} -----------</option>{THEMES_ARCHIVES}</select>
+			</td>
+		</tr>
+	</table>
+	<br />
+	<input type="submit" name="submit" value="{TXT_IMPORT}" />
+</form>
+<!-- END themes_activate.html -->
+

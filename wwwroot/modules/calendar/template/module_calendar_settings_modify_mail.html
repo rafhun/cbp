@@ -1,0 +1,159 @@
+<!-- START module_mediadir_settings_modify_mail.html -->
+<script type="text/javascript">
+    $J(function(){
+        $J(".tmpl-action").change(function(){
+           $J("tr.placeholder").hide();
+           $J("tr.placeholder-all").css('display', 'table-row');
+           $J("tr.placeholder-"+$J(this).val()).css('display', 'table-row');
+        });
+        $J(".tmpl-action").trigger("change");
+    });
+</script>
+<form action="index.php?cmd={CALENDAR_MODULE_NAME}&act=settings&tpl=mails" name="formModifyMail" method="post" onsubmit="return formCheck();">
+    <input name="id" type="hidden" value="{CALENDAR_TEMPLATE_ID}" />
+    <table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+        <tr>
+            <th colspan="2">{TXT_CALENDAR_MAIL_TEMPLATE_TITLE}</th>
+        </tr>
+        <tr class="row1">
+            <td width="200">{TXT_CALENDAR_MAIL_ACTION}</td>
+            <td>
+                <select name="action" class="tmpl-action" style="width: 302px">
+                    {CALENDAR_TEMPLATE_ACTION}
+                </select>
+            </td>
+        </tr>
+        <tr class="row2">
+            <td valign="top">{TXT_CALENDAR_MAIL_LANG}</td>
+            <td>
+                <select name="lang" style="width: 302px">
+                    {CALENDAR_TEMPLATE_LANG}
+                </select>
+            </td>
+        </tr>
+        <tr class="row1">
+            <td width="200">{TXT_CALENDAR_MAIL_RECIPIENTS}</td>
+            <td>
+                <input name="recipients" type="text" style="width: 300px" value="{CALENDAR_TEMPLATE_RECIPIENTS}" />
+            </td>
+        </tr>
+        <tr class="row2">
+            <td valign="top">{TXT_CALENDAR_MAIL_TITLE}</td>
+            <td>
+                <input name="title" type="text" style="width: 300px" value="{CALENDAR_TEMPLATE_TITLE}" />
+            </td>
+        </tr>
+        <tr class="row1">
+            <td width="200" valign="top">{TXT_CALENDAR_CONTENT}</td>
+            <td>
+                <ul id="tabmenu">
+                    <li><a id="mailTab_contentText" class="active"  href="javascript:{}" onclick="selectTab('contentText')" title="{TXT_CALENDAR_MAIL_CONTENT_TEXT}" hidefocus>{TXT_CALENDAR_MAIL_TEXT}</a></li>
+                    <li><a id="mailTab_contentHTML" href="javascript:{}" onclick="selectTab('contentHTML')" title="{TXT_CALENDAR_MAIL_CONTENT_HTML}" hidefocus>{TXT_CALENDAR_MAIL_HTML}</a></li>
+                    <li><a id="mailTab_placeHolders" href="javascript:{}" onclick="selectTab('placeHolders')" title="{TXT_MEDIADIR_PLACEHOLDER_DIRECTORY}" hidefocus>{TXT_CALENDAR_MAIL_PLACEHOLDER}</a></li>
+                </ul>
+                <div id="contentText" class="mailTab" style="display:block;">
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0" align="top" class="adminlist">
+                        <tr>
+                            <th>{TXT_CALENDAR_MAIL_CONTENT_TEXT}</th>
+                        </tr>
+                        <tr class="row1">
+                            <td><textarea name="content_text" style="width: 100%; height: 445px;" >{CALENDAR_TEMPLATE_CONTENT_TEXT}</textarea></td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="contentHTML" class="mailTab" style="display:none;">
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0" align="top" class="adminlist">
+                        <tr>
+                            <th>{TXT_CALENDAR_MAIL_CONTENT_HTML}</th>
+                        </tr>
+                        <tr class="row1">
+                            <td>{CALENDAR_TEMPLATE_CONTENT_HTML}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="placeHolders" class="mailTab" style="display:none;">
+                    <table width="100%" cellspacing="0" cellpadding="3" border="0" align="top" class="adminlist">
+                        <thead>
+                            <tr>
+                                <th colspan=2>{TXT_CALENDAR_PLACEHOLDER_DIRECTORY}</th>
+                            </tr>
+                            <tr class="row3">
+                                <td valign="top"><b>{TXT_CALENDAR_COMMENT}</b></td>
+                                <td valign="top"><b>{TXT_CALENDAR_MAIL_PLACEHOLDER}</b></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="row1 placeholder placeholder-all">
+                                <td valign="top">{TXT_CALENDAR_TITLE}</td>
+                                <td >[[TITLE]]</td>
+                            </tr>
+                            <tr class="row2 placeholder placeholder-all">
+                                <td valign="top">{TXT_CALENDAR_START_DATE}</td>
+                                <td >[[START_DATE]]</td>
+                            </tr>
+                            <tr class="row1 placeholder placeholder-all">
+                                <td valign="top">{TXT_CALENDAR_END_DATE}</td>
+                                <td >[[END_DATE]]</td>
+                            </tr>
+                            <tr class="row2 placeholder placeholder-all">
+                                <td valign="top">{TXT_CALENDAR_LINK_EVENT}</td>
+                                <td >[[LINK_EVENT]]</td>
+                            </tr>
+                            <tr class="row1 placeholder placeholder-all">
+                                <td valign="top">{TXT_CALENDAR_LINK_REGISTRATION}</td>
+                                <td >[[LINK_REGISTRATION]]</td>
+                            </tr>
+                            <tr class="row2 placeholder placeholder-all">
+                                <td width="200" valign="top">{TXT_CALENDAR_USERNAME}</td>
+                                <td >[[USERNAME]]</td>
+                            </tr>
+                            <tr class="row1 placeholder placeholder-all">
+                                <td valign="top">{TXT_CALENDAR_FIRSTNAME}</td>
+                                <td >[[FIRSTNAME]]</td>
+                            </tr>
+                            <tr class="row2 placeholder placeholder-all">
+                                <td valign="top">{TXT_CALENDAR_LASTNAME}</td>
+                                <td >[[LASTNAME]]</td>
+                            </tr>
+                            <tr class="row1 placeholder placeholder-all">
+                                <td valign="top">{TXT_CALENDAR_URL}</td>
+                                <td >[[URL]]</td>
+                            </tr>
+                            <tr class="row2 placeholder placeholder-all">
+                                <td valign="top">{TXT_CALENDAR_DATE}</td>
+                                <td >[[DATE]]</td>
+                            </tr>
+                            <tr class="row1 placeholder placeholder-2 placeholder-3">
+                                <td valign="top">{TXT_CALENDAR_REGISTRATION_TYPE}</td>
+                                <td >[[REGISTRATION_TYPE]]</td>
+                            </tr>
+                            <tr class="row2 placeholder placeholder-2 placeholder-3">
+                                <td valign="top">{TXT_CALENDAR_REGISTRATION_SALUTATION}</td>
+                                <td >[[REGISTRATION_SALUTATION]]</td>
+                            </tr>
+                            <tr class="row1 placeholder placeholder-2 placeholder-3">
+                                <td valign="top">{TXT_CALENDAR_REGISTRATION_FIRSTNAME}</td>
+                                <td >[[REGISTRATION_FIRSTNAME]]</td>
+                            </tr>
+                            <tr class="row2 placeholder placeholder-2 placeholder-3">
+                                <td valign="top">{TXT_CALENDAR_REGISTRATION_LASTNAME}</td>
+                                <td >[[REGISTRATION_LASTNAME]]</td>
+                            </tr>
+                            <tr class="row1 placeholder placeholder-2 placeholder-3">
+                                <td valign="top">{TXT_CALENDAR_REGISTRATION_EMAIL}</td>
+                                <td >[[REGISTRATION_EMAIL]]</td>
+                            </tr>
+                            <tr class="row1 placeholder placeholder-2 placeholder-3">
+                                <td valign="top">{TXT_CALENDAR_REGISTRATION_DATA}</td>
+                                <td >[[REGISTRATION_DATA]]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <input type="submit" name="submitModifyMail" value="{TXT_CALENDAR_SAVE}" />
+</form>
+<!-- module_mediadir_settings_modify_mail.html -->

@@ -1,0 +1,21 @@
+<table summary="" border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+  <tbody>
+    <tr>
+      <th colspan="3">{TXT_EGOV_CHOOSE_PRODUCT_FOR_RESERVATION}</th>
+    </tr>
+    <tr class="row3" style="white-space:nowrap;">
+      <td width="3%"><b>ID</b></td>
+      <td width="3%"></td>
+      <td><b>{TXT_PRODUCT}</b></td>
+    </tr>
+    <!-- BEGIN products_list -->
+    <tr class="{ROWCLASS}">
+      <td>{PRODUCT_ID}</td>
+      <td>{PRODUCT_STATUS}</td>
+      <td>
+        <a href="index.php?cmd=egov&amp;act=detail&amp;id={PRODUCT_ID}">{PRODUCT_NAME}</a>
+      </td>
+    </tr>
+    <!-- END products_list -->
+  </tbody>
+</table>

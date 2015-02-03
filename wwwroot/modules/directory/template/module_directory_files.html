@@ -1,0 +1,149 @@
+<!-- START module_directory_files.html -->
+<script language="JavaScript">
+function deleteFile(id)
+{
+   if(confirm('{TXT_CONFIRM_DELETE_DATA}\n{TXT_ACTION_IS_IRREVERSIBLE}'))
+        window.location.replace("index.php?cmd=directory&{CSRF_PARAM}&act=delfile&id="+id);
+}
+
+function restoreVoting(id)
+{
+   if(confirm('{TXT_ACTION_IS_IRREVERSIBLE}'))
+        window.location.replace("index.php?cmd=directory&{CSRF_PARAM}&act=restorevoting&id="+id);
+}
+
+
+function filesIsChecked(fieldName)
+{
+    var x = 0;
+    for(var i = 0; i < document.files.elements.length; i++)
+    {
+        var e = document.files.elements[i];
+        if(e.name == fieldName && e.checked == true)
+        {
+            x++;
+        }
+    }
+    if(x > 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
+function filesDoAction()
+{
+    if(filesIsChecked("formSelected[]") == true)
+    {
+	    if(document.files.selectAction.value == "delete")
+	    {
+	    	if(confirm('{TXT_CONFIRM_DELETE_DATA}\n{TXT_ACTION_IS_IRREVERSIBLE}'))
+        		document.files.action = "index.php?cmd=directory&act=delfile";
+        		document.files.submit();
+	    }
+	    if(document.files.selectAction.value == "move")
+	    {
+	    	document.files.action = "index.php?cmd=directory&act=movefile";
+        	document.files.submit();
+	    }
+    }
+    else
+    {
+        alert("{TXT_MAKE_SELECTION}");
+    }
+
+    document.files.selectAction.value = "0";
+}
+</script>
+<table width="100%" border="0" cellspacing="0" cellpadding="3" class="adminlist">
+  <tr>
+    <th nowrap>{TXT_OPTIONS}</th>
+  </tr>
+  <tr class="row1">
+    <td nowrap>
+      <form method=post action='index.php?cmd=directory&amp;act=files'>
+        {TXT_FILE_SEARCH}:
+        <input type="text" name="term">
+        <input type="submit" name="Submit" value="{TXT_SEARCH}">
+      </form>
+    </td>
+  </tr>
+</table>
+<br />
+<form name="files" method="post" action="index.php?cmd=directory&amp;act=files">
+<table width="100%" cellspacing=0 cellpadding=3 border="0" class="adminlist" align="center">
+  <tr>
+    <th colspan="10">{TXT_LIST}</th>
+  </tr>
+  <tr class="row3">
+    <td width="16">
+       <center><b>#</b></center>
+    </td>
+    <td width="35%"><b><a href="index.php?cmd=directory&amp;act=files&amp;sort=name{CATID_SORT}">{TXT_NAME}</a></b></td>
+    <td width="10%"><b><a href="index.php?cmd=directory&amp;act=files&amp;sort=size{CATID_SORT}">{TXT_SIZE}</a></b></td>
+    <td width="10%"><b><a href="index.php?cmd=directory&amp;act=files&amp;sort=date{CATID_SORT}">{TXT_DATE}</a></b></td>
+    <td width="20%"><b>{TXT_VOTING}</b></td>
+    <td width="10%"><b><a href="index.php?cmd=directory&amp;act=files&amp;sort=addedby{CATID_SORT}">{TXT_AUTHOR}</a></b></td>
+    <td width="5%"><b><a href="index.php?cmd=directory&amp;act=files&amp;sort=hits{CATID_SORT}">{TXT_HITS}</a></b></td>
+    <td width="15%"><b><a href="index.php?cmd=directory&amp;act=files&amp;sort=spez{CATID_SORT}">{TXT_SPEZ_SORT}</a></b></td>
+    <td width="5%"><b><div align="right">{TXT_ACTION}</div></b></td>
+  </tr>
+  <!-- BEGIN filesRow -->
+  <tr class={FILES_ROW}>
+    <td width="16" valign="top">
+        <center>
+        {FILES_CHECKBOX}
+        </center>
+    </td>
+    <td width="35%" valign="top"><b>{FILES_NAME}</b><br>{FILES_DESCRIPTION}</td>
+    <td width="10%" valign="top">{FILES_SIZE}&nbsp;</td>
+    <td width="10%" valign="top">{FILES_DATE}&nbsp;</td>
+     <td width="20%" valign="top">{DIRECTORY_FEED_AVERAGE_VOTE}&nbsp;<i>{DIRECTORY_FEED_COUNT_VOTES}</i></td>
+    <td width="10%" valign="top">{FILES_AUTHOR}&nbsp;</td>
+    <td width="5%" valign="top">{FILES_HITS}&nbsp;</td>
+    <td width="15%" valign="top">{FILES_SPEZ_SORT}&nbsp;</td>
+    <td width="5%" nowrap valign="top">
+      <div align="right"><a href="index.php?cmd=directory&amp;act=editfile&amp;id={FILES_ID}"><img src="images/icons/edit.gif" alt='{TXT_EDIT}' border="0"></a>
+        <a href="javascript:restoreVoting({FILES_ID})"><img src="images/icons/reset.png" alt='{TXT_RESTORE_VOTING}' border="0"></a>
+        <a href="javascript:deleteFile({FILES_ID})"><img src="images/icons/delete.gif" alt='{TXT_DELETE}' border="0"></a>
+      </div>
+    </td>
+  </tr>
+  <!-- END filesRow -->
+  <!-- BEGIN nofilesRow -->
+  <tr class={FILES_ROW}>
+    <td width="16" valign="top">
+        <br />
+    </td>
+  	<td width="100%" valign="top" colspan="9">
+        {NO_FILES_FOUND}
+    </td>
+  </tr>
+  <!-- END nofilesRow -->
+</table>
+<!-- BEGIN importSelectAction -->
+<br />
+<table cellpadding="2" cellspacing="0" border="0">
+	<tr>
+		<td>
+			<img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="{TXT_MARKED}:" />
+			<a href="javascript:{void(0)};" onclick="changeCheckboxes('files','formSelected[]',true); return false;">{TXT_SELECT_ALL}</a> /
+			<a href="javascript:{void(0)};" onclick="changeCheckboxes('files','formSelected[]',false); return false;">{TXT_DESELECT_ALL}</a>
+			<img src="images/icons/strike.gif" width="34" height="22" alt="strike" />
+			<select name="selectAction" onchange="filesDoAction();">
+			<option value="0" selected="selected">{TXT_SELECT_ACTION}</option>
+			<option value="delete">{TXT_DELETE}</option>
+			<option value="move">{TXT_MOVE}</option>
+		    </select>
+		</td>
+	</tr>
+</table>
+<!-- END importSelectAction -->
+<br>
+</form>
+{FILES_PAGING}
+<!-- END module_directory_files.html -->

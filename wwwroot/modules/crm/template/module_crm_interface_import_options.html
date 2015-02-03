@@ -1,0 +1,271 @@
+<!-- START module_crm_interface.html -->
+{COMBO_UPLOADER_CODE}
+<script type="text/javascript">
+    cx.ready(function() {
+        var uploader = cx.instances.get('exposed_combo_uploader_1','uploader');
+        uploader.dialog().bind('close',function(){
+            $J.getJSON( '{REDIRECT_URL}', function( data ) {
+                $J.each(data, function(key, val) {
+                    var file = val.fileName;
+                    if ($J.trim(file) != '') {
+                        $J('#fileName').val(file);
+                        var filename = file.replace(/^.*[\\\/]/, '');
+
+                        $J('.choose-image-content .file-text').html(filename);
+                        $J('.choose-image-text').fadeOut(function(){
+                            $J('.choose-image-content').fadeIn();
+                        });
+                        $J('#start_upload').removeClass('disabled');
+                    }
+                });
+            });
+        });
+    },true);
+</script>
+<style type="text/css">
+    input#contactFormFieldId_1 {
+        position: absolute;
+        left: -5000px;
+    }
+</style>
+<div id="subnavbar_level2">
+    <ul>
+        <li><a class="active" href="./index.php?cmd={MODULE_NAME}&amp;act=settings&amp;tpl=interface&amp;subTpl=import" title="{TXT_CRM_IMPORT_NAME}">{TXT_CRM_IMPORT_NAME}</a></li>
+        <li><a href="./index.php?cmd={MODULE_NAME}&amp;act=settings&amp;tpl=interface&amp;subTpl=export" title="{TXT_CRM_EXPORT_NAME}">{TXT_CRM_EXPORT_NAME}</a></li>
+    </ul>
+</div>
+<div id="Import">
+    <div class="clear"></div>
+    <div class="ui-widget">
+        <div class="ui-state-highlight ui-corner-all" >
+            <p>
+                <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+                <span class="text_msg"></span>
+            </p>
+        </div>
+    </div>
+    <div class="ui-widget">
+        <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+            <p>
+                <span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+                <span class="text_msg"></span>
+            </p>
+        </div>
+    </div>
+    <div id="step1">
+        <form name="frmImport" id="frmImport" method="post" action="index.php?cmd={MODULE_NAME}&act=settings&amp;tpl=interface&amp;subTpl=importCsv" enctype="multipart/form-data">
+            <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+                <thead>
+                    <tr>
+                        <th colspan="2">{TXT_CRM_TITLE_IMPORT_CONTACTS}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row3">
+                        <td colspan="2">
+                            <div  class="csvImprtSteps" style="width:5%;height: 100%;float: left;">1</div>
+                            <div style="width:95%;float: left;">
+                                <span class="text_header">{TXT_CRM_IMPORT_HEADER}</span>
+                                <br>
+                                <span class="text_description">{TXT_CRM_IMPORT_NOTE} <strong>10 MB</strong></span>
+                                <br>
+                                <br>
+                                <span class="text_description">
+                                    {TXT_CRM_IMPORT_NOTE_DESCRIPTION}
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr><td colspan="2">&nbsp;</td></tr>
+                    <tr class="row3">
+                        <td colspan="2">{TXT_CRM_CHOOSE_FILE}</td>
+                    </tr>
+                    <tr class="row2">
+                        <td style="width: 15%;">&nbsp;</td>
+                        <td>
+                            <span class="choose-image-text"><a class="choose-image import-button" href="javascript:void(0);">{TXT_CRM_CHOOSE_CSV}</a></span>
+                            <span class="choose-image-content" style="display:none;"><span class="file-text"></span>&nbsp;&nbsp;<a class="choose-image" href="javascript:void(0);">{TXT_CRM_CHANGE}</a></span>
+                            <div id="contactFormField_uploadWidget_1"></div>
+                            <input type="file" id="contactFormFieldId_1" name="contactFormFieldId_1" value="" />
+                            <input type="hidden" id="fileName" name="fileName" value="" />
+                        </td>
+                    </tr>
+                    <tr><td colspan="2">&nbsp;</td></tr>
+                    <tr class="row3">
+                        <td colspan="2">{TXT_CRM_CSV_SETTINGS}</td>
+                    </tr>
+                    <tr class="row1">
+                        <td>{TXT_CRM_CSV_SEPARATOR}</td>
+                        <td>
+                            <select name="csv_delimiter">
+                                <!-- BEGIN crm_delimiter -->
+                                <option value="{CRM_DELIMITER_VALUE}">{CRM_DELIMITER_TITLE}</option>
+                                <!-- END crm_delimiter -->
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="row2">
+                        <td>{TXT_CRM_CSV_ENCLOSURE}</td>
+                        <td>
+                            <select name="csv_enclosure">
+                                <!-- BEGIN crm_enclosure -->
+                                <option value="{CRM_ENCLOSURE_VALUE}">{CRM_ENCLOSURE_TITLE}</option>
+                                <!-- END crm_enclosure -->
+                            </select>
+                        </td>
+                    </tr>
+                    <tr><td colspan="2">&nbsp;</td></tr>
+                    <tr class="row3">
+                        <td colspan="2">
+                            {TXT_CRM_ON_DUPLICATES}
+                            &nbsp;&nbsp;<span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_CRM_ON_DUPLICATES_INFO}</span>
+                        </td>
+                    </tr>
+                    <tr class="row1">
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td>
+                            <input type="radio" value="0" name="on_duplicate" id="skip" /><label for="skip">{TXT_CRM_SKIP}</label>
+                            &nbsp;&nbsp;<span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_CRM_ON_DUPLICATE_SKIP_INFO}</span>
+                            <br>
+                            <input type="radio" value="1" name="on_duplicate" id="overwrite" /><label for="overwrite">{TXT_CRM_OVERWRITE}</label>
+                            &nbsp;&nbsp;<span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_CRM_ON_DUPLICATE_OVERWRITE_INFO}</span>
+                            <br>
+                            <input type="radio" value="2" checked name="on_duplicate" id="duplicate" /><label for="duplicate">{TXT_CRM_DUPLICATE}</label>
+                            &nbsp;&nbsp;<span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_CRM_ON_DUPLICATE_INFO}</span>
+                            <br>
+                        </td>
+                    </tr>
+                    <tr><td colspan="2">&nbsp;</td></tr>
+                    <tr class="row3">
+                        <td colspan="2">
+                            <input type="checkbox" value="1" checked name="ignore_first" />
+                            {TXT_CRM_IGNORE_FIRST_ROW}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="import_step1" colspan="2">
+                            <div class="actions">
+                                <input type="submit" id="start_upload" class="disabled" value="{TXT_CRM_CONTINUE}" title="{TXT_CRM_CONTINUE}" name="imported" />&nbsp;&nbsp;
+                                <!--<input type="button" id="cancel_upload" value="{TXT_CRM_CANCEL}" title="{TXT_CRM_CANCEL}" onClick="window.location.replace('./index.php?cmd=crm&act=overview&{CSRF_PARAM}')" />-->
+                            </div>
+                            <div class="ajax_loading">
+                                <img alt="loading" src="../lib/javascript/jquery/jstree/themes/default/throbber.gif" />{TXT_CRM_LOADING}..
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br />
+        </form>
+    </div>
+    <div id="step2" style="display: none;">
+        <form name="frmImport2" id="frmImport2" method="post" action="index.php?cmd={MODULE_NAME}&act=settings&amp;tpl=interface&amp;subTpl=save">
+            <table width="100%" cellspacing="0" cellpadding="3" border="0" id="mapCSVColumn" class="adminlist">
+                <thead>
+                    <tr>
+                        <th colspan="3">{TXT_CRM_TITLE_IMPORT_CONTACTS}</th>
+                    </tr>
+                    <tr class="row3">
+                        <td  colspan="3">
+                            <div  class="csvImprtSteps" style="width:5%;height: 100%;float: left;">2</div>
+                            <span class="text_header">{TXT_CRM_VERIFY_FIELDS}</span>
+                            <br>
+                            <br>
+                            <span class="text_description">{TXT_CRM_VERIFY_INFO}</span>
+                        </td>
+                    </tr>
+                    <tr><td colspan="3"></td></tr>
+                    <tr class="row3">
+                        <td width="25%">{TXT_CRM_FILE_COLUMN}</td>
+                        <td width="25%">{TXT_CRM_CORRESPONDING_FIELD}</td>
+                        <td width="50%">
+                            <input type="hidden" id="fileUri" name="fileUri" value="" />
+                            <div class="crmLeft">
+                                {TXT_CRM_CSV_VALUE}
+                            </div>
+                            <div class="crmRight">
+                                <span class="rePrevious"><a href="javascript:void(0);">{TXT_CRM_PREVIOUS_RECORD}</a></span>&nbsp;&nbsp;
+                                <span class="reNext"><a href="javascript:void(0);">{TXT_CRM_NEXT_RECORD}</a></span>
+                            </div>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="3"></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="import_step2" colspan="3">
+                            <div class="actions">
+                                <input type="button" id="cancel_upload" value="{TXT_CRM_CANCEL}" title="{TXT_CRM_CANCEL}" onClick="window.location.replace('./index.php?cmd=crm&act=settings&amp;tpl=interface&amp;{CSRF_PARAM}')" />&nbsp;&nbsp;
+                                <input type="submit" id="import_data" class="disabled" value="{TXT_CRM_CONTINUE}" title="{TXT_CRM_CONTINUE}" name="imported" />
+                            </div>
+                            <div class="ajax_loading">
+                                <img alt="loading" src="../lib/javascript/jquery/jstree/themes/default/throbber.gif" />{TXT_CRM_LOADING}..
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </form>
+        <br />
+    </div>
+    <div id="step3" style="display: none;">
+        <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+            <thead>
+                <tr>
+                    <th>{TXT_CRM_TITLE_SAVING_CONTACTS}</th>
+                </tr>
+                <tr class="row3">
+                    <td>
+                        <div  class="csvImprtSteps" style="width:5%;height: 100%;float: left;">3</div>
+                        {TXT_CRM_INTERFACE_FINAL_INFO}                        
+                        <br>
+                        <br>
+                    </td>
+                </tr>                
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div id="progressBar"><div></div></div>
+                        <div id="progressDetails" style="display: none;" >
+                            <span class="processed"></span> {TXT_CRM_RECORD_PROCESS} <span class="total"></span>. {TXT_CRM_RECORD_IMPORT} <span class="imported"></span> ,{TXT_CRM_RECORD_SKIPPED} <span class="skiped"></span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <input type="button" id="cancelled" name="cancel" value="{TXT_CRM_CANCEL}"/>&nbsp;&nbsp;&nbsp;<input type="button" id="Done" class="disabled" disabled name="Done" value="{TXT_CRM_RECORD_DONE}" onClick="window.location.replace('./index.php?cmd=crm&act=customers&{CSRF_PARAM}');"/>
+    </div>
+    <select name="crm_contact_option_base[]" id="crm_contact_option_base" style="display: none;" ></select>
+    <script id="columnSelectorTemplate" type="text/x-jquery-tmpl">
+        {{if Header}}
+            <option name="header">{{= title }}</option>
+            {{else !Header}}
+            <option value="{{= value }}" >{{= title }}</option>
+            {{/if}}
+    </script>
+
+    <script id="csvColumnTemplate" type="text/x-jquery-tmpl">
+        {{each contactFields}}
+            <tr class="row1">
+            <td>
+            ${contactHeader[$index]}
+            </td>
+            <td >
+            {{html $item.renderSelectBox($index, contactHeader[$index])}}
+            </td>
+            <td >
+            ${$value}
+            </td>
+            </tr>
+            {{/each}}
+    </script>
+</div>
+<!-- END module_crm_interface.html -->

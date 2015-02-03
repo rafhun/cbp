@@ -1,0 +1,129 @@
+<!-- START shop_customer_details.html -->
+<br />
+<form name="formCustomer" method="post" action="index.php?cmd=shop{MODULE_INDEX}&amp;act=neweditcustomer&amp;customer_id={SHOP_CUSTOMERID}">
+  <table width="100%" cellspacing="0" cellpadding="2" class="adminlist" border="0">
+    <tr>
+      <th colspan="4" class="f_bold">{TXT_CUSTOMER_DATA}</th>
+    </tr>
+    <tr class="row1">
+      <td width="15%">{TXT_COMPANY}</td>
+      <td width="35%">{SHOP_COMPANY}</td>
+      <td width="15%">{TXT_SHOP_DISCOUNT_GROUP_CUSTOMER}</td>
+      <td width="35%">{SHOP_DISCOUNT_GROUP_CUSTOMER}</td>
+    </tr>
+    <tr class="row2">
+      <td width="15%">{TXT_SHOP_TITLE}</td>
+      <td width="35%">{SHOP_GENDER}</td>
+      <td width="15%">{TXT_CUSTOMER_NUMBER}</td>
+      <td width="35%">{SHOP_CUSTOMERID}</td>
+    </tr>
+    <tr class="row1">
+      <td width="15%">{TXT_LAST_NAME}</td>
+      <td width="35%">{SHOP_LASTNAME}</td>
+      <td width="15%">{TXT_CUSTOMER_TYP}</td>
+      <td width="35%">{SHOP_IS_RESELLER}</td>
+    </tr>
+    <tr class="row2">
+      <td width="15%">{TXT_FIRST_NAME}</td>
+      <td width="35%">{SHOP_FIRSTNAME}</td>
+      <td width="15%">{TXT_LOGIN_NAME}</td>
+      <td width="35%">{SHOP_USERNAME}</td>
+    </tr>
+    <tr class="row1">
+      <td width="15%">{TXT_ADDRESS}</td>
+      <td width="35%">{SHOP_ADDRESS}</td>
+      <td width="15%">{TXT_REGISTER_DATE}</td>
+      <td width="35%">{SHOP_REGISTER_DATE}</td>
+    </tr>
+    <tr class="row2">
+      <td width="15%">{TXT_ZIP_CITY}</td>
+      <td width="35%">{SHOP_ZIP}&nbsp;/&nbsp;{SHOP_CITY}</td>
+      <td width="15%">{TXT_CUSTOMER_STATUS}</td>
+      <td width="35%">{SHOP_CUSTOMER_STATUS}</td>
+    </tr>
+    <tr class="row1">
+      <td width="15%">{TXT_PHONE}</td>
+      <td width="35%">{SHOP_PHONE}</td>
+      <td width="15%">{TXT_COUNTRY}</td>
+      <td width="35%">{SHOP_COUNTRY}</td>
+    </tr>
+    <tr class="row2">
+      <td width="15%">{TXT_EMAIL}</td>
+      <td width="35%"><a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=settings&amp;tpl=mail&amp;strTab=shopMailSend&shopMailTo={SHOP_EMAIL}" title="{TXT_SEND_MAIL_TO_ADDRESS}">{SHOP_EMAIL}</a></td>
+      <td width="15%">{TXT_FAX}</td>
+      <td width="35%">{SHOP_FAX}</td>
+    </tr>
+  </table>
+  <br />
+  <table border="0" width="100%" cellspacing="0" cellpadding="2" class="adminlist">
+    <tr>
+      <th colspan="4" class="f_bold">{TXT_PAYMENT_INFORMATIONS}</th>
+    </tr>
+    <tr class="row1">
+      <td width="15%">{TXT_CREDIT_CARD_OWNER}</td>
+      <td width="35%">{SHOP_CCNAME}</td>
+      <td width="15%">{TXT_CARD_NUMBER}</td>
+      <td width="35%">{SHOP_CCNUMBER}</td>
+    </tr>
+    <tr class="row2">
+      <td width="15%">{TXT_EXPIRY_DATE}</td>
+      <td width="35%">{SHOP_CCDATE}</td>
+      <td width="15%">{TXT_CVC_CODE}</td>
+      <td width="35%">{SHOP_CVC_CODE}</td>
+    </tr>
+  </table>
+  <br />
+  <table width="100%" border="0" cellspacing="0" cellpadding="2" class="adminlist">
+    <tr>
+      <th colspan="4" class="f_bold">{TXT_ORDERS}</th>
+    </tr>
+    <tr class="row1">
+      <td>{TXT_ORDERNUMBER}</td>
+      <td>{TXT_DATE}</td>
+      <td>{TXT_ORDERSTATUS}</td>
+      <td class="a_right">{TXT_ORDER_SUM}</td>
+    </tr>
+    <!-- BEGIN orderRow -->
+      <tr class="{SHOP_ROWCLASS}">
+        <td>
+          <a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=orderdetails&amp;order_id={SHOP_ORDER_ID}"
+             title="{TXT_VIEW_DETAILS}">
+            {SHOP_ORDER_ID}
+          </a>
+        </td>
+        <td>
+          <a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=orderdetails&amp;order_id={SHOP_ORDER_ID}"
+             title="{TXT_VIEW_DETAILS}">
+            {SHOP_ORDER_DATE}
+          </a>
+        </td>
+        <td>
+          <a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=orderdetails&amp;order_id={SHOP_ORDER_ID}"
+             title="{TXT_VIEW_DETAILS}">
+            {SHOP_ORDER_STATUS}
+          </a>
+        </td>
+        <td class="a_right">
+          <a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=orderdetails&amp;order_id={SHOP_ORDER_ID}"
+             title="{TXT_VIEW_DETAILS}">
+            {SHOP_ORDER_SUM}
+          </a>
+        </td>
+      </tr>
+    <!-- END orderRow -->
+  </table>
+  <br />
+  <table border="0" width="100%" cellspacing="0" cellpadding="2" class="adminlist">
+    <tr>
+      <th colspan="2" class="f_bold">{TXT_MORE_INFORMATIONS}</th>
+    </tr>
+    <tr class="row1">
+      <td width="15%">{TXT_REMARK}</td>
+      <td width="85%">{SHOP_COMPANY_NOTE}</td>
+    </tr>
+  </table>
+  <br />
+  <input type="submit" name="shopEditCustomer" value="{TXT_EDIT_CUSTOMER}" />
+  <br />
+</form>
+<!-- END shop_customer_details.html -->

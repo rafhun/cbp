@@ -1,0 +1,28 @@
+<!-- start module_newsletter_list_edit.html -->
+<form action="index.php?cmd=newsletter&amp;act=editlist&amp;id={NEWSLETTER_LIST_ID}" method="post">
+  <table border="0" cellpadding="2" cellspacing="0" width="100%" class="adminlist">
+    <tbody>
+      <tr>
+        <th colspan="5">{NEWSLETTER_LIST_TITLE}</th>
+      </tr>
+      <tr class="row2">
+        <td width="15%">{TXT_NEWSLETTER_NAME}</td>
+        <td width="85%"><input type="text" size="70" name="newsletter_list_name" value="{NEWSLETTER_LIST_NAME}" /></td>
+      </tr>
+      <tr class="row1">
+        <td width="15%">{TXT_NEWSLETTER_STATUS}</td>
+        <td width="85%"><input type="checkbox" value="1" name="newsletter_list_status" id="newsletter_list_status" {NEWSLETTER_LIST_STATUS} /><label for="newsletter_list_status">{TXT_NEWSLETTER_VISIBLE}</label></td>
+      </tr>
+      <tr class="row2">
+        <td width="15%">{TXT_NEWSLETTER_NOTIFICATION_SEND_BY_UNSUBSCRIBE}</td>
+        <td width="85%">
+            <input type="text" size="70" value="{NEWSLETTER_NOTIFICATION_MAIL}" name="newsletter_notification_mail" id="newsletter_notification_mail" />
+            <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_NEWSLETTER_SEPARATE_MULTIPLE_VALUES_BY_COMMA}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+	<input type="button" onclick="window.location.href='index.php?cmd=newsletter&{CSRF_PARAM}&amp;act=lists'" name="back" value="{TXT_NEWSLETTER_BACK}" /> <input type="submit" name="save" value="{TXT_NEWSLETTER_SAVE}" />
+</form>
+<!-- end module_newsletter_list_edit.html -->

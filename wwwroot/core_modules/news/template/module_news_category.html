@@ -1,0 +1,76 @@
+<!-- START module_news_category.html -->
+<script language="JavaScript" type="text/javascript">
+<!-- // confirm delete variable
+function deleteCategorie(id)
+{
+  if (confirm('{TXT_CONFIRM_DELETE_WITH_SUBENTRIES}\n{TXT_ACTION_IS_IRREVERSIBLE} {TXT_ATTENTION_SYSTEM_FUNCTIONALITY_AT_RISK}'))
+    window.location.replace("index.php?cmd=news&{CSRF_PARAM}&act=delcat&catId="+id);
+}
+
+function  toggleCatName(link)
+{
+  $J(link).next('div.category_name_lang_div').toggle();
+}
+
+function updateLangName(input)
+{
+  $J(input).siblings('div.category_name_lang_div').find('input').attr('value', $J(input).attr('value'));
+}
+// -->
+</script>
+<form name="form1" method="post" action="index.php?cmd=news&amp;act=newscat">
+  <input type="hidden" name="addCat" value="true" />
+  <table width="100%" border="0" cellspacing="0" cellpadding="3" class="adminlist">
+    <tr> 
+      <th>
+        <div align="left">{TXT_ADD_NEW_CATEGORY}</div>
+      </th>
+    </tr>
+    <tr>
+      <td>
+        <select name="newCategorieParentId" style="margin-right: 10px;">
+            <option value="0" selected="selected">{TXT_NEWS_NEW_CATEGORY}</option>
+            {NEWS_CATEGORIES}
+        </select>
+        {TXT_NAME}: 
+        <input type="text" name="newCategorieName" size="40" maxlength="250" />&nbsp; 
+        <input type="submit" name="submit" value="{TXT_ADD}" />
+      </td>
+    </tr>
+  </table>
+</form>
+<br />
+<form name="form2" method="post" action="index.php?cmd=news&amp;act=newscat">
+  <input type="hidden" name="modCat" value="true" />
+  <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+    <tr> 
+      <th colspan="3">{TXT_CATEGORY_LIST}</th>
+    </tr>
+    <tr class="row2"> 
+      <td nowrap="nowrap" width="2%"><b>{TXT_ID}</b></td>
+      <td width="100%"><b>{TXT_NAME}</b></td>
+      <td width="13%"><div align="right"><b>{TXT_ACTION}</b></div></td>
+    </tr>
+    <!-- BEGIN newsRow -->
+      <tr class="{NEWS_ROWCLASS}"> 
+        <td nowrap="nowrap" valign="top"><div align="left">{NEWS_CAT_ID}</div></td>
+        <td nowrap="nowrap" style="padding-left: {NEWS_LEVEL_SPACING}px">
+            <!-- BEGIN categoryHasParent -->
+                <img src="images/icons/sub_arrow.gif" />&nbsp;
+            <!-- END categoryHasParent -->
+            <input maxlength="5" size="1" value="{NEWS_CAT_SORT}" name="newsCatSorting[{NEWS_CAT_ID}]" />&nbsp;&nbsp;{NEWS_CAT_NAME}</td>
+        <td width="13%" valign="top"> 
+          <div align="right">
+              <a title="{TXT_EDIT}" href="index.php?cmd=news&act=modifycat&id={NEWS_CAT_ID}"><img src="images/icons/edit.gif" alt="{TXT_EDIT}" border="0" /></a>
+              <a href="javascript:deleteCategorie('{NEWS_CAT_ID}')" title="{TXT_DELETE}"><img src="images/icons/delete.gif" alt="{TXT_DELETE}" border="0" /></a>
+          </div>
+        </td>
+      </tr>
+    <!-- END newsRow -->
+  </table>
+  <br />
+  <input type="submit" value="{TXT_SAVE}" />
+</form>
+<br />
+<br />
+<!-- END module_news_category.html -->

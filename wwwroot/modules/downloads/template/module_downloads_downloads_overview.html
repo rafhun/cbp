@@ -1,0 +1,150 @@
+<!-- start module_downloads_downloads_overview.html -->
+<script type="text/javascript">
+// <![CDATA[
+function downloadsDeleteDownload(id, name)
+{
+    strMsg = '{DOWNLOADS_CONFIRM_DELETE_DOWNLOAD_TXT}';
+    if (confirm(strMsg.replace('%s', name)+'\n{TXT_DOWNLOADS_OPERATION_IRREVERSIBLE}')) {
+        window.location.href = 'index.php?cmd=downloads&act=delete_download&id='+id+'&csrf={CSRF_KEY}';
+    }
+}
+
+function downloadsDownloadDoAction(action)
+{
+    if (action == 'order' || checkboxIsChecked('downloads_download_form', 'downloads_download_id[]')) {
+        if (action == 'order' || confirm('{DOWNLOADS_CONFIRM_DELETE_DOWNLOADS_TXT}\n{TXT_DOWNLOADS_OPERATION_IRREVERSIBLE}')) {
+            document.getElementById('downloads_download_form').submit();
+            return true;
+        }
+    }
+    document.getElementById('downloads_download_select_action').value=0;
+}
+
+function downloadsUpdateSortOrder(event,elForm,idMultiAction)
+{
+    if (event.which && event.which == 13 || event.which == 1 || event.keyCode == 13 || event.keyCode == 1) {
+        document.getElementById(idMultiAction).value = 'order';
+        elForm.submit();
+    }
+}
+// ]]>
+</script>
+<table width="100%" class="adminlist">
+    <tr>
+        <th>{TXT_DOWNLOADS_FILTER}</th>
+    </tr>
+    <tr>
+        <td>
+            <form action="index.php" method="get">
+                <input type="hidden" name="cmd" value="downloads" />
+                <input type="hidden" name="act" value="downloads" />
+                <input type="text" class="search" name="search_term" value="{DOWNLOADS_SEARCH_TERM}" onfocus="if(this.value=='{TXT_DOWNLOADS_SEARCH_DOWNLOAD}'){this.value='';}" onblur="if(this.value==''){this.value='{TXT_DOWNLOADS_SEARCH_DOWNLOAD}';}" style="width: 240px;" />
+                {DOWNLOADS_CATEGORY_MENU}
+                <input type="submit" value="{TXT_DOWNLOADS_SEARCH}" />
+            </form>
+        </td>
+    </tr>
+</table><br />
+
+
+<form name="downloads_download_form" id="downloads_download_form" action="index.php?cmd=downloads&amp;act=downloads" method="post">
+<table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist" summary="downloads list">
+    <tr>
+        <th colspan="10">{TXT_DOWNLOADS_DOWNLOADS}</th>
+    </tr>
+<!-- BEGIN downloads_download_data -->
+    <tr class="row3" style="font-weight: bold; white-space:nowrap;">
+        <td width="1%" style="text-align: center;">#</td>
+        <td width="1%" style="text-align: center;"><a href="index.php?cmd=downloads&amp;act=downloads&amp;sort={DOWNLOADS_SORT_ID}&amp;by=id" title="{TXT_DOWNLOADS_CHANGE_SORT_DIRECTION}">{DOWNLOADS_ID}</a></td>
+        <td width="1%" style="text-align: center;"><a href="index.php?cmd=downloads&amp;act=downloads&amp;sort={DOWNLOADS_SORT_STATUS}&amp;by=is_active" title="{TXT_DOWNLOADS_CHANGE_SORT_DIRECTION}">{DOWNLOADS_STATUS}</a></td>
+        <td width="1%" style="text-align: center;"><a href="index.php?cmd=downloads&amp;act=downloads&amp;sort={DOWNLOADS_SORT_ORDER}&amp;by=order" title="{TXT_DOWNLOADS_CHANGE_SORT_DIRECTION}">{DOWNLOADS_ORDER}</a></td>
+        <td width="15%"><a href="index.php?cmd=downloads&amp;act=downloads&amp;sort={DOWNLOADS_SORT_NAME}&amp;by=name" title="{TXT_DOWNLOADS_CHANGE_SORT_DIRECTION}">{DOWNLOADS_NAME}</a></td>
+        <td width="63%"><a href="index.php?cmd=downloads&amp;act=downloads&amp;sort={DOWNLOADS_SORT_DESCRIPTION}&amp;by=description" title="{TXT_DOWNLOADS_CHANGE_SORT_DIRECTION}">{DOWNLOADS_DESCRIPTION}</a></td>
+        <td width="15%">{TXT_DOWNLOADS_OWNER}</td>
+        <!-- <td width="25%"><a href="index.php?cmd=downloads&amp;act=downloads&amp;sort={DOWNLOADS_SORT_SOURCE}&amp;by=source" title="{TXT_DOWNLOADS_CHANGE_SORT_DIRECTION}">{DOWNLOADS_SOURCE}</a></td> -->
+        <td width="1%"><a href="index.php?cmd=downloads&amp;act=downloads&amp;sort={DOWNLOADS_SORT_DOWNLOADED}&amp;by=download_count" title="{TXT_DOWNLOADS_CHANGE_SORT_DIRECTION}">{DOWNLOADS_DOWNLOADED}</a></td>
+        <td width="1%"><a href="index.php?cmd=downloads&amp;act=downloads&amp;sort={DOWNLOADS_SORT_VIEWED}&amp;by=views" title="{TXT_DOWNLOADS_CHANGE_SORT_DIRECTION}">{DOWNLOADS_VIEWED}</a></td>
+        <td width="1%">{TXT_DOWNLOADS_FUNCTIONS}</td>
+    </tr>
+<!-- BEGIN downloads_download_list -->
+    <tr class="{DOWNLOADS_DOWNLOAD_ROW_CLASS}">
+        <td nowrap="nowrap" style="text-align: center;">
+            <!-- BEGIN downloads_download_checkbox --><input type="checkbox" name="downloads_download_id[]" value="{DOWNLOADS_DOWNLOAD_ID}" /><!-- END downloads_download_checkbox -->&nbsp;
+        </td>
+        <td nowrap="nowrap" style="text-align: center;">{DOWNLOADS_DOWNLOAD_ID}</td>
+        <td nowrap="nowrap" style="text-align: center;">
+            <!-- BEGIN downloads_download_status_link_open -->
+            <a href="index.php?cmd=downloads&amp;act=switch_download_status&amp;id={DOWNLOADS_DOWNLOAD_ID}" title="{DOWNLOADS_DOWNLOAD_SWITCH_STATUS_DESC}">
+            <!-- END downloads_download_status_link_open -->
+                <img src="images/icons/{DOWNLOADS_DOWNLOAD_STATUS_LED}" alt="{DOWNLOADS_DOWNLOAD_SWITCH_STATUS_IMG_DESC}" border="0" width="13" height="13" />
+            <!-- BEGIN downloads_download_status_link_close -->
+            </a>
+            <!-- END downloads_download_status_link_close -->
+        </td>
+        <td nowrap="nowrap" style="text-align: center;">
+            <!-- BEGIN downloads_download_order_modify -->
+            <input name="downloads_download_order[{DOWNLOADS_DOWNLOAD_ID}]" size="5" maxlength="5" value="{DOWNLOADS_DOWNLOAD_ORDER}" type="text" onkeypress="downloadsUpdateSortOrder(event,this.form,'downloads_download_select_action')" />
+            <!-- END downloads_download_order_modify -->
+            <!-- BEGIN downloads_download_order_no_modify -->
+            {DOWNLOADS_DOWNLOAD_ORDER}
+            <!-- END downloads_download_order_no_modify -->
+        </td>        
+        <td nowrap="nowrap">
+            <!-- BEGIN downloads_download_modify_link_open -->
+            <a href="index.php?cmd=downloads&amp;act=download&amp;id={DOWNLOADS_DOWNLOAD_ID}" title="{TXT_DOWNLOADS_EDIT}">
+            <!-- END downloads_download_modify_link_open -->
+            {DOWNLOADS_DOWNLOAD_NAME}
+            <!-- BEGIN downloads_download_modify_link_close -->
+            </a>
+            <!-- END downloads_download_modify_link_close -->
+        </td>
+        <td>{DOWNLOADS_DOWNLOAD_DESCRIPTION}</td>
+        <td nowrap="nowrap">{DOWNLOADS_DOWNLOAD_OWNER}</td>
+        <td nowrap="nowrap" style="text-align:center;">{DOWNLOADS_DOWNLOAD_DOWNLOADED}</td>
+        <td nowrap="nowrap" style="text-align:center;">{DOWNLOADS_DOWNLOAD_VIEWED}</td>
+        <td nowrap="nowrap" style="text-align: right;">
+            <!-- BEGIN downloads_download_function_download -->
+            <a href="index.php?cmd=downloads&amp;act=get&amp;id={DOWNLOADS_DOWNLOAD_ID}" title="{DOWNLOADS_DOWNLOAD_SOURCE}" target="_blank"><img src="{DOWNLOADS_DOWNLOAD_DOWNLOAD_ICON}" alt="{DOWNLOADS_DOWNLOAD_SOURCE}" width="16" height="16" border="0" /></a>
+            <!-- END downloads_download_function_download -->
+            <!-- BEGIN downloads_download_no_function_download -->
+            <img src="images/icons/pixel.gif" alt="no permission to download this download" width="16" height="16" border="0" />
+            <!-- END downloads_download_no_function_download -->
+            <!-- BEGIN downloads_download_functions -->
+            <a href="index.php?cmd=downloads&amp;act=download&amp;id={DOWNLOADS_DOWNLOAD_ID}" title="{TXT_DOWNLOADS_EDIT}"><img src="images/icons/edit.gif" alt="{TXT_DOWNLOADS_EDIT}" width="16" height="16" border="0" /></a>
+            <a href="javascript:void(0);" onclick="downloadsDeleteDownload({DOWNLOADS_DOWNLOAD_ID},'{DOWNLOADS_DOWNLOAD_NAME_JS}')" title="{TXT_DOWNLOADS_DELETE}"><img src="images/icons/delete.gif" alt="{TXT_DOWNLOADS_DELETE}" width="17" height="17" border="0" /></a>
+            <!-- END downloads_download_functions -->
+            <!-- BEGIN downloads_download_no_functions -->
+            <img src="images/icons/pixel.gif" alt="no permission to modify this download" width="16" height="16" border="0" />
+            <img src="images/icons/pixel.gif" alt="no permission to delete this download" width="17" height="17" border="0" />
+            <!-- END downloads_download_no_functions -->
+        </td>
+    </tr>
+<!-- END downloads_download_list -->
+</table>
+<input type="button" value="{TXT_SAVE_CHANGES}" onclick="downloadsUpdateSortOrder(event, this.form, 'downloads_download_select_action')" style="float: left; margin: 10px 0 0 65px;" />
+<div style="clear: left;">
+    <img src="images/icons/arrow.gif" width="38" height="22" style="margin-left:5px;" alt="arrow" />
+    <a href="javascript:void(0);" onclick="changeCheckboxes('downloads_download_form','downloads_download_id[]',true); return false;" title="{TXT_DOWNLOADS_CHECK_ALL}">{TXT_DOWNLOADS_CHECK_ALL}</a> /
+    <a href="javascript:void(0);" onclick="changeCheckboxes('downloads_download_form','downloads_download_id[]',false); return false;" title="{TXT_DOWNLOADS_UNCHECK_ALL}">{TXT_DOWNLOADS_UNCHECK_ALL}</a>
+    <img src="images/icons/strike.gif" width="34" height="22" alt="design" />
+    <select name="downloads_download_select_action" id="downloads_download_select_action" onchange="downloadsDownloadDoAction(this.value)">
+        <option value="0" selected="selected" style="border-bottom: 1px solid #000;">{TXT_DOWNLOADS_SELECT_ACTION}</option>
+        <!-- BEGIN downloads_download_change_order_action --><option value="order">{TXT_DOWNLOADS_ORDER}</option><!-- END downloads_download_change_order_action -->
+        <option value="delete">{TXT_DOWNLOADS_DELETE}</option>
+    </select>
+</div>
+<br />
+<br />
+{DOWNLOADS_DOWNLOAD_PAGING}
+<!-- END downloads_download_data -->
+<!-- BEGIN downloads_download_no_data -->
+    <tr class="row3">
+        <td>{TXT_DOWNLOADS_NO_DOWNLOADS_ENTERED}</td>
+    </tr>
+</table>
+<br />
+<br />
+<input type="button" name="downloads_add_new_download" value="{TXT_DOWNLOADS_ADD_NEW_DOWNLOAD}" onclick="window.location.href='index.php?cmd=downloads&{CSRF_PARAM}&amp;act=download'" />
+<!-- END downloads_download_no_data -->
+</form>
+<!-- end module_downloads_downloads_overview.html -->

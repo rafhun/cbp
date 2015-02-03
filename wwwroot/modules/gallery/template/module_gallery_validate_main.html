@@ -1,0 +1,25 @@
+<!-- START gallery_validate_main.html -->
+<script language="JavaScript" type="text/javascript">
+<!--
+function loadPage(type){
+	window.location = "?cmd=gallery&{CSRF_PARAM}&act=validate_form&type="+type;
+}
+-->
+</script>
+<table width="100%" cellspacing="0" cellpadding="3" border="0" align="top" class="adminlist">
+<tr>
+	<th><div align="left">{TXT_TITLE}</div></th>
+</tr>
+<tr class="row1">
+	<td>
+		<input type="radio" name="select_Method" value="single" {VALIDATE_METHOD_SINGLE_SELECTED} onclick="loadPage(this.value)" />&nbsp;{TXT_VALIDATE_METHOD_SINGLE}<br />
+		<input type="radio" name="select_Method" value="all" {VALIDATE_METHOD_ALL_SELECTED} onclick="loadPage(this.value)" />&nbsp;{TXT_VALIDATE_METHOD_ALL}
+	</td>
+</tr>
+<tr class="row1">
+	<td>{VALIDATE_NOTVALIDATEDPICS} {TXT_NOTVALIDATED}
+</tr>
+</table>
+<br />
+{VALIDATE_SHOWDETAILS}
+<!-- END gallery_validate_main.html -->

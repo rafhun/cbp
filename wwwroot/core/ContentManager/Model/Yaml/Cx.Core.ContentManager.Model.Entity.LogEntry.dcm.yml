@@ -1,0 +1,56 @@
+Cx\Core\ContentManager\Model\Entity\LogEntry:
+  type: entity
+  repositoryClass: Cx\Core\ContentManager\Model\Repository\PageLogRepository
+  table: log_entry
+  indexes:
+    log_class_lookup_idx:
+      columns:
+        - object_class
+    log_date_lookup_idx:
+      columns:
+        - logged_at
+    log_user_lookup_idx:
+      columns:
+        - username
+  fields:
+    id:
+      type: integer
+      length: null
+      precision: 0
+      scale: 0
+      nullable: false
+      unique: false
+      id: true
+      generator:
+        strategy: IDENTITY
+    objectId:
+      type: string
+      length: 32
+      precision: 0
+      scale: 0
+      nullable: true
+      unique: false
+      column: object_id
+    objectClass:
+      type: string
+      length: 255
+      precision: 0
+      scale: 0
+      nullable: false
+      unique: false
+      column: object_class
+    data:
+      type: array
+      length: null
+      precision: 0
+      scale: 0
+      nullable: true
+      unique: false
+    username:
+      type: string
+      length: 255
+      precision: 0
+      scale: 0
+      nullable: true
+      unique: false
+  lifecycleCallbacks: {  }

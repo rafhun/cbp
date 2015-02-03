@@ -1,0 +1,367 @@
+<!-- BEGIN shop_import.html -->
+<script type="text/javascript">//<![CDATA[
+function addPair() {
+  var selectGiven = document.getElementById("given_field");
+  var selectFile = document.getElementById("file_field");
+  var selectLeft = document.getElementById("pairs_left");
+  var selectRight = document.getElementById("pairs_right");
+  if (selectGiven.selectedIndex >= 0 && selectFile.selectedIndex >= 0) {
+    selectLeft[selectLeft.length] = new Option(selectFile[selectFile.selectedIndex].text,selectFile[selectFile.selectedIndex].value);
+    selectRight[selectRight.length] = new Option(selectGiven[selectGiven.selectedIndex].text, selectGiven[selectGiven.selectedIndex].value);
+  }
+  resetHidden();
+}
+function removePair() {
+//  var selectGiven = document.getElementById("given_field");
+//  var selectFile = document.getElementById("file_field");
+  var selectLeft = document.getElementById("pairs_left");
+  var selectRight = document.getElementById("pairs_right");
+  if (selectLeft.selectedIndex >= 0 || selectRight.selectedIndex >= 0) {
+    selectLeft[selectLeft.selectedIndex] = null;
+    selectRight[selectRight.selectedIndex] = null;
+    selectLeft.selectedIndex = 0;
+    selectRight.selectedIndex = 0;
+  }
+  resetHidden();
+}
+function removeCat() {
+  var cats = document.getElementById("cats");
+  if (cats.selectedIndex >= 0) {
+    cats[cats.selectedIndex] = null;
+    cats.selectedIndex = 0;
+  }
+  resetKat();
+}
+function addCat() {
+  var selectFile = document.getElementById("file_field");
+  var selectcats = document.getElementById("cats");
+  if (selectFile.selectedIndex >= 0) {
+    selectcats[selectcats.length] = new Option(
+      selectFile[selectFile.selectedIndex].text,
+      selectFile[selectFile.selectedIndex].value);
+  }
+  resetKat();
+}
+function resetKat() {
+  var cats = document.getElementById("cats");
+  var category = document.getElementById("category");
+  var tmp = '';
+  for (i = 0; i < cats.length; i++) {
+    tmp += cats[i].value;
+    tmp += ";";
+  }
+  category.value = tmp;
+}
+function resetHidden() {
+  var selectLeft = document.getElementById("pairs_left");
+  var selectRight = document.getElementById("pairs_right");
+  var leftKeys = document.getElementById("pairs_left_keys");
+  var rightKeys = document.getElementById("pairs_right_keys");
+  var tmp = '';
+  for (var i = 0; i < selectLeft.length; i++) {
+    tmp +=
+      (tmp == "" ? "" : ";")+
+      selectLeft[i].value;
+  }
+  leftKeys.value = tmp;
+  tmp = '';
+  for (var i = 0; i < selectRight.length; i++) {
+    tmp +=
+      (tmp == "" ? "" : ";")+
+      selectRight[i].value;
+  }
+  rightKeys.value = tmp;
+}
+function SaveImage() {
+  if (document.getElementById("ImgName").value != "") {
+    document.forms.frmSelectFields.submit();
+  } else {
+    alert("{TXT_SHOP_IMPORT_ENTER_TEMPLATE_NAME}");
+  }
+}
+function MakeImport() {
+  if (document.getElementById("importfile").value != '') {
+    if (   document.getElementById("clearProducts").checked == false
+        || (   document.getElementById("clearProducts").checked == true
+            && confirm("{TXT_SHOP_IMPORT_WARNING}"))) {
+      document.forms.frmImportProducts.submit();
+    }
+  } else {
+    alert("{TXT_SHOP_IMPORT_SELECT_FILE_PLEASE}");
+  }
+}
+function MakeImportCategories() {
+  if (document.getElementById("importFileCategories").value != '') {
+    if ((   document.getElementById("clearCategories").checked
+         && confirm("{TXT_SHOP_IMPORT_CATEGORIES_WARNING}"))
+        || !document.getElementById("clearCategories").checked) {
+      document.forms.frmImportCategories.submit();
+    }
+  } else {
+    alert("{TXT_SHOP_IMPORT_SELECT_FILE_PLEASE}");
+  }
+}
+function DeleteImg(ImgID) {
+  if (confirm("{TXT_SHOP_IMPORT_TEMPLATE_REALLY_DELETE}")) {
+    window.location = 'index.php?cmd=shop{MODULE_INDEX}&{CSRF_PARAM}&act=import&deleteImg=1&img='+ImgID;
+  }
+}
+function MakeExport(groupCode) {
+  if (confirm("{TXT_SHOP_EXPORT_WARNING}")) {
+    window.location = "index.php?cmd=shop{MODULE_INDEX}&{CSRF_PARAM}&act=import&group="+groupCode;
+  }
+}
+//]]></script>
+
+<ul id="tabmenu">
+  <li><a id="generalTab_import1" class="active" href="javascript:{}" onclick="selectTab('import1')" title="{TXT_SHOP_IMPORT_IMPORT}">{TXT_SHOP_IMPORT_IMPORT}</a></li>
+  <li style="display: none;"><a id="generalTab_export" href="javascript:{}" onclick="selectTab('export')" title="{TXT_SHOP_EXPORT_DATA}">{TXT_SHOP_EXPORT_DATA}</a></li>
+  <li style="display: none;"><a id="generalTab_import2" href="javascript:{}" onclick="selectTab('import2')" title="Import">SelectFields</a></li>
+  <li style="display: none;"><a id="generalTab_import3" href="javascript:{}" onclick="selectTab('import3')" title="Import">Upload</a></li>
+  <li><a id="generalTab_import4" href="javascript:{}" onclick="selectTab('import4')" title="{TXT_SHOP_IMPORT_MANAGE_TEMPLATES}">{TXT_SHOP_IMPORT_MANAGE_TEMPLATES}</a></li>
+  <li><a id="generalTab_import5" href="javascript:{}" onclick="selectTab('import5')" title="{TXT_SHOP_IMPORT_MAKE_NEW_TEMPLATE}">{TXT_SHOP_IMPORT_MAKE_NEW_TEMPLATE}</a></li>
+</ul>
+
+<div id="import1" class="generalTab" style="display:{SELECTED_LAYER_IMPORT}">
+  <form name="frmImportCategories"
+        action="index.php?cmd=shop{MODULE_INDEX}&amp;act=import"
+        method="post" enctype="multipart/form-data">
+    <input type="hidden" name="ImportCategories" value="1" />
+    <table border="0" cellspacing="0" cellpadding="2" width=100% class="adminlist">
+      <tr>
+        <th colspan="2" class="f_bold">{TXT_SHOP_IMPORT_IMPORT_CATEGORIES}</th>
+      </tr>
+      <tr class="row2">
+        <td width='20%'>
+          {TXT_SHOP_IMPORT_FILE}&nbsp;
+          <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_SHOP_IMPORT_CATEGORIES_TIPS}</span>
+        </td>
+        <td width='80%'>
+          <input type="file" name="importFileCategories"
+            id="importFileCategories" style="width: 200px;"
+            size="50" />
+        </td>
+      </tr>
+      <tr class="row1">
+        <td><label for='clearCategories'>{TXT_SHOP_CLEAR_DATABASE_BEFORE_IMPORTING_CATEGORIES}</label></td>
+        <td><input type='checkbox' name='clearCategories' id='clearCategories' value='1' /></td>
+      </tr>
+    </table>
+    <br />
+    <input type="button" value="{TXT_SHOP_IMPORT_IMPORT}"
+           onclick="MakeImportCategories();" />
+    <br />
+    <br />
+  </form>
+  <br />
+
+<!-- BEGIN import_products -->
+  <form name="frmImportProducts" action="index.php?cmd=shop{MODULE_INDEX}&amp;act=import" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="importFileProducts" value="1" />
+    <table border="0" cellspacing="0" cellpadding="2" width=100% class="adminlist">
+      <tr>
+        <th colspan="2" class="f_bold">{TXT_SHOP_IMPORT_PRODUCTS}</th>
+      </tr>
+      <tr class="row1">
+        <td>{TXT_SHOP_IMPORT_SELECT_TEMPLATE}&nbsp;
+          <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_SHOP_IMPORT_CHOOSE_TEMPLATE_TIPS}</span>
+        </td>
+        <td width="80%">
+          {SHOP_IMPORT_TEMPLATE_MENU}
+        </td>
+      </tr>
+      <tr class="row2">
+        <td>{TXT_SHOP_IMPORT_FILE}&nbsp;
+          <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_SHOP_IMPORT_CHOOSE_TEMPLATE_TIPS}</span>
+        </td>
+        <td>
+          <input type="file" name="importfile" id="importfile"
+                 style="width: 200px;" size="50" />
+        </td>
+      </tr>
+      <tr class="row1">
+        <td><label for='clearProducts'>{TXT_CLEAR_DATABASE_BEFORE_IMPORTING}</label></td>
+        <td><input type='checkbox' name='clearProducts' id='clearProducts' value='1' /></td>
+      </tr>
+    </table>
+    <br />
+    <input type="button" value="{TXT_SHOP_IMPORT_IMPORT}"
+           onclick="javascript:MakeImport();" />
+    <br />
+    <br />
+  </form>
+<!-- END import_products -->
+<!-- BEGIN import_products_no_template -->
+  {TXT_SHOP_IMPORT_NO_TEMPLATE}
+<!-- END import_products_no_template -->
+</div>
+
+<!-- Begin FieldsSelect -->
+<form name="frmSelectFields" action="index.php?cmd=shop{MODULE_INDEX}&amp;act=import" method="post">
+  <input type="hidden" name="SaveImg" value="1" />
+  <input type="hidden" name="pairs_left_keys" id="pairs_left_keys" value="" />
+  <input type="hidden" name="pairs_right_keys" id="pairs_right_keys" value="" />
+  <input type="hidden" name="category" id="category" value="" />
+  <div id="import2" class="generalTab" style="display:{SELECTED_LAYER_IMG}">
+    <table border="0" cellspacing="0" cellpadding="2" width=100% class="adminlist">
+      <tr>
+        <th colspan="4" class="f_bold">{TXT_SHOP_IMPORT_IMPORTTEMPLATE}</th>
+      </tr>
+      <tr class="row2">
+        <td class="f_bold">
+          {TXT_SHOP_IMPORT_TEXTFILE}
+          <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_SHOP_IMPORT_ASSIGNMENT_TIPS}</span>
+          {FILE_FIELDS_LIST}
+        </td>
+        <td>&nbsp;&nbsp;</td>
+        <td class="f_bold">
+          {TXT_SHOP_IMPORT_DATABASE}
+          <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_SHOP_IMPORT_CATEGORY_TIPS}</span>
+          {DB_FIELDS_LIST}
+        </td>
+        <td width="50%">
+        </td>
+      </tr>
+      <tr class="row1">
+        <td colspan="4">
+          <input type="button" value="{TXT_SHOP_IMPORT_ADD_FEW}" onclick="addPair();" />&nbsp;&nbsp;<input type="button" value="{TXT_SHOP_IMPORT_ADD_CATEGORY}" onclick="addCat();" />
+        </td>
+      </tr>
+      <tr class="row2">
+        <td colspan="3" class="f_bold">
+          {TXT_SHOP_IMPORT_CATEGORIES}
+          <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_SHOP_IMPORT_CATEGORY_REMOVE_TIPS}</span>
+          <select name="cats" id="cats" style="width: 200px;" size="5"></select>
+        </td>
+        <td>
+        </td>
+      </tr>
+      <tr class="row1">
+        <td colspan="4">
+          <input type="button" value="{TXT_SHOP_IMPORT_REMOVE_CATEGORY}" onclick="removeCat();" />
+        </td>
+      </tr>
+      <tr class="row2">
+        <td>
+          <select name="fileList" id="pairs_left" style="width: 200px;" size="10"
+                  onchange="document.getElementById('pairs_right')[this.selectedIndex].selected=true">
+          </select>
+          <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_SHOP_IMPORT_ASSIGNMENT_REMOVE_TIPS}</span>
+        </td>
+        <td>&nbsp;&nbsp;</td>
+        <td>
+          <select name="DbList" id="pairs_right" style="width: 200px;" size="10" onchange="document.getElementById('pairs_left')[this.selectedIndex].selected=true"></select>
+        </td>
+        <td>
+        </td>
+      </tr>
+      <tr class="row1">
+        <td colspan="4">
+          <input type="button" value="{TXT_SHOP_IMPORT_REMOVE_FEW}" onclick="removePair();" />
+        </td>
+      </tr>
+      <tr class="row2">
+        <td colspan="3" class="f_bold">
+          {TXT_SHOP_IMPORT_TEMPLATENAME}
+          <span class="tooltip-trigger icon-info"></span>
+          <span class="tooltip-message">{TXT_SHOP_IMPORT_TEMPLATE_SAVE_TIPS}</span>
+          <input type="text" name="ImgName" id="ImgName" />
+        </td>
+        <td>
+        </td>
+      </tr>
+    </table>
+    <br />
+    <input type="button" value="{TXT_SHOP_IMPORT_SAVE}" onclick="SaveImage();" />
+  </div>
+</form>
+<!-- End FieldsSelect -->
+<div id="import4" class="generalTab" style="display: none;">
+  <table border="0" cellspacing="0" cellpadding="2" width=100% class="adminlist">
+    <tr>
+      <th colspan="2" class="f_bold">{TXT_SHOP_IMPORT_SAVED_TEMPLATES}</th>
+    </tr>
+    <tr>
+      <td class="f_bold">{TXT_SHOP_IMPORT_TEMPLATENAME}</td>
+      <td width="8%" class="a_right f_bold">
+        {TXT_FUNCTIONS}
+      </td>
+    </tr>
+    <!-- BEGIN imgRow -->
+    <tr class="{CLASS_NAME}">
+      <td>{IMG_NAME}</td>
+      <td class="a_right">
+        <a href="javascript:DeleteImg({IMG_ID});">
+          <img src="images/icons/delete.gif" border="0"
+               alt="{TXT_SHOP_IMPORT_DELETE}" title="{TXT_SHOP_IMPORT_DELETE}" />
+        </a>
+      </td>
+    </tr>
+    <!-- END imgRow -->
+  </table>
+</div>
+<div id="import5" class="generalTab" style="display: none;">
+  <form name="frmUpload" enctype="multipart/form-data"
+    action="index.php?cmd=shop{MODULE_INDEX}&amp;act=import" method="post">
+  <input type="hidden" name="mode" value="ImportImg" />
+  <input type="hidden" name="SelectFields" value="1" />
+  <table border="0" cellspacing="0" cellpadding="2" width=100% class="adminlist">
+    <tr>
+      <th class="f_bold">{TXT_SHOP_IMPORT_MAKE_NEW_TEMPLATE}</th>
+    </tr>
+    <tr class="row1">
+      <td>
+        <input type="file" name="CSVfile" size="50" />&nbsp;
+        <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_SHOP_IMPORT_CREATE_TEMPLATE_TIPS}</span>
+      </td>
+    </tr>
+  </table>
+  <br />
+  &nbsp;<input type="submit" value="{TXT_SHOP_IMPORT_UPLOAD}" />
+  </form>
+  <br />
+</div>
+
+<div id="import3" class="generalTab" style="display: none;">
+  <i>{TXT_SHOP_IMPORT_NO_TEMPLATES_AVAILABLE}</i>
+</div>
+
+<div id="export" class="generalTab" style="display: none;">
+  <table border="0" cellspacing="0" cellpadding="2" width=100% class="adminlist">
+  <colgroup><col width='10%'/><col width='10%'/><col width='80%'/></colgroup>
+    <tr>
+      <th class="nowrap" colspan="3" class="f_bold">{TXT_SHOP_EXPORT}</th>
+    </tr>
+<!--
+    <tr class="row1">
+      <td colspan="3" class="f_bold">
+        {TXT_SHOP_EXPORT_SELECTION}<br />
+      </td>
+    </tr>
+-->
+<!-- BEGIN groupRow -->
+    <tr class="{CLASS_NAME}">
+      <td class="nowrap">
+        <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{SHOP_EXPORT_GROUP}</span>
+      </td>
+      <td colspan="2">
+        <a href="#" title="{TXT_EXPORT}" onclick="javascript:MakeExport('{SHOP_EXPORT_GROUP_CODE}');" >
+          <img src="images/icons/csv.gif" alt="{TXT_EXPORT}" border="0" />
+        </a>
+      </td>
+    </tr>
+<!-- END groupRow -->
+  </table>
+  <br />
+  <div class="infobox_head">{TXT_SHOP_TIP}</div>
+  <div class="infobox_body">{TXT_SHOP_EXPORT_TIPS}</div>
+</div>
+
+<script type="text/javascript">
+<!-- //
+{SELECT_LAYER_ONLOAD}
+{NO_FILES}
+// -->
+</script>
+
+<!-- END shop_import.html -->

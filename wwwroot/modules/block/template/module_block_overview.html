@@ -1,0 +1,113 @@
+<!-- START module_block_overview.html -->
+<script type="text/javascript">
+// <![CDATA[
+function selectMultiAction()
+{
+  with (document.frmBlocks) {
+    switch (frmBlocksMultiAction.value) {
+      case 'activate':          
+        action='{DIRECTORY_INDEX}?cmd=block&act=activate&{CSRF_PARAM}';
+        submit();
+        break;
+
+      case 'deactivate':
+        action='{DIRECTORY_INDEX}?cmd=block&act=deactivate&{CSRF_PARAM}';
+        submit();
+        break;     
+
+      case 'global':
+        action='{DIRECTORY_INDEX}?cmd=block&act=global&{CSRF_PARAM}';
+        submit();
+        break;
+
+      case 'global_off':
+        action='{DIRECTORY_INDEX}?cmd=block&act=global_off&{CSRF_PARAM}';
+        submit();
+        break;
+
+      case 'delete':
+        if (confirm('{TXT_BLOCK_DELETE_SELECTED_BLOCKS}\n{TXT_BLOCK_OPERATION_IRREVERSIBLE}')) {
+          action='{DIRECTORY_INDEX}?cmd=block&act=del&{CSRF_PARAM}';
+          submit();
+        }
+        break;
+
+      default: //do nothing
+    }
+  }
+}
+
+function blockDeleteBlock(blockId, blockName)
+{
+  strConfirmMsg = '{TXT_BLOCK_CONFIRM_DELETE_BLOCK}';
+  if (confirm(strConfirmMsg.replace('%s', blockName)+'\n{TXT_BLOCK_OPERATION_IRREVERSIBLE}')) {
+    window.location.href = '{DIRECTORY_INDEX}?cmd=block&act=del&blockId='+blockId+'&{CSRF_PARAM}';
+  }
+}
+
+// ]]>
+</script>
+<form name="frmBlocks" method="post" action="{DIRECTORY_INDEX}?cmd=block">
+  <table cellspacing="0" cellpadding="3" width="100%" border="0" class="adminlist" summary="block list">
+    <tbody>
+      <tr>
+        <th colspan="10">{TXT_BLOCK_BLOCKS}</th>
+      </tr>
+      <tr class="row3">
+        <td width="1%" style="text-align:center;font-weight:bold;">#</td>
+        <td width="1%" style="text-align:left; font-weight:bold;">{TXT_BLOCK_STATUS}</td>
+        <td width="2%" style="font-weight:bold;">{TXT_BLOCK_ORDER}</td>
+        <td width="18%" style="font-weight:bold;">{TXT_BLOCK_NAME}</td>
+        <td width="15%" style="font-weight:bold;">
+            <select name="blockCategory" onchange="location.href='{DIRECTORY_INDEX}?cmd=block&catId='+this.options[this.options.selectedIndex].value+'&{CSRF_PARAM}'">
+                <option value="0">{TXT_BLOCK_CATEGORIES_ALL}</option>
+                {BLOCK_CATEGORIES_DROPDOWN}
+            </select>
+        </td>
+        <td width="10%" style="text-align:left;font-weight:bold;">{TXT_BLOCK_LANGUAGE}</td>
+        <td width="10%" style="font-weight:bold;">{TXT_BLOCK_PLACEHOLDER}</td>
+        <td width="10%" style="font-weight:bold;white-space:nowrap;">{TXT_BLOCK_INCLUDED_IN_GLOBAL_BLOCK}</td>
+        <td width="20%" style="font-weight:bold;white-space:nowrap;">{TXT_BLOCK_RANDOM}</td>
+        <td width="5%" style="text-align:right; font-weight:bold;">{TXT_BLOCK_FUNCTIONS}</td>
+      </tr>
+      <!-- BEGIN blockBlockList -->
+        <tr class="{BLOCK_ROW_CLASS}" style="height:20px;">
+          <td width="1%" style="text-align:right; font-weight:bold;"><input type="checkbox" name="selectedBlockId[]" id="selectedBlockId" value="{BLOCK_ID}" /></td>
+          <td width="1%" style="text-align:center; font-weight:bold;">{BLOCK_STATUS}</td>
+          <td width="2%"><input maxlength="5" size="1" value="{BLOCK_ORDER}" name="displayorder[{BLOCK_ID}]" /></td>
+          <td width="18%"><a href="index.php?cmd=block&amp;act=modify&amp;blockId={BLOCK_ID}" title="{BLOCK_MODIFY}">{BLOCK_NAME}</a></td>
+          <td width="15%" style="text-align:left;">{BLOCK_CATEGORY_NAME}</td>
+          <td width="10%" style="text-align:left;">{BLOCK_LANGUAGES_NAME}</td>
+          <td width="10%">[[{BLOCK_PLACEHOLDER}]]</td>
+          <td width="20%" style="text-align:center;"><img src="{BLOCK_GLOBAL_CHECK_IMAGE}" width="16" height="16" border="0" class="tooltip-trigger" style="{BLOCK_CHECK_IMAGE_DISPLAY}" /><span class="tooltip-message">{BLOCK_CHECK_IMAGE_TITLE}</span></td>
+          <td width="20%" style="text-align:left;">{BLOCK_RANDOM}&nbsp;{BLOCK_RANDOM_2}&nbsp;{BLOCK_RANDOM_3}&nbsp;{BLOCK_RANDOM_4}</td>
+          <td width="5%" style="text-align:right;">
+            <a href="index.php?cmd=block&amp;act=modify&amp;blockId={BLOCK_ID}" title="{BLOCK_MODIFY}"><img src="images/icons/edit.gif" width="16" height="16" alt="{BLOCK_MODIFY}" border="0" /></a>
+            <a href="index.php?cmd=block&amp;act=copy&amp;blockId={BLOCK_ID}" title="{BLOCK_COPY}"><img src="images/icons/copy.gif" width="16" height="16" alt="{BLOCK_COPY}" border="0" /></a>
+            <a href="javascript:{void(0)};" onclick="blockDeleteBlock({BLOCK_ID}, '{BLOCK_NAME}')" title="{BLOCK_DELETE}"><img src="images/icons/delete.gif" width="16" height="16" alt="{BLOCK_DELETE}" border="0" /></a>
+          </td>
+        </tr>
+      <!-- END blockBlockList -->
+
+    </tbody>
+  </table>
+  <br />
+  <input type=submit value="{TXT_SAVE_CHANGES}" name=displaysubmit style="margin-left:70px;" />
+  <table cellpadding="2" cellspacing="0" border="0">
+    <tr>
+      <td>
+        <img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="{TXT_MARKED}:" />
+        <a href="javascript:{void(0)};" onclick="changeCheckboxes('frmBlocks','selectedBlockId[]',true); return false;">{TXT_BLOCK_SELECT_ALL}</a> /
+        <a href="javascript:{void(0)};" onclick="changeCheckboxes('frmBlocks','selectedBlockId[]',false); return false;">{TXT_BLOCK_DESELECT_ALL}</a>
+        <img src="images/icons/strike.gif" width="34" height="22" alt="strike" />
+        <select name="frmBlocksMultiAction" onChange="selectMultiAction();">
+          <option value="0">{TXT_BLOCK_SUBMIT_SELECT}</option>
+          <option value="delete">{TXT_BLOCK_SUBMIT_DELETE}</option>
+          <option value="activate">{TXT_BLOCK_SUBMIT_ACTIVATE}</option>
+          <option value="deactivate">{TXT_BLOCK_SUBMIT_DEACTIVATE}</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+</form>
+<!-- END module_block_overview.html -->

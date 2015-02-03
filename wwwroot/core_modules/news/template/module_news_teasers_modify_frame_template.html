@@ -1,0 +1,128 @@
+<!-- START module_news_teasers_modify_frame_template.html -->
+<ul id="tabmenu">
+<li><a id="frameTemplateTab_newsTeasers1" class="active" href="javascript:{}" onclick="selectTab('newsTeasers1')" title="{NEWS_TEASER_TITLE_TXT}">{NEWS_TEASER_TITLE_TXT}</a></li>
+<li><a id="frameTemplateTab_newsTeasers2" href="javascript:{}" onclick="selectTab('newsTeasers2')" title="{TXT_PLACEHOLDER_DIRECTORY}">{TXT_PLACEHOLDER_DIRECTORY}</a></li>
+</ul>
+<!-- start newsTeasers1 div -->
+<div id="newsTeasers1" class="frameTemplateTab" style="display:block">
+<form action="index.php?cmd=news&amp;act=settings&amp;tpl=teasers&amp;tpl2=updateFrameTemplate&amp;templateId={NEWS_TEASER_FRAME_TPL_ID}" method="post">
+    <table class="adminlist" cellspacing="0" cellpadding="3" width="100%" border="0">
+        <tr>
+            <th colspan="2">{NEWS_TEASER_TITLE_TXT}</th>
+        </tr>
+        <tr class="row1">
+            <td width="15%">{TXT_DESCRIPTION}</td>
+            <td width="85%"><input type="text" name="teaserFrameTplDescription" style="width:300px;" maxlength="100" value="{NEWS_TEASER_FRAME_TPL_DESCRIPTION}" /></td>
+        </tr>
+        <tr class="row2 reset">
+            <td colspan="2">{NEWS_TEASER_FRAME_TEMPLATE_WYSIWYG}<br /><input type="checkbox" {NEWS_TEASER_FRAME_TPL_SOURCE_CHECKED} value="1" name="teaserFrameTplSource" id="teaserFrameTplSource" onclick="window.location.replace('index.php?cmd=news&{CSRF_PARAM}&amp;act=settings&amp;tpl=teasers&amp;tpl2=editFrameTemplate&amp;templateId={NEWS_TEASER_FRAME_TPL_ID}&amp;source='+Number(this.checked))" /><label for="teaserFrameTplSource">{TXT_SOURCE_CODE_MODE}</label></td>
+        </tr>
+    </table>
+    <br />
+    <input type="submit" name="cancel" value="{TXT_CANCEL}" />&nbsp;<input type="submit" name="saveTeaserFrameTemplate" value="{TXT_SAVE}" />
+</form>
+</div>
+<!-- end newsTeasers1 div -->
+<!-- start newsTeasers2 div -->
+<div id="newsTeasers2" class="frameTemplateTab" style="display:none;">
+    <table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+        <tr>
+            <th colspan="2">{TXT_PLACEHOLDER_LIST}</th>
+        </tr>
+        <tr class="row1">
+            <td width="15%">[[TEASER_CATEGORY]]</td>
+            <td width="85%">{TXT_CATEGORY}</td>
+        </tr>
+        <tr class="row2">
+            <td width="15%">[[TEASER_DATE]]</td>
+            <td width="85%">{TXT_NEWS_DATE_DESCRIPTION}</td>
+        </tr>
+        <tr class="row1">
+            <td width="15%">[[TEASER_TITLE]]</td>
+            <td width="85%">{TXT_NEWS_TITLE_DESCRIPTION}</td>
+        </tr>
+        <tr class="row2">
+            <td width="15%">[[TEASER_URL]]</td>
+            <td width="85%">{TXT_NEWS_LINK_DESCRIPTION}</td>
+        </tr>
+        <tr class="row1">
+            <td width="15%">[[TEASER_IMAGE_PATH]]</td>
+            <td width="85%">{TXT_NEWS_IMAGE_PATH_DESCRIPTION}</td>
+        </tr>
+        <tr class="row2">
+            <td width="15%">&lt;!-- teaser_1-n --&gt;</td>
+            <td width="85%">{TXT_TEASER_ROW_DESCRIPTION}</td>
+        </tr>
+    </table>
+    <br />
+    <table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+        <tr>
+            <th>{TXT_EXAMPLE}</th>
+        </tr>
+        <tr class="row1">
+            <td>
+                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td bgcolor="#FFFF99">{TXT_BOX_TEMPLATE}<br />
+                            <table align="center" cellpadding="0" cellspacing="10" border="0" width="100%">
+                                <tr>
+                                  <td bgcolor="#FFCC33">&lt;!-- BEGIN teaser_1 --&gt;<br />
+  <div style="background-color:#FF9999; display:inline;">[[TEASER_CATEGORY]]</div>
+                                    <div style="background-color:#FF9999; display:inline;"><br />
+  [[TEASER_DATE]]</div>
+                                    <br />
+                                    <div style="background-color:#FF9999; display:inline;">[[TEASER_TITLE]]</div>
+                                    &lt;a href="<div style="background-color:#FF9999; display:inline;">[[TEASER_URL]]</div>"&gt; &gt;&gt;{TXT_CONTINUE}&lt;/a&gt;<br />
+&lt;img alt="" src="<div style="background-color:#FF9999; display:inline;">[[TEASER_IMAGE_PATH]]</div>" /&gt;
+<div style="background-color:#FF9999; display:inline;">[[TEASER_TEXT]]</div><br />
+&lt;!-- END teaser_1 --&gt;
+</td>
+                                    <td bgcolor="#FFCC33">
+                                        &lt;!-- BEGIN teaser_2 --&gt;<br />
+                                        <div style="background-color:#FF9999; display:inline;">[[TEASER_CATEGORY]]</div>
+                                        <div style="background-color:#FF9999; display:inline;"><br />
+  [[TEASER_DATE]]</div>
+                                        <br />
+                                        <div style="background-color:#FF9999; display:inline;">[[TEASER_TITLE]]</div>
+                                        &lt;a href="<div style="background-color:#FF9999; display:inline;">[[TEASER_URL]]</div>"&gt; &gt;&gt;{TXT_CONTINUE}&lt;/a&gt;<br />
+&lt;img alt="" src="<div style="background-color:#FF9999; display:inline;">[[TEASER_IMAGE_PATH]]</div>" /&gt;
+<div style="background-color:#FF9999; display:inline;">[[TEASER_TEXT]]</div>
+<br />
+&lt;!-- END teaser_2 --&gt; </td>
+                                </tr>
+                                <tr>
+                                    <td bgcolor="#FFCC33">
+                                        &lt;!-- BEGIN teaser_3 --&gt;<br />
+                                        <div style="background-color:#FF9999; display:inline;">[[TEASER_CATEGORY]]</div>
+                                        <div style="background-color:#FF9999; display:inline;"><br />
+  [[TEASER_DATE]]</div>
+                                        <br />
+                                        <div style="background-color:#FF9999; display:inline;">[[TEASER_TITLE]]</div>
+                                        &lt;a href="<div style="background-color:#FF9999; display:inline;">[[TEASER_URL]]</div>"&gt; &gt;&gt;{TXT_CONTINUE}&lt;/a&gt;<br />
+&lt;img alt="" src="<div style="background-color:#FF9999; display:inline;">[[TEASER_IMAGE_PATH]]</div>" /&gt;
+<div style="background-color:#FF9999; display:inline;">[[TEASER_TEXT]]</div>
+<br />
+&lt;!-- END teaser_3 --&gt; </td>
+                                    <td bgcolor="#FFCC33">
+                                        &lt;!-- BEGIN teaser_4 --&gt;<br />
+                                        <div style="background-color:#FF9999; display:inline;">[[TEASER_CATEGORY]]</div>
+                                        <div style="background-color:#FF9999; display:inline;"><br />
+  [[TEASER_DATE]]</div>
+                                        <br />
+                                        <div style="background-color:#FF9999; display:inline;">[[TEASER_TITLE]]</div>
+                                        &lt;a href="<div style="background-color:#FF9999; display:inline;">[[TEASER_URL]]</div>"&gt; &gt;&gt;{TXT_CONTINUE}&lt;/a&gt;<br />
+&lt;img alt="" src="<div style="background-color:#FF9999; display:inline;">[[TEASER_IMAGE_PATH]]</div>" /&gt;
+<div style="background-color:#FF9999; display:inline;">[[TEASER_TEXT]]</div>
+<br />
+&lt;!-- END teaser_4 --&gt; </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+              </table>
+            </td>
+        </tr>
+    </table>
+</div>
+<!-- end newsTeasers2 div -->
+<!-- END module_news_teasers_modify_frame_template.html -->

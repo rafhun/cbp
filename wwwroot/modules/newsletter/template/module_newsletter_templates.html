@@ -1,0 +1,56 @@
+<!-- START module_newsletter_templates.html -->
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+    function newsletterDeleteTpl(tplId, tplName)
+    {
+        strConfirm = '{TXT_NEWSLETTER_CONFIRM_DELETE_TEMPLATE}';
+        if(confirm(strConfirm.replace('%s', tplName)+'\n{TXT_NEWSLETTER_CANNOT_UNDO_OPERATION}'))
+            window.location.href = "index.php?cmd=newsletter&{CSRF_PARAM}&act=tpldel&id="+tplId;
+    }
+// ]]>
+</script>
+<div id="subnavbar_level2">
+<ul>
+    <li><a href="index.php?cmd=newsletter&amp;act=dispatch" title="{TXT_DISPATCH_SETINGS}">{TXT_DISPATCH_SETINGS}</a></li>
+    <li><a href="index.php?cmd=newsletter&amp;act=templates" title="{TXT_NEWSLETTER_TEMPLATES}">{TXT_NEWSLETTER_TEMPLATES}</a></li>
+    <li><a href="index.php?cmd=newsletter&amp;act=interface" title="{TXT_NEWSLETTER_INTERFACE}">{TXT_NEWSLETTER_INTERFACE}</a></li>
+    <li><a href="index.php?cmd=newsletter&amp;act=confightml" title="{TXT_GENERATE_HTML}">{TXT_GENERATE_HTML}</a></li>
+    <li><a href="index.php?cmd=newsletter&amp;act=activatemail" title="{TXT_CONFIRM_MAIL}">{TXT_ACTIVATE_MAIL}</a></li>
+    <li><a href="index.php?cmd=newsletter&amp;act=confirmmail" title="{TXT_CONFIRM_MAIL}">{TXT_CONFIRM_MAIL}</a></li>
+    <li><a href="index.php?cmd=newsletter&amp;act=notificationmail" title="{TXT_NOTIFICATION_MAIL}">{TXT_NOTIFICATION_MAIL}</a></li>
+    <li><a href="index.php?cmd=newsletter&amp;act=system" title="{TXT_DISPATCH_SETINGS}">{TXT_SYSTEM_SETINGS}</a></li>
+</ul>
+</div>
+<br />
+<table width="100%" border="0" cellpadding="3" cellspacing="0" class="adminlist">
+    <tr>
+        <th colspan="5">{TXT_NEWSLETTER_TEMPLATES}</th>
+    </tr>
+    <tr class="row3">
+        <td width="1%" valign="top"><b>{TXT_NEWSLETTER_ID_UC}</b></td>
+        <td width="20%" valign="top"><b>{TXT_NEWSLETTER_NAME}</b></td>
+        <td width="40%"><b>{TXT_NEWSLETTER_DESCRIPTION}</b></td>
+        <td width="40%"><b>{TXT_NEWSLETTER_TYPE}</b></td>
+        <td style="text-align:right;"><b>{TXT_NEWSLETTER_FUNCTIONS}</b></td>
+    </tr>
+    <!-- BEGIN templates_row -->
+        <tr class="{NEWSLETTER_TEMPLATE_ROW_CLASS}">
+            <td width="1%" style="vertical-align:top;">{NEWSLETTER_TEMPLATE_ID}</td>
+            <td style="vertical-align:top; white-space:nowrap;">{NEWSLETTER_TEMPLATE_NAME}</td>
+            <td>{NEWSLETTER_TEMPLATE_DESCRIPTION}</td>
+            <td>{NEWSLETTER_TEMPLATE_TYPE}</td>
+            <td style="vertical-align:top; text-align:right; white-space:nowrap;">
+                <a href="index.php?cmd=newsletter&amp;act=tpledit&amp;id={NEWSLETTER_TEMPLATE_ID}" title="{TXT_NEWSLETTER_MODIFY_TEMPLATE}" style="float: right;"><img src="images/icons/edit.gif" width="16" height="16" alt="{TXT_NEWSLETTER_MODIFY_TEMPLATE}" border="0" /></a>
+                <!-- BEGIN newsletter_template_delete -->
+                    <a href="javascript:void(0);" onclick="newsletterDeleteTpl('{NEWSLETTER_TEMPLATE_ID}', '{NEWSLETTER_TEMPLATE_NAME_JS}')" title="{TXT_NEWSLETTER_DELETE_TEMPLATE}"><img src="images/icons/delete.gif" width="17" height="17" alt="{TXT_NEWSLETTER_DELETE_TEMPLATE}" border="0" /></a>
+                <!-- END newsletter_template_delete -->
+                <!-- BEGIN newsletter_templalte_spacer -->
+                    <img src="images/icons/pixel.gif" alt="blank" width="17" height="17" />
+                <!-- END newsletter_templalte_spacer -->
+            </td>
+        </tr>
+    <!-- END templates_row -->
+</table>
+<br />
+<input type="button" name="newsletter_add_tpl" onclick="window.location.href='index.php?cmd=newsletter&{CSRF_PARAM}&amp;act=tpledit'" value="{TXT_TEMPLATE_ADD_NEW_TEMPLATE}" />
+<!-- END module_newsletter_templates.html -->

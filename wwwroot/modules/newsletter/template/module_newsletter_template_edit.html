@@ -1,0 +1,203 @@
+<!-- START module_newsletter_template_edit.html -->
+<script language="JavaScript" type="text/javascript">
+function newsImportDirectoryDisplay(selected) {
+	if (selected.value == 'news')
+	{
+		document.getElementById('newsImportDirectory').style.display = 'table-row-group';
+		document.getElementById('emailDirectory1').style.display = 'none';
+		document.getElementById('emailDirectory2').style.display = 'none';
+	} else {
+		document.getElementById('newsImportDirectory').style.display = 'none';
+		document.getElementById('emailDirectory1').style.display = 'table-row-group';
+		document.getElementById('emailDirectory2').style.display = 'table-row-group';
+	}
+}
+</script>
+<div id="subnavbar_level2">
+<ul>
+    <li><a href="index.php?cmd=newsletter&amp;act=dispatch" title="{TXT_DISPATCH_SETINGS}">{TXT_DISPATCH_SETINGS}</a></li>
+    <li><a href="index.php?cmd=newsletter&amp;act=templates" title="{TXT_NEWSLETTER_TEMPLATES}">{TXT_NEWSLETTER_TEMPLATES}</a></li>
+    <li><a href="index.php?cmd=newsletter&amp;act=interface" title="{TXT_NEWSLETTER_INTERFACE}">{TXT_NEWSLETTER_INTERFACE}</a></li>
+    <li><a href="index.php?cmd=newsletter&amp;act=confightml" title="{TXT_GENERATE_HTML}">{TXT_GENERATE_HTML}</a></li>
+    <li><a href="index.php?cmd=newsletter&amp;act=activatemail" title="{TXT_CONFIRM_MAIL}">{TXT_ACTIVATE_MAIL}</a></li>
+    <li><a href="index.php?cmd=newsletter&amp;act=confirmmail" title="{TXT_CONFIRM_MAIL}">{TXT_CONFIRM_MAIL}</a></li>
+    <li><a href="index.php?cmd=newsletter&amp;act=notificationmail" title="{TXT_NOTIFICATION_MAIL}">{TXT_NOTIFICATION_MAIL}</a></li>
+    <li><a href="index.php?cmd=newsletter&amp;act=system" title="{TXT_DISPATCH_SETINGS}">{TXT_SYSTEM_SETINGS}</a></li>
+</ul>
+</div>
+<br />
+<ul id="tabmenu">
+  <li><a id="newsletterTab_template_form" class="active" href="javascript:void();" onclick="selectTab('template_form')" title="{NEWSLETTER_TEMPLATE_TITLE_TEXT}">{NEWSLETTER_TEMPLATE_TITLE_TEXT}</a></li>
+  <li><a id="newsletterTab_template_info" href="javascript:void();" onclick="selectTab('template_info')" title="{TXT_NEWSLETTER_PLACEHOLDER_DIRECTORY}">{TXT_NEWSLETTER_PLACEHOLDER_DIRECTORY}</a></li>
+</ul>
+<div id="template_form" class="newsletterTab" style="display:block">
+  <form action="index.php?cmd=newsletter&amp;act=tpledit&amp;id={NEWSLETTER_TEMPLATE_ID}" method="post">
+  <table width="100%" border="0" cellpadding="3" cellspacing="0" class="adminlist">
+    <tr>
+      <th colspan="2">{NEWSLETTER_TEMPLATE_TITLE_TEXT}</th>
+    </tr>
+    <tr class="row2">
+      <td width="15%" valign="top">{TXT_NEWSLETTER_NAME}</td>
+      <td width="85%"><input type="text" name="template_edit_name" id="template_edit_name" style="width: 400px;" value="{NEWSLETTER_TEMPLATE_NAME}" /></td>
+    </tr>
+	<tr class="row1">
+	  <td nowrap="nowrap">{TXT_NEWSLETTER_TYPE}</td>
+	  <td>
+		<select name="template_edit_type" onchange="newsImportDirectoryDisplay(this)"/>
+			{NEWSLETTER_TEMPLATE_TYPE_MENU}
+		</select>
+	  </td>
+	</tr>
+    <tr class="row2">
+      <td width="15%" valign="top">{TXT_NEWSLETTER_DESCRIPTION}</td>
+      <td width="85%"><textarea name="template_edit_description" id="template_edit_description" style="width: 400px;">{NEWSLETTER_TEMPLATE_DESCRIPTION}</textarea></td>
+    </tr>
+    <tr class="row1">
+      <td width="15%" valign="top">{TXT_NEWSLETTER_HTML_TEMPLATE}</td>
+      <td width="85%">{NEWSLETTER_TEMPLATE_HTML}</td>
+    </tr>
+  </table>
+  <br />
+  <input type="button" onclick="window.location.href='index.php?cmd=newsletter&{CSRF_PARAM}&amp;act=templates'" value="{TXT_NEWSLETTER_BACK}" />
+  <input type="submit" name="newsletter_template_save"  value="{TXT_NEWSLETTER_SAVE}" />
+  </form>
+</div>
+<div id="template_info" class="newsletterTab" style="display:none">
+  <table width="100%" border="0" cellpadding="3" cellspacing="0" class="adminlist">
+	<tbody id="emailDirectory1" style="display:{NEWSLETTER_TEMPLATE_NEWS_EMAIL_DIRECTORY_DISPLAY}">
+		<tr>
+		  <th colspan="2">{TXT_NEWSLETTER_PLACEHOLDER_DIRECTORY}</th>
+		</tr>
+		<tr class="row3">
+		  <td colspan="2"><b>{TXT_NEWSLETTER_USER_DATA}</b></td>
+		</tr>
+		<tr class="row1">
+		  <td width="15%">{TXT_NEWSLETTER_EMAIL_ADDRESS}</td>
+		  <td width="85%">[[email]]</td>
+		</tr>
+		<tr class="row2">
+		  <td width="15%">{TXT_NEWSLETTER_URI}</td>
+		  <td width="85%">[[uri]]</td>
+		</tr>
+		<tr class="row1">
+		  <td width="15%">{TXT_NEWSLETTER_TITLE}</td>
+		  <td width="85%">[[title]]</td>
+		</tr>
+		<tr class="row2">
+		  <td width="15%">{TXT_NEWSLETTER_SEX}</td>
+		  <td width="85%">[[sex]]</td>
+		</tr>
+		<tr class="row1">
+		  <td width="15%">{TXT_NEWSLETTER_LASTNAME}</td>
+		  <td width="85%">[[lastname]]</td>
+		</tr>
+		<tr class="row2">
+		  <td width="15%">{TXT_NEWSLETTER_FIRSTNAME}</td>
+		  <td width="85%">[[firstname]]</td>
+		</tr>
+		<tr class="row1">
+		  <td width="15%">{TXT_NEWSLETTER_ADDRESS}</td>
+		  <td width="85%">[[address]]</td>
+		</tr>
+		<tr class="row2">
+		  <td width="15%">{TXT_NEWSLETTER_ZIP}</td>
+		  <td width="85%">[[zip]]</td>
+		</tr>
+		<tr class="row1">
+		  <td width="15%">{TXT_NEWSLETTER_CITY}</td>
+		  <td width="85%">[[city]]</td>
+		</tr>
+		<tr class="row2">
+		  <td width="15%">{TXT_NEWSLETTER_COUNTRY}</td>
+		  <td width="85%">[[country]]</td>
+		</tr>
+		<tr class="row1">
+		  <td width="15%">{TXT_NEWSLETTER_PHONE}</td>
+		  <td width="85%">[[phone_office]]</td>
+		</tr>
+		<tr class="row2">
+		  <td width="15%">{TXT_NEWSLETTER_BIRTHDAY}</td>
+		  <td width="85%">[[birthday]]</td>
+		</tr>
+		<tr class="row1">
+		  <td colspan="2">&nbsp;</td>
+		</tr>
+	</tbody>
+	<tbody id="newsImportDirectory" style="display:{NEWSLETTER_TEMPLATE_NEWS_IMPORT_DIRECTORY_DISPLAY}">
+		<tr>
+		  <th colspan="2">{TXT_NEWSLETTER_PLACEHOLDER_DIRECTORY}</th>
+		</tr>
+		<tr class="row3">
+		  <td width="15%" colspan="2"><b>{TXT_NEWSLETTER_NEWS_IMPORT}</b></td>
+		</tr>
+		<tr class="row1">
+		  <td width="15%" nowrap>{TXT_NEWSLETTER_NEWS_DATE}</td>
+		  <td width="85%">[[NEWS_DATE]]</td>
+		</tr>
+		<tr class="row2">
+		  <td width="15%" nowrap>{TXT_NEWSLETTER_NEWS_LONG_DATE}</td>
+		  <td width="85%">[[NEWS_LONG_DATE]]</td>
+		</tr>
+		<tr class="row1">
+		  <td width="15%" nowrap>{TXT_NEWSLETTER_NEWS_TITLE}</td>
+		  <td width="85%">[[NEWS_TITLE]]</td>
+		</tr>
+		<tr class="row2">
+		  <td width="15%" nowrap>{TXT_NEWSLETTER_NEWS_URL}</td>
+		  <td width="85%">[[NEWS_URL]]</td>
+		</tr>
+		<tr class="row1">
+		  <td width="15%" nowrap>{TXT_NEWSLETTER_NEWS_IMAGE_PATH}</td>
+		  <td width="85%">[[NEWS_IMAGE_PATH]]</td>
+		</tr>
+		<tr class="row2">
+		  <td width="15%" nowrap>{TXT_NEWSLETTER_NEWS_TEASER_TEXT}</td>
+		  <td width="85%">[[NEWS_TEASER_TEXT]]</td>
+		</tr>
+		<tr class="row1">
+		  <td width="15%" nowrap>{TXT_NEWSLETTER_NEWS_TEXT}</td>
+		  <td width="85%">[[NEWS_TEXT]]</td>
+		</tr>
+		<tr class="row2">
+		  <td width="15%" nowrap>{TXT_NEWSLETTER_NEWS_AUTHOR}</td>
+		  <td width="85%">[[NEWS_AUTHOR]]</td>
+		</tr>
+		<tr class="row1">
+		  <td width="15%" nowrap>{TXT_NEWSLETTER_NEWS_CATEGORY_NAME}</td>
+		  <td width="85%">[[NEWS_CATEGORY_NAME]]</td>
+		</tr>
+		<tr class="row2">
+		  <td width="15%" nowrap>{TXT_NEWSLETTER_NEWS_TYPE_NAME}</td>
+		  <td width="85%">[[NEWS_TYPE_NAME]]</td>
+		</tr>
+	</tbody>
+	<tbody id="emailDirectory2" style="display:{NEWSLETTER_TEMPLATE_NEWS_EMAIL_DIRECTORY_DISPLAY}">
+		<tr class="row2">
+		  <td width="15%" colspan="2"><b>{TXT_NEWSLETTER_GENERAL}</b></td>
+		</tr>
+		<tr class="row1">
+		  <td width="15%" nowrap>{TXT_NEWSLETTER_CONTENT}</td>
+		  <td width="85%">[[content]]</td>
+		</tr>
+		<tr class="row2">
+		  <td width="15%" nowrap>{TXT_NEWSLETTER_PROFILE_SETUP} (Link)</td>
+		  <td width="85%">[[profile_setup]] <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_NEWSLETTER_PLACEHOLDER_NOT_ON_BROWSER_VIEW}</span></td>
+		</tr>
+		<tr class="row1">
+		  <td width="15%" nowrap>{TXT_NEWSLETTER_UNSUBSCRIBE} (Link)</td>
+		  <td width="85%">[[unsubscribe]] <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_NEWSLETTER_PLACEHOLDER_NOT_ON_BROWSER_VIEW}</span></td>
+		</tr>
+		<tr class="row2">
+		  <td width="15%" nowrap>{TXT_NEWSLETTER_DATE}</td>
+		  <td width="85%">[[date]]</td>
+		</tr>
+		<tr class="row1">
+		  <td>{TXT_NEWSLETTER_DISPLAY_IN_BROWSER_LINK}</td>
+		  <td>[[display_in_browser_url]]</td>
+		</tr>
+	</tbody>
+  </table>
+  <br />
+  <input type="button" onclick="window.location.href='index.php?cmd=newsletter&{CSRF_PARAM}&amp;act=templates'" value="{TXT_NEWSLETTER_BACK}" />
+</div>
+<!-- END module_newsletter_template_edit.html -->

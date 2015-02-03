@@ -1,0 +1,89 @@
+<!-- START module_gov_orders_overview.html -->
+
+<script language="JavaScript" type="text/javascript">
+<!-- //
+function selectMultiAction()
+{
+  with (document.frmOrders) {
+    switch (frmOrders_MultiAction.value) {
+      case 'delete':
+        if (confirm('{TXT_JS_DELETE_ALL_ORDERS}')) {
+          action='index.php?cmd=egov&act=orders&delete=yes&multi=yes';
+          submit();
+        }
+      break;
+      default:
+    }
+  }
+}
+
+function deleteOrder(OrderID)
+{
+  with (document.frmOrders) {
+    if (confirm('{TXT_DELETE_ORDER}')) {
+      action='index.php?cmd=egov&act=orders&delete=yes&id='+OrderID;
+      submit();
+    }
+  }
+}
+// -->
+</script>
+
+<div id="subnavbar_level2">
+<ul>
+<li><a href="index.php?cmd=egov&amp;act=reservationproduct" title="{TXT_EGOV_ADD_RESERVATION}">{TXT_EGOV_ADD_RESERVATION}</a></li>
+</ul>
+</div>
+<br />
+
+<form action="index.php?cmd=egov" name="frmOrders" method="post">
+  <table summary="" border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+    <tbody>
+      <tr>
+        <th colspan="8">{TXT_ORDERS}</th>
+      </tr>
+      <tr class="row3" style="white-space:nowrap;">
+        <td width="3%">&nbsp;&nbsp;<b>#</b></td>
+        <td width="3%"><b>ID</b></td>
+        <td width="30%"><b>{TXT_PRODUCT}</b></td>
+        <td width="22%"><b>{TXT_NAME}</b></td>
+        <td width="10%"><b>{TXT_STATE}</b></td>
+        <td width="15%"><b>{TXT_DATE}</b></td>
+        <td width="22%"><b>{TXT_IP_ADDRESS}</b></td>
+        <td width="20%" style="text-align:right;"><b>{TXT_FUNCTIONS}</b></td>
+      </tr>
+      <!-- BEGIN orders_row -->
+         <tr class="{ORDERS_ROWCLASS}">
+        <td><input type="checkbox" name="selectedOrderId[]" value="{ORDER_ID}" /></td>
+            <td>{ORDER_ID}</td>
+            <td><a href="index.php?cmd=egov&amp;act=order_edit&amp;id={ORDER_ID}" target="_self">{ORDER_PRODUCT}</a></td>
+        <td>{ORDER_NAME}</td>
+            <td><img src="images/icons/{ORDER_STATE_IMG}" alt="{ORDER_STATE}" title="{ORDER_STATE}" border="0" /> {ORDER_STATE}</td>
+            <td><a href="index.php?cmd=egov&amp;act=order_edit&amp;id={ORDER_ID}" target="_self">{ORDER_DATE}</a></td>
+        <td>{ORDER_IP}</td>
+          <td style="text-align:right;" nowrap="nowrap">
+            <a href="index.php?cmd=egov&amp;act=order_edit&amp;id={ORDER_ID}" target="_self" title="{TXT_EDIT}"><img src="images/icons/edit.gif" border="0" alt="{TXT_EDIT}" title="{TXT_EDIT}" /></a>
+            <a href="javascript:deleteOrder({ORDER_ID});" target="_self" title="{TXT_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{TXT_DELETE}" title="{TXT_DELETE}" /></a>
+          </td>
+          </tr>
+      <!-- END orders_row -->
+    </tbody>
+  </table>
+  <br />
+  <table summary="" cellpadding="2" cellspacing="0" border="0">
+    <tr>
+      <td>
+        <img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="{TXT_MARKED}:" />
+        <a href="#" onClick="changeCheckboxes('frmOrders','selectedOrderId[]',true); return false;">{TXT_SELECT_ALL}</a> /
+        <a href="#" onClick="changeCheckboxes('frmOrders','selectedOrderId[]',false); return false;">{TXT_DESELECT_ALL}</a>
+        <img src="images/icons/strike.gif" alt="" />
+        <select name="frmOrders_MultiAction" onChange="selectMultiAction();">
+          <option value="0">{TXT_SUBMIT_SELECT}</option>
+          <option value="delete">{TXT_SUBMIT_DELETE}</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+</form>
+
+<!-- END module_gov_orders_overview.html -->

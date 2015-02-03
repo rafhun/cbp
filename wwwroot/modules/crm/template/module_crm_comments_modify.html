@@ -1,0 +1,123 @@
+<script type="text/javascript">
+    function checkValidationsEdit() {
+        $J("input, select").css("border","1px solid #0A50A1");
+        var errors =new  Array();
+        var errChk;
+        var name   = document.getElementById("notes_type").value;        
+        
+        if(name == 0) {
+            errChk = 1;
+            document.getElementById("notesCategoriesLink").style.border = "1px solid red";
+            return showErrors(errors, errChk);
+        }
+        //return false;
+    }
+    
+    function showErrors(errors,  errChk) {
+
+        if ( errors.length >= 1 || errChk == 1) {
+
+            if (errChk == 1 && errors.length >= 1) {
+                errString = errors.join('<br />');
+                $J('#formerr').html("All fields have not been filled out.!<br />"+errString);
+            } else if (  errors.length >= 1) {
+                errString = errors.join('<br />');
+                $J('#formerr').html(errString);
+            } else {
+                $J('#formerr').html("All fields have not been filled out.!");
+            }
+            $J('#formerr').css('display','block');            
+            return false;
+        } else {
+            $J('#formerr').html('');
+            $J('#formerr').css('display', 'none');
+            return true;
+        }
+    }
+    $J.dropdownToggle({
+        dropdownID: 'notesCategoriesPanel',
+        switcherSelector: '#notesCategoriesLink',
+        addTop: 0,
+        addLeft: 0
+    });
+    function showNotesPanel(switcherUI) {
+        $J("#notesCategoriesPanel a.dropDownItem").unbind('click').click(function() {
+            _changeNoteType(switcherUI, $J(this).text(), $J(this).attr("notes_type"));
+        });
+    }
+    var _changeNoteType = function(Obj, text, notes_type) {
+        $J(Obj).text(text);
+        $J('#notes_type').val(notes_type);        
+        $J("#notesCategoriesPanel").hide();
+    };
+    $J(function(){
+       $J( ".date" ).datepicker({ dateFormat: 'yy-mm-dd' });
+    });
+</script>
+<style type="text/css">
+    .taskTypeDiv {
+        float: left;
+        width: 100%;
+    }
+    .taskTypeImg {
+        float: left;
+        width: 20%;
+        text-align: center;
+    }
+    .taskTypeTitle {
+        float: left;
+        width: 80%;
+        text-align: left;
+        margin-top: 5px;
+    }
+</style>
+<div id="subnavbar_level2">
+    <ul>
+        <li><a href="index.php?cmd={MODULE_NAME}&amp;act=customers&amp;tpl=showcustdetail&amp;id={CRM_CUSTOMER_ID}" title="{TXT_CRM_CUSTOMER_OVERVIEW}">{TXT_CRM_CUSTOMER_OVERVIEW}</a></li>
+        <li><a href="index.php?cmd={MODULE_NAME}&amp;act=addcustcomment&amp;id={CRM_CUSTOMER_ID}" title="{TXT_CRM_COMMENT_ADD}">{TXT_CRM_NOTES_ADD}</a></li>
+    </ul>
+</div>
+<div id="formerr"></div>
+<br>
+<div class="dropDownDialog" id="notesCategoriesPanel" style="display: none;position: absolute;">
+    <div class="dropDownContent">
+        <!-- BEGIN NoteType -->
+        <a class=" dropDownItem" notes_type="{CRM_NOTE_TYPE_ID}">
+            <div class="taskTypeDiv">
+                <div class="taskTypeImg"><img src="{CRM_NOTE_TYPE_ICON}" alt="{CRM_NOTE_TYPE}"/></div>
+                <div class="taskTypeTitle">{CRM_NOTE_TYPE}</div>
+            </div>
+        </a>
+        <!-- END NoteType -->        
+    </div>
+</div>
+<form id="access" method="post" action="" name="addproject">
+    <table cellspacing="0" cellpadding="3" width="100%" border="0" class="adminlist">
+        <tr>
+            <th valign="top">
+                {TXT_CRM_NOTES_TITLE}
+            </th>
+        </tr>
+        <tr class="row2">            
+            <td>
+                <input type="hidden" name="notes_type" id="notes_type" value="{CRM_NOTES_TYPE_ID}" />
+                <div id="notesCategoriesLink" class="crmLeft" onclick="showNotesPanel(this);">
+                    {CRM_NOTES_TYPE}
+                </div>
+                <div class="notesdate crmLeft">
+                    &nbsp;&nbsp;{TXT_CRM_DUE_DATE}
+                    <input type="text" readonly autocomplete="off" name="date" id="date" class="date" value="{CRM_NOTES_DATE}" />
+                </div>
+            </td>
+        </tr>
+        <tr class="row1">
+            <td>
+                {CRM_COMMENT_DESCRIPTION}
+            </td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    <input type="button"  value="{TXT_CRM_BACK}" onclick="window.location='{TXT_CRM_BACK_LINK}&csrf='+cx.variables.get('csrf', 'contrexx')" />
+    <input type="submit" name="comment_submit" value="{TXT_CRM_SAVE}" onClick="return checkValidationsEdit();"/>
+</form>

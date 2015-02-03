@@ -1,0 +1,117 @@
+<!-- START module_blog_entries.html -->
+<!--script language="JavaScript" src="cadmin/javascript/set_checkboxes.js" type="text/javascript"></script -->
+{CUSTOMER_TYPES_JAVASCRIPT}
+<div style="clear:both;"></div>
+<div id="formerr"></div>
+<ul id="tabmenu">
+    <li><a id="Entries_ShowCustomersTypesEntries" class="{TXT_DISPLAY_ENTRIES_ACTIVE}" href="javascript:{}" onclick="selectTab('ShowCustomersTypesEntries')" title="{TXT_CRM_CUSTOMER_TYPES}">{TXT_CRM_CUSTOMER_TYPES}</a></li>
+    <li><a id="Entries_AddCustomersTypes" class="{TXT_DISPLAY_ADD_ACTIVE}" href="javascript:{}" onclick="selectTab('AddCustomersTypes')" title="{TXT_CRM_ADD_CUSTOMER_TYPES}">{TXT_CRM_ADD_CUSTOMER_TYPES}</a></li>
+</ul>
+<div id="ShowCustomersTypesEntries" class="Entries" style="display: {TXT_DISPLAY_ENTRIES};">
+    <form name="frmShowCustomerEntries" method="post" action="index.php?cmd={MODULE_NAME}&act=settings&tpl=customertypes">
+        <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+            <tr>
+                <th colspan="15">{TXT_CRM_CUSTOMER_TYPES}</th>
+            </tr>
+
+            <tr class="row3">
+                <td  width="2%"><span style="font-weight:bold;">&nbsp;&nbsp;#</span></td>
+                <td width="8%"  style="text-align:center"><span style="font-weight:bold;">{TXT_CRM_TITLE_STATUS}</span></td>
+                <td width="10%"><span style="font-weight:bold;"><a href="index.php?cmd={MODULE_NAME}&act=settings&tpl=customertypes{PM_CUSTOMER_ORDER_SORT}">{TXT_CRM_SORTING}</a></span></td>
+                <td width="40%"><span style="font-weight:bold;"><a href="index.php?cmd={MODULE_NAME}&act=settings&tpl=customertypes{PM_CUSTOMER_LABEL_SORT}">{TXT_CRM_LABEL}</a></span></td>
+                <td width="20%"><span style="font-weight:bold;">{TXT_CRM_DEFAULT}</span></td>                
+                <td  width="18%" colspan="2" align='right'><div style='text-align:right;font-weight:bold;'>{TXT_CRM_FUNCTIONS}</span></td>
+            </tr>
+
+            <!-- BEGIN showEntries -->
+            <tr class="{ENTRY_ROWCLASS}">
+                <td><input type="checkbox" name="selectedEntriesId[]" id="selectedEntriesId" value="{TXT_CUSTOMER_TYPE_ID}" /></td>
+                <td style="text-align:center"><a href='?index.php&cmd={MODULE_NAME}&act=settings&tpl=customerTypeChangeStatus&id={TXT_CUSTOMER_TYPE_ID}&status={TXT_CUSTOMER_ACTIVE}' ><img src="{TXT_PROJECT_ACTIVE_IMAGE}" title="{TXT_PROJECT_ACTIVE_TITLE}" border="0" alt="{TXT_PROJECT_ACTIVE_TITLE}" /></a></td>
+                <td>
+                    <input type="hidden" name="form_id[]" value="{TXT_CUSTOMER_TYPE_ID}" />
+                    <input type="text" name="form_pos[]" value="{TXT_CUSTOMER_POS_SORT}" style="width:25px; text-align:right; padding:2px;" />
+                </td>
+                <td>
+                    <a href="index.php?cmd={MODULE_NAME}&amp;act=settings&amp;tpl=customertypes&amp;fn=editCustomerTypes&amp;id={TXT_CUSTOMER_TYPE_ID}&amp;pos={ENTRY_PAGING}"
+                       target="_self" title="{TXT_CUSTOMER_TYPE_LABEL}">{TXT_CUSTOMER_TYPE_LABEL}</a></td>
+                       <td> <input type="radio" name="default" value="{TXT_CUSTOMER_TYPE_ID}" {TXT_DEFAULT_STATUS_CHECKED} /> </td>
+                <td>{TXT_CUSTOMER_DISCOUNT_PERCENT}</a></td>
+
+                <td nowrap="nowrap">
+                    <div align="right">
+                        <a href="index.php?cmd={MODULE_NAME}&amp;act=settings&amp;tpl=customertypes&amp;fn=editCustomerTypes&amp;id={TXT_CUSTOMER_TYPE_ID}&amp;pos={ENTRY_PAGING}" target="_self" title="{TXT_CRM_IMAGE_EDIT}"><img src="images/icons/edit.gif" border="0" alt="{TXT_CRM_IMAGE_EDIT}" title="{TXT_CRM_IMAGE_EDIT}" /></a>
+                        <a href="javascript:deleteEntry({TXT_CUSTOMER_TYPE_ID});" target="_self" title="{TXT_CRM_IMAGE_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{TXT_CRM_IMAGE_DELETE}" title="{TXT_CRM_IMAGE_DELETE}" /></a>
+                    </div>
+                </td>
+            </tr>
+            <!-- END showEntries -->
+            <!-- BEGIN showNoEntries -->
+            <tr><td colspan="15">{TXT_CRM_CONTAINS_NO_RECORDS}</td></tr>
+            <!-- END showNoEntries -->
+        </table>
+        <br />
+        <div style="display:{TXT_DISPLAY_SELECT_ACTION}">
+            <table cellpadding="2" cellspacing="0" border="0" >
+                <tr>
+                    <td>
+                        <img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="{TXT_ENTRIES_MARKED}:" />
+                        <a href="#" onclick="changeCheckboxes('frmShowCustomerEntries','selectedEntriesId[]',true); return false;">{TXT_CRM_SELECT_ALL}</a> /
+                        <a href="#" onclick="changeCheckboxes('frmShowCustomerEntries','selectedEntriesId[]',false); return false;">{TXT_CRM_DESELECT_ALL}</a>
+                        <img src="images/icons/strike.gif" alt="" />
+                        <select name="frmShowEntries_MultiAction" onchange="selectMultiAction();">
+                            <option value="0">{TXT_CRM_SELECT_ACTION}</option>
+                            <option value="activate">{TXT_CRM_ACTIVATESELECTED}</option>
+                            <option value="deactivate">{TXT_CRM_DEACTIVATESELECTED}</option>
+                            <option value="sort">{TXT_CRM_PROJECTSTATUS_SAVE_SORTING}</option>
+                            <option value="delete">{TXT_CRM_DELETE_SELECTED}</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+	</div>
+	<br />
+	<table cellpadding="2" cellspacing="0" border="0">
+		<tr>
+     <td>
+
+  <input type="submit" name="customer_submit" value="{TXT_CRM_SAVE}"  />
+			</td>
+   		</tr>
+	</table>
+   </form>
+<br />
+    <div align="center">{ENTRIES_PAGING}</div>
+</div>
+
+<div id="AddCustomersTypes" class="Entries" style="display: {TXT_DISPLAY_ADD};">
+    <form name="customerTypes" method="post" action="">
+        <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+            <tr>
+                <th colspan="15">{TXT_CRM_ADD_CUSTOMER_TYPES}</th>
+            </tr>
+            <tr class="row1">
+                <td width="10%" nowrap>{TXT_CRM_LABEL}&nbsp;<font color="red">*</font></td>
+                <td width="90%"><input type="text" name="label" id="label" style="width: 300px;" value="{TXT_CUSTOMERGIVENLABEL}" />
+                &nbsp;&nbsp;<input type="checkbox" name="activeStatus" value="active" {CRM_CUSTOMER_TYPE_CHECKED}>{TXT_CRM_TITLEACTIVE}</td>
+            </tr>
+            <tr class="row2">
+                <td nowrap>{TXT_CRM_SORTING_NUMBER}</td>
+                <td><input type="text" name="sortingNumber" id="sortingNumber" style="width: 300px;" value="{CRM_SORTING_NUMBER}" /></td>
+            </tr>                                 
+      </table>
+        <br />
+        <table cellpadding="2" cellspacing="0" border="0">
+            <tr>
+                <td>
+
+                    <input type="hidden" name="customer_type_id" value="{TXT_CUSTOMER_TYPE_ID}" />
+
+                    <input type="submit" name="customer_type_submit" value="{TXT_CRM_SAVE}" onClick="return checkValidations();" />
+                </td>
+            </tr>
+        </table>
+    </form>
+    <br />
+    <div align="center">{ENTRIES_PAGING}</div>
+</div>
+<!-- END module_partners_entries.html -->

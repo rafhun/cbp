@@ -1,0 +1,43 @@
+<!-- BEGIN skipAjaxBlock -->
+<table cellspacing="0" cellpadding="3" border="0" width="100%" class="adminlist">
+    <tr>
+        <th>{TXT_CRM_DEALS_OVERVIEW} {TXT_CRM_OF_CONTACTS}</th>
+    </tr>
+</table>
+<table id="dealsTab" cellspacing="0" cellpadding="3" border="0" width="100%" class="adminlist sortedTable">
+    <thead>
+        <tr class="row3">            
+            <td width="25%" style="white-space: nowrap">{TXT_CRM_DEALS_TITLE}</td>
+            <td width="20%">{TXT_CRM_DEALS_CUSTOMER_NAME}</td>
+            <td width="20%">{TXT_CRM_DEALS_RESPONSIBLE}</td>            
+            <td width="10%">{TXT_CRM_DEALS_DUE_DATE}</td>
+            <td width="10%" style="text-align: right;">{TXT_CRM_FUNCTIONS}</td>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- END skipAjaxBlock -->
+        <!-- BEGIN noDealsEntries -->
+        <tr class="row1">
+            <td colspan="6"><i>{TXT_CRM_NO_RECORDS_FOUND}</i></td>
+        </tr>
+        <!-- END noDealsEntries -->
+        <!-- BEGIN showDeals -->
+        <tr class="{ROW_CLASS}" id="entry_{ENTRY_ID}">            
+            <td>{CRM_DEALS_TITLE}</td>
+            <td>{CRM_CONTACT_NAME}</td>
+            <td>{CRM_DEALS_CONTACT_NAME}</td>            
+            <td>{CRM_DEALS_DUE_DATE}</td>
+            <td>
+                <div align="right">
+                    <a title="{TXT_CRM_IMAGE_EDIT}" target="_self" rel="entry_{ENTRY_ID}_edit" class="entry_{ENTRY_ID}_edit editEntry" href="./index.php?cmd={MODULE_NAME}&{CSRF_PARAM_CRM}&act=deals&tpl=manage&id={ENTRY_ID}{CRM_REDIRECT_LINK}" ><img border="0" title="{TXT_CRM_IMAGE_EDIT}" alt="{TXT_CRM_IMAGE_EDIT}" src="images/icons/edit.gif" /></a>
+                    <a rel="entry_{ENTRY_ID}_delete" class="entry_{ENTRY_ID}_delete deleteEntry" href="javascript:void(0);" target="_self" title="{TXT_CRM_IMAGE_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{TXT_CRM_IMAGE_DELETE}" title="{TXT_CRM_IMAGE_DELETE}" /></a>
+                </div>
+            </td>
+        </tr>
+        <!-- END showDeals -->
+        <!-- BEGIN skipAjaxBlock1 -->
+    </tbody>
+</table>
+<br>
+<input type="button" name="{TXT_CRM_ADD_OPPURTUNITY}" value="{TXT_CRM_ADD_OPPURTUNITY}" onclick="window.location='./index.php?cmd=crm&act=deals&tpl=manage&{CSRF_PARAM}&customer={CRM_CUSTOMER_ID}{CRM_REDIRECT_LINK}&csrf='+cx.variables.get('csrf', 'contrexx')" />
+<!-- END skipAjaxBlock1 -->

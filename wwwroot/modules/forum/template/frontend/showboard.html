@@ -1,0 +1,82 @@
+[[FORUM_JAVASCRIPT_GOTO]] [[FORUM_JAVASCRIPT_DELETE]]
+<div id="forum">
+<div style="text-align:right;">[[FORUM_COMMUNITY_LINKS]]</div>
+<span style="color: rgb(255, 0, 0);">[[TXT_FORUM_ERROR]]</span> <span style="color: rgb(0, 255, 0);">[[TXT_FORUM_SUCCESS]]</span>
+<!-- BEGIN addPostAnchor -->
+<div style="float:left;"><a href="#thread"><img border="0" style="vertical-align:top;" src="images/modules/forum/reply.gif" title="[[TXT_FORUM_CREATE_THREAD]]" alt="[[TXT_FORUM_CREATE_THREAD]]" />[[TXT_FORUM_CREATE_THREAD]]</a> </div>
+<!-- END addPostAnchor -->
+<div style="text-align: right;">[[FORUM_DROPDOWN]]</div>
+<div class="div_title">[[FORUM_TREE]][[FORUM_NAME]]</div>
+<div class="div_board">
+<table cellspacing="0" cellpadding="0">
+    <tbody>
+        <tr>
+            <th width="10px">&nbsp;</th>
+            <th width="1%">&nbsp;</th>
+            <th width="59%">[[TXT_THREADS_SUBJECTAUTHOR]]&nbsp;</th>
+            <th width="25%" align="left">[[TXT_THREADS_LASTTOPIC]]&nbsp;</th>
+            <th width="6%" align="left">[[TXT_THREADS_REPLIES]]&nbsp;</th>
+            <th width="6%" align="left">[[TXT_THREADS_HITS]]&nbsp;</th>
+            <th width="2%" align="left" style="vertical-align: middle;">&nbsp;</th>
+        </tr>
+        <!-- BEGIN forumThreads -->
+        <tr class="row_[[FORUM_THREADS_ROWCLASS]]">
+            <!--<td align="center">[[FORUM_THREADS_SYMBOL]]</td>-->
+            <td colspan="2" align="center">[[FORUM_THREADS_ICON]]</td>
+            <td align="justify"><strong><a href="index.php?section=forum&amp;cmd=thread&amp;id=[[FORUM_THREADS_ID]]" title="[[FORUM_THREADS_NAME]]">[[FORUM_THREADS_NAME]]</a></strong><br />
+            [[FORUM_THREADS_AUTHOR]]</td>
+            <td align="center">[[FORUM_THREADS_LASTPOST_DATE]]<br />
+            [[FORUM_THREADS_LASTPOST_AUTHOR]]</td>
+            <td align="center">[[FORUM_THREADS_REPLIES]]</td>
+            <td align="center">[[FORUM_THREADS_HITS]]</td>
+            <td align="center" style="vertical-align: middle;">                            <!-- BEGIN deleteThread -->                              <a onclick="deleteThread('[[FORUM_FORUM_ID]]', '[[FORUM_THREADS_ID]]'); return false;" href="index.php?section=forum&amp;cmd=board&amp;id=[[FORUM_FORUM_ID]]&amp;act=delete&amp;threadid=[[FORUM_THREADS_ID]]">                                  <img style="border: medium none ; vertical-align: middle;" src="images/modules/forum/delete.gif" title="Thema löschen" alt="Thema löschen" />                              </a>                            <!-- END deleteThread -->                         </td>
+        </tr>
+        <!-- END forumThreads --> 		<!-- BEGIN forumNoThreads -->
+        <tr class="row_0">
+            <td align="center" colspan="6">[[TXT_FORUM_NO_THREADS]]</td>
+        </tr>
+        <!-- END forumNoThreads -->
+    </tbody>
+</table>
+[[FORUM_THREADS_PAGING]] </div>
+<br />
+<!-- BEGIN addThread -->
+<a name="thread" />
+<div class="div_title" stlye="text-align: left;"> 	[[TXT_FORUM_ADD_THREAD]]  </div>
+<form name="frm_thread" action="?section=forum&amp;cmd=board&amp;id=[[FORUM_FORUM_ID]]" method="post">
+    <div class="div_board">
+    <table cellspacing="0" cellpadding="0">
+        <!--<tr>
+				<th colspan="2" style="text-align: left;">
+					[[TXT_FORUM_ADD_THREAD]]
+				</th>
+			</tr>-->
+        <tbody>
+            <tr>
+                <td> 					<!--[[TXT_FORUM_ICON]]--> 				</td>
+                <td nowrap="nowrap" colspan="2" style="padding-left: 0px; margin-left: 0px;">
+                <ul> 					<!-- BEGIN icons -->
+                    <li style="display: none;"> 							<input type="radio" style="border: 0px none ;" id="icons_[[FORUM_ICON_VALUE]]" name="icons" value="[[FORUM_ICON_VALUE]]" /><label for="icons_[[FORUM_ICON_VALUE]]"><img src="[[FORUM_ICON_SRC]]" alt="[[FORUM_ICON_ALT]]" title="[[FORUM_ICON_TITLE]]" /></label> 						</li>
+                    <!-- END icons -->				 					</ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td> 					[[TXT_FORUM_SUBJECT]] 				</td>
+                    <td colspan="2"> 					<input type="text" style="width: 400px;" name="thread_subject" value="[[FORUM_SUBJECT]]" /> 				</td>
+                </tr>
+                <tr>
+                    <td> 					[[TXT_FORUM_MESSAGE]] 				</td>
+                    <td colspan="2"> 					<textarea style="width: 400px; height: 150px;" name="thread_message">[[FORUM_MESSAGE]]</textarea> 				</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: middle;">[[TXT_FORUM_CAPTCHA]]</td>
+                    <td style="vertical-align: middle; width: 100%;" colspan="2">[[FORUM_CAPTCHA_CODE]]</td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <input type="reset" value="[[TXT_FORUM_RESET]]" /> 		<input type="submit" name="create" value="[[TXT_FORUM_CREATE_THREAD]]" /> 		<!--<input type="submit" name="preview" value="[[TXT_FORUM_PREVIEW]]" />--> 	</div>
+        <input type="hidden" name="category_id" value="[[FORUM_FORUM_ID]]" />         <input type="hidden" value="[[FORUM_PAGING_POS]]" name="pos" />
+    </form>
+    </div>
+    <!-- END addThread -->

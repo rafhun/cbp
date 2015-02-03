@@ -1,0 +1,70 @@
+<!-- START themes_activate.html -->
+<script language="JavaScript" type="text/javascript">
+<!-- // confirm delete variable
+function deleteLanguage(id)
+{
+    if (confirm('{TXT_CONFIRM_DELETE_DATA}\n{TXT_ACTION_IS_IRREVERSIBLE} {TXT_ATTENTION_SYSTEM_FUNCTIONALLY_AT_RISK}')) {
+        window.location.replace("index.php?cmd=language&{CSRF_PARAM}&act=dellang&languageId="+id);
+    }
+}
+
+function reloadThemesPage()
+{
+	document.themesFormActivate.action = 'index.php?cmd=skins&act=activate';
+	document.themesFormActivate.submit();
+}
+// -->
+</script>
+
+<form name="themesFormAssign" method="post" action="index.php?cmd=skins&amp;act=activate">
+    <table summary="" width="100%" cellspacing="0" cellpadding="3" border="0" align="top" class="adminlist">
+        <tr>
+            <th colspan="7">
+                <div align="left">{TXT_ACTIVATE_DESIGN}</div>
+            </th>
+        </tr>
+        <tr class="row3">
+            <td nowrap="nowrap" width="5%"><b>{TXT_ID}</b></td>
+            <td nowrap="nowrap" width="20%"><b>{TXT_LANGUAGE}</b></td>
+            <td nowrap="nowrap" width="15%"><b>{TXT_ACTIVE_TEMPLATE}</b></td>
+            <td nowrap="nowrap" width="15%"><b>{TXT_ACTIVE_MOBILE_TEMPLATE}</b></td>
+            <td nowrap="nowrap" width="15%"><b>{TXT_ACTIVE_PRINT_TEMPLATE}</b></td>
+            <td nowrap="nowrap" width="15%"><b>{TXT_ACTIVE_PDF_TEMPLATE}</b></td>
+            <td nowrap="nowrap" width="15%"><b>{TXT_ACTIVE_APP_TEMPLATE}</b></td>
+        </tr>
+        <!-- BEGIN themesLangRow -->
+        <tr class="{THEMES_ROWCLASS}">
+            <td nowrap="nowrap"><div align="left">{THEMES_LANG_ID}</div></td>
+            <td nowrap="nowrap">{THEMES_LANG_NAME}&nbsp;&nbsp;[ {THEMES_LANG_SHORTNAME}]</td>
+            <td nowrap="nowrap">
+                <select name="themesId[{THEMES_LANG_ID}]" style="width: 170px;">
+                    {THEMES_TEMPLATE_MENU}
+                </select>
+            </td>
+            <td nowrap="nowrap">
+                <select name="mobileThemesId[{THEMES_LANG_ID}]" style="width: 170px;">
+                    {THEMES_MOBILE_TEMPLATE_MENU}
+                </select>
+            </td>
+            <td nowrap="nowrap">
+                <select name="printThemesId[{THEMES_LANG_ID}]" style="width: 170px;">
+                    {THEMES_PRINT_TEMPLATE_MENU}
+                </select>
+            </td>
+            <td nowrap="nowrap">
+                <select name="pdfThemesId[{THEMES_LANG_ID}]" style="width: 170px;">
+                    {THEMES_PDF_TEMPLATE_MENU}
+                </select>
+            </td>
+            <td nowrap="nowrap">
+                <select name="appThemesId[{THEMES_LANG_ID}]" style="width: 170px;">
+                    {THEMES_APP_TEMPLATE_MENU}
+                </select>
+            </td>
+        </tr>
+        <!-- END themesLangRow -->
+    </table>
+    <br />
+    <input type="submit" name="submit" value="{TXT_SAVE}" />
+</form>
+<!-- END themes_activate.html -->

@@ -1,0 +1,38 @@
+{CUSTOMER_TYPES_JAVASCRIPT}
+<div id="formerr"></div>
+
+<div id="editCustomersTypes" class="Entries" style="display: block;">
+    <form name="customerTypes" method="post" action="">
+        <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+            <tr>
+                <th colspan="15">{TXT_CRM_EDIT_CUSTOMER_TYPE}</th>
+            </tr>
+            <tr class="row1">
+                <td width="10%" nowrap>{TXT_CRM_LABEL}&nbsp;<font color="red">*</font></td>
+                <td width="90%">
+                    <input type="text" name="label" style="width: 300px;" value="{TXT_LABEL_VALUE}">
+                    &nbsp;&nbsp;
+                    <input type="checkbox" name="activeStatus" value="active" {TXT_ACTIVATED_VALUE}>{TXT_CRM_TITLEACTIVE}
+                </td>
+            </tr>
+            <tr class="row2">
+                <td nowrap>{TXT_CUSTOMER_TYPE_SORTING_NUMBER}</td>
+                <td>
+                    <input type="text" name="sortingNumber" id="sortingNumber" style="width: 300px;" value="{CRM_CUSTOMER_TYPE_SORTING_NUMBER}">
+                </td>
+            </tr>                           
+        </table>
+        <br />
+        <table cellpadding="2" cellspacing="0" border="0">
+            <tr>
+                <td>
+                    <input type="hidden" name="customer_type_id" value="{TXT_CUSTOMER_TYPE_ID}" />
+                    <input type="button" name="back_button" value="{TXT_CRM_BACK}" onClick="window.location.replace('index.php?cmd={MODULE_NAME}&act=settings&tpl=customertypes&{CSRF_PARAM}');" />
+                    &nbsp;&nbsp;
+                    <input type="submit" name="customer_type_submit" value="{TXT_CRM_SAVE}" onClick="return checkValidations();" />
+                </td>
+            </tr>
+        </table>
+    </form>
+    <br />
+</div>

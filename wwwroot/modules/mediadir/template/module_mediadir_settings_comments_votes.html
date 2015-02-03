@@ -1,0 +1,65 @@
+<!-- START module_mediadir_settings_comments_votes.html -->
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+
+function restoreData(type)
+{
+    if (confirm('{TXT_MEDIADIR_CONFIRM_DELETE_DATA}\n{TXT_MEDIADIR_ACTION_IS_IRREVERSIBLE}')) {
+        window.location.replace("index.php?cmd={MODULE_NAME}&{CSRF}&act=settings&tpl=votes&restore="+type);
+    }
+}
+// ]]>
+</script>
+<form id="settingsVotesForm" action="index.php?cmd={MODULE_NAME}&act=settings&tpl=votes" method="post" >
+<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+    <tr>
+        <th colspan="2">{TXT_MEDIADIR_VOTES}</th>
+    </tr>
+    <tr class="row1">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_ALLOW_VOTES}</td>
+        <td>
+            <input type="radio" name="settingsAllowVotes" value="1" {MEDIADIR_SETTINGS_ALLOW_VOTES_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="settingsAllowVotes" value="0" {MEDIADIR_SETTINGS_ALLOW_VOTES_OFF} /> {TXT_MEDIADIR_DEACTIVATE}
+        </td>
+    </tr>
+    <tr class="row2">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_VOTE_ONLY_COMMUNITY}</td>
+        <td>
+            <input type="radio" name="settingsVoteOnlyCommunity" value="1" {MEDIADIR_SETTINGS_VOTE_ONLY_COMMUNITY_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="settingsVoteOnlyCommunity" value="0" {MEDIADIR_SETTINGS_VOTE_ONLY_COMMUNITY_OFF} /> {TXT_MEDIADIR_DEACTIVATE}
+        </td>
+    </tr>
+    <tr class="row1">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_DELETE_ALL_VOTES}</td>
+        <td>
+            <input onclick="restoreData('voting');" name="settingsDeleteAllVotes" type="button" value="{TXT_MEDIADIR_DELETE}" />
+        </td>
+    </tr>
+</table>
+<br />
+<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+    <tr>
+        <th colspan="2">{TXT_MEDIADIR_COMMENTS}</th>
+    </tr>
+
+    <tr class="row1">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_ALLOW_COMMENTS}</td>
+        <td>
+            <input type="radio" name="settingsAllowComments" value="1" {MEDIADIR_SETTINGS_ALLOW_COMMENTS_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="settingsAllowComments" value="0" {MEDIADIR_SETTINGS_ALLOW_COMMENTS_OFF} /> {TXT_MEDIADIR_DEACTIVATE}
+        </td>
+    </tr>
+    <tr class="row2">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_COMMENT_ONLY_COMMUNITY}</td>
+        <td>
+            <input type="radio" name="settingsCommentOnlyCommunity" value="1" {MEDIADIR_SETTINGS_COMMENT_ONLY_COMMUNITY_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="settingsCommentOnlyCommunity" value="0" {MEDIADIR_SETTINGS_COMMENT_ONLY_COMMUNITY_OFF} /> {TXT_MEDIADIR_DEACTIVATE}
+        </td>
+    </tr>
+    <tr class="row1">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_DELETE_ALL_COMMENTS}</td>
+        <td>
+            <input onclick="restoreData('comments');" name="settingsDeleteAllComments" type="button" value="{TXT_MEDIADIR_DELETE}" />
+        </td>
+    </tr>
+</table>
+<br />
+<input type="submit" name="submitSettingsForm" value="{TXT_MEDIADIR_SUBMIT}" />
+</form>
+<!-- END module_mediadir_settings_comments_votes.html -->

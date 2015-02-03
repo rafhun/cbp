@@ -1,0 +1,103 @@
+<!-- START module_gov_order_edit.html -->
+<script language="JavaScript" type="text/javascript">
+<!-- //
+  function ChangeMessageFields() {
+    formObject = document.frmState;
+    if (!formObject.ChangeStateMessage.checked) {
+      formObject.email.style.background = "#eeeeee";
+      formObject.email_text.style.background = "#eeeeee";
+      formObject.save_button.value = '{TXT_SAVE}';
+    } else {
+      formObject.email.style.background = "#ffffff";
+      formObject.email_text.style.background = "#ffffff";
+      formObject.save_button.value = '{TXT_SAVE_AND_SEND}';
+    }
+  }
+
+  function SaveForm() {
+    formObject = document.frmState;
+    if (!formObject.ChangeStateMessage.checked) {
+      if (confirm('{TXT_SAVE_WITHOUT_EMAIL}')) {
+        formObject.submit();
+      }
+    } else {
+      if (formObject.email.value!='') {
+        if (confirm('{TXT_SVE_WITH_EMAIL}')) {
+          formObject.submit();
+        }
+      } else {
+        alert('{TXT_EMPTY_EMAIL}');
+      }
+    }
+  }
+// -->
+</script>
+
+<form name="frmState" method="post" action="index.php?cmd=egov&amp;act=order_edit">
+<input type="hidden" name="id" value="{ORDER_ID}" />
+<input type="hidden" name="update" value="exe" />
+<table summary="" width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+  <tr>
+    <th colspan="4">{TXT_ORDER}</th>
+  </tr>
+  <tr class="row1">
+    <td width="15%">ID</td>
+    <td width="35%">{ORDER_ID}</td>
+    <td width="15%">{TXT_IP_ADDRESS}</td>
+    <td width="35%">{ORDER_IP}</td>
+  </tr>
+  <tr class="row2">
+    <td>{TXT_PRODUCT}</td>
+    <td>{ORDER_PRODUCT}</td>
+    <td>{TXT_DATE}</td>
+    <td>{ORDER_DATE}</td>
+  </tr>
+</table>
+<br />
+<table summary="" width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+  <tr>
+    <th colspan="2">{TXT_DATA}</th>
+  </tr>
+  <!-- BEGIN orders_data_row -->
+  <tr class="{ROWCLASS}">
+    <td width="15%">{DATA_FIELD}</td>
+    <td width="85%">{DATA_VALUE}</td>
+  </tr>
+  <!-- END orders_data_row -->
+</table>
+<br />
+<table summary="" width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+  <tr>
+    <th colspan="2">{TXT_CHANGE_STATE}</th>
+  </tr>
+  <tr class="row1">
+    <td width="15%">{TXT_STATE}</td>
+    <td width="85%">
+      <select name="state" style="width: 300px;">
+        {EGOV_ORDER_STATUS_MENUOPTIONS}
+      </select>
+    </td>
+  </tr>
+  <tr class="row2">
+    <td>{TXT_SEND_STATE_CHANGE_EMAIL}</td>
+    <td><input type="checkbox" name="ChangeStateMessage" value="send" checked onclick="ChangeMessageFields();" /></td>
+  </tr>
+  <tr class="row1">
+    <td>{TXT_EMAIL_ADDRESS}</td>
+      <td><input type="text" size="50" name="email" value="{EGOV_TARGET_EMAIL}" style="width: 300px;" /></td>
+  </tr>
+  <tr class="row2">
+    <td>{TXT_EGOV_SUBJECT}</td>
+      <td><input type="text" size="50" name="email_subject" value="{STATE_SUBJECT}" style="width: 300px;" /></td>
+  </tr>
+  <tr class="row1">
+    <td>{TXT_EMAIL_TEXT}</td>
+    <td>
+      <textarea name="email_text" style="width: 100%; height: 150px;">{SETTINGS_STATE_CHANGE_EMAIL}</textarea>
+    </td>
+  </tr>
+</table>
+<br />
+<input type="button" name="save_button" value="{TXT_SAVE_AND_SEND}" onclick="SaveForm();" />
+</form>
+<!-- END module_gov_order_edit.html -->

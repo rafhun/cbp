@@ -1,0 +1,646 @@
+<!-- START module_news_modify.html -->
+<script type="text/javascript">
+    //adds the datetimepicker to the date fields
+    cx.ready(function() {
+        var dpOptions = {
+            onSelect: function(dateText, inst) {
+                // adjust start or end date to avoid an invalid date range
+                var startDate = $J('input[name=startDate]').datepicker('getDate');
+                var endDate = $J('input[name=endDate]').datepicker('getDate');
+
+                if ((startDate != null) && (endDate != null) && (startDate > endDate)) {
+                    if ($J(this).attr('name') == 'startDate') {
+                        $J('input[name=endDate]').datepicker('setDate', dateText);
+                    } else {
+                        $J('input[name=startDate]').datepicker('setDate', dateText);
+                    }
+                }
+            }
+        };
+
+        $J('input[name=newsDate]').datetimepicker();
+        $J('input[name=startDate]').datetimepicker(dpOptions);
+        $J('input[name=endDate]').datetimepicker(dpOptions);
+    }, true);
+
+    function SetUrl(url, width, height, alt) {
+        switch (newsElType) {
+            case 'image':
+            case 'webpages':
+                document.getElementById(newsElInsertBox).value = url;
+                break
+            case 'link':
+                if (newsElLinkText == '') {
+                    newsElLinkText = url;
+                }
+                // splitting the A-tag is required to prevent the CSRF system from adding a token to the href attribute
+                newsInsertLink(document.getElementById(newsElInsertBox), '<'+'a href="'+url+'">'+newsElLinkText+'</a>');
+                break;
+        }
+    }
+
+    function newsGetFileBrowser(elInsertBox, sType)
+    {
+        newsElInsertBox = elInsertBox;
+        newsElType = sType;
+
+        if (sType == 'link') {
+            newsElLinkText = prompt('{TXT_NEWS_DEFINE_LINK_ALT_TEXT}', '');
+            if (newsElLinkText == null) {
+                return false;
+            }
+        }
+
+        var langId = cx.jQuery("a.langtab.active").attr("id").slice(14);
+
+        if (sType == 'webpages') {
+            openWindow('index.php?cmd=fileBrowser&{CSRF_PARAM}&standalone=true&type=webpages&langId='+langId,'','width=800,height=600,resizable=yes,status=no,scrollbars=yes');
+        } else {
+            openWindow('index.php?cmd=fileBrowser&{CSRF_PARAM}&standalone=true&langId='+langId,'','width=800,height=600,resizable=yes,status=no,scrollbars=yes');
+        }
+    }
+
+    function newsInsertLink(elInsertBox, sLink) {
+        elInsertBox.focus();
+
+        /* für Internet Explorer */
+        if (typeof document.selection != 'undefined') {
+            /* Einfügen des Formatierungscodes */
+            var range = document.selection.createRange();
+            var insText = range.text;
+            range.text = sLink;
+            /* Anpassen der Cursorposition
+    range = document.selection.createRange();
+    if (insText.length == 0) {
+    range.move('character', -eTag.length);
+    } else {
+    range.moveStart('character', aTag.length + insText.length + eTag.length);
+    }
+    range.select();
+             */
+        }
+
+        /* für neuere auf Gecko basierende Browser */
+        else if (typeof elInsertBox.selectionStart != 'undefined') {
+            /* Einfügen des Formatierungscodes */
+            var start = elInsertBox.selectionStart;
+            var end = elInsertBox.selectionEnd;
+
+            elInsertBox.value = elInsertBox.value.substr(0, start) + sLink + elInsertBox.value.substr(end);
+            /* Anpassen der Cursorposition
+    var pos;
+    if (insText.length == 0) {
+    pos = start + aTag.length;
+    } else {
+    pos = start + aTag.length + insText.length + eTag.length;
+    }
+    elInsertBox.selectionStart = pos;
+    elInsertBox.selectionEnd = pos;
+             */
+        }
+
+        /* für die übrigen Browser */
+        else {
+            /* Abfrage der Einfügeposition */
+            var pos;
+            var re = new RegExp('^[0-9]{0,3}$');
+            while (!re.test(pos)) {
+                pos = prompt("Einfügen an Position (0.." + elInsertBox.value.length + "):", "0");
+            }
+            if (pos > elInsertBox.value.length) {
+                pos = elInsertBox.value.length;
+            }
+            /* Einfügen des Formatierungscodes */
+            elInsertBox.value = elInsertBox.value.substr(0, pos) + sType + elInsertBox.value.substr(pos);
+        }
+    }
+
+    function disableDate() {
+        with (document.news) {
+            if (newsScheduled.checked == false) {
+                startDate.disabled = true;
+                endDate.disabled = true;
+                $J("#newsDate").css('display','none');                
+            } else {
+                startDate.disabled = false;
+                endDate.disabled = false;
+                $J("#newsDate").css('display','block');
+            }
+        }
+    }
+
+    function AddToTheList(from,dest,add,remove) {
+        if ( from.selectedIndex < 0) {
+            if (from.options[0] != null)
+                from.options[0].selected = true;
+            from.focus();
+            return false;
+        } else {
+            for (var i=0; i<from.length; i++) {
+                if (from.options[i].selected && !from.options[i].disabled) {
+                    dest.options[dest.length] = new Option( from.options[i].text, from.options[i].value, false, false);
+                }
+            }
+            for (var i=from.length-1; i>=0; i--) {
+                if (from.options[i].selected && !from.options[i].disabled) {
+                    from.options[i] = null;
+                }
+            }
+        }
+        disapleButtons(from,dest,add,remove);
+    }
+
+
+    function RemoveFromTheList(from,dest,add,remove) {
+        if ( dest.selectedIndex < 0) {
+            if (dest.options[0] != null)
+                dest.options[0].selected = true;
+            dest.focus();
+            return false;
+        } else {
+            for (var i=0; i<dest.options.length; i++) {
+                if (dest.options[i].selected && !dest.options[i].disabled) {
+                    from.options[from.options.length] = new Option( dest.options[i].text, dest.options[i].value, false, false);
+                }
+            }
+            for (var i=dest.options.length-1; i>=0; i--) {
+                if (dest.options[i].selected && !dest.options[i].disabled) {
+                    dest.options[i] = null;
+                }
+            }
+        }
+        disapleButtons(from,dest,add,remove);
+    }
+
+
+    function disapleButtons(from,dest,add,remove)
+    {
+        if (from.options.length > 0 )
+        {
+            add.disabled = 0;
+        }
+        else
+            add.disabled = 1;
+
+        if (dest.options.length > 0)
+            remove.disabled = 0;
+        else
+            remove.disabled = 1;
+    }
+
+    function SelectAllList(CONTROL) {
+        if (CONTROL == undefined) return;
+        for (var i = 0;i < CONTROL.length;i++) {
+            CONTROL.options[i].selected = true;
+        }
+    }
+
+    function DeselectAllList(CONTROL) {
+        for (var i = 0;i < CONTROL.length;i++) {
+            CONTROL.options[i].selected = false;
+        }
+    }
+
+
+    function openWindow(theURL,winName,features) {
+        galleryPopup = window.open(theURL,"gallery",features);
+        galleryPopup.focus();
+    }
+
+    function modusSelection(strAction) {
+        if (strAction == 'news_type_content') {
+            document.getElementById('news_type_content').style.display = 'block';
+            document.getElementById('news_type_redirect').style.display = 'none';
+            document.getElementById('newsRedirectLink').value = '';
+        } else {
+            document.getElementById('news_type_content').style.display = 'none';
+            document.getElementById('news_type_redirect').style.display = 'block';
+        }
+    }
+
+    function newsAdjustAccessConfig(elLayer,elDisplay)
+    {
+        elLayer.style.display = elDisplay ? 'none' : 'block';
+    }
+
+    function newsSwitchLang(langId)
+    {
+        // get current lang
+        var curLangId = cx.jQuery("a.langtab.active").attr("id").slice(14);
+
+        // store text of current language
+        // oCKeditor = CKEDITOR.instances['newsText'];
+        // cx.jQuery('#news_text\\[' + curLangId + "\\]").attr("value", oCKeditor.getData());
+        cx.jQuery('#news_text\\[' + curLangId + "\\]").attr("value", CKEDITOR.instances.newsText.getData());
+
+        // exit if no new language had been requested
+        if (typeof(langId) == 'undefined') return true;
+
+        // change tab
+        cx.jQuery("#news_lang_tab_" + curLangId).removeClass("active").addClass("inactive");
+        cx.jQuery("#news_lang_tab_" + langId).removeClass("inactive").addClass("active");
+        // change title
+        cx.jQuery("#newsTitle\\[" + curLangId + "\\]").css("display", "none");
+        cx.jQuery("#newsTitle\\[" + langId + "\\]").css("display", "block");
+        // change text
+        // oCKeditor.setData(cx.jQuery('#news_text\\[' + langId + "\\]").attr("value"));
+        CKEDITOR.instances.newsText.setData(cx.jQuery('#news_text\\[' + langId + "\\]").attr("value"));
+
+        // change teaser_text
+        cx.jQuery("#newsTeaserText\\[" + curLangId + "\\]").parent().css("display", "none");
+        cx.jQuery("#newsTeaserText\\[" + langId + "\\]").parent().css("display", "block");
+
+        // change language name in brackets
+        cx.jQuery("th.sectionTitle").find("span").text(cx.jQuery("#news_lang_tab_" + langId).text());
+
+        // change category list
+        /*cx.jQuery("select[name=newsCat]")
+        .find("option.lang" + curLangId).hide().end()
+        .find("option.lang" + langId).show();
+
+    catId = cx.jQuery("select[name=newsCat]").find("option:selected").attr("value");
+    cx.jQuery("select[name=newsCat]")
+        .find("option.selected").removeAttr("selected").end()
+        .find("option.lang" + langId + "[value=" + catId + "]").attr("selected", "selected");*/
+        return true;
+    }
+
+    function switchBoxAndTab(objElement, strTabId) {
+        if (countActiveLanguages() == 0) {
+            //We just "unchecked" the last language, disallow this
+            objElement.checked = true;
+        } else {
+            //There are more active languages, hide the tab
+            switchTabVisibility(strTabId);
+        }
+
+        //Now make sure that a possible div is shown
+        //activateAnyActiveDiv();
+    }
+
+    function switchTabVisibility(strTabId) {
+        selectedLang = strTabId.split('_')[strTabId.split('_').length - 1];
+        if ($J('#'+strTabId).parent().css('display') == 'none') {
+            $J('#'+strTabId).parent().css('display','inline');
+            //newsSwitchLang(selectedLang);
+        } else {
+            if ($J('#news_lang_tab_'+selectedLang).hasClass('active')) {
+                var activeLang = [];
+                $J('.langCheckboxes:checked').each(function(i){
+                    activeLang[i] = $J(this).attr('id');
+                });
+                activeLangId = activeLang[0].split('_')[activeLang[0].split('_').length - 1];
+                newsSwitchLang(activeLangId);
+            }
+            $J('#'+strTabId).parent().css('display','none');
+        }
+    }
+
+    function countActiveLanguages() {
+        var activeLanguages = 0;
+        activeLanguages = $J("input[name*=newsManagerLanguages]:checked").length;
+        return activeLanguages;
+    }
+
+    //
+</script>
+<form name="news" method="post" action="index.php?cmd=news&amp;act={NEWS_FORM_ACTION}" onSubmit="newsSwitchLang();SelectAllList(document.news.elements['newsTeaserFramesAsso[]']);SelectAllList(document.news.elements['news_read_access_associated_groups[]']);SelectAllList(document.news.elements['news_modify_access_associated_groups[]']);">
+    <!-- BEGIN news_language_checkboxes -->
+    <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+        <tr>
+            <th colspan="4">{TXT_LANGUAGE}</th>
+        </tr>
+        <tr class="row1">
+            <td width="10%">{TXT_LANGUAGE}</td>
+            <td width="12%" valign="top">{EDIT_LANGUAGES_1}</td>
+            <td width="12%" valign="top">{EDIT_LANGUAGES_2}</td>
+            <td width="66%" valign="top">{EDIT_LANGUAGES_3}</td>
+        </tr>
+    </table>
+    <br />
+    <!-- END news_language_checkboxes -->
+    <ul id="tabmenu">
+        <li><a id="messageTab_news1" class="active" href="javascript:{}" onclick="selectTab('news1')" title="{TXT_NEWS_BASIC_DATA}">{TXT_NEWS_BASIC_DATA}</a></li>
+        <li><a id="messageTab_news2" href="javascript:{}" onclick="selectTab('news2')" title="{TXT_NEWS_MORE_OPTIONS}">{TXT_NEWS_MORE_OPTIONS}</a></li>
+        <li><a id="messageTab_news3" href="javascript:{}" onclick="selectTab('news3')" title="{NEWS_HEADLINES_TEASERS_TXT}">{NEWS_HEADLINES_TEASERS_TXT}</a></li>
+        <!-- BEGIN news_permission_tab --><li><a id="messageTab_news4" href="javascript:{}" onclick="selectTab('news4')" title="{TXT_NEWS_PERMISSIONS}">{TXT_NEWS_PERMISSIONS}</a></li><!-- END news_permission_tab -->
+    </ul>    
+    <!-- start news1 div -->
+    <div id="news1" class="messageTab" style="display:block">
+        <table cellspacing="0" cellpadding="3" width="100%" border="0" class="adminlist">
+            <tr>
+                <th valign="top" colspan="2">
+                    <div align="left">{TXT_NEWS_BASIC_DATA}
+                        <input type="hidden" name="newsFormAction" value="{NEWS_STORED_FORM_ACTION}" />
+                        <input type="hidden" name="newsId" value="{NEWS_STORED_ID}" />
+                        <input type="hidden" name="newsTopTitle" value="{NEWS_TOP_TITLE}" />
+                    </div>
+                </th>
+            </tr>
+            <tr class="row1">
+                <td width="12%"><label for="news_status">{TXT_ACTIVE}</label></td>
+                <td width="88%">
+                    <input id="news_status" type="checkbox" name="status" value="1" {NEWS_STATUS} />
+                </td>
+            </tr>
+            <tr class="{NEWS_FORM_CAT_ROW}">
+                <td nowrap="nowrap"><label for="news_category">{TXT_CATEGORY}</label></td>
+                <td>
+                    <select id="news_category" name="newsCat">
+                        {NEWS_CAT_MENU}
+                    </select>
+                </td>
+            </tr>
+            {NEWS_TYPE_MENU}
+            <tr class="row1">
+                <td nowrap="nowrap">{TXT_NEWS_MESSAGE_TYPE}</td>
+                <td>
+                    <input type="radio" name="newsTypeRadio" id="news_type_radio_content" value="content" onclick="modusSelection('news_type_content');" {NEWS_TYPE_CHECKED_CONTENT} /><label for="news_type_radio_content">{TXT_NEWS_TYPE_DEFAULT}</label>
+                    <input type="radio" name="newsTypeRadio" id="news_type_radio_redirect" value="redirect" onclick="modusSelection('news_type_redirect');" {NEWS_TYPE_CHECKED_REDIRECT} /><label for="news_type_radio_redirect">{TXT_NEWS_TYPE_REDIRECT}</label>
+                </td>
+            </tr>
+        </table>
+        <br />
+        <ul class="tabmenu langtabs" style="display:{NEWS_LANG_TAB_DISPLAY_STYLE};">
+            <!-- BEGIN news_lang_list -->
+            <li style="display:{NEWS_LANG_DISPLAY_STYLE};"><a href="javascript:void(0);" class="langtab {NEWS_LANG_DISPLAY_STATUS}" onclick="newsSwitchLang({NEWS_LANG_ID})" title="{NEWS_LANG_NAME}" id="news_lang_tab_{NEWS_LANG_ID}">{NEWS_LANG_NAME}</a>
+            <!-- END news_lang_list -->
+        </ul>
+        <table cellspacing="0" cellpadding="3" width="100%" border="0" class="adminlist">
+            <tr>
+                <th class="sectionTitle" colspan="2">{TXT_NEWS_MESSAGE}</th>
+            </tr>
+            <tr class="row1">
+                <td width="12%" nowrap="nowrap">{TXT_TITLE}</td>
+                <td width="88%">
+                    <!-- BEGIN news_title_list -->
+                    <input type="text" name="newsTitle[{NEWS_LANG_ID}]" id="newsTitle[{NEWS_LANG_ID}]" style="width: 300px;display:{NEWS_TITLE_DISPLAY}" value="{NEWS_TITLE}" maxlength="250" />
+                    <!-- END news_title_list -->
+                </td>
+            </tr>
+            <!-- BEGIN news_use_teaser_text -->
+            <tr class="row2">
+                <td class="sectionTitle">{TXT_NEWS_TEASER_TEXT}</td>
+                <td>
+                    <!-- BEGIN news_teaser_text_list -->
+                    <div style="display:{NEWS_TITLE_DISPLAY}">
+                        <textarea name="newsTeaserText[{NEWS_LANG_ID}]" id="newsTeaserText[{NEWS_LANG_ID}]" onkeyup="document.getElementById('newsTeaserTextCharCount_{NEWS_LANG_ID}').childNodes[0].nodeValue=this.value.length" style="width:100%; height:100px; vertical-align:top; float:left;">{NEWS_TEASER_TEXT}</textarea><br />
+                        <div style="padding-right:50px; float:left;">&nbsp;{TXT_NUMBER_OF_CHARS}:&nbsp;<div id="newsTeaserTextCharCount_{NEWS_LANG_ID}" style="display:inline;">{NEWS_TEASER_TEXT_LENGTH}</div></div>
+                        <div>&nbsp;<a href="javascript:{}" onclick="newsGetFileBrowser('newsTeaserText[{NEWS_LANG_ID}]', 'link')">{TXT_NEWS_INSERT_LINK}</a></div>
+                    </div>
+                    <!-- END news_teaser_text_list -->
+                </td>
+            </tr>
+            <!-- END news_use_teaser_text -->
+        </table>
+        <br />
+        <div id="news_type_content" {NEWS_TYPE_SELECTION_CONTENT}>
+             <div id="news_content" style="{NEWS_TYPE_MSG_STYLE}">
+                <table cellspacing="0" cellpadding="3" width="100%" border="0" class="adminlist">
+                    <tr class="row3">
+                        <td class="sectionTitle">{TXT_NEWS_NEWS_CONTENT}</td>
+                    </tr>
+                    <tr class="row1 reset">
+                        <td valign="top">
+                            <!-- BEGIN news_text_list -->
+                            <textarea name="news_text[{NEWS_LANG_ID}]" id="news_text[{NEWS_LANG_ID}]" style="display:none;">{NEWS_TEXT}</textarea>
+                            <!-- END news_text_list -->
+                            {NEWS_TEXT_PREVIEW}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="news_type_redirect" {NEWS_TYPE_SELECTION_REDIRECT} >
+             <table cellspacing="0" cellpadding="3" width="100%" border="0" class="adminlist">
+                <tr class="row3">
+                    <td class="sectionTitle" colspan="2">{TXT_NEWS_TYPE_REDIRECT}</td>
+                </tr>
+                <tr class="row1">
+                    <td width="12%" nowrap="nowrap"><label for="news_redirect">{TXT_LINK}</label></td>
+                    <td width="88%"><input type="text" name="newsRedirect" id="news_redirect" value="{NEWS_REDIRECT}" style="width:400px;" />&nbsp;<input type="button" value="{TXT_BROWSE}" onClick="newsGetFileBrowser('news_redirect', 'webpages')" />&nbsp;<span class="tooltip-trigger icon-warning"></span><span class="tooltip-message">{TXT_NEWS_TYPE_REDIRECT_HELP}</span></td>
+                </tr>
+            </table>
+        </div>
+        <br />
+    </div>
+    <!-- end news1 div -->
+    <!-- start news2 div -->
+    <div id="news2" class="messageTab" style="display:none;">
+        <table cellspacing="0" cellpadding="3" width="100%" border="0" class="adminlist">
+            <tr>
+                <th colspan="2">{TXT_NEWS_MORE_OPTIONS}</th>
+            </tr>
+            <tr class="row3">
+                <td colspan="2">{TXT_PUBLISHING}</td>
+            </tr>
+            <tr class="row1">
+                <td nowrap="nowrap">{TXT_NEWS_PUBLISHER}</td>
+                <td nowrap="nowrap">
+                    <input class="live-search-user-id" id="newsPublisherId" type="hidden" name="newsPublisherId" value="{NEWS_PUBLISHER_ID}" />
+                    <input class="live-search-user-name" id="newsPublisherName" type="hidden" name="newsPublisherName" value="{NEWS_PUBLISHER_NAME}" placeholder="{TXT_CORE_SEARCH_USER}..." style="width: 277px;" />
+                </td>
+            </tr>
+            <tr class="row2">
+                <td nowrap="nowrap">{TXT_NEWS_AUTHOR}</td>
+                <td nowrap="nowrap">
+                    <input class="live-search-user-id" id="newsAuthorId" type="hidden" name="newsAuthorId" value="{NEWS_AUTHOR_ID}" />
+                    <input class="live-search-user-name" id="newsAuthorName" type="hidden" name="newsAuthorName" value="{NEWS_AUTHOR_NAME}" placeholder="{TXT_CORE_SEARCH_USER}..." style="width: 277px;" />
+                </td>
+            </tr>
+            <tr class="row1">
+                <td nowrap="nowrap"><label for="news_date">{TXT_DATE}</label></td>
+                <td><input type="text" name="newsDate" id="news_date" value="{NEWS_CREATE_DATE}" style="width:300px;" /></td>
+            </tr>
+            <tr class="row2">
+                <td nowrap="nowrap" valign="top" width="12%"><label for="news_scheduled">{TXT_SCHEDULED_PUBLICATION}</label></td>
+                <td nowrap="nowrap" width="88%">
+                    <input type="checkbox" name="newsScheduled" id="news_scheduled" value="1" {NEWS_SCHEDULED} onClick="disableDate()" />
+                    <div id="newsDate" style="{NEWS_SCHEDULED_DISPLAY}">
+                        {TXT_STARTDATE}:
+                        <input type="text" name="startDate" size="16" maxlength="19" value="{NEWS_STARTDATE}" />
+                        &nbsp;&nbsp; {TXT_ENDDATE}:
+                        <input type="text" name="endDate" size="16" maxlength="19" value="{NEWS_ENDDATE}" />
+                    </div>
+                </td>
+            </tr>
+            <!-- BEGIN news_allow_comments_option -->
+            <tr class="row1">
+                <td nowrap="nowrap"><label for="news_comments">{TXT_NEWS_ALLOW_COMMENTS}</label></td>
+                <td>
+                    <input type='checkbox' id="news_comments" name='allowComment' value='1' {NEWS_COMMENT_CHECKED} />
+                </td>
+            </tr>
+            <!-- END news_allow_comments_option -->
+        </table>
+        <br />
+        <table cellspacing="0" cellpadding="3" width="100%" border="0" class="adminlist">
+            <tr class="row3">
+                <td colspan="2">{TXT_EXTERNAL_SOURCE}</td>
+            </tr>
+            <tr class="row1">
+                <td width="12%" height="20" nowrap="nowrap"><label for="news_external_source">{TXT_EXTERNAL_SOURCE}</label></td>
+                <td><input type="text" name="newsSource" id="news_external_source" style="width: 400px;" value="{NEWS_SOURCE}" maxlength="250" /></td>
+            </tr>
+            <tr class="row2">
+                <td width="12%" height="20" nowrap="nowrap"><label for="news_link_1">{TXT_LINK} #1</label></td>
+                <td><input type="text" name="newsUrl1" id="news_link_1" style="width: 400px;" value="{NEWS_URL1}" maxlength="250" /></td>
+            </tr>
+            <tr class="row1">
+                <td width="12%" height="20" nowrap="nowrap"><label for="news_link_2">{TXT_LINK} #2</label></td>
+                <td><input type="text" name="newsUrl2" id="news_link_2" style="width: 400px;" value="{NEWS_URL2}" maxlength="250" /></td>
+            </tr>
+        </table>
+        <br />
+    </div>
+    <!-- end news2 div -->
+    <!-- start news3 div -->
+    <div id="news3" class="messageTab" style="display:none;">
+        <table cellspacing="0" cellpadding="3" width="100%" border="0" class="adminlist">
+            <tr>
+                <th colspan="4">{NEWS_HEADLINES_TEASERS_TXT}</th>
+            </tr>
+            <!-- BEGIN newsTeaserOptions -->
+            <tr class="row1">
+                <td width="12%" nowrap="nowrap">{TXT_USAGE}</td>
+                <td colspan="3"><input type="checkbox" name="newsUseOnlyTeaser" id="newsUseOnlyTeaser" value="1" {NEWS_USE_ONLY_TEASER_CHECKED} /><label for="newsUseOnlyTeaser">{TXT_USE_ONLY_TEASER_TEXT}</label></td>
+            </tr>
+            <tr class="row2">
+                <td width="12%" nowrap="nowrap" style="vertical-align:top;">{TXT_TEASER_TEASER_BOXES}</td>
+                <td style="width:200px;">{TXT_AVAILABLE_BOXES}<br />
+                    <select name="newsTeaserFrames[]" size="5" style="width:200px;" multiple="multiple">
+                        {NEWS_TEASER_FRAMES}
+                    </select><br />
+                    <font><a href="javascript:SelectAllList(document.news.elements['newsTeaserFrames[]']);">{TXT_SELECT_ALL}</a><br />
+                        <a href="javascript:DeselectAllList(document.news.elements['newsTeaserFrames[]']);">{TXT_DESELECT_ALL}</a></font>
+                </td>
+                <td valign="top" style="width:50px;">
+                    <div align="center"><br />
+                        <input type="button" style="width:40px;" value="&gt;&gt;" name="adduser" onClick="AddToTheList(document.news.elements['newsTeaserFrames[]'],document.news.elements['newsTeaserFramesAsso[]'],adduser,removeuser);" />
+                        <input type="button" style="width:40px;" value="&lt;&lt;" name="removeuser" onClick="RemoveFromTheList(document.news.elements['newsTeaserFrames[]'],document.news.elements['newsTeaserFramesAsso[]'],adduser,removeuser);" />
+                    </div>
+                </td>
+                <td>{TXT_ASSOCIATED_BOXES}<br />
+                    <select name="newsTeaserFramesAsso[]" size="5" style="width:200px;" multiple="multiple">
+                        {NEWS_TEASER_ASSOCIATED_FRAMES}
+                    </select>
+                    <br />
+                    <font><a href="javascript:SelectAllList(document.news.elements['newsTeaserFramesAsso[]']);">{TXT_SELECT_ALL}</a>
+                        <br />
+                        <a href="javascript:DeselectAllList(document.news.elements['newsTeaserFramesAsso[]']);">{TXT_DESELECT_ALL}</a></font>
+                    <div align="left"> </div>
+                </td>
+            </tr>
+            <!-- END newsTeaserOptions -->
+            <tr class="row1">
+                <td width="12%" nowrap="nowrap"><label for="news_teaser_show_link">{TXT_TEASER_SHOW_NEWS_LINK}</label></td>
+                <td colspan="3"><input type="checkbox" name="newsTeaserShowLink" id="news_teaser_show_link" value="1" {NEWS_TEASER_SHOW_LINK_CHECKED} /></td>
+            </tr>
+            <tr class="row2">
+                <td width="12%" nowrap="nowrap"><label for="news_image">{TXT_IMAGE}</label></td>
+                <td colspan="3"><input type="text" name="newsTeaserImagePath" id="news_image" style="width: 400px;" value="{NEWS_TEASER_IMAGE_PATH}" />&nbsp;<input type="button" value="{TXT_BROWSE}" onClick="newsGetFileBrowser('news_image', 'image')" /></td>
+            </tr>
+            <tr class="row1">
+                <td width="12%" nowrap="nowrap"><label for="news_thumbnail">{TXT_NEWS_THUMBNAIL}</label></td>
+                <td colspan="3"><input type="text" name="newsTeaserImageThumbnailPath" id="news_thumbnail" style="width: 400px;" value="{NEWS_TEASER_IMAGE_THUMBNAIL_PATH}" />&nbsp;<input type="button" value="{TXT_BROWSE}" onClick="newsGetFileBrowser('news_thumbnail', 'image')" /></td>
+            </tr>
+        </table>
+        <br />
+    </div>
+    <!-- end news3 div -->
+    <!-- start news4 div -->
+    <div id="news4" class="messageTab" style="display:none;">
+        <table cellspacing="0" cellpadding="3" width="100%" border="0" class="adminlist">
+            <tr>
+                <th colspan="4">{TXT_NEWS_PERMISSIONS}</th>
+            </tr>
+            <tr class="row1">
+                <td width="12%" nowrap="nowrap" style="vertical-align: top;">{TXT_NEWS_READ_ACCESS}</td>
+                <td width="88%">
+                    <input type="radio" name="news_read_access" id="news_read_access_all" value="0" onchange="newsAdjustAccessConfig(document.getElementById('news_read_access_config'),document.getElementById('news_read_access_all').checked)" {NEWS_READ_ACCESS_ALL_CHECKED} /><label for="news_read_access_all">{TXT_NEWS_READ_ALL_ACCESS_DESC}</label><br />
+                    <input type="radio" name="news_read_access" id="news_read_access_selected" value="1" onchange="newsAdjustAccessConfig(document.getElementById('news_read_access_config'),document.getElementById('news_read_access_all').checked)" {NEWS_READ_ACCESS_SELECTED_CHECKED} /><label for="news_read_access_selected">{TXT_NEWS_READ_SELECTED_ACCESS_DESC}</label><br />
+                    <div id="news_read_access_config" style="display:{NEWS_READ_ACCESS_DISPLAY}">
+                        <br />
+                        <table cellspacing="0" cellpadding="3" border="0" summary="user group assignements">
+                            <tbody style="vertical-align:top;">
+                                <tr>
+                                    <td width="300" style="border-bottom:0px;">{TXT_NEWS_AVAILABLE_USER_GROUPS}<br />
+                                        <select name="news_read_access_not_associated_groups[]" id="news_read_access_not_associated_groups" size="15" style="width:300px;" multiple="multiple">
+                                            {NEWS_READ_ACCESS_NOT_ASSOCIATED_GROUPS}
+                                        </select>
+                                        <br />
+                                        <a href="javascript:void(0);" onclick="SelectAllList(document.getElementById('news_read_access_not_associated_groups'))" title="{TXT_NEWS_CHECK_ALL}">{TXT_NEWS_CHECK_ALL}</a>
+                                        <br />
+                                        <a href="javascript:void(0);" onclick="DeselectAllList(document.getElementById('news_read_access_not_associated_groups'))" title="{TXT_NEWS_UNCHECK_ALL}">{TXT_NEWS_UNCHECK_ALL}</a>
+                                    </td>
+                                    <td width="45" style="border-bottom:0px; text-align:center;">
+                                        <br />
+                                        <input type="button" value="&gt;&gt;" name="addModifyOption" onclick="AddToTheList(document.getElementById('news_read_access_not_associated_groups'), document.getElementById('news_read_access_associated_groups'), 'addReadOption', 'removeReadOption')" style="margin-bottom:2px;" />
+                                        <br />
+                                        <input type="button" value="&lt;&lt;" name="removeModifyOption" onclick="RemoveFromTheList(document.getElementById('news_read_access_not_associated_groups'), document.getElementById('news_read_access_associated_groups'), 'addReadOption', 'removeReadOption')" />
+                                    </td>
+                                    <td width="100%" style="border-bottom:0px;">{TXT_NEWS_ASSIGNED_USER_GROUPS}<br />
+                                        <select name="news_read_access_associated_groups[]" id="news_read_access_associated_groups" size="15" style="width:300px;" multiple="multiple">
+                                            {NEWS_READ_ACCESS_ASSOCIATED_GROUPS}
+                                        </select>
+                                        <br />
+                                        <a href="javascript:void(0);" onclick="SelectAllList(document.getElementById('news_read_access_associated_groups'))" title="{TXT_NEWS_CHECK_ALL}">{TXT_NEWS_CHECK_ALL}</a>
+                                        <br />
+                                        <a href="javascript:void(0);" onclick="DeselectAllList(document.getElementById('news_read_access_associated_groups'))" title="{TXT_NEWS_UNCHECK_ALL}">{TXT_NEWS_UNCHECK_ALL}</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <tr class="row2">
+                <td width="12%" nowrap="nowrap" style="vertical-align: top;">{TXT_NEWS_MODIFY_ACCESS}</td>
+                <td width="88%">
+                    <input type="radio" name="news_modify_access" id="news_modify_access_all" value="0" onchange="newsAdjustAccessConfig(document.getElementById('news_modify_access_config'),document.getElementById('news_modify_access_all').checked)" {NEWS_MODIFY_ACCESS_ALL_CHECKED} /><label for="news_modify_access_all">{TXT_NEWS_MODIFY_ALL_ACCESS_DESC}</label><br />
+                    <input type="radio" name="news_modify_access" id="news_modify_access_selected" value="1" onchange="newsAdjustAccessConfig(document.getElementById('news_modify_access_config'),document.getElementById('news_modify_access_all').checked)" {NEWS_MODIFY_ACCESS_SELECTED_CHECKED} /><label for="news_modify_access_selected">{TXT_NEWS_MODIFY_SELECTED_ACCESS_DESC}</label><br />
+                    <div id="news_modify_access_config" style="display:{NEWS_MODIFY_ACCESS_DISPLAY}">
+                        <br />
+                        <table cellspacing="0" cellpadding="3" border="0" summary="user group assignements">
+                            <tbody style="vertical-align:top;">
+                                <tr>
+                                    <td width="300" style="border-bottom:0px;">{TXT_NEWS_AVAILABLE_USER_GROUPS}<br />
+                                        <select name="news_modify_access_not_associated_groups[]" id="news_modify_access_not_associated_groups" size="15" style="width:300px;" multiple="multiple">
+                                            {NEWS_MODIFY_ACCESS_NOT_ASSOCIATED_GROUPS}
+                                        </select>
+                                        <br />
+                                        <a href="javascript:void(0);" onclick="SelectAllList(document.getElementById('news_modify_access_not_associated_groups'))" title="{TXT_NEWS_CHECK_ALL}">{TXT_NEWS_CHECK_ALL}</a>
+                                        <br />
+                                        <a href="javascript:void(0);" onclick="DeselectAllList(document.getElementById('news_modify_access_not_associated_groups'))" title="{TXT_NEWS_UNCHECK_ALL}">{TXT_NEWS_UNCHECK_ALL}</a>
+                                    </td>
+                                    <td width="45" style="border-bottom:0px; text-align:center;">
+                                        <br />
+                                        <input type="button" value="&gt;&gt;" name="addModifyOption" onclick="AddToTheList(document.getElementById('news_modify_access_not_associated_groups'), document.getElementById('news_modify_access_associated_groups'), 'addModifyOption', 'removeModifyOption')" style="margin-bottom:2px;" />
+                                        <br />
+                                        <input type="button" value="&lt;&lt;" name="removeModifyOption" onclick="RemoveFromTheList(document.getElementById('news_modify_access_not_associated_groups'), document.getElementById('news_modify_access_associated_groups'), 'addModifyOption', 'removeModifyOption')" />
+                                    </td>
+                                    <td width="100%" style="border-bottom:0px;">{TXT_NEWS_ASSIGNED_USER_GROUPS}<br />
+                                        <select name="news_modify_access_associated_groups[]" id="news_modify_access_associated_groups" size="15" style="width:300px;" multiple="multiple">
+                                            {NEWS_MODIFY_ACCESS_ASSOCIATED_GROUPS}
+                                        </select>
+                                        <br />
+                                        <a href="javascript:void(0);" onclick="SelectAllList(document.getElementById('news_modify_access_associated_groups'))" title="{TXT_NEWS_CHECK_ALL}">{TXT_NEWS_CHECK_ALL}</a>
+                                        <br />
+                                        <a href="javascript:void(0);" onclick="DeselectAllList(document.getElementById('news_modify_access_associated_groups'))" title="{TXT_NEWS_UNCHECK_ALL}">{TXT_NEWS_UNCHECK_ALL}</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br />
+    </div>
+    <!-- end news4 div -->
+    <input type="submit" name="{NEWS_SUBMIT_NAME}" value="{NEWS_SUBMIT_NAME_TEXT}" />
+    <br />
+    <br />
+</form>
+<br />
+<!-- END module_news_modify.html -->

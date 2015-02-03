@@ -1,0 +1,71 @@
+<!-- START module_shop_discount_customer.html -->
+<div id="subnavbar_level2">
+  <ul>
+    <li><a href="index.php?cmd=shop&amp;act=customers&amp;tpl=catalog" title="{TXT_OVERVIEW}">{TXT_OVERVIEW}</a></li>
+    <li><a href="index.php?cmd=shop&amp;act=customers&amp;tpl=discounts" title="{TXT_SHOP_DISCOUNTS_CUSTOMER}">{TXT_SHOP_DISCOUNTS_CUSTOMER}</a></li>
+    <li><a href="index.php?cmd=shop&amp;act=customers&amp;tpl=groups" title="{TXT_SHOP_CUSTOMER_GROUPS}">{TXT_SHOP_CUSTOMER_GROUPS}</a></li>
+  </ul>
+</div>
+<br />
+<!-- BEGIN statusBar -->
+<span class="red">{CONTENT_STATUS}</span>
+<!-- END statusBar -->
+
+<form name="shopForm" method="post"
+    action="index.php?cmd=shop&amp;act=customers&amp;tpl=discounts">
+  <table border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+    <tr>
+      <th width="01%" class="f_bold">{TXT_SHOP_DISCOUNTS_CUSTOMER}</th>
+      <th colspan="{SHOP_CUSTOMER_GROUP_COUNT}">&nbsp;</th>
+    </tr>
+
+<!-- BEGIN customer_group_header -->
+    <tr class="row3">
+      <td class="a_right f_bold">
+        {TXT_SHOP_DISCOUNT_GROUP_CUSTOMER_COLON}
+      </td>
+<!-- BEGIN customer_group_header_column -->
+      <td class="a_right">
+        <a href="index.php?cmd=shop&amp;act=customers&amp;tpl=groups&amp;edit=1&amp;id={SHOP_CUSTOMER_GROUP_ID}"
+            title="{TXT_EDIT}">
+          {SHOP_CUSTOMER_GROUP_NAME}
+        </a>
+      </td>
+<!-- END customer_group_header_column -->
+    </tr>
+<!-- END customer_group_header -->
+
+<!-- BEGIN article_group_header_row -->
+    <tr>
+      <td class="col3" class="f_bold">
+        {TXT_SHOP_DISCOUNT_GROUP_ARTICLE_COLON}
+      </td>
+<!-- BEGIN article_group_header_column -->
+      <td>&nbsp;</td>
+<!-- END article_group_header_column -->
+    </tr>
+<!-- END article_group_header_row -->
+
+<!-- BEGIN article_group_row -->
+    <tr class="{SHOP_DISCOUNT_ROW_STYLE}">
+      <td class="col3">
+        <a href="index.php?cmd=shop&amp;act=products&amp;tpl=groups&amp;edit=1&amp;id={SHOP_ARTICLE_GROUP_ID}"
+            title="{TXT_EDIT}">
+          {SHOP_ARTICLE_GROUP_NAME}
+        </a>
+      </td>
+<!-- BEGIN discount_column -->
+      <td class="a_right">
+        <input type="text" size="2" maxlength="6" class="a_right"
+            name="discountRate[{SHOP_CUSTOMER_GROUP_ID}][{SHOP_ARTICLE_GROUP_ID}]"
+            value="{SHOP_DISCOUNT_RATE}" />&nbsp;%
+      </td>
+<!-- END discount_column -->
+    </tr>
+<!-- END article_group_row -->
+
+  </table>
+  <br />
+  <input type="submit" name="store" value="{TXT_STORE}" />
+</form>
+<!-- END module_shop_discount_customer.html -->

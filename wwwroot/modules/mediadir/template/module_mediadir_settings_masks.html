@@ -1,0 +1,60 @@
+<!-- START module_mediadir_settings_masks.html -->
+<script type="text/javascript">
+//<![CDATA[
+function deleteMask(maskId)
+{
+    if (confirm('{TXT_MEDIADIR_CONFIRM_DELETE_DATA}\n{TXT_MEDIADIR_ACTION_IS_IRREVERSIBLE}')) {
+        window.location.replace("index.php?cmd={MODULE_NAME}&act=settings&tpl=delete_mask&{CSRF}&id="+maskId);
+    }
+}
+
+var switchState = function(id, obj, action, type)
+{
+    cx.jQuery.get('index.php', {cmd : '{MODULE_NAME}', act : 'switchState', id : id, state : action, type : type}).success(function() {
+        if (action) {
+            path = 'images/icons/status_green.gif';
+            action = 0;
+        } else {
+            path = 'images/icons/status_red.gif';
+            action = 1;
+        }
+        cx.jQuery(obj).children('img:first').attr('src', path);
+        cx.jQuery(obj).attr('onclick', 'switchState('+id+', this, '+action+', \''+type+'\')');
+    });
+}
+//]]>
+</script>
+
+<form id="settingsMasksForm" action="index.php?cmd={MODULE_NAME}&act=settings&tpl=masks" method="post" >
+<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+    <tr>
+        <th colspan="6">{TXT_MEDIADIR_EXPORT_MASKS}</th>
+    </tr>
+    <tr class="row3">
+        <td width="1%"><strong>{TXT_MEDIADIR_STATUS}&nbsp;&nbsp;&nbsp;</strong></td>
+        <td width="25%"><strong>{TXT_MEDIADIR_TITLE}&nbsp;</strong></td>       
+        <td width="73%"><strong>{TXT_MEDIADIR_FORM_TEMPLATE}&nbsp;</strong></td>       
+        <td width="1%" style="text-align: right;"><strong>{TXT_MEDIADIR_ACTION}&nbsp;</strong></td>
+    </tr>
+    <!-- BEGIN mediadirMaskList -->
+    <tr class="{MEDIADIR_MASK_ROW_CLASS}">
+        <td style="text-align: center;"><a href="javascript: void(0);" onclick="switchState({MEDIADIR_MASK_ID}, this, {MEDIADIR_MASK_SWITCH_STATUS}, 'mask')"><img src="{MEDIADIR_MASK_STATUS}" border="0" alt="" title="" /></a></td>
+        <td><b><a href="index.php?cmd={MODULE_NAME}&act=settings&tpl=modify_mask&amp;id={MEDIADIR_MASK_ID}" target="_self" title="{MEDIADIR_MASK_TITLE} {TXT_EDIT}">{MEDIADIR_MASK_TITLE}</a></b></td>
+        <td>{MEDIADIR_MASK_FORM}</td>
+        <td style="text-align: right;" nowrap="nowrap">
+            <a href="index.php?cmd={MODULE_NAME}&act=settings&tpl=modify_mask&amp;id={MEDIADIR_MASK_ID}" target="_self" title="{MEDIADIR_MASK_TITLE} {TXT_EDIT}"><img src="images/icons/edit.gif" border="0" alt="{MEDIADIR_TEMPLATE_TITLE} {TXT_EDIT}" title="{MEDIADIR_TEMPLATE_TITLE} {TXT_EDIT}" /></a>
+            <a href="javascript:deleteMask('{MEDIADIR_MASK_ID}');" title="{MEDIADIR_MASK_TITLE} {TXT_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{MEDIADIR_MASK_TITLE} {TXT_DELETE}" title="{MEDIADIR_MASK_TITLE} {TXT_DELETE}" /></a>
+        </td>
+    </tr>
+    <!-- END mediadirMaskList -->
+
+    <!-- BEGIN mediadirMaskNoEntries -->
+    <tr class="row1">
+        <td colspan="6"><em>{TXT_MEDIADIR_NO_ENTRIES_FOUND}</em></td>
+    </tr>
+    <!-- END mediadirMaskNoEntries -->
+</table>
+<br />
+<input type="button" name="newTemplate" onclick="location.href='index.php?cmd={MODULE_NAME}&{CSRF}&act=settings&tpl=modify_mask'" value="{TXT_MEDIADIR_NEW_EXPORT_MASK}" />
+</form>
+<!-- END module_mediadir_settings_masks.html -->

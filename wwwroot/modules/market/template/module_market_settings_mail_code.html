@@ -1,0 +1,70 @@
+<!-- START module_market_settings_mail_code.html -->
+<form name="settings" method="post" action="?cmd=market&act=settings&tpl=email_code">
+  <table width="100%" cellspacing="0" cellpadding="3" border="0" align="top" class="adminlist">
+    <tr>
+      <th colspan=2>{TXT_EMAIL_CODE}</th>
+    </tr>
+    <tr class="row3">
+      <td colspan="2" valign="top"><b>{TXT_SETTINGS}</b></td>
+    </tr>
+    <tr class="row1">
+      <td width="180" valign="top">{TXT_MAIL_TO}</td>
+      <td ><input type="radio" name="mailTo" value="advertiser" {MAIL_TO_ADVERTISER}>&nbsp;{TXT_ADVERTISER}&nbsp;<input type="radio" name="mailTo" value="admin" {MAIL_TO_ADMIN}>&nbsp;{TXT_ADMIN}&nbsp;</td>
+    </tr>
+    <tr class="row2">
+      <td width="180" valign="top">{TXT_MAIL_CC}</td>
+      <td><input type="text" name="mailCC" value="{MAIL_CC}" style="width:468px;"></td>
+    </tr>
+    <tr class="row3">
+      <td colspan="2" valign="top"><b>{TXT_PLACEHOLDER}</b></td>
+    </tr>
+    <tr class="row1">
+      <td width="180" valign="top">{TXT_URL}</td>
+      <td >[[URL]]</td>
+    </tr>
+    <tr class="row2">
+      <td width="180" valign="top">{TXT_TITLE}</td>
+      <td >[[TITLE]]</td>
+    </tr>
+    <tr class="row1">
+      <td width="180" valign="top">{TXT_ID}</td>
+      <td >[[ID]]</td>
+    </tr>
+    <tr class="row2">
+      <td width="180" valign="top">{TXT_NAME}</td>
+      <td >[[NAME]]</td>
+    </tr>
+    <tr class="row1">
+      <td width="180" valign="top">{TXT_USERNAME}</td>
+      <td >[[USERNAME]]</td>
+    </tr>
+    <tr class="row2">
+      <td width="180" valign="top">{TXT_EMAIL_TITLE}</td>
+      <td >[[EMAIL]]</td>
+    </tr>
+    <tr class="row1">
+      <td width="180" valign="top">{TXT_CODE}</td>
+      <td >[[CODE]</td>
+    </tr>
+     <tr class="row2">
+      <td width="180" valign="top">{TXT_DATE}</td>
+      <td >[[DATE]]</td>
+    </tr>
+    <tr class="row3">
+      <td colspan="2" valign="top"><b>{TXT_CONTENT}</b></td>
+    </tr>
+    <tr class="row1">
+      <td width="180" valign="top">{TXT_SUBJECT}</td>
+      <td ><input type="text" name="mailTitle" value="{MAIL_TITLE}" style="width:468px;"></td>
+    </tr>
+    <tr class="row2">
+      <td width="180" valign="top">{TXT_TEXT}</td>
+      <td ><textarea name="mailContent" style="width:468px; overflow: auto;" rows='15'>{MAIL_CONTENT}</textarea></td>
+    </tr>
+    </table>
+<br />
+<input type="submit" value="{TXT_SAVE}" name="submitSettings">
+</form>
+<br>
+<br />
+<!-- END module_market_settings_mail_code.html -->

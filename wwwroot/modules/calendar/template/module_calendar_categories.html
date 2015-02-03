@@ -1,0 +1,109 @@
+<!-- START module_calendar_categories.html -->
+<script language="JavaScript" type="text/javascript">
+//<![CDATA[
+function deleteCategory(categoryId)
+{
+    if (confirm('{TXT_CALENDAR_CONFIRM_DELETE_DATA}\n{TXT_CALENDAR_ACTION_IS_IRREVERSIBLE}')) {
+        window.location.replace("index.php?cmd={CALENDAR_MODULE_NAME}&act=categories&delete="+categoryId+"&{CALENDAR_CSRF}");
+    }
+}
+
+function elementIsChecked(fieldName)
+{
+    var x = 0;
+    for(var i = 0; i < document.formCategoryList.elements.length; i++) {
+        var e = document.formCategoryList.elements[i];
+        if(e.name == fieldName && e.checked == true) {
+            x++;
+        }
+    }
+    
+    if(x > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function selectMultiAction()
+{
+    if(elementIsChecked("selectedCategoryId[]") == true)
+    {
+        if(document.formCategoryList.formCategoryList_MultiAction.value == "delete") {
+            if(confirm('{TXT_CALENDAR_CONFIRM_DELETE_DATA}\n{TXT_CALENDAR_ACTION_IS_IRREVERSIBLE}')) {
+                document.formCategoryList.action = "index.php?cmd={CALENDAR_MODULE_NAME}&act=categories&multi=delete&{CALENDAR_CSRF}";
+                document.formCategoryList.submit();
+            }
+        } 
+        if(document.formCategoryList.formCategoryList_MultiAction.value == "activate") {                
+            document.formCategoryList.action = "index.php?cmd={CALENDAR_MODULE_NAME}&act=categories&multi=activate&{CALENDAR_CSRF}";
+            document.formCategoryList.submit(); 
+        } 
+        if(document.formCategoryList.formCategoryList_MultiAction.value == "deactivate") {                
+            document.formCategoryList.action = "index.php?cmd={CALENDAR_MODULE_NAME}&act=categories&multi=deactivate&{CALENDAR_CSRF}";
+            document.formCategoryList.submit(); 
+        } 
+    } else {
+        alert("{TXT_CALENDAR_MAKE_SELECTION}");
+    }
+
+    document.formCategoryList.formCategoryList_MultiAction.value = "0";
+}
+
+//]]>
+</script>
+
+<input type="button" name="newCategory" onclick="location.href='index.php?cmd={CALENDAR_MODULE_NAME}&amp;act=categories&amp;tpl=modify_category&amp;{CALENDAR_CSRF}'" value="{TXT_CALENDAR_INSERT_CATEGORY}" /><br />
+<br />
+<form name="formCategoryList" id="formCategoryList" action="index.php?cmd={CALENDAR_MODULE_NAME}&act=categories" method="post" >
+    <table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+        <tr>
+            <th colspan="6">{TXT_CALENDAR_CATEGORIES}</th>
+        </tr>
+        <tr class="row3">
+            <td style="width:1%; text-align: center;"><strong>#</strong></td>
+            <td style="width:1%; text-align: center;"><strong>&nbsp;{TXT_CALENDAR_STATUS}&nbsp;</strong></td>
+            <td style="width:1%; text-align: center;"><strong>&nbsp;{TXT_CALENDAR_SORT}&nbsp;</strong></td>
+            <td><strong>{TXT_CALENDAR_TITLE}&nbsp;</strong></td>
+            <td width="100"><strong>{TXT_CALENDAR_EVENTS}&nbsp;</strong></td>
+            <td width="100" style="text-align: right;"><strong>{TXT_CALENDAR_ACTION}&nbsp;</strong></td>
+        </tr>
+        <!-- BEGIN categoryList -->
+        <tr class="{CALENDAR_CATEGORY_ROW}">
+            <td style="text-align: center;"><input type="checkbox" name="selectedCategoryId[]" id="selectedCategoryId" value="{CALENDAR_CATEGORY_ID}" /></td>
+            <td style="text-align: center;"><a href="index.php?cmd={CALENDAR_MODULE_NAME}&amp;act=categories&amp;switch_status={CALENDAR_CATEGORY_ID}"><img src="images/icons/led_{CALENDAR_CATEGORY_LED}.gif" border="0" alt="{CALENDAR_CATEGORY_STATUS}" title="{CALENDAR_CATEGORY_STATUS}" /></a></td>
+            <td style="text-align: center;"><input type="text" maxlength="3" style="width: 20px;" name="categoryOrder[{CALENDAR_CATEGORY_ID}]" value="{CALENDAR_CATEGORY_SORT}" /></td>
+            <td><b><a href="index.php?cmd={CALENDAR_MODULE_NAME}&amp;act=categories&amp;tpl=modify_category&amp;id={CALENDAR_CATEGORY_ID}" target="_self" title="{CALENDAR_CATEGORY_TITLE} {TXT_CATEGORY_EDIT}">{CALENDAR_CATEGORY_TITLE}</a></b></td>
+            <td ><em>{CALENDAR_CATEGORY_EVENTS}</em></td>
+            <td style="text-align: right;">
+                <a href="index.php?cmd={CALENDAR_MODULE_NAME}&amp;act=categories&amp;tpl=modify_category&amp;id={CALENDAR_CATEGORY_ID}" target="_self" title="{TXT_CALENDAR_EDIT}"><img src="images/icons/edit.gif" border="0" alt="{CALENDAR_CATEGORY_TITLE} {TXT_CALENDAR_EDIT}" title="{TXT_CALENDAR_EDIT}" /></a>
+                <a href="javascript:deleteCategory('{CALENDAR_CATEGORY_ID}');" title="{TXT_CALENDAR_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{CALENDAR_CATEGORY_TITLE} {TXT_CALENDAR_DELETE}" title="{TXT_CALENDAR_DELETE}" /></a>
+            </td>
+        </tr>
+        <!-- END categoryList -->
+    
+        <!-- BEGIN emptyCategoryList -->
+        <tr class="row1">
+            <td colspan="6"><i>{TXT_CALENDAR_NO_CATEGORIES_FOUND}</i></td>
+        </tr>
+        <!-- END emptyCategoryList -->
+    </table>
+    <input type="submit" name="submitCategoryList" value="{TXT_CALENDAR_SAVE}" style="margin-left: 98px; margin-top: 6px;" />
+    <table cellpadding="2" cellspacing="0" border="0">
+        <tr>
+            <td style="border: 0px;">
+                <img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="{TXT_MARKED}:" />
+                <a href="#" onclick="changeCheckboxes('formCategoryList','selectedCategoryId',true); return false;">{TXT_SELECT_ALL}</a> /
+                <a href="#" onclick="changeCheckboxes('formCategoryList','selectedCategoryId',false); return false;">{TXT_DESELECT_ALL}</a>
+                <img src="images/icons/strike.gif" alt="space" />
+                <select name="formCategoryList_MultiAction" onchange="selectMultiAction();">
+                    <option value="0">{TXT_SUBMIT_SELECT}</option>
+                    <option value="activate">{TXT_SUBMIT_ACTIVATE}</option>
+                    <option value="deactivate">{TXT_SUBMIT_DEACTIVATE}</option>
+                    <option value="delete">{TXT_SUBMIT_DELETE}</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+</form>
+<!-- END module_calendar_categories.html -->

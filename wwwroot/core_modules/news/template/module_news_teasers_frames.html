@@ -1,0 +1,37 @@
+<!-- START module_news_teasers.html -->
+<script language="javascript" type="text/javascript">
+<!--
+function confirmDeleteFrame() {
+  if (confirm('{TXT_CONFIRM_DELETE_TEASER_BOX}')) {
+    return true;
+  } else {
+    return false;
+  }
+}
+// -->
+</script>
+<table class="adminlist" cellspacing="0" cellpadding="3" width="100%" border="0">
+  <tr>
+    <th colspan="4">{TXT_TEASER_TEASER_BOXES}</th>
+  </tr>
+  <tr class="row3">
+    <td><b>{TXT_BOX_NAME}</b></td>
+    <td><b>{TXT_PLACEHOLDER}</b></td>
+    <td><b>{TXT_BOX_TEMPLATE}</b></td>
+    <td><b>{TXT_FUNCTIONS}</b></td>
+  </tr>
+  <!-- BEGIN news_teaser_frames_list -->
+    <tr class="{NEWS_TEASER_FRAME_ROW_CLASS}">
+      <td width="15%"><a href="index.php?cmd=news&amp;act=settings&amp;tpl=teasers&amp;tpl2=editFrame&amp;frameId={NEWS_TEASER_FRAME_ID}" title="{TXT_SHOW_TEASER_BOX}">{NEWS_TEASER_FRAME_NAME}</a></td>
+      <td width="30%">{NEWS_TEASER_FRAME_TEMPLATE_PLACEHOLDER}</td>
+      <td width="50%"><a href="index.php?cmd=news&amp;act=settings&amp;tpl=teasers&amp;tpl2=editFrameTemplate&amp;templateId={NEWS_TEASER_FRAME_TPL_ID}" title="{TXT_EDIT_BOX_TEMPLATE}">{NEWS_TEASER_FRAME_TPL_NAME}</a></td>
+      <td width="5%" style="text-align: right;">
+        <a href="index.php?cmd=news&amp;act=settings&amp;tpl=teasers&amp;tpl2=editFrame&amp;frameId={NEWS_TEASER_FRAME_ID}" title="{TXT_EDIT_TEASER_BOX}"><img src="images/icons/edit.gif" alt="{TXT_EDIT_TEASER_BOX}" width="16" height="16" border="0" /></a>
+        <a href="index.php?cmd=news&amp;act=settings&amp;tpl=teasers&amp;tpl2=deleteFrame&amp;id={NEWS_TEASER_FRAME_ID}" onclick="return confirmDeleteFrame()" title="{TXT_DELETE_TEASER_BOX}"><img src="images/icons/delete.gif" alt="{TXT_DELETE_TEASER_BOX}" width="17" height="17" border="0" /></a>
+      </td>
+    </tr>
+  <!-- END news_teaser_frames_list -->
+</table>
+<br />
+<input type="button" onclick="window.location.replace('index.php?cmd=news&{CSRF_PARAM}&act=settings&tpl=teasers&tpl2=editFrame')" value="{TXT_ADD_BOX}" />
+<!-- END module_news_teasers.html -->

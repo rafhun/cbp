@@ -1,0 +1,104 @@
+<!-- START shop_customer_edit.html -->
+<form name="formCustomer" method="post"
+    action="index.php?cmd=shop{MODULE_INDEX}&amp;act=neweditcustomer">
+  <table width="100%" cellspacing="0" cellpadding="2" class="adminlist" border="0">
+    <tr>
+      <th colspan="4">{TXT_CUSTOMER_DATA}</th>
+    </tr>
+    <tr class="row1">
+      <td width="15%">{TXT_CUSTOMER_NUMBER}</td>
+      <td width="35%">
+        <input type="hidden" name="customer_id" value="{SHOP_CUSTOMERID}" />
+        {SHOP_CUSTOMERID}
+      </td>
+      <td width="15%">&nbsp;</td>
+      <td width="35%">&nbsp;</td>
+    </tr>
+    <tr class="row2">
+      <td>{TXT_COMPANY}</td>
+      <td><input type="text" name="company" value="{SHOP_COMPANY}" size="42" tabindex="1" /></td>
+      <td>{TXT_SHOP_DISCOUNT_GROUP_CUSTOMER}</td>
+      <td>
+        <select name="customer_group_id" style="width: 230px;" tabindex="21">
+          {SHOP_DISCOUNT_GROUP_CUSTOMER_MENUOPTIONS}
+        </select>
+      </td>
+    </tr>
+    <tr class="row1">
+      <td>{TXT_SHOP_TITLE}</td>
+      <td>
+        <select name="gender" style="width: 230px;" tabindex="2" />
+          {SHOP_GENDER_MENUOPTIONS}
+        </select>
+      </td>
+      <td>{TXT_CUSTOMER_TYP}</td>
+      <td>
+        <select name="customer_type" size="1" tabindex="22" style="width: 230px;">
+          {SHOP_CUSTOMER_TYPE_MENUOPTIONS}
+        </select>
+      </td>
+    </tr>
+    <tr class="row2">
+      <td>{TXT_LAST_NAME}</td>
+      <td><input type="text" name="lastname" value="{SHOP_LASTNAME}" size="42" tabindex="3" /></td>
+      <td>{TXT_LOGIN_NAME}</td>
+      <td><input type="text" name="username" value="{SHOP_USERNAME}" size="42" tabindex="23" /></td>
+    </tr>
+    <tr class="row1">
+      <td>{TXT_FIRST_NAME}</td>
+      <td><input type="text" name="firstname" value="{SHOP_FIRSTNAME}" size="42" tabindex="4" /></td>
+      <td>{TXT_RESET_PASSWORD}</td>
+      <td><input type="text" name="password" value="{SHOP_PASSWORD}" size="42" tabindex="24" /></td>
+    </tr>
+    <tr class="row2">
+      <td>{TXT_ADDRESS}</td>
+      <td><input type="text" name="address" value="{SHOP_ADDRESS}" size="42" tabindex="5" /></td>
+      <td>{TXT_REGISTER_DATE}</td>
+      <td>{SHOP_REGISTER_DATE}</td>
+    </tr>
+    <tr class="row1">
+      <td>{TXT_ZIP_CITY}</td>
+      <td>
+        <input type="text" name="zip" value="{SHOP_ZIP}" size="10" maxlength="10" tabindex="6" />
+        <input type="text" name="city" value="{SHOP_CITY}" size="28" tabindex="7" tabindex="26" /></td>
+      <td>{TXT_CUSTOMER_STATUS}</td>
+      <td>
+        <select name="active" size="1" tabindex="27" style="width: 230px;">
+          {SHOP_CUSTOMER_ACTIVE_MENUOPTIONS}
+        </select>
+      </td>
+    </tr>
+    <tr class="row2">
+      <td>{TXT_PHONE}</td>
+      <td><input type="text" name="phone" value="{SHOP_PHONE}" size="42" tabindex="8" /></td>
+      <td>{TXT_COUNTRY}</td>
+      <td>
+        <select name="country_id" style="width: 230px;" tabindex="28">
+          {SHOP_COUNTRY_MENUOPTIONS}
+        </select>
+      </td>
+    </tr>
+    <tr class="row1">
+      <td>{TXT_EMAIL}</td>
+      <td><input type="text" name="email" value="{SHOP_EMAIL}" size="42" tabindex="9" /></td>
+      <td>{TXT_FAX}</td>
+      <td><input type="text" name="fax" value="{SHOP_FAX}" size="42" tabindex="29" /></td>
+    </tr>
+  </table>
+  <br />
+  <table width="100%" border="0" cellspacing="0" cellpadding="2" class="adminlist">
+    <tr>
+      <th colspan="2">{TXT_OPTIONS}</th>
+    </tr>
+    <tr class="row1">
+      <td width="15%"><div style="vertical-align:top;">{TXT_REMARK}</div></td>
+      <td width="85%"><textarea name="companynote" rows="4" cols="80" tabindex="41">{SHOP_COMPANY_NOTE}</textarea></td>
+    </tr>
+  </table>
+  <br />
+    <input type="submit" name="store" value="{TXT_SAVE_CHANGES}" tabindex="52" />
+    <input type="checkbox" name="sendlogindata" id="sendlogindata"
+        value="checkbox" {SHOP_SEND_LOGING_DATA_STATUS} tabindex="51" />
+    <label for="sendlogindata">{TXT_SEND_LOGIN_DATA}</label>
+</form>
+<!-- END shop_customer_edit.html -->

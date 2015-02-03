@@ -1,0 +1,37 @@
+<!-- START module_directory_settings_system.html --> <font color="#FF0000">{STATUS} </font>
+<form name="settings" method="post" action="index.php?cmd=directory&amp;act=settings&amp;tpl=inputs">
+  <table width="100%" cellspacing="0" cellpadding="3" border="0" align="top" class="adminlist">
+    <tr>
+      <th colspan=9>{TXT_INPUT_FIELDS}</th>
+    </tr>
+    <tr class="row3">
+      <td valign="top" align="center"><b>{TXT_TYPE}</b></td>
+      <td valign="top"><b>{TXT_NAME}</b></td>
+      <td><b>{TXT_ACTIVE}</b></td>
+      <td><b>{TXT_ACTIVE}-Backend</b></td>
+      <td><b>{TXT_ORDER}</b></td>
+      <td><b>{TXT_REQUIRED}</b></td>
+      <td><b>{TXT_EXP_SEARCH}</b></td>
+      <td><b>{TXT_PLACEHOLDER}</b></td>
+      <td><b>{TXT_PLACEHOLDER_TXT}</b></td>
+    </tr>
+    <!-- BEGIN settingsOutput -->
+    <tr class="{FIELD_ROWCLASS}" style="background-color: {ROW_COLOR};">
+      <td {ROW_STYLE}><div align="center">{FIELD_TYPE}</div></td>
+      <td valign="top" {ROW_STYLE}>{FIELD_NAME}</td>
+      <td {ROW_STYLE}>{FIELD_STATUS}</td>
+      <td {ROW_STYLE}>{FIELD_STATUS_BACKEND}</td>
+      <td {ROW_STYLE}>{FIELD_SORT}</td>
+      <td {ROW_STYLE}>{FIELD_REQUIRED}</td>
+      <td {ROW_STYLE}>{FIELD_EXP_SEARCH}</td>
+      <td {ROW_STYLE}>{FIELD_PLACEHOLDER}</td>
+      <td {ROW_STYLE}>{FIELD_PLACEHOLDER_TXT}</td>
+    </tr>
+    {DROPDOWN_CONTENT}
+    <!-- END settingsOutput -->
+    </table>
+<br />
+<input type="submit" value="{TXT_SAVE_CHANGES}" name="set_inputs_submit">
+</form>
+<br>
+<!-- END module_directory_settings_system.html -->

@@ -1,0 +1,246 @@
+<!-- START shop_order_details.html -->
+<script type="text/javascript">
+<!--
+function edit(order_id)
+{
+  window.location.replace("index.php?cmd=shop{MODULE_INDEX}&{CSRF_PARAM}&act=editorder&order_id="+order_id);
+}
+//-->
+</script>
+<br />
+<table width="100%" border="0" class="adminlist" cellpadding="2" cellspacing="0">
+    <colgroup><col width="15%" /><col width="35%" /><col width="15%" /><col width="35%" /></colgroup>
+  <tr>
+    <th colspan="4">{TXT_ORDER}</th>
+  </tr>
+  <tr class="row1">
+    <td>{TXT_ORDERNUMBER}</td>
+    <td>{SHOP_ORDERID}</td>
+    <td>{TXT_IP_ADDRESS}</td>
+    <td>{SHOP_CUSTOMER_IP}</td>
+  </tr>
+  <tr class="row2">
+    <td>{TXT_ORDERDATE}</td>
+    <td>{SHOP_DATE}&nbsp;</td>
+    <td>{TXT_CLIENT_HOST}</td>
+    <td>{SHOP_CUSTOMER_HOST}</td>
+  </tr>
+  <tr class="row1" style="vertical-align:top;">
+    <td>{TXT_ORDERSTATUS}</td>
+    <td>{SHOP_ORDER_STATUS}</td>
+    <td>{TXT_BROWSER_VERSION}</td>
+    <td>{SHOP_CUSTOMER_BROWSER}</td>
+  </tr>
+  <tr class="row2">
+    <td>{TXT_LAST_EDIT}</td>
+    <td>{SHOP_LAST_MODIFIED}</td>
+    <td>{TXT_BROWSER_LANGUAGE}</td>
+    <td>{SHOP_CUSTOMER_LANG}</td>
+  </tr>
+  <tr class="row1">
+    <td>{TXT_ORDER_SUM}</td>
+    <td colspan="3">{SHOP_ORDER_SUM}&nbsp;{SHOP_CURRENCY}</td>
+  </tr>
+<!-- </table> <br /> <table width="100%" cellspacing="0" cellpadding="2" class="adminlist" border="0"> -->
+<tr><td>&nbsp;</td></tr>
+  <tr>
+    <th colspan="2">{TXT_BILLING_ADDRESS}</th>
+    <th colspan="2">{TXT_SHIPPING_ADDRESS}</th>
+  </tr>
+  <tr class="row1">
+    <td>{TXT_COMPANY}</td>
+    <td><a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=customerdetails&amp;customer_id={SHOP_CUSTOMER_ID}" title="{TXT_VIEW_DETAILS}">{SHOP_COMPANY}</a>&nbsp;</td>
+    <td>{TXT_COMPANY}</td>
+    <td>{SHOP_SHIP_COMPANY}&nbsp;</td>
+  </tr>
+  <tr class="row2">
+    <td>{TXT_SHOP_TITLE}</td>
+    <td>{SHOP_GENDER}&nbsp;</td>
+    <td>{TXT_SHOP_TITLE}</td>
+    <td>{SHOP_SHIP_GENDER}&nbsp;</td>
+  </tr>
+  <tr class="row1">
+    <td>{TXT_LAST_NAME}</td>
+    <td><a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=customerdetails&amp;customer_id={SHOP_CUSTOMER_ID}" title="{TXT_VIEW_DETAILS}">{SHOP_LASTNAME}</a>&nbsp;</td>
+    <td>{TXT_LAST_NAME}</td>
+    <td>{SHOP_SHIP_LASTNAME}&nbsp;</td>
+  </tr>
+  <tr class="row2">
+    <td>{TXT_FIRST_NAME}</td>
+    <td><a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=customerdetails&amp;customer_id={SHOP_CUSTOMER_ID}" title="{TXT_VIEW_DETAILS}">{SHOP_FIRSTNAME}</a>&nbsp;</td>
+    <td>{TXT_FIRST_NAME}</td>
+    <td>{SHOP_SHIP_FIRSTNAME}&nbsp;</td>
+  </tr>
+  <tr class="row1">
+    <td>{TXT_ADDRESS}</td>
+    <td>{SHOP_ADDRESS}&nbsp;</td>
+    <td>{TXT_ADDRESS}</td>
+    <td>{SHOP_SHIP_ADDRESS}&nbsp;</td>
+  </tr>
+  <tr class="row2">
+    <td>{TXT_ZIP_CITY}</td>
+    <td>{SHOP_ZIP}&nbsp;{SHOP_CITY}</td>
+    <td>{TXT_ZIP_CITY}</td>
+    <td>{SHOP_SHIP_ZIP}&nbsp;{SHOP_SHIP_CITY}</td>
+  </tr>
+  <tr class="row1">
+    <td>{TXT_COUNTRY}</td>
+    <td>{SHOP_COUNTRY}&nbsp;</td>
+    <td>{TXT_COUNTRY}</td>
+    <td>{SHOP_SHIP_COUNTRY}&nbsp;</td>
+  </tr>
+  <tr class="row2">
+    <td>{TXT_PHONE}</td>
+    <td>{SHOP_PHONE}&nbsp;</td>
+    <td>{TXT_PHONE}</td>
+    <td>{SHOP_SHIP_PHONE}&nbsp;</td>
+  </tr>
+  <tr class="row1">
+    <td>{TXT_FAX}</td>
+    <td colspan="3">{SHOP_FAX}&nbsp;</td>
+  </tr>
+  <tr class="row2">
+    <td>{TXT_EMAIL}</td>
+    <td><a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=settings&amp;tpl=mail&amp;strTab=shopMailSend&amp;shopMailTo={SHOP_EMAIL}" title="{TXT_SEND_MAIL_TO_ADDRESS}">{SHOP_EMAIL}</a>&nbsp;</td>
+    <td>{TXT_SHIPPING_METHOD}</td>
+    <td>{SHOP_SHIPPING_TYPE}&nbsp;</td>
+  </tr>
+<!-- </table> <br /> <table border="0" width="100%" cellspacing="0" cellpadding="2" class="adminlist"> -->
+<tr><td>&nbsp;</td></tr>
+  <tr>
+    <th colspan="4">{TXT_PAYMENT_INFORMATIONS}</th>
+  </tr>
+  <tr class="row1">
+    <td>{TXT_PAYMENT_TYPE}</td>
+    <td colspan="3">{SHOP_PAYMENTTYPE}&nbsp;({SHOP_PAYMENT_HANDLER})</td>
+  </tr>
+
+<!-- BEGIN creditCard -->
+  <tr class="row2">
+    <td>{TXT_CREDIT_CARD_OWNER}</td>
+    <td colspan="3">{SHOP_CCNAME}&nbsp;</td>
+  </tr>
+  <tr class="row1">
+    <td>{TXT_CARD_NUMBER}</td>
+    <td colspan="3">{SHOP_CCNUMBER}&nbsp;</td>
+  </tr>
+  <tr class="row2">
+    <td>{TXT_CVC_CODE}</td>
+    <td colspan="3">{SHOP_CVC_CODE}&nbsp;</td>
+  </tr>
+  <tr class="row1">
+    <td>{TXT_EXPIRY_DATE}</td>
+    <td colspan="3">{SHOP_CCDATE}&nbsp;</td>
+  </tr>
+<!-- END creditCard -->
+
+<!-- BEGIN lsv -->
+  <tr class="row2">
+    <td>{TXT_ACCOUNT_HOLDER}</td>
+    <td colspan="3">{SHOP_ACCOUNT_HOLDER}&nbsp;</td>
+  </tr>
+  <tr class="row1">
+    <td>{TXT_ACCOUNT_BANK}</td>
+    <td colspan="3">{SHOP_ACCOUNT_BANK}&nbsp;</td>
+  </tr>
+  <tr class="row2">
+    <td>{TXT_ACCOUNT_BLZ}</td>
+    <td colspan="3">{SHOP_ACCOUNT_BLZ}&nbsp;</td>
+  </tr>
+<!-- END lsv -->
+
+</table>
+<br />
+<table border="0" width="100%" class="adminlist" cellspacing="0" cellpadding="2">
+  <tr>
+    <th colspan="9">{TXT_BILL}</th>
+  </tr>
+  <tr class="row1">
+    <td class="f_bold" width="05%">{TXT_NUMBER}</td>
+    <td class="f_bold" width="05%">{TXT_PRODUCT_ID}</td>
+    <td class="f_bold" width="10%">{TXT_SHOP_PRODUCT_CUSTOM_ID}</td>
+    <td class="f_bold" width="40%">{TXT_PRODUCT_NAME}</td>
+    <td class="number f_bold" width="05%">{TXT_WEIGHT}</td>
+    <td class="number f_bold" width="10%">{TXT_PRODUCT_PRICE}</td>
+    <td class="number f_bold" colspan="2" width="10%">{TXT_TAX_RATE}</td>
+    <td class="number f_bold" width="10%">{TXT_SUM}</td>
+  </tr>
+<!-- BEGIN order_item -->
+  <tr class="{SHOP_ROWCLASS}">
+    <td valign="top">{SHOP_QUANTITY}&nbsp;</td>
+    <td valign="top">{SHOP_P_ID}&nbsp;</td>
+    <td valign="top">{SHOP_PRODUCT_CODE}&nbsp;</td>
+    <td valign="top">{SHOP_PRODUCT_NAME}&nbsp;</td>
+    <td class="number" valign="top">{SHOP_PRODUCT_WEIGHT}&nbsp;</td>
+    <td class="number" valign="top">{SHOP_PRODUCT_PRICE}&nbsp;{SHOP_CURRENCY}</td>
+    <td class="number" valign="top" width="05%">{SHOP_PRODUCT_TAX_RATE}</td>
+    <td class="number" valign="top" width="05%">{SHOP_PRODUCT_TAX_AMOUNT}&nbsp;{SHOP_CURRENCY}</td>
+    <td class="number" valign="top">{SHOP_PRODUCT_SUM}&nbsp;{SHOP_CURRENCY}</td>
+  </tr>
+<!-- END order_item -->
+
+<!-- BEGIN coupon_row -->
+  <tr class="{SHOP_ROWCLASS}">
+    <td colspan="2">&nbsp;</td>
+    <td>{SHOP_COUPON_CODE}&nbsp;</td>
+    <td>{SHOP_COUPON_NAME}&nbsp;</td>
+    <td colspan="4">&nbsp;</td>
+    <td class="number">{SHOP_COUPON_AMOUNT}&nbsp;{SHOP_CURRENCY}</td>
+  </tr>
+<!-- END coupon_row -->
+
+<!-- BEGIN shopNetPrice -->
+  <tr>
+    <td colspan="7">&nbsp;</td>
+    <td class="number f_bold">{TXT_NET_PRICE}</td>
+    <td class="number">{SHOP_NET_PRICE}&nbsp;{SHOP_CURRENCY}</td>
+  </tr>
+<!-- END shopNetPrice -->
+<!-- BEGIN shopTaxPrice -->
+  <tr>
+    <td colspan="7">&nbsp;</td>
+    <td class="number f_bold">{SHOP_PART_TAX_PROCENTUAL}</td>
+    <td class="number">{SHOP_TAX_PRICE}&nbsp;{SHOP_CURRENCY}</td>
+  </tr>
+<!-- END shopTaxPrice -->
+<!-- BEGIN shopShipmentPrice -->
+  <tr><td colspan="9">&nbsp;</td></tr>
+  <tr>
+    <td colspan="3">&nbsp;</td>
+    <td class="number f_bold">{TXT_TOTAL_WEIGHT}&nbsp;</td>
+    <td class="number">{SHOP_TOTAL_WEIGHT}</td>
+    <td colspan="2">&nbsp;</td>
+    <td class="number f_bold">{TXT_SHIPPING_PRICE}</td>
+    <td class="number">{SHOP_SHIPPING_PRICE}&nbsp;{SHOP_CURRENCY}</td>
+  </tr>
+<!-- END shopShipmentPrice -->
+<!-- BEGIN shopPaymentPrice -->
+  <tr>
+    <td colspan="7">&nbsp;</td>
+    <td class="number f_bold">{TXT_PAYMENT_COSTS}</td>
+    <td class="number">{SHOP_PAYMENT_PRICE}&nbsp;{SHOP_CURRENCY}</td>
+  </tr>
+<!-- END shopPaymentPrice -->
+  <tr>
+    <td colspan="7">&nbsp;</td>
+    <td class="number f_bold">{TXT_TOTAL}</td>
+    <td class="number">{SHOP_ORDER_SUM}&nbsp;{SHOP_CURRENCY}</td>
+  </tr>
+</table>
+<br />
+<table border="0" width="100%" cellpadding="2" cellspacing="0" class="adminlist">
+  <tr>
+    <th>{TXT_CUSTOMER_REMARKS}</th>
+  </tr>
+  <tr>
+    <td>{SHOP_CUSTOMER_NOTE}&nbsp;</td>
+  </tr>
+</table>
+<br />
+<!-- BEGIN order_edit -->
+<input type="button" name="editOrder" value="{TXT_EDIT}" onclick="edit({SHOP_ORDERID})" />
+<!-- END order_edit -->
+<!-- BEGIN order_no_edit -->
+{TXT_SHOP_ORDER_NOT_EDITABLE}
+<!-- END order_no_edit -->
+<!-- END shop_order_details.html -->

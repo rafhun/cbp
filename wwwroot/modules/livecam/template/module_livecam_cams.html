@@ -1,0 +1,105 @@
+<!-- START module_livecam_cams.html -->
+<style type="text/css">
+    .toggle_style {
+        margin: 0 0 15px 0;
+    }
+
+    .toggle_style .title {
+        margin: 0;
+    }
+
+    .toggle_style .container {
+        margin-top: 10px;
+    }
+</style>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+cx.jQuery(document).ready(function() {
+    cx.jQuery('.toggle .title').click(function() {
+        cx.jQuery(this).parent().toggleClass('open closed');
+        cx.jQuery(this).siblings('.container').animate({height: 'toggle'}, 400);
+    });
+
+    cx.jQuery('.toggle .container input[type="button"]').click(function() {
+        var properties = {
+            id : cx.jQuery(this).parent().parent().attr('id').substr(7),
+            currentImagePath : cx.jQuery(this).parent().find('.currentImagePath').val(),
+            maxImageWidth : cx.jQuery(this).parent().find('.maxImageWidth').val(),
+            archivePath : cx.jQuery(this).parent().find('.archivePath').val(),
+            thumbnailPath : cx.jQuery(this).parent().find('.thumbnailPath').val(),
+            thumbMaxSize : cx.jQuery(this).parent().find('.thumbMaxSize').val(),
+            hourFrom : cx.jQuery(this).parent().find('.hourFrom').val(),
+            hourTill : cx.jQuery(this).parent().find('.hourTill').val(),
+            minuteFrom : cx.jQuery(this).parent().find('.minuteFrom').val(),
+            minuteTill : cx.jQuery(this).parent().find('.minuteTill').val(),
+            shadowboxActivate : cx.jQuery(this).parent().find('.shadowboxActivate:checked').val()
+        };
+
+        jQuery.post('index.php?cmd=livecam&act=saveCam', properties).success(function() {
+            cx.jQuery('#okbox').show();
+            window.setTimeout(function() {
+                cx.jQuery('okbox').fadeOut(400);
+            }, 3000);
+        });
+    });
+});
+/* ]]> */
+</script>
+
+
+<div id="okbox" style="display: none;">{TXT_SUCCESS}</div>
+<!-- BEGIN cam -->
+<div class="toggle toggle_style open" id="toggle_{CAM_NUMBER}">
+    <div class="title"><div class="indicator"></div><label>{TXT_SETTINGS} {TXT_CAM} {CAM_NUMBER}</label></div>
+    <div class="container">
+        <table class="adminlist">
+            <tr>
+                <td width="220" nowrap="nowrap" style="vertical-align: top;">{TXT_CURRENT_IMAGE_URL}</td>
+                <td nowrap="nowrap" style="vertical-align: top;"><input type="text" size="70" class="currentImagePath" value="{CURRENT_IMAGE_URL}" /></td>
+                <td rowspan="6" style="width: 50%; vertical-align: bottom; padding-left: 10px;">
+                 <!-- BEGIN current_image -->
+                     <a href="{PATH}" target="_blank"><img src="{PATH}" style="height: 140px; border: none;" /></a>
+                 <!-- END current_image -->
+                 <br />
+                 <a href="../index.php?section=livecam&amp;cmd={CAM_NUMBER}" target="_blank">{TXT_TO_MODULE}</a>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap="nowrap" style="vertical-align: top;">{TXT_CURRENT_IMAGE_MAX_SIZE}</td>
+                <td nowrap="nowrap" style="vertical-align: top;"><input type="text" size="70" class="maxImageWidth" value="{CURRENT_IMAGE_MAX_SIZE}" /></td>
+            </tr>
+            <tr>
+                <td nowrap="nowrap" style="vertical-align: top;">{TXT_ARCHIVE_PATH}</td>
+                <td nowrap="nowrap" style="vertical-align: top;"><input class="archivePath" size="70" type="text" value="{ARCHIVE_PATH}" /></td>
+            </tr>
+            <tr>
+                <td nowrap="nowrap" style="vertical-align: top;">{TXT_THUMBNAIL_PATH}</td>
+                <td  nowrap="nowrap" style="vertical-align: top;"><input class="thumbnailPath" size="70" type="text" value="{THUMBNAIL_PATH}" /></td>
+            </tr>
+            <tr>
+                <td nowrap="nowrap" style="vertical-align: top;">{TXT_THUMBNAIL_MAX_SIZE}</td>
+                <td nowrap="nowrap" style="vertical-align: top;"><input type="text" size="70" class="thumbMaxSize" value="{THUMBNAIL_MAX_SIZE}" /></td>
+            </tr>
+            <tr>
+                <td nowrap="nowrap" style="vertical-align: top;">{TXT_ACTIVATE_SHADOWBOX}</td>
+                <td  nowrap="nowrap" style="vertical-align: top;">
+                    <input class="shadowboxActivate" name="shadowboxActivate_{CAM_NUMBER}" type="radio" value="1" {SHADOWBOX_ACTIVE} />{TXT_SHADOWBOX_ACTIVE}&nbsp;
+                    <input class="shadowboxActivate" name="shadowboxActivate_{CAM_NUMBER}" type="radio" value="0" {SHADOWBOX_INACTIVE} />{TXT_SHADOWBOX_INACTIVE}
+                </td>
+            </tr>
+            <tr>
+                <td>{TXT_SHOWFROM}</td>
+                <td><select class="hourFrom">{HOUR_FROM}</select> : <select class="minuteFrom">{MINUTE_FROM}</select> {TXT_OCLOCK} </td>
+            </tr>
+            <tr>
+                <td>{TXT_SHOWTILL}</td>
+                <td><select class="hourTill">{HOUR_TILL}</select> : <select class="minuteTill">{MINUTE_TILL}</select> {TXT_OCLOCK} </td>
+            </tr>
+        </table><br />
+        <input type="button" value="{TXT_SAVE}" />
+    </div>
+</div>
+<!-- END cam -->
+
+<!-- END module_livecam_cams.html -->

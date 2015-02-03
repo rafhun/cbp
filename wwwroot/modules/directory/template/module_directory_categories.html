@@ -1,0 +1,249 @@
+<!-- START module_directory_categories.html -->
+<script type="text/javascript" language="JavaScript">
+function deleteCategory(catid)
+{
+  if(confirm('{TXT_CONFIRM_DELETE_DATA}\n{TXT_ACTION_IS_IRREVERSIBLE}'))
+    window.location.replace("index.php?cmd=directory&{CSRF_PARAM}&act=del&id="+catid);
+}
+
+function statusCategory(catid, status)
+{
+  window.location.replace("index.php?cmd=directory&{CSRF_PARAM}&id="+catid+"&status="+status);
+}
+
+function CheckForm()
+{
+  with (document.addForm) {
+    if (description.value == "" || name.value == "") {
+      alert ("{TXT_FIELDS_REQUIRED}");
+      return false;
+    }
+    return true;
+  }
+}
+
+function setText()
+{
+  with (document.addForm) {
+    var txtValue = name.value;
+    if (description.value == "")
+      description.value=txtValue;
+  }
+}
+
+function catIsChecked(fieldName)
+{
+  var x = 0;
+  for(var i = 0; i < document.displayForm.elements.length; i++)
+  {
+    var e = document.displayForm.elements[i];
+    if(e.name == fieldName && e.checked == true) {
+      x++;
+    }
+  }
+  if(x > 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function catDoAction()
+{
+  if (catIsChecked("formSelected[]") == true) {
+    if (document.displayForm.selectAction.value == "move") {
+      obj = document.getElementById('showmove');
+      obj.style.display = 'inline';
+      //document.displayForm.action = "index.php?cmd=directory&act=confirmfile";
+      //document.displayForm.submit();
+    }
+    if(document.displayForm.selectAction.value == "delete") {
+      obj = document.getElementById('showmove');
+      obj.style.display = 'none';
+      if (confirm('{TXT_CONFIRM_DELETE_DATA}\n{TXT_ACTION_IS_IRREVERSIBLE}')) {
+        document.displayForm.action = "index.php?cmd=directory&act=del";
+        document.displayForm.submit();
+      } else {
+        document.displayForm.selectAction.value = "0";
+      }
+    }
+    if (document.displayForm.selectAction.value == "0") {
+      obj = document.getElementById('showmove');
+      obj.style.display = 'none';
+    }
+  } else {
+    alert("{TXT_MAKE_SELECTION}");
+    document.displayForm.selectAction.value = "0";
+    obj = document.getElementById('showmove');
+    obj.style.display = 'none';
+  }
+}
+
+function catDoMove()
+{
+  if (catIsChecked("formSelected[]") == true) {
+    if (confirm('Wollen Sie diese Kategorien wirklich verschieben?')) {
+      document.displayForm.action = "index.php?cmd=directory&act=move";
+      document.displayForm.submit();
+    } else {
+      document.displayForm.selectAction.value = "0";
+      obj = document.getElementById('showmove');
+      obj.style.display = 'none';
+    }
+  } else {
+    alert("{TXT_MAKE_SELECTION}");
+    document.displayForm.selectAction.value = "0";
+    obj = document.getElementById('showmove');
+    obj.style.display = 'none';
+  }
+}
+</script>
+<table width="100%" border="0" cellspacing="0" cellpadding="3" class="adminlist">
+  <tr>
+    <th nowrap>{TXT_OPTIONS}</th>
+  </tr>
+  <tr class="row1">
+    <td nowrap>
+      <form name="search" method=post action='index.php?cmd=directory&amp;act=files'>
+        {TXT_FILE_SEARCH}:
+        <input type="text" name="term" />
+        <input type="submit" name="Submit" value="{TXT_SEARCH}" />
+      </form>
+    </td>
+  </tr>
+</table>
+<br />
+
+<ul id="tabmenu">
+  <li><a id="dirTab_newcat" href="javascript:{}" onclick="selectTab('newcat')" title="">{TXT_ADD_CATEGORY}</a></li>
+</ul>
+
+<div id="newcat" class="dirTab" style="display:none;">
+<form name="addForm" method="post" action="index.php?cmd=directory&amp;act=add" onSubmit="return CheckForm()">
+  <table border="0" cellpadding="3" cellspacing="0" align="center" width="100%"  class="adminlist">
+    <tr>
+      <th colspan="2">{TXT_ADD_CATEGORY}</th>
+    </tr>
+    <tr class="row2">
+      <td width="150">{TXT_CATEGORY}<font color="red"> *</font></td>
+      <td>
+        <select name="category" style="width:471px;">
+          <option value=0>{TXT_NEW_CATEGORY}</option>
+          {CATEGORY}
+        </select>
+      </td>
+    </tr>
+    <tr class="row1">
+      <td width="150">{TXT_NAME}:<font color="red">*</font></td>
+      <td>
+        <input name="name" size="90" onchange="setText()" />
+      </td>
+    </tr>
+    <tr class="row2">
+      <td width="150">{TXT_DESCRIPTION}:<font color="red">*</font></td>
+      <td>
+        <input name="description" size="90" />
+      </td>
+    </tr>
+    <!-- <tr class="row1">
+      <td width="150">{TXT_METADESC}:</td>
+      <td>
+        <input name="metadesc" size="90">
+      </td>
+    </tr>
+    <tr class="row2">
+      <td width="150">{TXT_METAKEYS}:</td>
+      <td>
+        <input size="90" name="metakeys">
+      </td>
+    </tr> -->
+    <tr class="row1">
+      <td width="150">{TXT_SHOW_ENTRIES}:</td>
+      <td>
+        <input type="radio" name="showentries" value="1" checked />&nbsp;{TXT_YES}&nbsp;&nbsp;&nbsp;<input type="radio" name="showentries" value="0" />&nbsp;{TXT_NO}
+      </td>
+    </tr>
+  </table>
+  <br />
+  <input type="submit" name="addsubmit" value="{TXT_ADD}" />&nbsp;<font color="red">*</font> = {TXT_REQUIRED_FIELDS}
+</form>
+<br />
+<br />
+</div>
+<form name="displayForm" method="post" action="index.php?cmd=directory&amp;act=catOrder">
+  <table border="0" cellpadding="3" cellspacing="0" align="center" width="100%" class="adminlist">
+    <tr>
+    <th colspan="5">{TXT_LIST} [ <a href="index.php?cmd=directory&amp;expand=all">{TXT_EXPAND_ALL}</a> | <a href="index.php?cmd=directory&amp;collaps=all">{TXT_COLLAPS_ALL}</a> ]</th>
+    </tr>
+      <tr class="row3">
+      <td width="16">
+       <center><b>#</b></center>
+      </td>
+      <td width="25%"><b>{TXT_NAME}</b></td>
+      <td width="25%"><b>{TXT_DESCRIPTION}</b></td>
+      <td width="45%"><b>{TXT_SHOW_ENTRIES}</b></td>
+      <td width="5%"><div align="right"><b>{TXT_ACTION}</b></div></td>
+    </tr>
+<!-- BEGIN categoriesRow -->
+    <tr class={CATEGORIES_ROW}>
+      <td width="1%" valign="top">
+        <center>
+        {CATEGORIES_CHECKBOX}
+        </center>
+      </td>
+      <td width="40%" valign="top" style="padding-left: {CATEGORIES_PADDING}px" nowrap>{CATEGORIES_ICON}&nbsp;{CATEGORIES_FOLDER}&nbsp;
+        <input maxlength=5 size=1 value={CATEGORIES_DISPLAYORDER} name=displayorder[{CATEGORIES_ID}] />
+        {CATEGORIES_NAME} ({CATEGORIES_COUNTENTREES})
+<!-- BEGIN categories_category -->
+        <br /><i><b>{CATEGORIES_CATEGORY}</b></i>
+<!-- END categories_category -->
+      </td>
+      <td width="40%" valign="top">{CATEGORIES_DESCRIPTION} </td>
+      <td width="18%" valign="top">{CATEGORIES_SHOW_ENTRIES} </td>
+      <td width="1%" valign="top" nowrap="nowrap" align="right">
+        <a href="index.php?cmd=directory&amp;act=edit&amp;id={CATEGORIES_ID}"><img src="images/icons/edit.gif" alt='{TXT_EDIT}' border="0" /></a>
+        <a href="javascript:deleteCategory({CATEGORIES_ID})"><img src="images/icons/delete.gif" alt='{TXT_DELETE}' border="0" /></a>
+      </td>
+    </tr>
+<!-- END categoriesRow -->
+<!-- BEGIN nocatRow -->
+    <tr class={CATEGORIES_ROW}>
+      <td width="16" valign="top">
+        <br />
+      </td>
+      <td width="100%" valign="top" colspan="6">
+        {NO_CAT_FOUND}
+      </td>
+    </tr>
+<!-- END nocatRow -->
+  </table>
+<!-- BEGIN importSelectAction -->
+  <br />
+  <input type=submit value="{TXT_SAVE_CHANGES}" name=displaysubmit style="margin-left:65px;" />
+  <table cellpadding="2" cellspacing="0" border="0">
+    <tr>
+      <td>
+        <img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="{TXT_MARKED}:" />
+        <a href="#" onclick="changeCheckboxes('displayForm','formSelected[]',true); return false;">{TXT_SELECT_ALL}</a> /
+        <a href="#" onclick="changeCheckboxes('displayForm','formSelected[]',false); return false;">{TXT_DESELECT_ALL}</a>
+        <img src="images/icons/strike.gif" />
+        <select name="selectAction" onchange="catDoAction();">
+          <option value="0" selected="selected">{TXT_SELECT_ACTION}</option>
+          <option value="move">{TXT_MOVE}</option>
+          <option value="delete">{TXT_DELETE}</option>
+        </select>
+        <span id="showmove" style="display:none;">
+        <img src="images/icons/strike.gif" />
+        <select name="selectCat" onchange="catDoMove();">
+          <option value="" selected="selected">{TXT_SELECT_CATEGORY}</option>
+          <option value="0">{TXT_MAIN_CATEGORY}</option>
+          {CATEGORY_MOVE}
+        </select>
+        </span>
+      </td>
+    </tr>
+  </table>
+<!-- END importSelectAction -->
+</form>
+<br />
+<!-- END module_directory_categories.html -->

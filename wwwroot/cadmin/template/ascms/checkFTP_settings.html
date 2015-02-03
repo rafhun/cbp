@@ -1,0 +1,104 @@
+<!-- START checkFTP_content.html -->
+<table summary="" width="100%" border="0" cellspacing="0" cellpadding="3"  class="adminlist">
+<th width="200" nowrap>{TXT_FTP_SETTINGS}</th>
+<th nowrap> </th>
+</tr>
+<tr valign="top"  class="row1">
+<td>
+<b>{TXT_FTP_IS_ACTIVATED}</b>
+</td>
+<td>
+{FTP_IS_ACTIVATED}
+</td>
+</tr>
+<tr valign="top"  class="row2">
+<td>
+<b>{TXT_FTP_HOST}</b>
+</td>
+<td>
+{FTP_HOST}
+</td>
+</tr>
+<tr valign="top"  class="row1">
+<td>
+<b>{TXT_FTP_USER}</b>
+</td>
+<td>
+{FTP_USER}
+</td>
+</tr>
+<tr valign="top"  class="row2">
+<td>
+<b>{TXT_FTP_PATH}</b>
+</td>
+<td>
+{FTP_PATH}
+</td>
+</tr>
+</table>
+<br />
+<table summary="" width="100%" border="0" cellspacing="0" cellpadding="3"  class="adminlist">
+<tr>
+<th width="200" nowrap>{TXT_FTP_CHECK}</th>
+<th nowrap> </th>
+</tr>
+<tr valign="top"  class="row1">
+<td>
+<b>{TXT_WEBSERVER}</b>
+</td>
+<td>
+{WEBSERVER}
+</td>
+</tr>
+<tr valign="top"  class="row2">
+<td>
+<b>{TXT_FTP_CONNECTION}</b>
+</td>
+<td>
+{FTP_CONNECTION}
+</td>
+</tr>
+<tr valign="top"  class="row1">
+<td>
+<b>{TXT_SAVE_MODE}</b>
+</td>
+<td>
+{SAVE_MODE}
+</td>
+</tr>
+</table>
+<br />
+<table summary="" width="100%" border="0" cellspacing="0" cellpadding="3"  class="adminlist">
+<tr>
+<th colspan="4" nowrap>Serverstruktur</th>
+</tr>
+<tr valign="top"  class="row1">
+	<td width="10">
+		<input type="radio" name="folder" value="">
+	</td>
+	<td width="10">
+		<img src="images/icons/folder_on.gif">
+	</td>
+	<td colspan="2">
+		{FTP_SERVER_ROOT}
+	</td>
+</tr>
+	<!-- BEGIN importDirectoryTree -->
+	<tr valign="top"  class="{FTP_ROW_CLASS}">
+		<td>
+			&nbsp;
+		</td>
+		<td width="15">
+			<input type="radio" name="folder" value="{FTP_ROW_KEY}">
+		</td>
+		<td width="10">
+			<img src="images/icons/folder_on.gif">
+		</td>
+		<td>
+			{FTP_ROW_TEST}
+		</td>
+	</tr>
+	<!-- END importDirectoryTree -->
+
+</table>
+<!-- END checkFTP_content.html -->

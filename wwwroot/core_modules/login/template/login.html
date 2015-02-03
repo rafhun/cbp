@@ -1,0 +1,99 @@
+<!-- START login.html -->
+<div id="content_login_center">
+    <div id="content_login" class="login">
+        <h1>{TXT_LOGIN_LOGIN}</h1>
+        <form method="post" action="index.php" name="login_form" onsubmit="return ValidateForm(this)">
+            <input type="hidden" name="redirect" value="{REDIRECT_URL}" />
+            <script type="text/javascript" defer="defer">
+            /* <![CDATA[ */
+            form_submitted = false;
+            function ValidateForm(form)
+            {
+                if (form.USERNAME.value == '') {
+                    if (form.USERNAME.focus)
+                        form.USERNAME.focus();
+                    document.getElementById('no_username').style.display = 'block';
+                    document.getElementById('username').className = 'error';
+                    form_submitted = false;
+                } else {
+                    document.getElementById('no_username').style.display = 'none';
+                    document.getElementById('username').className = '';
+                }
+                if (form.hash.value == '') {
+                    if (form.hash.focus && form_submitted == true)
+                        form.hash.focus();
+                    document.getElementById('no_password').style.display = 'block';
+                    document.getElementById('password').className = 'error';
+                    form_submitted = false;
+                } else {
+                    document.getElementById('no_password').style.display = 'none';
+                    document.getElementById('password').className = '';
+                }
+                if (form.coreCaptchaCode) {
+                    if (form.coreCaptchaCode.value == '') {
+                        if (form.coreCaptchaCode.focus && form_submitted == true)
+                            form.coreCaptchaCode.focus();
+                        document.getElementById('no_captcha_code').style.display = 'block';
+                        document.getElementById('coreCaptchaCode').className = 'error';
+                        form_submitted = false;
+                    } else {
+                        document.getElementById('no_captcha_code').style.display = 'none';
+                        document.getElementById('coreCaptchaCode').className = '';
+                    }
+                }
+
+                if (form_submitted == false) {
+                    return false;
+                }
+                
+                //form.PASSWORD.value=MD5(form.hash.value)
+                form.PASSWORD.value=form.hash.value;
+                form.hash.value='';
+                return true;
+            }
+            /* ]]> */
+            </script>
+            <!-- BEGIN error_message -->
+            <div class="alertbox">{LOGIN_ERROR_MESSAGE}</div>
+            <!-- END error_message -->
+            <div>
+                <div class="error" id="no_username" style="display: none;">{TXT_LOGIN_ENTER_A_LOGIN}</div>
+                <label for="username">{TXT_LOGIN_USERNAME}</label>
+                <input tabindex="1" type="text" name="USERNAME" value="" id="username" />
+            </div>
+            <div>
+                <div class="error" id="no_password" style="display: none;">{TXT_LOGIN_ENTER_A_PASSWORD}</div>
+                <label for="password">{TXT_LOGIN_PASSWORD}</label>
+                <input tabindex="2" type="password" name="hash" value="" id="password" />
+                <input type="hidden" name="PASSWORD" value="" />
+            </div>
+            <!-- BEGIN captcha -->
+            <div>
+                <div class="error" id="no_captcha_code" style="display: none;">{TXT_LOGIN_ENTER_CAPTCHA}</div>
+                {CAPTCHA_CODE}
+            </div>
+            <!-- END captcha -->
+            <div style="width: auto;" id="login-box-remember-me">
+                <input tabindex="4" type="checkbox" value="1" name="remember_me" id="remember_me" /><label for="remember_me">{TXT_LOGIN_REMEMBER_ME}</label>
+            </div>
+            <div style="width: auto; float: right;">
+                <input tabindex="5" type="submit" name="submit_button" value="{TXT_LOGIN_LOGIN}" onclick="if(this.disabled || typeof(this.disabled)=='boolean') this.disabled=true ; form_submitted_test=form_submitted ; form_submitted=true ; form_submitted=(!form_submitted_test || confirm('Are you sure you want to submit this form again?')) ; if(this.disabled || typeof(this.disabled)=='boolean') this.disabled=false ; sub_form='' ; return true" />
+            </div>
+            <hr style="clear: both;" />
+            <div style="width: auto;">
+                <a href="{FRONTEND_LINK}" title="{TXT_FRONTEND_LINK}">{TXT_FRONTEND_LINK}</a>
+            </div>
+            <div style="width: auto; float: right;">
+                <a tabindex="6" href="index.php?cmd=login&amp;act=lostpw">{TXT_LOGIN_PASSWORD_LOST}</a>
+            </div>
+
+            <script type="text/javascript">
+            /* <![CDATA[ */
+                if (document.login_form.USERNAME.focus)
+                    document.login_form.USERNAME.focus();
+            /* ]]> */
+            </script>
+        </form>
+    </div>
+</div>
+<!-- END login.html -->

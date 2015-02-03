@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+<title>Directory News</title>
+<description>The latest Directory entries</description>
+<link>http://git.vm/index.php?section=directory</link>
+<copyright>http://git.vm</copyright>
+<webMaster>dv@comvation.com</webMaster>
+<generator>Contrexx® Web Content Management System</generator>
+<lastBuildDate>Thu, 19 Feb 2009 13:24:55 +0100</lastBuildDate>
+<language>English</language>
+<item>
+<title>MX Lookup Tool</title>
+<description>MX Lookup Tool - Check your DNS MX Records online</description>
+<link>http://git.vm/index.php?section=directory&amp;cmd=detail&amp;id=20</link>
+<pubDate>Thu, 19 Feb 2009 13:24:55 +0100</pubDate>
+</item>
+<item>
+<title>IconArchive.com</title>
+<description>The Icon Archive is a categorized collection of high quality desktop &amp; web icon sets. In total we have over 17,800 icons in 644 sets from 150 icon authors. Icons can be used for Windows (XP, Vista</description>
+<link>http://git.vm/index.php?section=directory&amp;cmd=detail&amp;id=19</link>
+<pubDate>Thu, 19 Feb 2009 13:24:55 +0100</pubDate>
+</item>
+<item>
+<title>Filezilla FTP-Programm</title>
+<description>FileZilla ist ein modernes und leistungsstarkes FTP-Programm für Windows, MAC und Linux Betriebssysteme. </description>
+<link>http://git.vm/index.php?section=directory&amp;cmd=detail&amp;id=18</link>
+<pubDate>Thu, 19 Feb 2009 13:24:55 +0100</pubDate>
+</item>
+<item>
+<title>The Apache Software Foundation</title>
+<description>The Apache Software Foundation provides support for the Apache community of open-source software projects. The Apache projects are characterized by a collaborative, consensus based development process</description>
+<link>http://git.vm/index.php?section=directory&amp;cmd=detail&amp;id=17</link>
+<pubDate>Thu, 19 Feb 2009 13:24:55 +0100</pubDate>
+</item>
+<item>
+<title>Contrexx Community Forum</title>
+<description>Moderiertes Community Forum in deutscher und englischer Sprache</description>
+<link>http://git.vm/index.php?section=directory&amp;cmd=detail&amp;id=16</link>
+<pubDate>Thu, 19 Feb 2009 13:24:55 +0100</pubDate>
+</item>
+<item>
+<title>Offizielle Contrexx Webseite</title>
+<description>Dies ist die offizielle Webseite des Contrexx Open Source Web Content Management System.</description>
+<link>http://git.vm/index.php?section=directory&amp;cmd=detail&amp;id=10</link>
+<pubDate>Thu, 19 Feb 2009 13:24:55 +0100</pubDate>
+</item>
+<item>
+<title>PHP.net</title>
+<description>The language that Contrexx is developed in. PHP is a widely-used general-purpose scripting language that is especially suited for Web development and can be embedded into HTML.</description>
+<link>http://git.vm/index.php?section=directory&amp;cmd=detail&amp;id=9</link>
+<pubDate>Thu, 19 Feb 2009 13:24:55 +0100</pubDate>
+</item>
+<item>
+<title>MySQL</title>
+<description>The database that Contrexx uses. The world&#039;s most popular open source database</description>
+<link>http://git.vm/index.php?section=directory&amp;cmd=detail&amp;id=8</link>
+<pubDate>Thu, 19 Feb 2009 13:24:55 +0100</pubDate>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,162 @@
+<div id="shop">
+  <!-- BEGIN core_message -->
+  <div class="[[MESSAGE_CLASS]]">[[MESSAGE_TEXT]]</div>
+  <!-- END core_message -->
+  <div id="shop_payment">
+    <form action="index.php?section=shop&amp;cmd=payment" name="shopForm" method="post">
+      <div class="payment">
+        <table summary="" cellspacing="0" width="100%">
+          <tr>
+            <th colspan="3" align="left" style="font: bold 16px/24px 'Open Sans',Arial,Helvetica,sans-serif;">[[TXT_PRODUCTS]]</th>
+          </tr>
+          <tr class="row1">
+            <td width="40%">
+              [[TXT_TOTALLY_GOODS]]&nbsp;[[SHOP_TAX_PRODUCTS_TXT]]
+            </td>
+            <td width="40%">
+              [[SHOP_TOTALITEM]]&nbsp;[[TXT_PRODUCT_S]]
+            </td>
+            <td width="20%" style="text-align: right;">
+              [[SHOP_TOTALPRICE]]&nbsp;[[SHOP_UNIT]]
+            </td>
+          </tr>
+          <!-- BEGIN shopCouponTotal -->
+          <tr valign="top" class="row1">
+            <td>
+              [[SHOP_DISCOUNT_COUPON_TOTAL]]
+            </td>
+            <td>&nbsp;</td>
+            <td style="text-align: right;">
+              [[SHOP_DISCOUNT_COUPON_TOTAL_AMOUNT]]&nbsp;[[SHOP_UNIT]]
+            </td>
+          </tr>
+          <!-- END shopCouponTotal -->
+          <!-- BEGIN shopShipment -->
+          <tr class="row3">
+            <td>
+              [[TXT_SHIPPING_METHODS]]
+              <!-- BEGIN shopWeight -->
+              ([[TXT_TOTAL_WEIGHT]]&nbsp;[[SHOP_TOTAL_WEIGHT]])
+              <!-- END shopWeight -->
+            </td>
+            <td>
+              [[SHOP_SHIPMENT_MENU]]
+              <!-- BEGIN no_shipper -->
+              [[TXT_SHIPPER_NO_GOOD]]
+              <!-- END no_shipper -->
+            </td>
+            <td style="text-align: right;">
+              [[SHOP_SHIPMENT_PRICE]]&nbsp;[[SHOP_UNIT]]
+            </td>
+          </tr>
+          <!-- END shopShipment -->
+          <!-- BEGIN shopPayment -->
+          <tr class="row3">
+            <td>
+              [[TXT_PAYMENT_TYPES]]
+            </td>
+            <td>
+              [[SHOP_PAYMENT_MENU]]
+            </td>
+            <td style="text-align: right;">
+              [[SHOP_PAYMENT_PRICE]]&nbsp;[[SHOP_UNIT]]
+            </td>
+          </tr>
+          <!-- END shopPayment -->
+          <!-- BEGIN shopCoupon -->
+          <tr class="row3">
+            <td>
+              [[TXT_SHOP_DISCOUNT_COUPON_CODE]]
+            </td>
+            <td>
+              <input type="text" maxlength="20" name="coupon_code" value="[[SHOP_DISCOUNT_COUPON_CODE]]" onchange="document.forms['shopForm'].submit();" />
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+          <!-- END shopCoupon -->
+          <!-- BEGIN totalExclTaxRow -->
+          <tr class="row1">
+            <td colspan="2">
+              [[TXT_NET_PRICE]]
+            </td>
+            <td style="text-align: right;">
+              [[SHOP_GRAND_TOTAL_EXCL_TAX]] [[SHOP_UNIT]]
+            </td>
+          </tr>
+          <!-- END totalExclTaxRow -->
+          <!-- BEGIN shopTax -->
+          <tr class="row1">
+            <td colspan="2">
+              [[TXT_TAX_PREFIX]]
+            </td>
+            <td style="text-align: right;">
+              [[SHOP_TAX_PRICE]]
+            </td>
+          </tr>
+          <!-- END shopTax -->
+          <!-- BEGIN lsv -->
+          <tr class="row3">
+            <td colspan="3">[[TXT_PAYMENT_LSV]]</td>
+          </tr>
+          <tr>
+            <td>[[TXT_ACCOUNT_HOLDER]]</td>
+            <td>
+              <input type="text" name="account_holder"
+                     value="[[SHOP_ACCOUNT_HOLDER]]" />
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>[[TXT_ACCOUNT_BANK]]</td>
+            <td>
+              <input type="text" name="account_bank"
+                     value="[[SHOP_ACCOUNT_BANK]]" />
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td>[[TXT_ACCOUNT_BLZ]]</td>
+            <td>
+              <input type="text" name="account_blz"
+                     value="[[SHOP_ACCOUNT_BLZ]]" />
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+          <!-- END lsv -->
+          <tr class="row3">
+            <td colspan="2">
+              <strong>[[TXT_TOTAL_PRICE]]</strong>
+            </td>
+            <td style="text-align: right;">
+              <strong>[[SHOP_GRAND_TOTAL]] [[SHOP_UNIT]]</strong>
+            </td>
+          </tr>
+          <tr class="row1">
+            <td colspan="3">&nbsp;</td>
+          </tr>
+          <tr class="row3">
+            <td valign="top">[[TXT_COMMENTS]]</td>
+            <td colspan="2">
+              <textarea name="customer_note" rows="4" cols="52">[[SHOP_CUSTOMERNOTE]]</textarea>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <br />
+      <div class="message">
+        <p>
+          <input type="checkbox" value="checked" name="agb" id="agb" [[SHOP_AGB]] />
+          <label for="agb" class="description">[[TXT_ACCEPT_TAC]]</label>
+        </p>
+        <p>
+          <input type="checkbox" value="checked" name="cancellation_terms" id="cancellation_terms" [[SHOP_CANCELLATION_TERMS_CHECKED]] />
+          <label for="cancellation_terms" class="description">[[TXT_SHOP_CANCELLATION_TERMS_ACCEPTED]]</label>
+        </p>
+        <p>
+          <input type="submit" value="[[TXT_UPDATE]]" name="refresh" />
+          <input type="submit" value="[[TXT_NEXT]]" name="check" />
+        </p>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+<!-- START module_news_comments_list.html -->
+<script language="JavaScript" type="text/javascript">
+<!--
+function deleteComment(commentId)
+{
+  if (confirm('{TXT_NEWS_COMMENT_CONFIRM_DELETE}\n{TXT_ACTION_IS_IRREVERSIBLE}')) {
+    window.location.replace("index.php?cmd=news&pos={POSITION}&act=comments_delete&newsId={CUR_NEWS_ID}&commentsId="+commentId+"&{CSRF_PARAM}");
+  }
+}
+
+function deleteComments(form)
+{
+  with (document.getElementById(form)) {
+    if (confirm('{TXT_NEWS_COMMENT_CONFIRM_DELETE}\n{TXT_ACTION_IS_IRREVERSIBLE}')) {
+      action = "index.php?cmd=news&pos={POSITION}&act=comments_delete&newsId={CUR_NEWS_ID}&{CSRF_PARAM}";
+      method = "post";
+      submit();
+      return true;
+    }
+  }
+}
+-->
+</script>
+<form name="formComments" id="formComments" method="post" action="index.php?cmd=news&pos={POSITION}&act=change_comment_status&newsId={CUR_NEWS_ID}">
+  <table class="adminlist" cellspacing="0" cellpadding="3" width="100%" border="0">
+    <tr>
+      <th valign="top" colspan="7" nowrap="nowrap">{TXT_NEWS_COMMENTS}:</th>
+    </tr>
+    <tr class="row3">
+      <td nowrap="nowrap" width="1%"><span style="font-weight:bold;">&nbsp;&nbsp;#</span></td>
+      <td nowrap="nowrap" width="1%"><span style="font-weight:bold;">&nbsp;&nbsp;</span></td>
+      <td nowrap="nowrap" width="15%"><span style="font-weight:bold;">{TXT_NEWS_COMMENT_DATE}</span></td>
+      <td nowrap="nowrap" width="20%"><span style="font-weight:bold;">{TXT_NEWS_COMMENT_TITLE}</span></td>
+      <td nowrap="nowrap" width="47%"><span style="font-weight:bold;">{TXT_NEWS_COMMENT_MESSAGE}</span></td>
+      <td nowrap="nowrap" width="15%"><span style="font-weight:bold;">{TXT_NEWS_COMMENT_AUTHOR}</span></td>
+      <td nowrap="nowrap" width="1%"><span style="font-weight:bold;">{TXT_NEWS_COMMENT_ACTION}</span></td>
+    </tr>
+    <!-- BEGIN yescomments -->
+    <!-- BEGIN commentsrow -->
+      <tr class="{COMMENT_CSS}">
+        <td nowrap="nowrap"><input type="checkbox" name="selectedCommentsId[]" value="{COMMENT_ID}" /></td>
+        <td><a href="?cmd=news&amp;pos={POSITION}&amp;act=comment_status&amp;newsId={NEWS_ID}&amp;commentsId={COMMENT_ID}&{CSRF_PARAM}" target="_self"><img src="images/icons/{COMMENT_STATUS_ICON}.gif" border="0" alt="{TXT_NEWS_COMMENT_IMGALT_STATUS}" title="{TXT_NEWS_COMMENT_IMGALT_STATUS}" /></a></td>
+        <td nowrap="nowrap">{COMMENT_DATE}</td>
+        <td><a href="?cmd=news&amp;act=comment_edit&amp;newsId={NEWS_ID}&amp;commentsId={COMMENT_ID}">{COMMENT_TITLE}</a>&nbsp;</td>
+        <td nowrap="nowrap">{COMMENT_MESSAGE}</td>
+        <td nowrap="nowrap">{COMMENT_AUTHOR}</td>
+        <td nowrap="nowrap">
+          <div align="right">
+            <a href="?cmd=news&amp;act=comment_edit&amp;newsId={NEWS_ID}&amp;commentsId={COMMENT_ID}" title="{TXT_NEWS_COMMENT_EDIT}"><img src="images/icons/edit.gif" border="0" alt="{TXT_NEWS_COMMENT_EDIT}" /></a>
+            <a href="javascript:deleteComment({COMMENT_ID})" title="{TXT_NEWS_COMMENT_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{TXT_NEWS_COMMENT_DELETE}" /></a>
+          </div>
+        </td>
+      </tr>
+    <!-- END commentsrow -->
+    <!-- END yescomments -->
+    <!-- BEGIN nocomments -->
+    <tr class="row2">
+      <td colspan="6"><div align="center"><br />{TXT_COMMENTS_NONE}<br /><br /></div></td>
+    </tr>
+    <!-- END nocomments -->
+  </table>
+  <br />
+  <table cellpadding="2" cellspacing="0" border="0">
+    <tr>
+      <td>
+        <img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="{TXT_NEWS_COMMENT_MARKED}:" />
+        <a href="#" onclick="changeCheckboxes('formComments','selectedCommentsId[]',true); return false;">{TXT_NEWS_COMMENT_SELECT_ALL}</a> /
+        <a href="#" onclick="changeCheckboxes('formComments','selectedCommentsId[]',false); return false;">{TXT_NEWS_COMMENT_REMOVE_SELECTION}</a>
+        <input type="submit" name="delete" value="{TXT_NEWS_COMMENT_DELETE_MARKED}" onclick="deleteComments('formComments'); return false;" />&nbsp;&nbsp;
+        <input type="submit" name="activate" value="{TXT_NEWS_COMMENT_ACTIVATE}" />&nbsp;&nbsp;
+        <input type="submit" name="deactivate" value="{TXT_NEWS_COMMENT_DEACTIVATE}" />
+      </td>
+    </tr>
+  </table>
+</form>
+<br />
+<div align="center">{COMMENTS_PAGING}</div>
+<br />
+<input type="button" value="{TXT_NEWS_COMMENT_BUTTON_BACK}" onclick="self.location='index.php?cmd=news&{CSRF_PARAM}'" />
+<!-- END module_news_comments_list.html -->

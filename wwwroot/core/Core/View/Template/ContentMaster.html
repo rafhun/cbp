@@ -1,0 +1,30 @@
+<!-- START ContentMaster.html -->
+<script language="JavaScript" type="text/javascript">
+<!-- //
+function logout() {
+    Check = confirm("{TXT_LOGOUT_WARNING}")
+    if (Check == true) {
+        location.href = "index.php?cmd=logout&{CSRF_PARAM}";
+    }
+}
+cx.jQuery(document).ready(function() {
+    if ((cx.jQuery('#subnavbar_level2').length > 0) && (cx.jQuery('#subnavbar_level2').is(':visible'))) {
+        if (cx.jQuery('#subnavbar_level2').prevAll('#okbox, .okbox, #warningbox, .warningbox, #alertbox, .alertbox').length == 0) {
+            cx.jQuery('#subnavbar_level1').addClass('no_margin');
+        }
+    }
+});
+// -->
+</script>
+<ul class="breadcrumb">
+    <li class="level_1"><a href="index.php">Home</a></li>
+    <li class="level_2">{SUB_MENU_TITLE}</li>
+    <li class="level_3">{CONTENT_TITLE}</li>
+</ul>
+
+{CONTENT_NAVIGATION}
+
+{CONTENT_STATUS_MESSAGE}
+
+{ADMIN_CONTENT}
+<!-- END ContentMaster.html -->

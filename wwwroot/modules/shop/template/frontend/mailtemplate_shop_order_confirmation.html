@@ -1,0 +1,110 @@
+[CUSTOMER_SALUTATION],<br />
+<br />
+Herzlichen Dank f&uuml;r Ihre Bestellung im [SHOP_COMPANY] Online Shop.<br />
+<br />
+Ihre Auftrags-Nr. lautet: [ORDER_ID]<br />
+Ihre Kunden-Nr. lautet: [CUSTOMER_ID]<br />
+Bestelldatum: [ORDER_DATE]<br />
+Bestellzeit: [ORDER_TIME]<br />
+<br />
+<br />
+<table cellpadding="1" cellspacing="1" style="border: 0;">
+  <tbody>
+    <tr>
+      <td colspan="6">Bestellinformationen</td>
+    </tr>
+    <tr>
+      <td><div style="text-align: right;">ID</div></td>
+      <td><div style="text-align: right;">Artikel Nr.</div></td>
+      <td><div style="text-align: right;">Menge</div></td>
+      <td>Beschreibung</td>
+      <td><div style="text-align: right;">St&uuml;ckpreis</div></td>
+      <td><div style="text-align: right;">Total</div></td>
+    </tr><!--[[ORDER_ITEM]-->
+    <tr>
+      <td><div style="text-align: right;">[PRODUCT_ID]</div></td>
+      <td><div style="text-align: right;">[PRODUCT_CODE]</div></td>
+      <td><div style="text-align: right;">[PRODUCT_QUANTITY]</div></td>
+      <td>[PRODUCT_TITLE]<!--[[PRODUCT_OPTIONS]--><br />
+        [PRODUCT_OPTIONS]<!--[PRODUCT_OPTIONS]]--></td>
+      <td><div style="text-align: right;">[PRODUCT_ITEM_PRICE] [CURRENCY]</div></td>
+      <td><div style="text-align: right;">[PRODUCT_TOTAL_PRICE] [CURRENCY]</div></td>
+    </tr><!--[[USER_DATA]-->
+    <tr>
+      <td colspan="3">&nbsp;</td>
+      <td>Benutzername: [USER_NAME]<br />Passwort: [USER_PASS]</td>
+      <td colspan="2">&nbsp;</td>
+    </tr><!--[USER_DATA]]--><!--[[COUPON_DATA]-->
+    <tr>
+      <td colspan="3">&nbsp;</td>
+      <td>Gutschein Code: [COUPON_CODE]</td>
+      <td colspan="2">&nbsp;</td>
+    </tr><!--[COUPON_DATA]]--><!--[ORDER_ITEM]]-->
+    <tr style="border-top: 4px none;">
+      <td colspan="2">Zwischensumme</td>
+      <td><div style="text-align: right;">[ORDER_ITEM_COUNT]</div></td>
+      <td colspan="2">Artikel</td>
+      <td><div style="text-align: right;">[ORDER_ITEM_SUM] [CURRENCY]</div></td>
+    </tr><!--[[DISCOUNT_COUPON]-->
+    <tr style="border-top: 4px none;">
+      <td colspan="3">Gutscheincode</td>
+      <td colspan="2">[DISCOUNT_COUPON_CODE]</td>
+      <td><div style="text-align: right;">[DISCOUNT_COUPON_AMOUNT] [CURRENCY]</div></td>
+    </tr><!--[DISCOUNT_COUPON]][[SHIPMENT]-->
+    <tr style="border-top: 2px none;">
+      <td colspan="3">Versandart</td>
+      <td colspan="2">[SHIPMENT_NAME]</td>
+      <td><div style="text-align: right;">[SHIPMENT_PRICE] [CURRENCY]</div></td>
+    </tr><!--[SHIPMENT]][[PAYMENT]-->
+    <tr style="border-top: 2px none;">
+      <td colspan="3">Bezahlung</td>
+      <td colspan="2">[PAYMENT_NAME]</td>
+      <td><div style="text-align: right;">[PAYMENT_PRICE] [CURRENCY]</div></td>
+    </tr><!--[PAYMENT]][[VAT]-->
+    <tr style="border-top: 2px none;">
+      <td colspan="5">[VAT_TEXT]</td>
+      <td><div style="text-align: right;">[VAT_PRICE] [CURRENCY]</div></td>
+    </tr><!--[VAT]]-->
+    <tr style="border-top: 4px none;">
+      <td colspan="5">Gesamtsumme</td>
+      <td><div style="text-align: right;">[ORDER_SUM] [CURRENCY]</div></td>
+    </tr>
+  </tbody>
+</table>
+<br />
+Bemerkungen:<br />
+[REMARKS]<br />
+<br />
+<br />
+Ihre Kundenadresse:<br />
+[CUSTOMER_COMPANY]<br />
+[CUSTOMER_FIRSTNAME] [CUSTOMER_LASTNAME]<br />
+[CUSTOMER_ADDRESS]<br />
+[CUSTOMER_ZIP] [CUSTOMER_CITY]<br />
+[CUSTOMER_COUNTRY]<br />
+<!--[[SHIPPING_ADDRESS]--><br />
+<br />
+Lieferadresse:<br />
+[SHIPPING_COMPANY]<br />
+[SHIPPING_FIRSTNAME] [SHIPPING_LASTNAME]<br />
+[SHIPPING_ADDRESS]<br />
+[SHIPPING_ZIP] [SHIPPING_CITY]<br />
+[SHIPPING_COUNTRY]<br />
+<!--[SHIPPING_ADDRESS]]--><br />
+<br />
+Ihr Link zum Online Store: [SHOP_HOMEPAGE]<br />
+<!--[[CUSTOMER_LOGIN]-->
+<br />
+Ihre Zugangsdaten zum Shop:<br />
+Benutzername:   [CUSTOMER_USERNAME]<br />
+Passwort:       [CUSTOMER_PASSWORD]<br />
+<!--[CUSTOMER_LOGIN]]-->
+<br />
+Wir freuen uns auf Ihren n&auml;chsten Besuch im [SHOP_COMPANY] Online Store und w&uuml;nschen Ihnen noch einen sch&ouml;nen Tag.<br />
+<br />
+Diese Auftragsbest&auml;tigung wurde gesendet an: [CUSTOMER_EMAIL]<br />
+<br />
+Mit freundlichen Gr&uuml;ssen<br />
+Ihr [SHOP_COMPANY] Online Shop Team<br />
+<br />
+[SHOP_HOMEPAGE]

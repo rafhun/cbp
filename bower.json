@@ -1,0 +1,25 @@
+{
+  "name": "ContrexxDevFramework",
+  "version": "0.1.0",
+  "authors": [
+    "Raphael Hüni"
+  ],
+  "description": "This framework is to be used to develop Contrexx themes in an efficient manner using tools like grunt and sass.",
+  "ignore": [
+    "**/.*",
+    "lib",
+    "tasks",
+    "templates",
+    "test",
+    "grunt",
+    "*.gemspec",
+    "Rakefile",
+    "Gemfile"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.3",
+  },
+  "devDependencies": {
+    "Cortana": "~1.2.8"
+  }
+}

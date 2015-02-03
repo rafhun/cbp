@@ -1,0 +1,134 @@
+<!-- START module_docsys_modify.html -->
+<script type="text/javascript">
+<!-- //
+function disableDate() {
+  with (document.docsys) {
+    if (status.checked == false) {
+      startDate.disabled = true;
+      endDate.disabled = true;
+    } else {
+      startDate.disabled = false;
+      endDate.disabled = false;
+    }
+  }
+}
+cx.ready(function() {
+  var datepickerOptions = {
+    timeFormat: 'hh:mm:ss',
+    dateFormat: 'yy-mm-dd',
+    onSelect: function(dateText, inst) {
+      // adjust start or end date to avoid an invalid date range
+      var startDate = cx.jQuery('input[name=startDate]').datepicker('getDate');
+      var endDate = cx.jQuery('input[name=endDate]').datepicker('getDate');
+      if ((startDate != null) && (endDate != null) && (startDate > endDate)) {
+        if (cx.jQuery(this).attr('name') == 'startDate') {
+          cx.jQuery('input[name=endDate]').datepicker('setDate', dateText);
+        } else {
+          cx.jQuery('input[name=startDate]').datepicker('setDate', dateText);
+        }
+      }
+    }
+  };
+  cx.jQuery('input[name=startDate]').datetimepicker(datepickerOptions);
+  cx.jQuery('input[name=endDate]').datetimepicker(datepickerOptions);
+});
+// -->
+</script>
+<form name="docsys" method="post" action="index.php?cmd=docsys{MODULE_INDEX}&act={DOCSYS_FORM_ACTION}&id={DOCSYS_ID}">
+  <table cellspacing="0" cellpadding="3" width="100%" border="0" class="adminlist">
+    <tr>
+      <th valign="top" colspan="2">
+        {TXT_DOCSYS_MESSAGE}
+        <input type="hidden" name="docSysFormAction" value="{DOCSYS_STORED_FORM_ACTION}" />
+        <input type="hidden" name="docSysId" value="{DOCSYS_STORED_ID}" />
+        <input type="hidden" name="docSysTopTitle" value="{DOCSYS_TOP_TITLE}" />
+      </th>
+    </tr>
+    <tr class="row1">
+      <td width="12%" nowrap="nowrap">{TXT_TITLE}</TD>
+      <td>
+        <input type="text" name="docSysTitle" size="80" value="{DOCSYS_TITLE}" maxlength="250" />
+      </td>
+    </tr>
+    <tr class="row2">
+      <td width="12%" nowrap="nowrap">{TXT_CATEGORY}</td>
+      <td>
+        <select name="docSysCat[]" multiple size="5" style="width:420px;">
+          {DOCSYS_CAT_MENU}
+        </select>
+      </td>
+    </tr>
+    <tr class="row1">
+      <td width="12%" nowrap="nowrap">{TXT_AUTHOR}</TD>
+      <td>
+        <input name="author" type="text" id="author" value="{DOCSYS_AUTHOR}" size="50" maxlength="150" />
+      </td>
+    </tr>
+    <tr>
+      <td nowrap="nowrap">{TXT_DATE}</TD>
+      <td>
+        <input name="creation_date" type="text" id="creation_date" value="{DOCSYS_DATE}" size="50" maxlength="150" />
+      </td>
+
+    </tr>
+  </table>
+  <br />
+  <table cellspacing="0" cellpadding=3 width="100%" border="0" class="adminlist">
+    <tr>
+      <th valign="top" colspan="2">
+        {TXT_HYPERLINKS}
+      </th>
+    </tr>
+    <tr class="row2">
+      <td width="12%" nowrap="nowrap">{TXT_EXTERNAL_SOURCE}</TD>
+      <td><b>
+          <input type="text" name="docSysSource" size="80" value="{DOCSYS_SOURCE}" maxlength="250" />
+        </b></td>
+    </tr>
+    <tr class="row1">
+      <td width="12%" nowrap="nowrap">{TXT_LINK} #1</td>
+      <td><b>
+          <input type="text" name="docSysUrl1" size="80" value="{DOCSYS_URL1}" maxlength="250" />
+        </b></td>
+    </tr>
+    <tr class="row2">
+      <td width="12%" nowrap="nowrap">{TXT_LINK} #2</TD>
+      <td><b>
+          <input type="text" name="docSysUrl2" size="80" value="{DOCSYS_URL2}" maxlength="250" />
+        </b></TD>
+    </tr>
+  </table>
+  <br />
+  <table cellspacing="0" cellpadding="3" width="100%" border="0" class="adminlist">
+    <tr>
+      <th valign="top">{TXT_DOCSYS_CONTENT}</th>
+    </tr>
+    <tr class="row1 reset">
+      <td valign="top">{DOCSYS_TEXT}</td>
+    </tr>
+  </table>
+  <br />
+  <table border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+    <tr>
+      <th colspan="2">
+        {TXT_PUBLISHING}
+      </th>
+    </tr>
+    <tr valign="top" class="row1">
+      <td nowrap="nowrap" width="12%" height="26">{TXT_ACTIVE}</td>
+      <td height="26"><b>
+          <input type="checkbox" name="status" value="1" {DOCSYS_STATUS} onClick="disableDate()" />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>&nbsp;&nbsp;&nbsp;&nbsp;{TXT_STARTDATE}:
+        <input type="text" name="startDate" size="19" maxlength="19" value="{DOCSYS_STARTDATE}" enabled />
+        &nbsp;&nbsp; {TXT_ENDDATE}:
+        <input type="text" name="endDate" size="19" maxlength="19" value="{DOCSYS_ENDDATE}" enabled />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;( {TXT_OPTIONAL} )</td>
+    </tr>
+  </table>
+  <br />
+  <input type="submit" name="Submit" value="{TXT_STORE}" />
+  <br />
+  <br />
+</form>
+<br />
+<!-- END module_docsys_modify.html -->

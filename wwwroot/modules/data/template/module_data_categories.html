@@ -1,0 +1,265 @@
+<!-- START module_data_categories.html -->
+<script type="text/javascript">
+// needs prototype.js
+//<![CDATA[
+function showOrHide(element) {
+    if (cx.jQuery(element).is(':hidden')) {
+        cx.jQuery(element).show();
+    } else {
+        cx.jQuery(element).hide();
+    }
+}
+
+function copyText(strField) {
+    for (var h=0; h < document.forms.length;h++) {
+        for (var i=0; i < document.forms[h].elements.length;i++) {
+            //read out all form-elements with the loop
+            if (document.forms[h].elements[i].name.search(strField) != -1) {
+                switch (strField) {
+                    case 'frmAddCategory_Name_':
+                        document.forms[h].elements[i].value = document.frmAddCategory.frmAddCategory_Name.value;
+                    break;
+                }
+            }
+        }
+    }	
+}
+
+function deleteCategory(catId){ 
+    if (confirm('{TXT_OVERVIEW_DELETE_CATEGORY_JS}')) 
+        window.location.replace("index.php?cmd=data&{CSRF_PARAM}&act=deleteCategory&id="+catId);
+}
+
+function selectMultiAction() {
+    with (document.frmShowCategories) {
+        switch (frmShowCategories_MultiAction.value) {
+            case 'delete':
+                if (confirm('{TXT_OVERVIEW_SUBMIT_DELETE_JS}')) {
+                    action='index.php?cmd=data&act=multiactionCategory';
+                    submit();
+                }
+            break;
+            default: //do nothing			
+        }
+    }
+}
+
+var switchActive = function(id, obj, action)
+{
+    cx.jQuery.get('index.php', {cmd: 'data', act: 'switchCategoryState', id: id, switchTo: action}).success(function() {
+        if (action) {
+            path = 'images/icons/led_green.gif';
+            action = 0;
+        } else {
+            path = 'images/icons/led_red.gif';
+            action = 1;
+        }
+        cx.jQuery(obj).children('img:first').attr('src', path);
+        cx.jQuery(obj).attr('onclick', 'switchActive('+id+', this, '+action+')');
+    });
+}
+
+var switchAction = function(obj)
+{
+    var pageSelect = cx.jQuery('#select_display');
+    var height = cx.jQuery('#box_height');
+    var width = cx.jQuery('#box_width');
+    if (obj.value == 'overlaybox') {
+        pageSelect.hide();
+        width.css('display', 'table-row');
+        height.css('display', 'table-row');
+    } else if (obj.value == 'subcategories') {
+        pageSelect.hide();
+        width.hide();
+        height.hide();
+    } else {
+        pageSelect.css('display', 'table-row');
+        height.hide();
+        width.hide();
+    }
+}
+
+var saveOrder = function()
+{
+    cx.jQuery.post('index.php?cmd=data&act=saveCategoryOrder', {
+        'categories[]': $J('#entry_list').sortable('toArray')
+    });
+}
+
+// Return a helper with preserved width of cells
+var fixHelper = function(e, ui) {
+    ui.children().each(function() {
+        $J(this).width($J(this).width());
+    });
+    return ui;
+};
+
+$J(document).ready(function () {
+    $J('#entry_list').sortable({
+        handle: '.sort-buttons',
+        update: saveOrder,
+        helper: fixHelper
+    }).disableSelection();
+});
+//]]>
+</script>
+
+<ul id="tabmenu">
+    <li><a id="categories_Overview" class="active" href="javascript:{}" onclick="selectTab('Overview')" title="{TXT_OVERVIEW_TITLE}">{TXT_OVERVIEW_TITLE}</a></li>
+    <li><a id="categories_AddCategory" class="inactive" href="javascript:{}" onclick="selectTab('AddCategory')" title="{TXT_ADD_TITLE}">{TXT_ADD_TITLE}</a></li>
+</ul>
+
+<div id="Overview" class="categories" style="display: block;">
+    <form name="frmShowCategories" method="post" action="">
+        <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist" id="categories_table">
+            <tr>
+                <th colspan="8">{TXT_OVERVIEW_TITLE}</th>
+            </tr>
+            <tr class="row3">
+                <td style="width: 2%; white-space: nowrap;"><strong>&nbsp;&nbsp;#</strong></td>
+                <td style="width: 2%; white-space: nowrap;">&nbsp;</td>
+                <td style="width: 6%; white-space: nowrap;">&nbsp;</td>
+                <td style="width: 35%; white-space: nowrap;"><strong>{TXT_OVERVIEW_SUBTITLE_NAME}</strong></td>
+                <td style="width: 20%; white-space: nowrap;"><strong>{TXT_PLACEHOLDERS}</strong></td>
+                <td style="width: 10%; white-space: nowrap;"><strong>{TXT_DISPLAY_MODE}</strong></td>
+                <td style="width: 20%; white-space: nowrap;"><strong>{TXT_OVERVIEW_SUBTITLE_ACTIVE}</strong></td>
+                <td style="width: 5%; white-space: nowrap;"><div align="right"><strong>{TXT_OVERVIEW_SUBTITLE_ACTIONS}</strong></div></td>
+            </tr>
+            <tbody  id="entry_list">
+                <!-- BEGIN showCategories -->
+                <tr class="{OVERVIEW_CATEGORY_ROWCLASS}" style="display: {DISPLAY};" id="catrow_{OVERVIEW_CATEGORY_ID}">
+                    <td><input type="checkbox" name="selectedCategoryId[]" value="{OVERVIEW_CATEGORY_ID}"/></td>
+                    <td>
+                        <a href="javascript: void(0);" onclick="switchActive({OVERVIEW_CATEGORY_ID}, this, {ACTIVE_STATE})"><img src="images/icons/led_{ACTIVE_LED}.gif" style="border: none;" alt=""/></a>
+                    </td>
+                    <td>
+                        <span class="sort-buttons" style="width: 35px; height: 20px; float: left; cursor: move;">
+                            <img src="images/icons/down.gif" style="border: none;" alt="go one up" />
+                            <img src="images/icons/up.gif" style="border: none;" alt="go one down"/>
+                        </span>
+                    </td>
+                    <td style="padding-left: {INDENT}px;"><!-- BEGIN arrow --><img src="images/icons/sub_arrow.gif" /><!-- END arrow -->
+                    <img src="images/icons/folder_on.gif" />
+                    <a href="?cmd=data&amp;act=editCategory&amp;id={OVERVIEW_CATEGORY_ID}" target="_self" title="{TXT_OVERVIEW_IMGALT_EDIT}">{OVERVIEW_CATEGORY_NAME}</a></td>
+                    <td>[[DATA_{OVERVIEW_CATEGORY_PLACEHOLDER}]]</td>
+                    <td>{OVERVIEW_CATEGORY_DISPLAY}</td>
+                    <td>{OVERVIEW_CATEGORY_LANGUAGES}</td>
+                    <td nowrap="nowrap">
+                        <div align="right">
+                            <a href="index.php?cmd=data&amp;catId={OVERVIEW_CATEGORY_ID}" target="_self" title="{TXT_OVERVIEW_IMGALT_MESSAGES}"><img src="images/icons/details.gif" border="0" alt="{TXT_OVERVIEW_IMGALT_MESSAGES}" title="{TXT_OVERVIEW_IMGALT_MESSAGES}" /></a>
+                            <a href="index.php?cmd=data&amp;act=editCategory&amp;id={OVERVIEW_CATEGORY_ID}" target="_self" title="{TXT_OVERVIEW_IMGALT_EDIT}"><img src="images/icons/edit.gif" border="0" alt="{TXT_OVERVIEW_IMGALT_EDIT}" title="{TXT_OVERVIEW_IMGALT_EDIT}" /></a>
+                            <a href="javascript:deleteCategory({OVERVIEW_CATEGORY_ID});" target="_self" title="{TXT_OVERVIEW_IMGALT_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{TXT_OVERVIEW_IMGALT_DELETE}" title="{TXT_OVERVIEW_IMGALT_DELETE}" /></a> 
+                        </div>
+                    </td>
+                </tr>
+                <!-- END showCategories -->
+            </tbody>
+            <!-- BEGIN noCategories -->
+            <tr class="row2">
+                <td colspan="4"><div align="center"><br />{TXT_OVERVIEW_NO_CATEGORIES_FOUND}<br /><br /></div></td>
+            </tr>
+            <!-- END noCategories -->
+        </table>
+        <table cellpadding="2" cellspacing="0" border="0">
+            <tr>
+                <td>
+                    <img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="{TXT_OVERVIEW_MARKED}:" />
+                    <a href="#" onclick="changeCheckboxes('frmShowCategories','selectedCategoryId[]',true); return false;">{TXT_OVERVIEW_SELECT_ALL}</a> / 
+                    <a href="#" onclick="changeCheckboxes('frmShowCategories','selectedCategoryId[]',false); return false;">{TXT_OVERVIEW_DESELECT_ALL}</a>
+                    <img src="images/icons/strike.gif" alt="" />
+                    <select name="frmShowCategories_MultiAction" onchange="selectMultiAction();">
+                        <option value="0">{TXT_OVERVIEW_SUBMIT_SELECT}</option>
+                        <option value="delete">{TXT_OVERVIEW_SUBMIT_DELETE}</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <br />
+    <div align="center">{OVERVIEW_PAGING}</div>	
+</div>
+
+<div id="AddCategory" class="categories" style="display: none;">
+    <form name="frmAddCategory" method="post" action="?cmd=data&amp;act=insertCategory">
+        <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+            <tr>
+                <th colspan="4">{TXT_ADD_TITLE}</th>
+            </tr>
+            <tr class="row1">
+                <td valign="top">{TXT_ADD_NAME}</td>
+                <td colspan="3">
+                    <input type="text" name="frmAddCategory_Name" value="" maxlength="100" onchange="copyText('frmAddCategory_Name_');" style="width:730px;" />&nbsp;<a href="javascript:showOrHide('#divAddCategoryLang_Name');">{TXT_ADD_EXTENDED}</a>
+                    <div id="divAddCategoryLang_Name" style="display: none;">
+                        <!-- BEGIN addCategoryNameFields -->
+                        <input type="text" name="frmAddCategory_Name_{ADD_NAME_LANGID}" value="" maxlength="100" style="width:730px; margin-top:1px;" />&nbsp;<label for="frmAddCategory_Name_{ADD_NAME_LANGID}">{ADD_NAME_LANG}</label><br />
+                        <!-- END addCategoryNameFields -->
+                    </div>	
+                </td>
+            </tr>
+<!--			<tr>
+                <td>{TXT_PARENT_CAT}</td>
+                <td colspan="3">
+                    <select name="frmParentcategory" style="width: 730px">
+                            <option value="0">{TXT_TOP_LEVEL}</option>
+                        <!-- BEGIN addCategoryDropDown -->
+                            <option value="{CATEGORY_OPT_VALUE}">{CATEGORY_OPT_INDENT}{CATEGORY_OPT_LABEL}</option>
+                        <!-- END addCategoryDropDown -->
+<!--                    </select>
+                </td>
+            </tr>-->
+            <tr class="row1">
+                <td width="15%">{TXT_ADD_LANGUAGES}</td>
+                <td width="10%" valign="top">{ADD_LANGUAGES_1}</td>
+                <td width="10%" valign="top">{ADD_LANGUAGES_2}</td>
+                <td width="65%" valign="top">{ADD_LANGUAGES_3}</td>
+            </tr>
+            <tr class="row2">
+                <td width="15%">{TXT_PLACEHOLDER}</td>
+                <td colspan="3">
+                    [[DATA_<input type="text" name="frmPlaceholder" id="frmPlaceholder" value="{PLACEHOLDER}" style="width:690px;" />]]
+                </td>
+            </tr>
+            <tr class="row1">
+                <td>{TXT_GENERAL_ACTION}</td>
+                <td colspan="3">
+                    <select name="frmSettings_action" style="width: 730px;" onchange="switchAction(this)">
+                        <option value="overlaybox">{TXT_BOX}</option>
+                        <option value="content">{TXT_CONTENT_PAGE}</option>
+                          <option value="subcategories">{TXT_SUBCATEGORIES}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="row2" style="display: {PAGE_SELECT_DISPLAY};" id="select_display">
+                <td>{TXT_FRONTEND_PAGE}</td>
+                <td colspan="3">
+                    <select name="frmFrontendPage" style="width: 730px;">
+                        <!-- BEGIN frontendPage -->
+                        <option value="{FRONTEND_PAGE_ID}">{FRONTEND_PAGE}</option>
+                        <!-- END frontendPage -->
+                    </select>
+                </td>
+            </tr>
+            <tr class="row2" id="box_width">
+              <td>{TXT_BOX_WIDTH}</td>
+              <td colspan="3">
+                  <input type="text" style="width: 730px;" value="300" name="frmBoxwidth"/> px
+              </td>
+            </tr>
+            <tr class="row1" id="box_height">
+              <td>{TXT_BOX_HEIGHT}</td>
+              <td colspan="3">
+                  <input type="text" style="width: 730px;" value="500" name="frmBoxheight" /> px 
+              </td>
+            </tr>
+            <tr class="row2">
+              <td style="vertical-align: top;">{TXT_TEMPLATE}</td>
+              <td colspan="3">
+                  <textarea rows="20" cols="100" style="width: 730px;" name="frmTemplate">{CAT_TEMPLATE}</textarea>
+              </td>
+            </tr>
+        </table>
+        <br />
+        <input type="submit" value="{TXT_ADD_SUBMIT}" name="frmAddCategory_Submit" />
+    </form>
+</div>
+<!-- END module_data_categories.html -->

@@ -1,0 +1,68 @@
+<!-- START newsletter_config_confirmmail.html -->
+<div id="subnavbar_level2">
+<ul>
+<li><a href="index.php?cmd=newsletter&amp;act=dispatch" title="{TXT_DISPATCH_SETINGS}">{TXT_DISPATCH_SETINGS}</a></li>
+<li><a href="index.php?cmd=newsletter&amp;act=templates" title="{TXT_NEWSLETTER_TEMPLATES}">{TXT_NEWSLETTER_TEMPLATES}</a></li>
+<li><a href="index.php?cmd=newsletter&amp;act=interface" title="{TXT_NEWSLETTER_INTERFACE}">{TXT_NEWSLETTER_INTERFACE}</a></li>
+<li><a href="index.php?cmd=newsletter&amp;act=confightml" title="{TXT_GENERATE_HTML}">{TXT_GENERATE_HTML}</a></li>
+<li><a href="index.php?cmd=newsletter&amp;act=activatemail" title="{TXT_CONFIRM_MAIL}">{TXT_ACTIVATE_MAIL}</a></li>
+<li><a href="index.php?cmd=newsletter&amp;act=confirmmail" title="{TXT_CONFIRM_MAIL}">{TXT_CONFIRM_MAIL}</a></li>
+<li><a href="index.php?cmd=newsletter&amp;act=notificationmail" title="{TXT_NOTIFICATION_MAIL}">{TXT_NOTIFICATION_MAIL}</a></li>
+<li><a href="index.php?cmd=newsletter&amp;act=system" title="{TXT_DISPATCH_SETINGS}">{TXT_SYSTEM_SETINGS}</a></li>
+</ul>
+</div>
+<br />
+<form name="adduser" action="index.php?cmd=newsletter&amp;act=activatemail" method="post">
+<input type="hidden" name="update" value="1" />
+  <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+    <tr>
+      <th colspan=2>{TXT_ACTIVATE_MAIL}</th>
+    </tr>
+    <tr class="row3">
+      <td colspan="2" valign="top"><b>{TXT_WILDCART_INFOS}</b></td>
+    </tr>
+    <tr class="row2">
+      <td width="15%" valign="top">{TXT_NEWSLETTER_SEX}</td>
+      <td width="85%">[[sex]]</td>
+    </tr>
+  <tr class="row1">
+      <td width="15%" valign="top">{TXT_U_TITLE}</td>
+      <td width="85%">[[title]]</td>
+    </tr>
+    <tr class="row2">
+      <td width="15%" valign="top">{TXT_FIRSTNAME}</td>
+      <td width="85%">[[firstname]]</td>
+    </tr>
+    <tr class="row1">
+      <td width="15%" valign="top">{TXT_LASTNAME}</td>
+      <td width="85%">[[lastname]]</td>
+    </tr>
+    <tr class="row2">
+      <td width="15%" valign="top">{TXT_CODE}</td>
+      <td width="85%">[[code]]</td>
+    </tr>
+    <tr class="row1">
+      <td width="15%" valign="top">{TXT_URL}</td>
+      <td width="85%">[[url]]</td>
+    </tr>
+     <tr class="row2">
+      <td width="15%" valign="top">{TXT_DATE}</td>
+      <td width="85%">[[date]]</td>
+    </tr>
+    <tr>
+      <th colspan="2" valign="top"><b>{TXT_CONTENT}</b></th>
+    </tr>
+    <tr class="row2">
+      <td width="15%" valign="top">{TXT_SUBJECT}</td>
+      <td width="85%"><input type="text" name="mailSubject" value="{MAIL_SUBJECT}" style="width:468px;" maxlength="255" /></td>
+    </tr>
+    <tr class="row1">
+      <td width="15%" valign="top">{TXT_TEXT}</td>
+      <td width="85%"><textarea name="mailContent" style="width:468px; overflow: auto;" rows='15'>{MAIL_CONTENT}</textarea></td>
+    </tr>
+    </table>
+<br />
+<input type="submit" value="{TXT_SAVE}" name="submit" />
+</form>
+<br />
+<!-- END newsletter_config_confirmmail.html -->

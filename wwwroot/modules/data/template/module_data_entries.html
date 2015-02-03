@@ -1,0 +1,159 @@
+<!-- START module_data_entries.html -->
+
+<script type="text/javascript">
+// needs prototype.js
+//<![CDATA[
+function deleteEntry(entryId){ 
+    if(confirm('{TXT_ENTRIES_DELETE_ENTRY_JS}')) 
+        window.location.replace("?cmd=data&{CSRF_PARAM}&act=deleteEntry&id="+entryId);
+}
+
+function selectMultiAction() {
+    with (document.frmShowEntries) {
+        switch (frmShowEntries_MultiAction.value) {
+            case 'delete':
+                if (confirm('{TXT_ENTRIES_SUBMIT_DELETE_JS}')) {
+                    action='?cmd=data&act=multiactionEntry';
+                    submit();
+                }
+            break;
+            default: //do nothing			
+        }
+    }
+}
+
+var switchActive = function(id, obj, action)
+{
+    cx.jQuery.get('index.php', {cmd: 'data', act: 'switchEntryState', id: id, switchTo: action}).success(function() {
+        if (action) {
+            path = 'images/icons/led_green.gif';
+            action = 0;
+        } else {
+            path = 'images/icons/led_red.gif';
+            action = 1;
+        }
+        cx.jQuery(obj).children('img:first').attr('src', path);
+        cx.jQuery(obj).attr('onclick', 'switchActive('+id+', this, '+action+')');
+    });
+}
+
+var saveOrder = function()
+{
+    cx.jQuery.post('index.php?cmd=data&act=saveEntryOrder', {
+        'entries[]': $J('#entry_list').sortable('toArray')
+    });
+}
+
+// Return a helper with preserved width of cells
+var fixHelper = function(e, ui) {
+    ui.children().each(function() {
+        $J(this).width($J(this).width());
+    });
+    return ui;
+};
+
+$J(document).ready(function () {
+    $J('#entry_list').sortable({
+        handle: '.sort-buttons',
+        update: saveOrder,
+        helper: fixHelper
+    }).disableSelection();
+});
+//]]>
+</script>
+
+<table>
+    <tr>
+        <td style="float: left; width: 200px; padding: 0; margin-right: 15px; vertical-align: top;">
+            <!-- an unordered list would be better -->
+            <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+                <tr>
+                    <th>Kategorien</th>
+                </tr>
+                <!-- BEGIN category_row -->
+                <tr class="row{CATEGORY_ROW}">
+                    <td style="padding-left: {CATEGORY_INDENT}px; white-space: nowrap;">
+                    <!-- BEGIN arrow --><img src="images/icons/sub_arrow.gif" /> <!-- END arrow -->
+                    <img src="images/icons/folder_on.gif" />
+                    <a href="index.php?cmd=data&amp;catId={CATEGORY_ID}" title="{CATEGORY_FULL_NAME}">{CATEGORY_NAME} ({CATEGORY_AMOUNT_OF_ENTRIES})</a></td>
+                </tr>
+                <!-- END category_row -->
+            </table>
+        </td>
+        <td style="width: 100%; padding: 0; vertical-align: top;">
+            <form name="frmShowEntries" method="post" action="">
+                <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+                    <tr>
+                        <th colspan="9">{TXT_ENTRIES_TITLE} ({TITLE_CATEGORY})</th>
+                    </tr>
+                    <tr class="row3" style="font-weight: bold;">
+                        <td nowrap="nowrap" style="width: 2%; padding-left: 1em;">#</td>
+                        <td style="width: 2%;">&nbsp;</td>
+                        <td style="width: 6%;">&nbsp;</td>
+                        <td nowrap="nowrap" style="width: 27%;">{TXT_ENTRIES_SUBTITLE_SUBJECT}</td>
+                        <td nowrap="nowrap" style="width: 15%;">{TXT_ENTRIES_SUBTITLE_PLACEHOLDER}</td>
+                        <td nowrap="nowrap" style="width: 13%;">{TXT_ENTRIES_SUBTITLE_CATEGORY}</td>
+                        <td nowrape="nowrap" style="width: 10%;">{TXT_ENTRIES_SUBTITLE_MODE}</td>
+                        <!--<td nowrap="nowrap" style="width: 15%; font-weight: bold;">{TXT_ENTRIES_SUBTITLE_DATE}</td>-->
+                        <td nowrap="nowrap" style="width: 8%;">{TXT_ENTRIES_SUBTITLE_LANGUAGES}</td>
+                        <!--<td nowrap="nowrap" style="width: 8%;">{TXT_ENTRIES_SUBTITLE_USER}</td>-->
+                        <td nowrap="nowrap" style="width: 3%;">{TXT_ENTRIES_SUBTITLE_ACTIONS}</td>
+                    </tr>
+                    <tbody id="entry_list">
+                        <!-- BEGIN showEntries -->
+                        <tr class="{ENTRY_ROWCLASS}" id="entry_{ENTRY_ID}">
+                            <td><input type="checkbox" name="selectedEntriesId[]" value="{ENTRY_ID}" /></td>
+                            <td>
+                                <a href="javascript: void(0);" onclick="switchActive({ENTRY_ID}, this, {ACTIVE_STATE})"><img src="images/icons/led_{ACTIVE_LED}.gif" style="border: none;" alt=""/></a>
+                            </td>
+                            <td>
+                                <!-- BEGIN sort_buttons -->
+                                <span class="sort-buttons" style="width: 35px; height: 20px; float: left; cursor: move;">
+                                    <img src="images/icons/down.gif" style="border: none;" alt="go one up" />
+                                    <img src="images/icons/up.gif" style="border: none;" alt="go one down"/>
+                                </span>
+                                <!-- END sort_buttons -->
+                            </td>
+                            <td><a href="?cmd=data&amp;act=editEntry&amp;id={ENTRY_ID}" target="_self" title="{ENTRY_SUBJECT}">{ENTRY_SUBJECT}</a></td>
+                            <td>[[DATA_{ENTRY_PLACEHOLDER}]]</td>
+                            <td>{ENTRY_CATEGORY}</td>
+                            <td>{ENTRY_MODE}</td>
+                            <!--<td>{ENTRY_DATE}</td>-->
+                            <td>{ENTRY_LANGUAGES}</td>
+                            <!--<td>{ENTRY_USER}</td>-->
+                            <td nowrap="nowrap">
+                                <div align="right">
+                                    <a href="index.php?cmd=data&amp;act=editEntry&amp;id={ENTRY_ID}" target="_self" title="{TXT_IMGALT_EDIT}"><img src="images/icons/edit.gif" border="0" alt="{TXT_IMGALT_EDIT}" title="{TXT_IMGALT_EDIT}" /></a>
+                                    <a href="index.php?cmd=data&amp;act=copyEntry&amp;id={ENTRY_ID}" target="_self" title="{TXT_IMGALT_COPY}"><img src="images/icons/copy.gif" border="0" alt="{TXT_IMGALT_EDIT}" title="{TXT_IMGALT_EDIT}" /></a>
+                                    <a href="javascript:deleteEntry({ENTRY_ID});" target="_self" title="{TXT_IMGALT_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{TXT_IMGALT_DELETE}" title="{TXT_IMGALT_DELETE}" /></a> 
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- END showEntries -->
+                    </tbody>
+                    <!-- BEGIN noEntries -->
+                    <tr class="row2">
+                        <td colspan="10"><div align="center"><br />{TXT_ENTRIES_NO_ENTRIES_FOUND}<br /><br /></div></td>
+                    </tr>		
+                    <!-- END noEntries -->
+                </table>
+                <table cellpadding="2" cellspacing="0" border="0">
+                    <tr>
+                        <td>
+                            <img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="{TXT_ENTRIES_MARKED}:" />
+                            <a href="#" onclick="changeCheckboxes('frmShowEntries','selectedEntriesId[]',true); return false;">{TXT_ENTRIES_SELECT_ALL}</a> / 
+                            <a href="#" onclick="changeCheckboxes('frmShowEntries','selectedEntriesId[]',false); return false;">{TXT_ENTRIES_DESELECT_ALL}</a>
+                            <img src="images/icons/strike.gif" alt="" />
+                            <select name="frmShowEntries_MultiAction" onchange="selectMultiAction();">
+                                <option value="0">{TXT_ENTRIES_SUBMIT_SELECT}</option>
+                                <option value="delete">{TXT_ENTRIES_SUBMIT_DELETE}</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </td>
+    </tr>
+</table>
+<div align="center">{ENTRIES_PAGING}</div>
+<!-- END module_data_entries.html -->

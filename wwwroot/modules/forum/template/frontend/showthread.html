@@ -1,0 +1,103 @@
+[[FORUM_JAVASCRIPT_GOTO]] [[FORUM_JAVASCRIPT_DELETE]] [[FORUM_JAVASCRIPT_SCROLLTO]]
+<div id="forum"> 
+<div style="float: right;">[[FORUM_COMMUNITY_LINKS]]</div>
+<span style="color: rgb(255, 0, 0);">[[TXT_FORUM_ERROR]]</span> <span style="color: rgb(0, 255, 0);">[[TXT_FORUM_SUCCESS]]</span><br />
+<!-- BEGIN addPostAnchor -->
+<div style="float:left;"><a href="#post"><img border="0" style="vertical-align:top;" src="images/modules/forum/reply.gif" title="[[TXT_FORUM_CREATE_POST]]" alt="[[TXT_FORUM_CREATE_POST]]" />[[TXT_FORUM_CREATE_POST]]</a> </div>
+<!-- END addPostAnchor -->
+<div style="text-align: right;">[[FORUM_DROPDOWN]]</div>
+<div class="div_title">[[FORUM_TREE]][[FORUM_NAME]]</div>
+<div class="div_board">
+<table cellspacing="0" cellpadding="0" border="0">
+    <tbody>
+        <!-- BEGIN forumPosts -->
+        <tr class="row_[[FORUM_POST_ROWCLASS]]">
+            <td><a name="p[[FORUM_POST_ID]]" id="p[[FORUM_POST_ID]]" />
+                <!--[[FORUM_USER_IMAGE]]-->
+                <img border="0" src="images/modules/forum/user.gif" title="usericon" alt="usericon" /> <span style="vertical-align:top;">[[FORUM_USER_NAME]], [[FORUM_POST_DATE]]</span></td>
+            <td style="text-align: right;">[[FORUM_POST_NUMBER]]</td>
+        </tr>
+        <tr class="row_[[FORUM_POST_ROWCLASS]]"><td colspan="2"><hr style="padding:0px;margin:0px;" /></td></tr>
+        <!--<tr class="row_[[FORUM_POST_ROWCLASS]]">
+            <td>         		[[FORUM_USER_GROUP]]         		[[FORUM_USER_RANK]]   		        		         	</td>
+            <td style="float: right;">         		[[FORUM_USER_REGISTERED_SINCE]]<br />
+            [[FORUM_USER_POSTING_COUNT]]<br />
+            [[FORUM_USER_CONTACTS]]         	</td>
+        </tr>-->
+        <tr class="row_[[FORUM_POST_ROWCLASS]]">
+            <td colspan="2"> 				[[FORUM_POST_ICON]] <span style="vertical-align:top;"> [[FORUM_POST_SUBJECT]]</span><br />
+            </td>
+        </tr>
+        <tr class="row_[[FORUM_POST_ROWCLASS]]">
+            <td colspan="2">         		[[FORUM_POST_MESSAGE]]         		<hr />
+            </td>
+        </tr>
+        <tr class="row_[[FORUM_POST_ROWCLASS]]">
+            <td> 				[[FORUM_POST_LAST_EDITED]] 			</td>
+            <td style="text-align: right;"> 				<!--<input type="button" value="[[TXT_FORUM_EDIT]]" />
+				<input type="button" value="[[TXT_FORUM_QUOTE]]" />-->              <!-- BEGIN postEdit --> 				<a style="border: 1px solid black; padding: 2px;" href="index.php?section=forum&amp;cmd=thread&amp;id=[[FORUM_THREAD_ID]]&amp;act=edit&amp;postid=[[FORUM_POST_ID]]">[[TXT_FORUM_EDIT]]</a>&nbsp;              <!-- END postEdit -->               <!-- BEGIN postQuote -->              	<a style="border: 1px solid black; padding: 2px;" href="index.php?section=forum&amp;cmd=thread&amp;id=[[FORUM_THREAD_ID]]&amp;act=quote&amp;postid=[[FORUM_POST_ID]]">[[TXT_FORUM_QUOTE]]</a>&nbsp;              <!-- END postQuote -->               <!-- BEGIN postDelete --> 				<a style="border: 1px solid black; padding: 2px;" onclick="deletePost('[[FORUM_THREAD_ID]]', '[[FORUM_POST_ID]]'); return false;" href="index.php?section=forum&amp;cmd=thread&amp;id=[[FORUM_THREAD_ID]]&amp;act=delete&amp;postid=[[FORUM_POST_ID]]">[[TXT_FORUM_DELETE]]</a>&nbsp;&nbsp;              <!-- END postDelete -->                          <br />
+            <br />
+            </td>
+        </tr>
+        <!-- END forumPosts -->
+    </tbody>
+</table>
+[[FORUM_POSTS_PAGING]] </div>
+<br />
+<!-- BEGIN addPost -->
+<div class="div_title" stlye="text-align: left;"> 	[[TXT_FORUM_ADD_POST]] </div>
+<form name="frm_thread" action="?section=forum&amp;cmd=thread&amp;id=[[FORUM_THREAD_ID]]" method="post" onsubmit="setScrollPos();">
+    <div class="div_board">
+    <table cellspacing="0" cellpadding="0">
+        <!--<tr>
+				<th colspan="2" style="text-align: left;">
+					[[TXT_FORUM_ADD_POST]]
+				</th>
+			</tr>-->
+        <tbody>
+            <tr>
+                <td><a name="post" /> 				        <!--[[TXT_FORUM_ICON]]--> 				</td>
+                <td nowrap="nowrap" colspan="2" style="padding-left: 0px; margin-left: 0px;">
+                <ul> 					<!-- BEGIN icons -->
+                    <li style="display: none;"> 							<input type="radio" style="border: 0px none ;" id="icons_[[FORUM_ICON_VALUE]]" name="icons" value="[[FORUM_ICON_VALUE]]" /><label for="icons_[[FORUM_ICON_VALUE]]"><img src="[[FORUM_ICON_SRC]]" alt="[[FORUM_ICON_ALT]]" title="[[FORUM_ICON_TITLE]]" /></label> 						</li>
+                    <!-- END icons -->				 					</ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td> 					[[TXT_FORUM_SUBJECT]] 				</td>
+                    <td colspan="2"> 					<input type="text" style="width: 400px;" name="subject" value="[[FORUM_SUBJECT]]" /> 				</td>
+                </tr>
+                <tr>
+                    <td> 					[[TXT_FORUM_MESSAGE]] 				</td>
+                    <td colspan="2"> 					<textarea style="width: 400px; height: 150px;" name="message">[[FORUM_MESSAGE]]</textarea> 				</td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: middle;">[[TXT_FORUM_CAPTCHA]]</td>
+                    <td style="vertical-align: middle; width: 100%;" colspan="2">[[FORUM_CAPTCHA_CODE]]</td>
+                </tr>
+                <!-- BEGIN notificationRow -->
+                <tr>
+                  <td> 
+                    &nbsp;
+                  </td>
+                  <td colspan="2">
+                    <input id="forum_notify" type="checkbox" name="notification" value="notify" [[FORUM_NOTIFICATION_CHECKBOX_CHECKED]] /> <label for="forum_notify">[[TXT_FORUM_NOTIFY_NEW_POSTS]]</label><br /><br />
+                     <input type="submit" name="notification_update" value="[[TXT_FORUM_UPDATE_NOTIFICATION]]" />
+                  </td>
+                </tr>
+              <!-- END notificationRow -->
+            </tbody>
+        </table>
+    
+        <br />
+        <input type="reset" value="[[TXT_FORUM_RESET]]" />                 <!-- BEGIN createPost --> 		<input type="submit" name="create" value="[[TXT_FORUM_CREATE_POST]]" />                 <!-- END createPost -->                 <!-- BEGIN updatePost -->                  <input type="submit" name="update" value="[[TXT_FORUM_UPDATE_POST]]" />                                <!-- END updatePost -->                  <!-- BEGIN previewNewPost --> 		<input type="submit" name="preview_new" value="[[TXT_FORUM_PREVIEW]]" />                 <!-- END previewNewPost -->                 <!-- BEGIN previewEditPost --> 		<input type="submit" name="preview_edit" value="[[TXT_FORUM_PREVIEW]]" />                 <!-- END previewEditPost --> 	</div>
+        <input type="hidden" name="post_edit_user_id" value="[[FORUM_POST_EDIT_USERID]]" /> 	<input type="hidden" name="post_id" value="[[FORUM_EDIT_POST_ID]]" /> 	<input type="hidden" name="thread_id" value="[[FORUM_THREAD_ID]]" /> 	<input type="hidden" name="category_id" value="[[FORUM_CATEGORY_ID]]" /> 	<input type="hidden" name="pos" value="[[FORUM_PAGING_POS]]" />
+     <input type="hidden" name="scrollpos" id="scrollpos" />
+    </form>
+    </div>
+    <!-- END addPost -->
+<script type="text/javascript" language="JavaScript">
+//<![CDATA[
+  window.scrollTo(0, [[FORUM_SCROLLPOS]]);
+//]]>
+</script>

@@ -1,0 +1,71 @@
+<!-- START module_news_type.html -->
+<script language="JavaScript" type="text/javascript">
+<!-- // confirm delete variable
+function deleteType(id)
+{
+  if (confirm('{TXT_CONFIRM_DELETE_DATA}\n{TXT_ACTION_IS_IRREVERSIBLE} {TXT_ATTENTION_SYSTEM_FUNCTIONALITY_AT_RISK}'))
+    window.location.replace("index.php?cmd=news&{CSRF_PARAM}&act=deltype&typeId="+id);
+}
+
+function  toggleTypeName(link)
+{
+  $J(link).next('div.type_name_lang_div').toggle();
+}
+
+function updateLangName(input)
+{
+  $J(input).siblings('div.type_name_lang_div').find('input').attr('value', $J(input).attr('value'));
+}
+// -->
+</script>
+<form name="form1" method="post" action="index.php?cmd=news&amp;act=newstype">
+  <input type="hidden" name="addType" value="true" />
+  <table width="100%" border="0" cellspacing="0" cellpadding="3" class="adminlist">
+    <tr>
+      <th>
+        <div align="left">{TXT_ADD_NEW_TYPE}</div>
+      </th>
+    </tr>
+    <tr>
+      <td> {TXT_NAME}:
+        <input type="text" name="newTypeName" size="40" maxlength="250" />&nbsp;
+        <input type="submit" name="submit" value="{TXT_ADD}" />
+      </td>
+    </tr>
+  </table>
+</form>
+<br />
+<form name="form2" method="post" action="index.php?cmd=news&amp;act=newstype">
+  <input type="hidden" name="modType" value="true" />
+  <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+    <tr>
+      <th colspan="3">{TXT_TYPE_LIST}</th>
+    </tr>
+    <tr class="row2">
+      <td nowrap="nowrap"><b>{TXT_ID}</b></td>
+      <td width="100%"><b>{TXT_NAME}</b></td>
+      <td width="13%"><div align="right"><b>{TXT_ACTION}</b></div></td>
+    </tr>
+    <!-- BEGIN newsRow -->
+      <tr class="{NEWS_ROWCLASS}">
+        <td nowrap="nowrap" valign="top"><div align="left">{NEWS_TYPE_ID}</div></td>
+        <td nowrap="nowrap">
+          <input type="text" value="{NEWS_TYPE_NAME}" size="40" maxlength="250" onchange="updateLangName(this);" /> <a href="#" onclick="toggleTypeName(this);" title="{TXT_NEWS_EXTENDED}">{TXT_NEWS_EXTENDED} &raquo;</a>
+          <div class="type_name_lang_div" style="display:none;">
+                    <!-- BEGIN type_name_list -->
+                        <input type="text" name="newsTypeName[{NEWS_TYPE_ID}][{NEWS_TYPE_LANG_ID}]" id="newsTypeName[{NEWS_TYPE_ID}][{NEWS_TYPE_LANG_ID}]" value="{NEWS_TYPE_NAME_VALUE}" size="40" maxlength="250" style="margin-top:1px;" /> {NEWS_TYPE_LANG_NAME}<br />
+                    <!-- END type_name_list -->
+                    </div>
+        </td>
+        <td width="13%" valign="top">
+          <div align="right"><a href="javascript:deleteType('{NEWS_TYPE_ID}')" title="{TXT_DELETE}"><img src="images/icons/delete.gif" alt="{TXT_DELETE}" border="0" /></a></div>
+        </td>
+      </tr>
+    <!-- END newsRow -->
+  </table>
+  <br />
+  <input type="submit" name="submit" value="{TXT_ACCEPT_CHANGES}" />
+</form>
+<br />
+<br />
+<!-- END module_news_type.html -->

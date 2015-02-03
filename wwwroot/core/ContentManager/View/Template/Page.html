@@ -1,0 +1,318 @@
+<div id="sidebar_toggle"></div>
+<ul id="cm-tabs" class="clearfix">
+    <li><a href="#page_content" class="tab page_content">{TXT_CORE_CM_PAGE}</a></li>
+    <li><a href="#page_meta" class="tab page_meta type_hidable type_content type_application type_fallback">{TXT_CORE_CM_META}</a></li>
+    <li><a href="#page_navigation" class="tab page_navigation">{TXT_CORE_CM_NAVIGATION}</a></li>
+    <li><a href="#page_blocks" class="tab page_blocks">{TXT_CORE_CM_BLOCKS}</a></li>
+    <!-- BEGIN page_permissions_tab -->
+    <li><a href="#page_permissions" class="tab page_permissions">{TXT_CORE_CM_PERMISSIONS}</a></li>
+    <!-- END page_permissions_tab -->
+    <li><a href="#page_history" class="tab page_history">{TXT_CORE_CM_HISTORY}</a></li>
+    <li><a href="#page_more" class="tab page_more">{TXT_CORE_CM_MORE}</a></li>
+</ul>
+<form action="." enctype="multipart/form-data" id="cm_page">
+    <div id="page_content" style="display: none;">
+        <input type="hidden" name="page[id]" id="pageId" value="new" />
+        <input type="hidden" name="page[historyId]" id="historyId" value="new" />
+        <input type="hidden" name="page[lang]" id="pageLang" value="en" />
+        <input type="hidden" name="page[node]" id="pageNode" value="" />
+        <input type="hidden" name="source_page" id="sourcePage" value="" />
+        <input type="hidden" name="parent_node" id="parent_node" value="" />
+
+        <div id="titles_toggle" class="toggle {TITLES_TOGGLE_CLASS}"><div class="indicator"></div><label>{TXT_CORE_CM_PAGE_NAME}</label></div>
+        <div id="titles_container" class="container" style="{TITLES_DISPLAY_STYLE}">
+            <div class="line small_space">
+                <label for="page_name">{TXT_CORE_CM_PAGE_NAME}</label>
+                <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_CORE_CM_PAGE_NAME_INFO}</span>
+            </div>
+            <div class="line big_space"><input type="text"  name="page[name]" id="page_name" /></div>
+
+            <div class="line small_space">
+                <label for="page_title">{TXT_CORE_CM_PAGE_TITLE}</label>
+                <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_CORE_CM_PAGE_TITLE_INFO}</span>
+            </div>
+            <div class="line big_space"><input type="text" name="page[title]" id="page_title" /></div>
+
+            <div class="line big_space last" id="types">
+                <input type="hidden" name="page[type]" value="off" />
+                <input type="radio" name="page[type]" value="content" id="type_content" class="radio" checked="checked" />
+
+                <label for="type_content">{TXT_CORE_CM_TYPE_CONTENT}</label>
+                <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_CORE_CM_TYPE_CONTENT_INFO}</span>
+                <input type="radio" name="page[type]" value="redirect" id="type_redirect" class="radio" />
+
+                <label for="type_redirect">{TXT_CORE_CM_TYPE_REDIRECT}</label>
+                <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_CORE_CM_TYPE_REDIRECT_INFO}</span>
+                <input type="radio" name="page[type]" value="application" id="type_application" class="radio" />
+
+                <label for="type_application">{TXT_CORE_CM_TYPE_APPLICATION}</label>
+                <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_CORE_CM_TYPE_APPLICATION_INFO}</span>
+                <input type="radio" name="page[type]" value="fallback" id="type_fallback" class="radio hidable_nofallback" />
+
+                <label for="type_fallback" class="hidable_nofallback">{TXT_CORE_CM_TYPE_FALLBACK} <strong id="fallback"></strong></label>
+                <span class="icon-info tooltip-trigger hidable_nofallback"></span><span class="tooltip-message">{TXT_CORE_CM_TYPE_FALLBACK_INFO}</span>
+            </div>
+        </div>
+        <div id="type_toggle" class="toggle {TYPE_TOGGLE_CLASS}"><div class="indicator"></div><label>{TXT_CORE_CM_TYPE}</label></div>
+        <div id="type_container" class="container" style="{TYPE_DISPLAY_STYLE}">
+            <div class="container type_redirect type_hidable">
+                <div class="line small_space">
+                    <label for="page_target_button">{TXT_CORE_CM_TYPE_REDIRECT_TARGET}</label>
+                    <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_CORE_CM_TYPE_REDIRECT_INFO_ACTION}</span>
+                </div>
+                <div class="line big_space">
+                    <div id="page_target_wrapper">
+                        <select name="page[target_protocol]" id="page_target_protocol">
+                            <option value="http://">http://</option>
+                            <option value="https://">https://</option>
+                            <option value="ftp://">ftp://</option>
+                            <option value="ftps://">ftps://</option>
+                            <option value="">&lt;{TXT_INTERNAL}&gt;</option>
+                        </select>
+                        <input type="text" name="page[target]" id="page_target" />
+                        <a id="page_target_check" class="icon hide"></a>
+                        <a id="page_target_cancel" class="icon hide"></a>
+                    </div>
+                    <div id="page_target_text_wrapper">
+                        <a id="page_target_text" href="#" target="_blank"></a>
+                        <a id="page_target_edit" class="icon"></a>
+                    </div>
+                    <input type="hidden" id="page_target_backup" />
+                    <button id="page_target_browse">{TXT_CORE_CM_BROWSE}</button>
+                </div>
+            </div>
+
+            <div id="ckeditor" class="type_application type_content type_hidable">
+                <textarea id="cm_ckeditor" rows="15" cols="45" name="page[content]"></textarea>
+            </div>
+        </div>
+    </div>
+    <div id="page_meta" style="display: none;">
+        <div id="metarobots_checkbox" class="checkbox">
+            <input type="hidden" name="page[metarobots]" value="off" />
+            <input type="checkbox" class="indicator" id="page_metarobots" name="page[metarobots]" />
+            <label>{TXT_CORE_CM_SE_INDEX}</label>
+        </div>
+        <div id="metarobots_container" class="container" style="display: none;">
+            <div class="line small_space">
+                <label for="page_metatitle">{TXT_CORE_CM_METATITLE}</label>
+                <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_CORE_CM_METATITLE_INFO}</span>
+            </div>
+            <div class="line big_space">
+                <input type="text" id="page_metatitle" name="page[metatitle]" />
+            </div>
+
+            <div class="line small_space">
+                <label for="page_metadesc">{TXT_CORE_CM_METADESC}</label>
+                <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_CORE_CM_METADESC_INFO}</span>
+            </div>
+            <div class="line big_space">
+                <textarea id="page_metadesc" name="page[metadesc]"></textarea>
+            </div>
+
+            <div class="line small_space">
+                <label for="page_metakeys">{TXT_CORE_CM_METAKEYS}</label>
+                <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_CORE_CM_METAKEYS_INFO}</span>
+            </div>
+            <div class="line big_space last">
+                <textarea id="page_metakeys" name="page[metakeys]"></textarea>
+            </div>
+        </div>
+    </div>
+    <div id="page_navigation" style="display: none;">
+        <div id="navigation_toggle" class="toggle {NAVIGATION_TOGGLE_CLASS}"><div class="indicator"></div><label>{TXT_CORE_CM_NAVIGATION}</label></div>
+        <div id="navigation_container" class="container" style="{NAVIGATION_DISPLAY_STYLE}">
+            <div class="line small_space">
+                <label for="page_slug">{TXT_CORE_CM_SLUG}</label>
+                <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_CORE_CM_SLUG_INFO}</span>
+            </div>
+            <div id="page_slug_container" class="line big_space">
+                <span id="page_slug_base_url">{CONTREXX_BASE_URL}</span><span id="page_slug_breadcrumb">{CONTREXX_LANG}/</span>
+                <input type="text" name="page[slug]" id="page_slug" />
+            </div>
+            
+            <div class="line small_space">
+                <label for="page_alias">{TXT_CORE_CM_ALIAS}</label>
+                <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_CORE_CM_ALIAS_INFO}</span>
+            </div>
+            <div id="page_alias_container" class="line big_space">
+                <div class="page_alias empty">
+                    <span>{CONTREXX_BASE_URL}</span>
+                    <span class="noedit" style="font-weight: bold; display: {ALIAS_DENIAL};"></span>
+                    <input type="text" id="page_alias" name="page[alias][]" style="display: {ALIAS_PERMISSION};" />
+                    <div style="float: none; clear: left;"></div>
+                </div>
+            </div>
+
+            <div class="line small_space">
+                <label for="page_css_nav_class">{TXT_CORE_CM_CSS_NAV_CLASS}</label>
+                <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_CORE_CM_CSS_NAV_CLASS_INFO}</span>
+            </div>
+            <div class="line big_space">
+                <input type="text" name="page[cssNavName]" id="page_css_nav_class" />
+                <div class="inherit">
+                    <input type="checkbox" name="inheritCssNavName" value="on" id="inherit-css-nav-name" />
+                    <label for="inherit-css-nav-name">{TXT_RECURSIVE_CHANGE}</label>
+                </div>
+            </div>
+
+            <div class="line small_space">
+                <label for="page_link_target">{TXT_CORE_CM_LINK_TARGET}</label>
+                <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_CORE_CM_LINK_TARGET_INO}</span>
+            </div>
+            <div class="line big_space last">
+                <select id="page_link_target" name="page[link_target]">
+                    <option value="">(None)</option>
+                    <option value="_blank">New Window (_blank)</option>
+                    <option value="_parent">Parent Window (_parent)</option>
+                    <option value="_top">Top Window (_top)</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div id="page_blocks" style="display: none;">
+        <div id="blocks_toggle" class="toggle {BLOCKS_TOGGLE_CLASS}"><div class="indicator"></div><label>{TXT_CORE_CM_BLOCKS}</label></div>
+        <div id="blocks_container" class="container multiselect" style="{BLOCKS_DISPLAY_STYLE}">
+            <label for="pageBlocksms2side__sx" class="left">{TXT_CORE_CM_BLOCKS_AVAILABLE}</label>
+            <label for="pageBlocksms2side__dx" class="right">{TXT_CORE_CM_BLOCKS_ASSIGNED}</label>
+            <select id="pageBlocks" class="multiselect" multiple="multiple" name="pageBlocks[]"></select>
+        </div>
+    </div>
+    <!-- BEGIN page_permissions -->
+    <div id="page_permissions" style="display: none;">
+        <div id="protection_frontend_checkbox" class="checkbox no_toggle">
+            <input type="hidden" name="page[protection_frontend]" value="off" />
+            <input type="checkbox" class="indicator" id="page_protection_frontend" name="page[protection_frontend]" />
+            <label>{TXT_CORE_CM_ACCESS_PROTECTION_FRONTEND}</label>
+        </div>
+        <div id="protection_frontend_container" class="container multiselect">
+            <label for="frontendGroupsms2side__sx" class="left">{TXT_CORE_CM_ACCESS_PROTECTION_AVAILABLE_GROUPS}</label>
+            <label for="frontendGroupsms2side__dx" class="right">{TXT_CORE_CM_ACCESS_PROTECTION_ASSIGNED_GROUPS}</label>
+            <select id="frontendAccessGroups" class="multiselect" multiple="multiple" name="frontendGroups[]"></select>
+            <div class="inherit">
+                <input type="checkbox" name="inheritFrontendAccess" value="on" id="inherit-frontend-access" />
+                <label for="inherit-frontend-access">{TXT_RECURSIVE_CHANGE}</label>
+            </div>
+        </div>
+
+        <div id="protection_backend_checkbox" class="checkbox no_toggle">
+            <input type="hidden" name="page[protection_backend]" value="off" />
+            <input type="checkbox" class="indicator" id="page_protection_backend" name="page[protection_backend]" />
+            <label>{TXT_CORE_CM_ACCESS_PROTECTION_BACKEND}</label>
+        </div>
+        <div id="protection_backend_container" class="container multiselect">
+            <label for="backendGroupsms2side__sx" class="left">{TXT_CORE_CM_ACCESS_PROTECTION_AVAILABLE_GROUPS}</label>
+            <label for="backendGroupsms2side__dx" class="right">{TXT_CORE_CM_ACCESS_PROTECTION_ASSIGNED_GROUPS}</label>
+            <select id="backendAccessGroups" class="multiselect" multiple="multiple" name="backendGroups[]"></select>
+            <div class="inherit">
+                <input type="checkbox" name="inheritBackendAccess" value="on" id="inherit-backend-access" />
+                <label for="inherit-backend-access">{TXT_RECURSIVE_CHANGE}</label>
+            </div>
+        </div>
+    </div>
+    <!-- END page_permissions -->
+    <div id="page_history"></div>
+    <div id="page_more" style="display: none;">
+        <div id="scheduled_publishing_checkbox" class="checkbox">
+            <input type="hidden" name="page[scheduled_publishing]" value="off" />
+            <input type="checkbox" class="indicator" id="page_scheduled_publishing" name="page[scheduled_publishing]" />
+            <label>{TXT_CORE_CM_SCHEDULED_PUBLISHING}</label>
+        </div>
+        <div id="scheduled_publishing_container" class="container" style="display: none;">
+            <div class="line big_space last">
+                <label for="page_start">{TXT_CORE_CM_SCHEDULED_PUBLISHING_FROM}:</label><input type="text" name="page[start]" id="page_start" value="" class="date" />
+                <label for="page_end">{TXT_CORE_CM_SCHEDULED_PUBLISHING_TO}:</label><input type="text" name="page[end]" id="page_end" value="" class="date" />
+            </div>
+        </div>
+
+        <div class="type_application type_hidable">
+            <div id="application_toggle" class="toggle {APPLICATION_TOGGLE_CLASS}"><div class="indicator"></div><label>{TXT_CORE_CM_TYPE}</label></div>
+            <div id="application_container" class="container" style="{APPLICATION_DISPLAY_STYLE}">
+                <div class="line small_space">
+                    <label for="page_application" class="first">{TXT_CORE_CM_TYPE_APPLICATION}</label>
+                    <label for="page_application_area" class="second">{TXT_CORE_CM_TYPE_APPLICATION_AREA}</label>
+                </div>
+                <div class="line big_space">
+                    <select name="page[application]" class="first" id="page_application">
+                        <!-- BEGIN module_option --><option value="{MODULE_KEY}">{MODULE_TITLE}</option><!-- END module_option -->
+                    </select>
+                    <input type="text" name="page[area]" class="second" id="page_application_area" />
+                </div>
+            </div>
+        </div>
+
+        <div id="themes_toggle" class="toggle {THEMES_TOGGLE_CLASS}"><div class="indicator"></div><label>{TXT_CORE_CM_THEMES}</label></div>
+        <div id="themes_container" class="container" style="{THEMES_DISPLAY_STYLE}">
+            <div class="line small_space">
+                <label for="page_skin">{TXT_CORE_CM_THEMES}</label>
+                <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_CORE_CM_THEMES_INFO}</span>
+                <a id="page_skin_view" href="javascript:void(0)">{TXT_THEME_PREVIEW}</a>
+                <a id="page_skin_edit" href="javascript:void(0)">{TXT_EDIT}</a>
+            </div>
+            <div class="line big_space">
+                <select class="select_small" id="page_skin" name="page[skin]">
+                    <option value="0">(Default)</option>
+                    {SKIN_OPTIONS}
+                </select>
+                <label><input type="checkbox" name="page[useSkinForAllChannels]" value="1" id="use-skin-all-channels" />{TXT_CORE_CM_USE_ALL_CHANNELS}</label>
+                <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_CORE_CM_USE_SKIN_ALL_CHANNELS_INFO}</span>
+                <div class="inherit">
+                    <input type="checkbox" name="inheritSkin" value="on" id="inherit-skin" />
+                    <label for="inherit-skin">{TXT_RECURSIVE_CHANGE}</label>
+                </div>
+            </div>
+
+            <div class="line small_space">
+                <label for="page_custom_content">{TXT_CORE_CM_CUSTOM_CONTENT}</label>
+                <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_CORE_CM_CUSTOM_CONTENT_INFO}</span>
+            </div>
+            <div class="line big_space">
+                <select class="select_small" id="page_custom_content" name="page[customContent]">
+                    <option value="">(Default)</option>
+                </select>
+                <label><input type="checkbox" name="page[useCustomContentForAllChannels]" value="1" id="use-custom-content-all-channels" />{TXT_CORE_CM_USE_ALL_CHANNELS}</label>
+                <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_CORE_CM_USE_CUSTOM_CONTENT_ALL_CHANNELS_INFO}</span>
+                <div class="inherit">
+                    <input type="checkbox" name="inheritCustomContent" value="on" id="inherit-custom-content" />
+                    <label for="inherit-custom-content">{TXT_RECURSIVE_CHANGE}</label>
+                </div>
+            </div>
+
+            <div class="line small_space">
+                <label for="page_css_class">{TXT_CORE_CM_CSS_CLASS}</label>
+                <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_CORE_CM_CSS_CLASS_INFO}</span>
+            </div>
+            <div class="line big_space last">
+                <input type="text" name="page[cssName]" id="page_css_class" />
+                <div class="inherit">
+                    <input type="checkbox" name="inheritCssName" value="on" id="inherit-css-name" />
+                    <label for="inherit-css-name">{TXT_RECURSIVE_CHANGE}</label>
+                </div>
+            </div>
+        </div>
+
+        <div id="caching_checkbox" class="checkbox no_toggle">
+            <input type="hidden" name="page[caching]" value="off" />
+            <input type="checkbox" class="indicator" id="page_caching" name="page[caching]" />
+            <label>{TXT_CORE_CM_CACHE}</label>
+        </div>
+        <div class="inherit caching">
+            <input type="checkbox" name="inheritCaching" value="on" id="inherit-caching" />
+            <label for="inherit-caching">{TXT_RECURSIVE_CHANGE}</label>
+        </div>
+
+        <div id="source_mode_checkbox no_toggle" class="checkbox">
+            <input type="hidden" name="page[sourceMode]" value="off" />
+            <input type="checkbox" class="indicator" id="page_sourceMode" name="page[sourceMode]" />
+            <label>{TXT_CORE_CM_SOURCE_MODE}</label>
+        </div>
+    </div>
+    <div id="buttons">
+        <input id="cancel" type="reset" value="{TXT_CANCEL}" />
+        <a id="preview" class="button" href="#" target="_blank">{TXT_CORE_PREVIEW}</a>
+        <input id="save" type="button" value="{TXT_CORE_SAVE}" />
+        <!-- BEGIN publish_button --><input id="publish" type="button" value="{TXT_CORE_SAVE_PUBLISH}" /><!-- END publish_button -->
+        <!-- BEGIN release_button --><input id="release" type="button" value="{TXT_CORE_SUBMIT_FOR_RELEASE}" /><!-- END release_button -->
+        <!-- BEGIN refuse_button --><input id="refuse" type="button" value="{TXT_CORE_REFUSE_RELEASE}" /><!-- END refuse_button -->
+    </div>
+</form>

@@ -1,0 +1,61 @@
+[[FORUM_JAVASCRIPT]] [[FORUM_JAVASCRIPT_GOTO]]
+<div id="forum">
+<div style="text-align:right;">[[FORUM_COMMUNITY_LINKS]]</div>
+<div style="text-align: right;">[[FORUM_DROPDOWN]]</div>
+<!-- BEGIN forumMainCategory -->
+<div class="div_title">
+<div style="float: left;">[[FORUM_MAINCATEGORY_NAME]]</div>
+<div style="text-align: right;"> 		<a title="[[FORUM_MAINCATEGORY_NAME_TITLE]]" href="javascript:toggleCategory('[[FORUM_MAINCATEGORY_ID]]');"> 			<img border="0" id="maincat_[[FORUM_MAINCATEGORY_ID]]_img" src="images/modules/forum/arrow_up.gif" alt="" /> 		</a> 	</div>
+</div>
+<div class="div_board">
+<div style="display: block;" id="maincat_[[FORUM_MAINCATEGORY_ID]]">
+<table cellspacing="0" cellpadding="0">
+    <tbody>
+        <tr>
+            <th width="1%">&nbsp; 				</th>
+            <th width="58%" style="text-align: left;">[[TXT_FORUM]] 				</th>
+            <th width="25%" style="text-align: left;">[[TXT_LASTPOST]] 				</th>
+            <th width="8%" style="text-align: left;">[[TXT_THREADS]] 				</th>
+            <th width="8%" style="text-align: left;">[[TXT_POSTINGS]] 			</th>
+        </tr>
+        <!-- BEGIN forumSubCategory -->
+        <tr style="" class="row_[[FORUM_SUBCATEGORY_ROWCLASS]]">
+            <td align="center">[[FORUM_SUBCATEGORY_ICON]]</td>
+            <td align="justify">
+            <div title="[[FORUM_SUBCATEGORY_DESC]]"><strong><a title="[[FORUM_SUBCATEGORY_NAME]]" href="index.php?section=forum&amp;cmd=board&amp;id=[[FORUM_SUBCATEGORY_ID]]">[[FORUM_SUBCATEGORY_NAME]]</a></strong><br />
+            [[FORUM_SUBCATEGORY_DESC]]</div>
+            </td>
+            <td style="text-align: left;">[[FORUM_SUBCATEGORY_LASTPOST_TITLE]]<br />
+            [[FORUM_SUBCATEGORY_LASTPOST_DATE]]</td>
+            <td style="text-align: left;">[[FORUM_SUBCATEGORY_THREADS]]</td>
+            <td style="text-align: left;">[[FORUM_SUBCATEGORY_POSTINGS]]</td>
+        </tr>
+        <!-- END forumSubCategory -->
+    </tbody>
+</table>
+</div>
+<!-- END forumMainCategory --> </div>
+<br />
+        <div class="div_board">
+	<div class="div_title">[[TXT_FORUM_LATEST_ENTRIES]]</div>
+		<table cellspacing="0" cellpadding="0">
+			<tr class="row3">
+				<th width="65%" style="text-align: left;">[[TXT_FORUM_THREAD]]</th>
+				<th width="15%" style="text-align: left;">[[TXT_FORUM_OVERVIEW_FORUM]]</th>		
+				<th width="15%" style="text-align: left;">[[TXT_FORUM_THREAD_STRATER]]</th>		
+				<th width="1%" style="text-align: left;">[[TXT_FORUM_POST_COUNT]]</th>		
+				<th width="4%" style="text-align: left;">[[TXT_FORUM_THREAD_CREATE_DATE]]</th>
+			</tr>
+			<!-- BEGIN latestPosts -->
+			<tr class="row_[[FORUM_ROWCLASS]]">
+				<td>[[FORUM_THREAD]]</td>
+				<td>[[FORUM_FORUM_NAME]]</td>
+				<td>[[FORUM_THREAD_STARTER]]</td>
+				<td>[[FORUM_POST_COUNT]]</td>
+				<td>[[FORUM_THREAD_CREATE_DATE]]</td>
+			</tr>	
+			<!-- END latestPosts -->	
+		</table>
+	</div>
+</div>
+[[FORUM_JAVASCRIPT_TOGGLE_CAT]]

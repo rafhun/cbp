@@ -1,0 +1,169 @@
+<!-- BEGIN module_filesharing_settings.html -->
+<script language="javascript" type="text/javascript">
+
+function init() {
+    cx.jQuery('#filesharingManageGroup, #filesharingManageOff, #filesharingManageOn').change(function(){
+        // show div with groups
+        if (cx.jQuery('#filesharingManageGroup').attr('checked') == 'checked') {
+            cx.jQuery(this).siblings('.group_div').show();
+        } else {
+            cx.jQuery(this).siblings('.group_div').hide();
+        }
+    });
+};
+
+function SelectAllGroups(link) {
+    cx.jQuery(link).siblings(".group_list").find("option").attr("selected", "selected");
+    return false;
+};
+
+function DeselectAllGroups(link) {
+    cx.jQuery(link).siblings(".group_list").find("option").removeAttr("selected");
+    return false;
+};
+
+function MoveRight(button) {
+    var right = cx.jQuery(button).parent().parent().find(".group_list:last");
+    cx.jQuery(button).parent().parent().find(".group_list:first").find("option:selected").appendTo(right);
+    return false;
+};
+
+function MoveLeft(button) {
+    var left = cx.jQuery(button).parent().parent().find(".group_list:first");
+    cx.jQuery(button).parent().parent().find(".group_list:last").find("option:selected").appendTo(left);
+    return false;
+};
+
+function BeforeSubmit() {
+    cx.jQuery(".group_div").find(".group_list:first").find("option:selected").removeAttr("selected").end().end()
+    .find(".group_list:last").find("option").attr("selected", "selected");
+}
+
+</script>
+<ul id="tabmenu" class="media_settings">
+    <li><a id="messageTab_information" class="active" href="javascript:{}" onclick="selectTab('information')" title="{FILESHARING_INFO}">{FILESHARING_INFO}</a></li>
+    <li><a id="messageTab_mailtemplates" href="javascript:{}" onclick="selectTab('mailtemplates')" title="{FILESHARING_MAIL_TEMPLATES}">{FILESHARING_MAIL_TEMPLATES}</a></li>
+    <li><a id="messageTab_security" href="javascript:{}" onclick="selectTab('security'); init();" title="{TXT_FILESHARING_SECURITY}">{TXT_FILESHARING_SECURITY}</a></li>
+</ul>
+<div id="information" class="messageTab">
+    <table class="adminlist" width="100%">
+        <tbody>
+        <tr>
+            <th colspan="2">{FILESHARING_INFO}</th>
+        </tr>
+        <tr>
+            <td width="200">{TXT_FILESHARING_APPLICATION_NAME}</td>
+            <td>{FILESHARING_APPLICATION_NAME}</td>
+        </tr>
+        <tr>
+            <td>{TXT_FILESHARING_DESCRIPTION}</td>
+            <td>{FILESHARING_DESCRIPTION}</td>
+        </tr>
+        <tr>
+            <td>{TXT_FILESHARING_MANUAL}</td>
+            <td>
+                {FILESHARING_MANUAL}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div id="mailtemplates" class="messageTab" style="display: none;">
+    <!-- BEGIN filesharing_email_template -->
+    <form action="index.php?cmd=media&amp;archive=filesharing&amp;act=settings" method="post" name="settings">
+        <table cellpadding="0" cellspacing="0" width="100%" class="adminlist">
+            <tr class="row3">
+                <th colspan="2">{LANG_NAME}</th>
+            </tr>
+            <tr class="row1">
+                <td width="100"><b>{TXT_MAIL_SUBJECT}</b></td>
+                <td><input type="text" name="filesharingMail[{LANG}][subject]" style="width: 300px"
+                           value="{FILESHARING_MAIL_SUBJECT}"/></td>
+            </tr>
+            <tr class="row2">
+                <td><b>{TXT_MAIL_CONTENT}</b></td>
+                <td><textarea style="width: 300px; height: 100px;" name="filesharingMail[{LANG}][content]">{FILESHARING_MAIL_CONTENT}</textarea>
+                </td>
+            </tr>
+        </table>
+        <br/><br/>
+        <!-- END filesharing_email_template -->
+        <br/>
+        <input type="submit" value="{TXT_BUTTON_SAVE}" name="save_settings"/>
+    </form>
+</div>
+<div id="security" class="messageTab" style="display: none;">
+    <!-- BEGIN filesharing_security -->
+    <form action="index.php?cmd=media&amp;archive=filesharing&amp;act=settings" method="post" name="settings">
+        <table cellspacing="0" cellpadding="2" width="100%" border="0" class="adminlist">
+            <tr>
+                <th colspan="2">{FILESHARING_SECURITY}</th>
+            </tr>
+            <tr class="row3">
+                <td colspan="2">{TXT_FILESHARING_SECURITY_INFO}</td>
+            </tr>
+            <tr class="row1">
+                <td>
+                    <input id="filesharingManageOff" type="radio"
+                           name="filesharingSettingsPermission" value="off"
+                    {FILESHARING_ALLOW_USER_UPLOAD_OFF} /><label for="filesharingManageOff">{TXT_MEDIA_ADDING_DENIED_FOR_ALL}</label><br/>
+                    <input id="filesharingManageOn" type="radio"
+                           name="filesharingSettingsPermission" value="on"
+                    {FILESHARING_ALLOW_USER_UPLOAD_ON} /><label for="filesharingManageOn">{TXT_MEDIA_ADDING_ALLOWED_FOR_ALL}</label><br/>
+                    <input id="filesharingManageGroup" type="radio"
+                           name="filesharingSettingsPermission" value="1"
+                    {FILESHARING_ALLOW_USER_UPLOAD_GROUP} /><label for="filesharingManageGroup">{TXT_MEDIA_ADDING_ALLOWED_FOR_GROUP}</label><br/>
+
+                    <div class="group_div" id="filesharingSettingsGroupList"
+                         style="display:{FILESHARING_ACCESS_DISPLAY}">
+                        <br/>
+                        <table cellspacing="0" cellpadding="3" border="0" summary="user group assignements">
+                            <tbody style="vertical-align:top;">
+                            <tr>
+                                <td width="300" style="border-bottom:0px;">{TXT_MEDIA_AVAILABLE_USER_GROUPS}<br/>
+                                    <select class='group_list'
+                                            name="filesharing_access_not_associated_groups[]"
+                                            id="filesharing_access_not_associated_groups" size="15"
+                                            style="width:300px;" multiple="multiple">
+                                        {FILESHARING_ACCESS_NOT_ASSOCIATED_GROUPS}
+                                    </select>
+                                    <br/>
+                                    <a href="#" onclick="return SelectAllGroups(this);" title="{TXT_MEDIA_CHECK_ALL}">{TXT_MEDIA_CHECK_ALL}</a>
+                                    <br/>
+                                    <a href="#" onclick="return DeselectAllGroups(this);"
+                                       title="{TXT_MEDIA_UNCHECK_ALL}">{TXT_MEDIA_UNCHECK_ALL}</a>
+                                </td>
+                                <td width="45" style="border-bottom:0px; text-align:center;">
+                                    <br/>
+                                    <input type="button" value="&gt;&gt;" name="addOption"
+                                           onclick="return MoveRight(this);" style="margin-bottom:2px;"/>
+                                    <br/>
+                                    <input type="button" value="&lt;&lt;" name="removeOption"
+                                           onclick="return MoveLeft(this);"/>
+                                </td>
+                                <td width="100%" style="border-bottom:0px;">{TXT_MEDIA_ASSIGNED_USER_GROUPS}<br/>
+                                    <select class='group_list'
+                                            name="filesharing_access_associated_groups[]"
+                                            id="filesharing_access_associated_groups" size="15"
+                                            style="width:300px;" multiple="multiple">
+                                        {FILESHARING_ACCESS_ASSOCIATED_GROUPS}
+                                    </select>
+                                    <br/>
+                                    <a href="#" onclick="return SelectAllGroups(this);" title="{TXT_MEDIA_CHECK_ALL}">{TXT_MEDIA_CHECK_ALL}</a>
+                                    <br/>
+                                    <a href="#" onclick="return DeselectAllGroups(this);"
+                                       title="{TXT_MEDIA_UNCHECK_ALL}">{TXT_MEDIA_UNCHECK_ALL}</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <!-- END filesharing_security -->
+        <br/>
+        <input type="submit" value="{TXT_BUTTON_SAVE}" name="save_settings" onclick="BeforeSubmit();"/>
+    </form>
+</div>
+<!-- END module_filesharing_settings.html -->

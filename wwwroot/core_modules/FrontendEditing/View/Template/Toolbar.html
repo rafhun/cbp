@@ -1,0 +1,54 @@
+<!-- START coreModule_frontendEditing_toolbar.html -->
+<div id="fe_toolbar" style="display: none;">
+    <div id="fe_toolbar_logo"></div>
+    <div id="fe_toolbar_tab"></div>
+    <div id="fe_metanavigation">
+        <div id="fe_history" class="fe_anchor fe_toggle">
+            <a href="#" title="{TXT_FRONTEND_EDITING_HISTORY}">&nbsp;</a>
+
+            <div class="fe_arrow fe_toggle"></div>
+            <div class="fe_box fe_toggle"></div>
+        </div>
+        <div id="fe_options" class="fe_anchor fe_toggle">
+            <a href="#" title="{TXT_FRONTEND_EDITING_OPTIONS}">&nbsp;</a>
+
+            <div class="fe_arrow fe_toggle"></div>
+            <div class="fe_box fe_toggle">
+                <label for="page_skin">{TXT_FRONTEND_EDITING_THEMES}</label>
+                <select id="page_skin" name="page[skin]">
+                    <option value="0">(Default)</option>
+                    {SKIN_OPTIONS}
+                </select>
+                <label for="page_custom_content">{TXT_FRONTEND_EDITING_CUSTOM_CONTENT}</label>
+                <select id="page_custom_content" name="page[customContent]">
+                    <option value="">(Default)</option>
+                </select>
+                <label for="page_css_class">{TXT_FRONTEND_EDITING_CSS_CLASS}</label>
+                <input type="text" name="page[cssName]" id="page_css_class"/>
+            </div>
+        </div>
+        <!--Not used for contrexx 3.1-->
+        <!--<div id="fe_adminmenu" class="fe_anchor">
+            <a href="#">{TXT_FRONTEND_EDITING_ADMINMENU}</a>
+
+            <div class="fe_arrow fe_toggle"></div>
+            <div class="fe_box fe_toggle">
+                {NAVIGATION_OUTPUT}
+            </div>
+        </div>-->
+        <a class="backend" href="{LINK_CM}" title="{TXT_FRONTEND_EDITING_TOOLBAR_OPEN_CM}">&nbsp;</a>
+        <a class="profile" href="{LINK_PROFILE}" title="{LOGGED_IN_USER}">&nbsp;</a>
+        <a class="logout" href="{LINK_LOGOUT}" title="{TXT_LOGOUT}">&nbsp;</a>
+    </div>
+    <div id="fe_toolbar_actions">
+        <a href="#" id="fe_toolbar_startEditMode" class="fe_button"></a>
+        <a href="#" id="fe_toolbar_savePage" class="fe_button"></a>
+        <a href="#" id="fe_toolbar_publishPage" class="fe_button"></a>
+        <a href="#" id="fe_toolbar_saveBlock" class="fe_button">{TXT_FRONTEND_EDITING_TOOLBAR_SAVE_BLOCK}</a>
+        <div id="fe_state_wrapper">
+            <div id="fe_state_icon"></div>
+            <div id="fe_state_text"></div>
+        </div>
+    </div>
+</div>
+<!-- END core_module_frontendEditing_toolbar.html -->

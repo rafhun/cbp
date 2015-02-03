@@ -1,0 +1,46 @@
+<!-- START stats.html -->
+<form name="form1" method="get" action="index.php">
+<input type="text" name="searchquery" />
+<input type="submit" name="btn" value="{TXT_SEARCH}" />
+<input type="hidden" name="cmd" value="searchstats" />
+</form>
+{STATS_HEADER_TEXT}<br />
+<table summary="" cellspacing="0" cellpadding="3" width="100%" border="0" class=adminlist>
+  <tr>
+    <th colspan="5">
+      <div align="left">{STATS_ROW1_TITLE}</div>
+    </th>
+  </tr>
+  <tr>
+    <td nowrap="nowrap" width="13%"><b>{STATS_ROW1_KEY}</b></td>
+    <td width="87%" colspan=4><b>{STATS_ROW1_VALUE}</b></td>
+  </tr>
+  <!-- BEGIN statsrow1 -->
+  <tr>
+    <td nowrap="nowrap" width="13%">{STATS_ROW1_TEXT1}</td>
+    <td width="87%" colspan="4">{STATS_ROW1_TEXT2}</td>
+  </tr>
+  <!-- END statsrow1 -->
+</table>
+<br />
+<table summary="" cellspacing="0" cellpadding="3" width="100%" border=0 class="adminlist">
+  <tr>
+    <th colspan="5">
+      <div align="left">{STATS_ROW2_TITLE}</div>
+    </th>
+  </tr>
+  <tr>
+    <td nowrap="nowrap" width="13%"><b>{STATS_ROW2_KEY}</b></td>
+    <td width="87%" colspan="4"><b>{STATS_ROW2_VALUE}</b></td>
+  </tr>
+  <!-- BEGIN statsrow2 -->
+  <tr>
+    <td nowrap="nowrap" width="13%">{STATS_ROW2_TEXT1}</td>
+    <td class="row1" width="87%" colspan=4>{STATS_ROW2_TEXT2}</td>
+  </tr>
+  <!-- END statsrow2 -->
+</table>
+<br />
+{STATS_FOOTER_TEXT}<br />
+<br />
+<!-- END stats.html -->

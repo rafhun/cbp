@@ -1,0 +1,121 @@
+<!-- START module_shop_discount_groups_count.html -->
+<script type="text/javascript">
+<!-- //
+function deleteDiscount(discountId)
+{
+  if (confirm('{TXT_SHOP_CONFIRM_DELETE_DISCOUNT_GROUP}\n{TXT_ACTION_IS_IRREVERSIBLE}'))
+    window.location.href="index.php?cmd=shop&{CSRF_PARAM}&act=products&tpl=discounts&deleteDiscount=1&id="+discountId;
+}
+function deleteDiscountRate(discountRateId)
+{
+  if (confirm('{TXT_CONFIRM_DELETE_DISCOUNT_RATE}\n{TXT_ACTION_IS_IRREVERSIBLE}'))
+    window.location.href="index.php?cmd=shop&{CSRF_PARAM}&act=products&tpl=discounts&deleteDiscountRate=1&id="+discountRateId;
+}
+// -->
+</script>
+<!-- BEGIN statusBar -->
+<span class="red">{CONTENT_STATUS}</span>
+<!-- END statusBar -->
+<ul id="tabmenu">
+  <li><a id="discountTab_content1" class="{SHOP_DISCOUNT_LIST_CLASS}"
+        href="javascript:void(0);"
+        onclick="selectTab('content1')" title="{TXT_SHOP_DISCOUNT_GROUPS}">
+      {TXT_SHOP_DISCOUNT_GROUPS}</a></li>
+  <li>
+    <a id="discountTab_content2" class="{SHOP_DISCOUNT_EDIT_CLASS}"
+        href="javascript:void(0);"
+        onclick="selectTab('content2')" title="{TXT_ADD_OR_EDIT}">
+      {TXT_ADD_OR_EDIT}</a></li>
+</ul>
+<form name="shopForm" method="post"
+    action="index.php?cmd=shop&amp;act=products&amp;tpl=discounts">
+<!-- start content1 div -->
+  <div id="content1" class="discountTab" style="display:{SHOP_DISCOUNT_LIST_DISPLAY};">
+    <table border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+      <tr>
+        <th width="49%" class="f_bold">{TXT_SHOP_DISCOUNT_GROUP_NAME}</th>
+        <th width="49%" class="f_bold">{TXT_SHOP_DISCOUNT_GROUP_UNIT}</th>
+        <th width="02%" class="a_right" class="f_bold">{TXT_FUNCTIONS}</th>
+      </tr>
+<!-- BEGIN discount -->
+      <tr class="{SHOP_DISCOUNT_ROW_STYLE}">
+        <td>
+          <a href="index.php?cmd=shop&amp;act=products&amp;tpl=discounts&amp;editDiscount=1&amp;id={SHOP_DISCOUNT_ID}"
+              title="{TXT_EDIT}">
+            {SHOP_DISCOUNT_GROUP_NAME}
+          </a>
+        </td>
+        <td>
+          <a href="index.php?cmd=shop&amp;act=products&amp;tpl=discounts&amp;editDiscount=1&amp;id={SHOP_DISCOUNT_ID}"
+              title="{TXT_EDIT}">
+            {SHOP_DISCOUNT_GROUP_UNIT}
+          </a>
+        </td>
+        <td class="a_right">
+          <a href="index.php?cmd=shop&amp;act=products&amp;tpl=discounts&amp;editDiscount=1&amp;id={SHOP_DISCOUNT_ID}"
+              title="{TXT_EDIT}">
+            <img src="images/icons/edit.gif" alt="{TXT_EDIT}" border="0" />
+          </a>
+          <a href="javascript:deleteDiscount({SHOP_DISCOUNT_ID})" title="{TXT_DELETE}">
+            <img src="images/icons/delete.gif" alt="{TXT_DELETE}" border="0" />
+          </a>
+        </td>
+      </tr>
+<!-- END discount -->
+    </table>
+    <br /><div class="infobox"><b>{TXT_SHOP_DISCOUNT_COUNT_GROUPS}</b><br />{TXT_SHOP_DISCOUNT_COUNT_GROUPS_INFO}</div>
+  </div>
+<!-- end content1 div -->
+
+<!-- start content2 div -->
+  <div id="content2" class="discountTab" style="display:{SHOP_DISCOUNT_EDIT_DISPLAY}">
+    <table border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+      <tr>
+        <th colspan="4" class="f_bold">{TXT_SHOP_EDIT_DISCOUNT_GROUP}</th>
+      </tr>
+<!-- BEGIN discountName -->
+      <tr class="{SHOP_DISCOUNT_ROW_STYLE}">
+        <td>{TXT_SHOP_DISCOUNT_GROUP_NAME}</td>
+        <td>
+          <input type="hidden" name="discountId" value="{SHOP_DISCOUNT_ID_EDIT}" />
+          <input type="text" size="40" name="discountGroupName"
+              value="{SHOP_DISCOUNT_GROUP_NAME}" />
+        </td>
+        <td>{TXT_SHOP_DISCOUNT_GROUP_UNIT}</td>
+        <td>
+          <input type="text" size="40" name="discountGroupUnit"
+              value="{SHOP_DISCOUNT_GROUP_UNIT}" />
+        </td>
+      </tr>
+<!-- END discountName -->
+<!-- BEGIN discountRate -->
+      <tr class="{SHOP_DISCOUNT_ROW_STYLE}">
+        <td width="20%">
+          {TXT_SHOP_DISCOUNT_MIN_COUNT}
+          <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_SHOP_DISCOUNT_COUNT_TIP}</span>
+        </td>
+        <td>
+          <input type="text" size="40" class="a_right"
+              name="discountCount[{SHOP_DISCOUNT_RATE_INDEX}]"
+              value="{SHOP_DISCOUNT_COUNT}" />
+        </td>
+        <td width="20%">
+          {TXT_SHOP_DISCOUNT_RATE}
+        </td>
+        <td>
+          <input type="text" size="40" class="a_right"
+              name="discountRate[{SHOP_DISCOUNT_RATE_INDEX}]"
+              value="{SHOP_DISCOUNT_RATE}" />%
+        </td>
+      </tr>
+<!-- END discountRate -->
+    </table>
+    <br />
+    <input type="submit" name="discountStore" value="{TXT_STORE}" />
+    <input type="button" name="discountCancel" value="{TXT_SHOP_CANCEL}"
+        onclick="window.location.href='index.php?cmd=shop&amp;{CSRF_PARAM}&amp;act=products&amp;tpl=discounts';"
+    />
+  </div>
+<!-- end content2 div -->
+</form>
+<!-- END module_shop_discount_groups_count.html -->

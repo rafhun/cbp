@@ -1,0 +1,224 @@
+<!-- START module_shop_settings_vat.html -->
+<script type="text/javascript">
+// <![CDATA[
+function deleteVat(vatId)
+{
+  if (confirm("{TXT_SHOP_VAT_CONFIRM_DELETE}\n{TXT_ACTION_IS_IRREVERSIBLE}"))
+    window.location.replace("index.php?cmd=shop{MODULE_INDEX}&{CSRF_PARAM}&act=settings&tpl=vat&vatid=" + vatId);
+}
+function setVatAll()
+{
+  if (confirm("{TXT_SHOP_VAT_CONFIRM_SET_ALL}\n{TXT_ACTION_IS_IRREVERSIBLE}")) {
+    var vatId = document.forms.form_vat.vat_default_id.value;
+    window.location.replace("index.php?cmd=shop{MODULE_INDEX}&{CSRF_PARAM}&act=settings&tpl=vat&setVatAll=" + vatId);
+  }
+}
+function setVatUnset()
+{
+  if (confirm("{TXT_SHOP_VAT_CONFIRM_SET_UNSET}\n{TXT_ACTION_IS_IRREVERSIBLE}")) {
+    var vatId = document.forms.form_vat.vat_default_id.value;
+    window.location.replace("index.php?cmd=shop{MODULE_INDEX}&{CSRF_PARAM}&act=settings&tpl=vat&setVatUnset=" + vatId);
+  }
+}
+// ]]>
+</script>
+
+<form name="form_vat" method="post" action="index.php?cmd=shop{MODULE_INDEX}&amp;act=settings&amp;tpl=vat">
+  <table border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+    <colgroup><col width="20%" /><col width="20%" /><col width="40%" /><col width="20%" /></colgroup>
+    <tr>
+      <th colspan="4">{TXT_SHOP_VAT_DETAILS}</th>
+    </tr>
+    <tr class="row1">
+      <td>
+        {TXT_SHOP_VAT_NUMBER}
+      </td>
+      <td colspan="3">
+        <input type="text" name="vat_number" value="{SHOP_VAT_NUMBER}"
+               style="width: 180px;" class="a_right" />
+      </td>
+    </tr>
+
+    <tr class="row2">
+      <td>
+        {TXT_SHOP_VAT_DEFAULT}
+      </td>
+      <td>
+        <select name="vat_default_id" style="width: 180px;" class="a_right">
+          {SHOP_VAT_DEFAULT_MENUOPTIONS}
+        </select>
+      </td>
+      <td colspan="2">
+        <input type='button' name='buttonSetVatUnset' value="{TXT_SHOP_VAT_SET_UNSET}" onclick='javascript:setVatUnset()' />
+        <input type='button' name='buttonSetVatAll' value="{TXT_SHOP_VAT_SET_ALL}" onclick='javascript:setVatAll()' />
+      </td>
+    </tr>
+
+    <tr class="row1">
+      <td>
+        {TXT_SHOP_VAT_OTHER}
+      </td>
+      <td colspan="3">
+        <select name="vat_other_id" style="width: 180px;" class="a_right">
+          {SHOP_VAT_OTHER_MENUOPTIONS}
+        </select>
+      </td>
+    </tr>
+  </table>
+
+  <br />
+
+  <table border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+    <colgroup><col width="20%" /><col width="20%" /><col width="40%" /><col width="20%" /></colgroup>
+
+    <tr>
+      <th colspan="4">
+        {TXT_SHOP_VAT_ACTIVE}
+      </th>
+    </tr>
+    <tr class="row3">
+      <td>&nbsp;</td>
+      <td class="f_bold">
+        {TXT_SHOP_VAT_CUSTOMER}
+      </td>
+      <td colspan="2" class="f_bold">
+        {TXT_SHOP_VAT_RESELLER}
+      </td>
+    </tr>
+
+    <tr class="row1">
+      <td>
+        {TXT_SHOP_VAT_COUNTRY_HOME}
+      </td>
+      <td>
+        <input name="vat_enabled_home_customer" id="vat_enabled_home_customer"
+            type="checkbox" onclick="swapBlock('vat_home_customer');"
+            value="1"{SHOP_VAT_CHECKED_HOME_CUSTOMER} />
+        <label for="vat_enabled_home_customer">{TXT_SHOP_VAT_ENABLED}</label>
+        <div id="vat_home_customer" style="display: {SHOP_VAT_DISPLAY_HOME_CUSTOMER};">
+          <select style="width: 180px;" name="vat_included_home_customer">
+            <option value="1"{SHOP_VAT_SELECTED_HOME_CUSTOMER_INCLUDED}>{TXT_SHOP_PRICES_VAT_INCLUDED}</option>
+            <option value="0"{SHOP_VAT_SELECTED_HOME_CUSTOMER_EXCLUDED}>{TXT_SHOP_PRICES_VAT_EXCLUDED}</option>
+          </select>
+        </div>
+      </td>
+      <td colspan="2">
+        <input name="vat_enabled_home_reseller" id="vat_enabled_home_reseller"
+            type="checkbox" onclick="swapBlock('vat_home_reseller');"
+            value="1"{SHOP_VAT_CHECKED_HOME_RESELLER} />
+        <label for="vat_enabled_home_reseller">{TXT_SHOP_VAT_ENABLED}</label>
+        <div id="vat_home_reseller" style="display: {SHOP_VAT_DISPLAY_HOME_RESELLER};">
+          <select style="width: 180px;" name="vat_included_home_reseller">
+            <option value="1"{SHOP_VAT_SELECTED_HOME_RESELLER_INCLUDED}>{TXT_SHOP_PRICES_VAT_INCLUDED}</option>
+            <option value="0"{SHOP_VAT_SELECTED_HOME_RESELLER_EXCLUDED}>{TXT_SHOP_PRICES_VAT_EXCLUDED}</option>
+          </select>
+        </div>
+      </td>
+    </tr>
+
+    <tr class="row2">
+      <td>
+        {TXT_SHOP_VAT_COUNTRY_FOREIGN}
+      </td>
+      <td>
+        <input name="vat_enabled_foreign_customer" id="vat_enabled_foreign_customer"
+            type="checkbox" onclick="swapBlock('vat_foreign_customer');"
+            value="1"{SHOP_VAT_CHECKED_FOREIGN_CUSTOMER} />
+        <label for="vat_enabled_foreign_customer">{TXT_SHOP_VAT_ENABLED}</label>
+        <div id="vat_foreign_customer" style="display: {SHOP_VAT_DISPLAY_FOREIGN_CUSTOMER};">
+          <select style="width: 180px;" name="vat_included_foreign_customer">
+            <option value="1"{SHOP_VAT_SELECTED_FOREIGN_CUSTOMER_INCLUDED}>{TXT_SHOP_PRICES_VAT_INCLUDED}</option>
+            <option value="0"{SHOP_VAT_SELECTED_FOREIGN_CUSTOMER_EXCLUDED}>{TXT_SHOP_PRICES_VAT_EXCLUDED}</option>
+          </select>
+        </div>
+      </td>
+      <td colspan="2">
+        <input name="vat_enabled_foreign_reseller" id="vat_enabled_foreign_reseller"
+            type="checkbox" onclick="swapBlock('vat_foreign_reseller');"
+            value="1"{SHOP_VAT_CHECKED_FOREIGN_RESELLER} />
+        <label for="vat_enabled_foreign_reseller">{TXT_SHOP_VAT_ENABLED}</label>
+        <div id="vat_foreign_reseller" style="display: {SHOP_VAT_DISPLAY_FOREIGN_RESELLER};">
+          <select style="width: 180px;" name="vat_included_foreign_reseller">
+            <option value="1"{SHOP_VAT_SELECTED_FOREIGN_RESELLER_INCLUDED}>{TXT_SHOP_PRICES_VAT_INCLUDED}</option>
+            <option value="0"{SHOP_VAT_SELECTED_FOREIGN_RESELLER_EXCLUDED}>{TXT_SHOP_PRICES_VAT_EXCLUDED}</option>
+          </select>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <br />
+
+  <ul id="tabmenu">
+    <li><a id="vat_tab_content1" class="active" href="javascript:{}" onclick="selectTab('content1')" title="{TXT_SHOP_VAT_RATES}">{TXT_SHOP_VAT_RATES}</a></li>
+    <li><a id="vat_tab_content2" href="javascript:{}" onclick="selectTab('content2')" title="{TXT_SHOP_VAT_NEW}">{TXT_SHOP_VAT_NEW}</a></li>
+  </ul>
+  <div id="content1" class="vat_tab" style="display: block;">
+    <table border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+      <colgroup><col width="20%" /><col width="20%" /><col width="40%" /><col width="20%" /></colgroup>
+      <tr>
+        <th colspan="4">{TXT_SHOP_VAT_RATES}</th>
+      </tr>
+      <tr class="row3">
+        <td>&nbsp;</td>
+        <td class="f_bold">
+          {TXT_SHOP_VAT_CLASS}
+        </td>
+        <td class="f_bold">
+          {TXT_SHOP_VAT_RATE}
+        </td>
+        <td class="a_right f_bold">
+          {TXT_FUNCTIONS}
+        </td>
+      </tr>
+  <!-- BEGIN vatRow -->
+      <tr class="{SHOP_ROWCLASS}">
+        <td>&nbsp;</td>
+        <td>
+          <input type="text" name="vatclass[{SHOP_VAT_ID}]" value="{SHOP_VAT_CLASS}"
+              style="width: 180px;" maxlength="255" />
+        </td>
+        <td>
+          <input type="text" name="vatrate[{SHOP_VAT_ID}]" value="{SHOP_VAT_RATE}"
+              maxlength="6" style="width: 180px;" class="a_right" />%
+        </td>
+        <td class="a_right">
+          <a href="javascript:deleteVat({SHOP_VAT_ID})" title="{TXT_DELETE}">
+            <img src="images/icons/delete.gif" alt="{TXT_DELETE}" border="0" />
+          </a>
+        </td>
+      </tr>
+  <!-- END vatRow -->
+    </table>
+
+  </div>
+  <div id="content2" class="vat_tab" style="display: none;">
+    <table border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+      <colgroup><col width="20%" /><col width="20%" /><col width="40%" /><col width="20%" /></colgroup>
+      <tr>
+        <th colspan="4">{TXT_SHOP_VAT_NEW}</th>
+      </tr>
+      <tr class="row3">
+        <td>&nbsp;</td>
+        <td class="f_bold">
+          {TXT_SHOP_VAT_CLASS_NEW}
+        </td>
+        <td colspan="3" class="f_bold">
+          {TXT_SHOP_VAT_RATE_NEW}
+        </td>
+      </tr>
+      <tr class="row1">
+        <td>&nbsp;</td>
+        <td>
+          <input type="text" name="vatclassnew" value="" style="width: 180px;" maxlength="255" />
+        </td>
+        <td colspan="2">
+          <input type="text" name="vatratenew" value="" style="width: 180px;" maxlength="6" />%
+        </td>
+      </tr>
+    </table>
+  </div>
+  <br />
+  <input type="submit" name="bvat" value="{TXT_STORE}" />
+</form>
+<!-- END module_shop_settings_vat.html -->

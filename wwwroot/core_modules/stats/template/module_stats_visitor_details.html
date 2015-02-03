@@ -1,0 +1,32 @@
+<table cellspacing="0" cellpadding="1" width="100%" border="0" class="adminlist">
+    <tr>
+        <th colspan="7">&nbsp;{TXT_VISITOR_DETAILS}</th>
+    </tr>
+    <!-- BEGIN stats_requests_today_clients_list -->
+        <tr class="row1">
+                <td nowrap="nowrap" width="10%"><b>{TXT_LAST_REQUEST}</b></td>
+                <td nowrap="nowrap" width="6%"><b>{TXT_IP_ADDRESS}</b></td>
+                <td nowrap="nowrap" width="23%"><b>{TXT_USERAGENT}</b></td>
+                <td nowrap="nowrap" width="15%"><b>{TXT_HOSTNAME}</b></td>
+                <td nowrap="nowrap" width="23%"><b>{TXT_PROXY_USERAGENT}</b></td>
+                <td nowrap="nowrap" width="8%"><b>{TXT_PROXY_IP}</b></td>
+                <td nowrap="nowrap" width="15%"><b>{TXT_PROXY_HOSTNAME}</b></td>
+        </tr>
+        <!-- BEGIN stats_requests_today_clients -->
+            <tr class="{STATS_REQUESTS_CLIENT_ROW_CLASS}" style="vertical-align:top;">
+                <td nowrap="nowrap" width="10%">{STATS_REQUESTS_CLIENT_LAST_REQUEST}</td>
+                <td nowrap="nowrap" width="6%">{STATS_REQUESTS_CLIENT_IP}</td>
+                <td width="23%">{STATS_REQUESTS_CLIENT_USERAGENT}</td>
+                <td width="15%">{STATS_REQUESTS_CLIENT_HOST}</td>
+                <td width="23%">{STATS_REQUESTS_CLIENT_PROXY_USERAGENT}</td>
+                <td width="8%">{STATS_REQUESTS_CLIENT_PROXY_IP}</td>
+                <td width="15%">{STATS_REQUESTS_CLIENT_PROXY_HOST}</td>
+            </tr>
+        <!-- END stats_requests_today_clients -->
+    <!-- END stats_requests_today_clients_list -->
+<!-- BEGIN stats_requests_today_clients_list_nodata -->
+    <tr class="row1">
+        <td nowrap="nowrap" width="100%" colspan="7">{TXT_NO_DATA_AVAILABLE}</td>
+    </tr>
+<!-- END stats_requests_today_clients_list_nodata -->
+</table>

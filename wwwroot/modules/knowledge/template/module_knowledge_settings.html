@@ -1,0 +1,199 @@
+<!-- START module_knowledge_settings.html -->
+
+<script type="text/javascript">
+/* <![CDATA[ */
+
+function tidyTags(caller)
+{
+    $J.ajax({url: "index.php",
+        method: "get",
+        data: {
+            cmd : "knowledge{MODULE_INDEX}",
+            section : "settings",
+            act : "tidyTags"
+        },
+        dataType: 'json',
+        success: showOkMessage
+    });
+}
+
+function resetVotes()
+{
+    $J.ajax({
+        url: "index.php",
+        method: "get",
+        data: {
+            cmd : "knowledge{MODULE_INDEX}",
+            section : "settings",
+            act : "resetVotes"
+        },
+        dataType: 'json',
+        success: showOkMessage
+    });
+}
+
+var showOkMessage = function(data){
+    if(data.ok){
+        $J('#errormessagetarget').append('<div id="okbox">'+data.ok+'</div>').find(':last-child')
+        .fadeIn('slow').animate({opacity: 1.0}, 3000).fadeOut(10000, function(){$J(this).remove()});
+    }
+}
+
+/* ]]> */
+</script>
+
+<div id="errormessagetarget"></div>
+
+<form action="index.php?cmd=knowledge{MODULE_INDEX}&section=settings&act=update" method="post">
+<table class="adminlist" cellspacing="0" cellpadding="3" border="0" style="width: 100%;">
+    <thead>
+        <tr>
+            <th width="50%">{TXT_SETTINGS}</th>
+            <th></th>
+        </tr>
+    </thead>
+        <tbody>
+        <tr class="row3">
+            <td colspan="2"><strong>{TXT_GENERAL}</strong></td>
+        </tr>
+        <tr class="row1">
+            <td style="vetical-align: top;">
+                <strong>{TXT_REPLACE_PLACEHOLDERS}</strong><br />
+                {TXT_REPLACE_PLACEHOLDERS_DESCRIPTION}
+            </td>
+            <td>
+                <input type="checkbox" name="useKnowledge{MODULE_INDEX}Placeholders" value="1" {REPLACE_PLACEHOLDERS_CHECKED}/>
+            </td>
+        </tr>
+        <tr class="row2">
+            <td style="vertical-align: top;">
+                    <strong>{TXT_TIDY_TAGS}</strong><br />
+                    {TXT_TIDY_TAGS_DESCRIPTION}
+            </td>
+            <td style="vertical-align: top;">
+                <input type="button" onclick="tidyTags(this);" value="{TXT_TIDY_TAGS}"/>
+            </td>
+        </tr>
+        <tr class="row1">
+            <td style="vertical-align: top;">
+                <strong>{TXT_RESET_HITS}</strong><br />
+                {TXT_RESET_HITS_DESCRIPTION}
+            </td>
+            <td style="vertical-align: top;">
+                <input type="button" onclick="resetVotes(this)" value="{TXT_RESET_HITS}" />
+            </td>
+        </tr>
+    </tbody>
+    <tbody>
+        <tr class="row3">
+            <td colspan="2"><strong>{TXT_FRONTPAGE}</strong></td>
+        </tr>
+        <tr class="row2">
+            <td style="vertical-align: top;">
+                <strong>{TXT_MAX_SUBCATEGORIES}</strong><br />
+                {TXT_MAX_SUBCATEGORIES_DESCRIPTION}
+            </td>
+            <td style="vertical-align: top;"><input type="text" value="{MAX_SUBCATEGORIES}" name="max_subcategories" style="width: 300px;"/></td>
+        </tr>
+        <tr class="row1">
+            <td style="vertical-align: top;">
+                <strong>{TXT_COLUMN_NUMBER}</strong><br />
+                {TXT_COLUMN_NUMBER_DESCRIPTION}
+            </td>
+            <td style="vertical-align: top;"><input type="text" value="{COLUMN_NUMBER}" name="column_number" style="width: 300px;"/></td>
+        </tr>
+        <tr class="row2">
+            <td style="vertical-align: top;">
+                <strong>{TXT_MOST_READ_AMOUNT}</strong><br />
+                {TXT_COLUMN_MOST_READ_COUNT_DESCRIPTION}
+            </td>
+            <td style="vertical-align: top;"><input type="text" value="{MOST_READ_AMOUNT}" name="most_read_amount" style="width: 300px;"></td>
+        </tr>
+        <tr class="row1">
+            <td style="padding-bottom: 10px;">
+                <strong>{TXT_BEST_RATED_AMOUNT}</strong><br />
+                {TXT_BEST_RATED_AMOUNT_DESCRIPTION}
+            </td>
+            <td style="vertical-align: top;"><input type="text" value="{BEST_RATED_AMOUNT}" name="best_rated_amount" style="width: 300px;"></td>
+        </tr>
+    </tbody>
+    <tbody>
+        <tr class="row3">
+            <td colspan="2"><strong>{TXT_BEST_RATED_PLACEHOLDER}</strong></td>
+        </tr>
+        <tr class="row1">
+            <td style="vertical-align: top">
+                <strong>{TXT_BEST_RATED_SIDEBAR_LENGTH}</strong><br />
+                {TXT_BEST_RATED_SIDEBAR_LENGTH_DESCRIPTION}
+            </td>
+            <td style="vertical-align: top;">
+                <input type="text" style="width: 300px;" name="best_rated_sidebar_length"  value="{BEST_RATED_SIDEBAR_LENGTH}"/>
+            </td>
+        </tr>
+        <tr class="row2">
+            <td style="vertical-align: top; padding-bottom: 10px;">
+                <strong>{TXT_BEST_RATED_AMOUNT}</strong><br />
+                {TXT_SIDEBAR_BEST_RATED_AMOUNT_DESCRIPTION}
+            </td>
+            <td style="vertical-align: top;">
+                <input type="text" style="width: 300px; vertical-align: top;" name="best_rated_sidebar_amount" value="{BEST_RATED_SIDEBAR_AMOUNT}" />
+            </td>
+        </tr>
+        <tr class="row1">
+            <td style="vertical-align: top;">
+                <strong>{TXT_BEST_RATED_TEMPLATE}</strong><br />
+                {TXT_BEST_RATED_TEMPLATE_DESCRIPTION}
+            </td>
+            <td style="vertical-align: top;">
+                <textarea type="text" style="width: 300px; vertical-align: top;" rows="10" cols="5" name="best_rated_sidebar_template" >{BEST_RATED_SIDEBAR_TEMPLATE}</textarea>
+            </td>
+        </tr>
+    </tbody>
+    <tbody>
+        <tr class="row3">
+            <td colspan="2"><strong>{TXT_MOST_READ_PLACEHOLDER}</strong></td>
+        </tr>
+        <tr class="row1">
+            <td style="vertical-align: top">
+                <strong>{TXT_MOST_READ_SIDEBAR_LENGTH}</strong><br />
+                {TXT_MOST_READ_SIDEBAR_LENGTH_DESCRIPTION}
+            </td>
+            <td style="vertical-align: top;">
+                <input type="text" style="width: 300px;" name="most_read_sidebar_length"  value="{MOST_READ_SIDEBAR_LENGTH}"/>
+            </td>
+        </tr>
+        <tr class="row2">
+            <td style="vertical-align: top; padding-bottom: 10px;">
+                <strong>{TXT_MOST_READ_AMOUNT}</strong><br />
+                {TXT_SIDEBAR_MOST_READ_AMOUNT_DESCRIPTION}
+            </td>
+            <td style="vertical-align: top;">
+                <input type="text" style="width: 300px; vertical-align: top;" name="most_read_sidebar_amount" value="{MOST_READ_SIDEBAR_AMOUNT}" />
+            </td>
+        </tr>
+        <tr class="row1">
+            <td style="vertical-align: top;">
+                <strong>{TXT_MOST_READ_TEMPLATE}</strong><br />
+                {TXT_MOST_READ_TEMPLATE_DESCRIPTION}
+            </td>
+            <td style="vertical-align: top;">
+                <textarea type="text" style="width: 300px; vertical-align: top;" rows="10" cols="5" name="most_read_sidebar_template" >{MOST_READ_SIDEBAR_TEMPLATE}</textarea>
+            </td>
+        </tr>
+    </tbody><br />
+    <tbody>
+        <tr class="row3">
+            <td colspan="2"><strong>{TXT_ARTICLES}</strong></td>
+        </tr>
+        <tr class="row2">
+            <td style="padding-bottom: 10px;">
+                <strong>{TXT_MAX_RATING}</strong><br />
+                {TXT_MAX_RATING_DESCRIPTION}
+            </td>
+            <td style="vertical-align: top;"><input type="text" style="width: 300px;" name="max_rating" value="{MAX_RATING}" /></td>
+        </tr>
+    </tbody>
+</table><br /><br />
+<input type="submit" value="{TXT_SAVE}" />
+</form>
+<!-- END module_knowledge_settings.html -->

@@ -1,0 +1,681 @@
+<!-- start module_downloads_download_modify.html -->
+<script type="text/javascript">
+// <![CDATA[
+
+function downloadsSelectAll()
+{
+    downloadsSelectAllGroups(document.getElementById('downloads_download_associated_categories'))
+    downloadsSelectAllGroups(document.getElementById('downloads_download_associated_downloads'))
+    downloadsSelectAllGroups(document.getElementById('downloads_download_access_associated_groups'))
+}
+
+function downloadsSelectAllGroups(CONTROL)
+{
+    for(var i = 0;i < CONTROL.length;i++)
+    {
+        CONTROL.options[i].selected = true;
+    }
+}
+
+function downloadsSyncNameFields(value, type, name) {
+    for (i=0; i < document.getElementById('downloads_download_form').getElementsByTagName(type).length;i++) {
+        if (typeof(document.getElementById('downloads_download_form').getElementsByTagName(type)[i].name) != 'undefined'
+            && document.getElementById('downloads_download_form').getElementsByTagName(type)[i].name.substring(0,name.length) == name
+        ) {
+            document.getElementById('downloads_download_form').getElementsByTagName(type)[i].value = value;
+        }
+    }
+}
+
+function downloadsAdjustAccessConfig()
+{
+    document.getElementById('downloads_download_access_config').style.display = document.getElementById('downloads_download_access_all').checked ? 'none' : 'block';
+}
+
+function downloadsSelectAllOptions(CONTROL)
+{
+    for(var i = 0;i < CONTROL.length;i++)
+    {
+        CONTROL.options[i].selected = true;
+    }
+}
+
+function downloadsDeselectAllOptions(CONTROL)
+{
+    for(var i = 0;i < CONTROL.length;i++)
+    {
+        CONTROL.options[i].selected = false;
+    }
+}
+
+function downloadsAddOptionToList(from, dest)
+{
+    if (from.selectedIndex < 0) {
+        if (from.options[0] != null) {
+            from.options[0].selected = true;
+        }
+        from.focus();
+        return false;
+    } else {
+        for (var i=0; i<from.length; i++) {
+            if (from.options[i].selected && !from.options[i].disabled) {
+                dest.options[dest.length] = new Option(from.options[i].text, from.options[i].value, false, false);
+               }
+        }
+        for (var i=from.length-1; i>=0; i--) {
+            if (from.options[i].selected && !from.options[i].disabled) {
+               from.options[i] = null;
+               }
+        }
+    }
+}
+
+function downloadsRemoveOptionFromList(from,dest)
+{
+    if (dest.selectedIndex < 0) {
+        if (dest.options[0] != null) {
+            dest.options[0].selected = true;
+        }
+        dest.focus();
+        return false;
+    } else {
+        for (var i=0; i<dest.options.length; i++) {
+            if (dest.options[i].selected && !dest.options[i].disabled) {
+                from.options[from.options.length] = new Option(dest.options[i].text, dest.options[i].value, false, false);
+               }
+        }
+        for (var i=dest.options.length-1; i>=0; i--) {
+            if (dest.options[i].selected && !dest.options[i].disabled) {
+               dest.options[i] = null;
+               }
+        }
+    }
+}
+
+function downloadsGetFileBrowser(elInsertBox,elImagePreview,elRemoveButton,elMimeType)
+{
+    downloadsElInsertBox = elInsertBox;
+    downloadsElImagePreview = typeof(elImagePreview) == 'undefined' ? null : elImagePreview;
+    downloadsElRemoveButton = typeof(elRemoveButton) == 'undefined' ? null : elRemoveButton;
+    downloadsElMimeType = typeof(elMimeType) == 'undefined' ? null : elMimeType;
+    downloadsOpenWindow('index.php?cmd=fileBrowser&type=downloads&{CSRF_PARAM}&standalone=true','','width=800,height=600,resizable=yes,status=no,scrollbars=yes');
+}
+
+function downloadsOpenWindow(theURL,winName,features)
+{
+	downloadsPopup = window.open(theURL,"Downloads",features);
+	downloadsPopup.focus();
+}
+
+function SetUrl(url, width, height, alt)
+{
+    fileExtRegExp = new Array();
+    <!-- BEGIN downloads_download_file_ext_regexp -->
+    fileExtRegExp[fileExtRegExp.length] = new Array('{DOWNLOADS_MIME_TYPE}', new RegExp("\.(?:{DOWNLOADS_FILE_EXTENSION_REGEXP})$", "i"));
+    <!-- END downloads_download_file_ext_regexp -->
+
+    if (downloadsElMimeType != null) {
+        for (i = 0; i < fileExtRegExp.length; i++) {
+            if ((extension = fileExtRegExp[i][1].exec(url)) !== null) {
+                downloadsElMimeType.value = fileExtRegExp[i][0];
+                break;
+            }
+        }
+    }
+
+
+    downloadsElInsertBox.value = url;
+
+    if (downloadsElImagePreview != null) {
+        downloadsElImagePreview.src = url+'.thumb';
+    }
+    if (downloadsElRemoveButton != null) {
+        downloadsElRemoveButton.style.display = '';
+    }
+
+    var id = downloadsElInsertBox.id;
+    var result = id.match(/(\d+)$/);
+    if (result && result[1] == 0) {
+        downloadsSyncNameFields(downloadsElInsertBox.value,'input','downloads_download_file_source')
+    }
+
+}
+
+function downloadsAdjustSourceConfig()
+{
+    if (document.getElementById('downloads_download_type_file').checked) {
+        document.getElementById('downloads_download_type_file_config').style.display = '';
+        document.getElementById('downloads_download_type_url_config').style.display = 'none';
+    } else {
+        document.getElementById('downloads_download_type_file_config').style.display = 'none';
+        document.getElementById('downloads_download_type_url_config').style.display = '';
+    }
+}
+
+
+		/* ----------------------------------------- */
+
+
+		arrTabToDiv = new Array();
+		{JS_ARR}
+
+		function switchBoxAndTab(objElement, strTabId) {
+
+			if (countActiveLanguages() == 0) {
+				//We just "unchecked" the last language, disallow this
+				objElement.checked = true;
+			} else {
+				//There are more active languages, hide the tab
+				switchTabVisibility(strTabId);
+			}
+
+			//Now make sure that a possible div is shown
+			activateAnyActiveDiv();
+		}
+
+		function switchTabVisibility(strTabId) {
+			if (document.getElementById(strTabId).style.display == 'none') {
+				document.getElementById(strTabId).style.display = 'inline';
+			} else {
+				document.getElementById(strTabId).style.display = 'none';
+			}
+		}
+
+
+		function countActiveLanguages() {
+			var activeLanguages = 0;
+
+			for (var h=0; h < document.forms.length;h++) {
+				for (var i=0; i < document.forms[h].elements.length;i++) {
+					//read out all form-elements with the loop
+					if(document.forms[h].elements[i].name.search('frmEditEntry_Languages') != -1) {
+						if(document.forms[h].elements[i].checked) {
+							activeLanguages++;
+						}
+					}
+				}
+			}
+
+			return activeLanguages;
+		}
+
+		function activateAnyActiveDiv() {
+			//Deactivate every div first first
+			for (var TabName in arrTabToDiv) {
+				document.getElementById(TabName).className = 'inactive';
+				document.getElementById(arrTabToDiv[TabName]).style.display = 'none';
+			}
+
+			//Activate the first possible div with an acitvated checkbox
+			for (var TabName in arrTabToDiv) {
+				if (document.getElementById(TabName).style.display == 'inline') {
+					document.getElementById(TabName).className = 'active';
+					document.getElementById(arrTabToDiv[TabName]).style.display = 'inline';
+					break;
+				}
+			}
+		}
+
+		// ---------------------------------------------------------------------------------------
+
+		function AddToTheList(from,dest,add,remove) {
+		    if ( from.selectedIndex < 0){
+				if (from.options[0] != null)
+					from.options[0].selected = true;
+				from.focus();
+				return false;
+			}else{
+				for (var i=0; i<from.length; i++) {
+					if (from.options[i].selected)
+					{
+				    	dest.options[dest.length] = new Option( from.options[i].text, from.options[i].value, false, false);
+		   			}
+				}
+			    for (var i=from.length-1; i>=0; i--) {
+					if (from.options[i].selected)
+					{
+				       from.options[i] = null;
+		   			}
+				}
+			}
+		    disapleButtons(from,dest,add,remove);
+		}
+
+		function RemoveFromTheList(from,dest,add,remove) {
+			if ( dest.selectedIndex < 0){
+				if (dest.options[0] != null)
+					dest.options[0].selected = true;
+				dest.focus();
+				return false;
+			}
+			else{
+				for (var i=0; i<dest.options.length; i++)
+				{
+					if (dest.options[i].selected)
+					{
+				    	from.options[from.options.length] = new Option( dest.options[i].text, dest.options[i].value, false, false);
+		   			}
+				}
+			    for (var i=dest.options.length-1; i>=0; i--)
+				{
+					if (dest.options[i].selected)
+					{
+				       dest.options[i] = null;
+		   			}
+				}
+			}
+			disapleButtons(from,dest,add,remove);
+		}
+
+		function disapleButtons(from,dest,add,remove) {
+			if (from.options.length > 0 )
+			{
+				add.disabled = 0;
+			}
+			else
+				add.disabled = 1;
+
+			if (dest.options.length > 0)
+				remove.disabled = 0;
+			else
+				remove.disabled = 1;
+		}
+
+		function SelectAllList(CONTROL) {
+//			for(var i = 0;i < CONTROL.length;i++)
+//			{
+//				CONTROL.options[i].selected = true;
+//			}
+
+			CONTROL1 = document.AddFileForm.elements['assignedCategories[]'];
+			for(var i = 0;i < CONTROL1.length;i++)
+			{
+				CONTROL1.options[i].selected = true;
+			}
+
+			CONTROL2 = document.AddFileForm.elements['assignedGroups[]'];
+			for(var i = 0;i < CONTROL2.length;i++)
+			{
+				CONTROL2.options[i].selected = true;
+			}
+
+			CONTROL3 = document.AddFileForm.elements['assignedDownloads[]'];
+			for(var i = 0;i < CONTROL3.length;i++)
+			{
+				CONTROL3.options[i].selected = true;
+			}
+		}
+
+		// ----------------------------------------------------------------------------------- //
+
+		function downloadsFilesDoAction(strForm,strCheckbox,objSelect,strAct)
+		{
+			if(checkboxIsChecked(strForm,strCheckbox) == true){
+				switch(strAct){
+					case 'del':
+						if(confirm('{TXT_CONFIRM_DELETE}\n{TXT_ACTION_IS_IRREVERSIBLE}')){
+							document.forms[strForm].action = "index.php?cmd=downloads&act=files&deletefiles=exe";
+							document.forms[strForm].submit();
+						}
+						break;
+				}
+			} else {
+				alert("{TXT_MAKE_SELECTION}");
+			}
+			objSelect.value = 0;
+		}
+
+		// ----------------------------------------------------------------------------------- //
+
+		function FileSwitch(IDname1, IDname2){
+			document.getElementById(IDname1).style.display = 'block';
+			document.getElementById(IDname2).style.display = 'none';
+		}
+
+		function ShowGroupSelect(){
+			document.getElementById('DIVgroupSelect').style.display = 'block';
+		}
+
+		function HideGroupSelect(){
+			document.getElementById('DIVgroupSelect').style.display = 'none';
+		}
+
+		function deleteFile(FileID){
+			if(confirm('{TXT_CONFIRM_DELETE}\n{TXT_ACTION_IS_IRREVERSIBLE}')){
+				document.location.href = 'index.php?cmd=downloads&{CSRF_PARAM}&act=files&mode=delete&download='+FileID;
+			}
+		}
+
+// ]]>
+</script>
+
+<ul id="tabmenu">
+    <li><a id="downloadsTab_downloadGeneral" class="active" href="javascript:void(0)" onclick="selectTab('downloadGeneral')" title="{TXT_DOWNLOADS_GENERAL}">{TXT_DOWNLOADS_GENERAL}</a></li>
+    <li><a id="downloadsTab_downloadPicture" href="javascript:void(0)" onclick="selectTab('downloadPicture')" title="{TXT_DOWNLOADS_IMAGE}">{TXT_DOWNLOADS_IMAGE}</a></li>
+    <li><a id="downloadsTab_downloadCategories" href="javascript:void(0)" onclick="selectTab('downloadCategories')" title="{TXT_DOWNLOADS_CATEGORIES}">{TXT_DOWNLOADS_CATEGORIES}</a></li>
+    <li><a id="downloadsTab_downloadRelatedDownloads" href="javascript:void(0)" onclick="selectTab('downloadRelatedDownloads')" title="{TXT_DOWNLOADS_RELATED_DOWNLOADS}">{TXT_DOWNLOADS_RELATED_DOWNLOADS}</a></li>
+    <li><a id="downloadsTab_downloadPermissions" href="javascript:void(0)" onclick="selectTab('downloadPermissions')" title="{TXT_DOWNLOADS_PERMISSIONS}">{TXT_DOWNLOADS_PERMISSIONS}</a></li>
+</ul>
+
+<form name="downloads_download_form" id="downloads_download_form" action="index.php?cmd=downloads&amp;act=download&amp;id={DOWNLOADS_DOWNLOAD_ID}&amp;parent_id={DOWNLOADS_PARENT_CATEGORY_ID}&amp;category_sort={DOWNLOADS_DOWNLOAD_CATEGORY_SORT}&amp;category_by={DOWNLOADS_DOWNLOAD_CATEGORY_SORT_BY}&amp;download_sort={DOWNLOADS_DOWNLOAD_DOWNLOAD_SORT}&amp;download_by={DOWNLOADS_DOWNLOAD_DOWNLOAD_BY}&amp;category_pos={DOWNLOADS_DOWNLOAD_CATEGORY_OFFSET}&amp;download_pos={DOWNLOADS_DOWNLOAD_DOWNLOAD_OFFSET}" onsubmit="downloadsSelectAll()" method="post">
+    <!-- start div downloadsTab_downloadGeneral -->
+    <div id="downloadGeneral" class="downloadsTab">
+        <table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+            <thead>
+                <tr>
+                    <th colspan="2">{TXT_DOWNLOADS_GENERAL}</th>
+                </tr>
+            </thead>
+            <tbody style="vertical-align:top;">
+                <tr class="row2">
+                    <td>{TXT_DOWNLOADS_STATUS}</td>
+                    <td><input type="checkbox" name="downloads_download_is_active" id="downloads_download_is_active" value="1" {DOWNLOADS_DOWNLOAD_IS_ACTIVE_CHECKED} /> <label for="downloads_download_is_active">{TXT_DOWNLOADS_ACTIVE}</label></td>
+                </tr>
+                <tr class="row1">
+                    <td width="15%">{TXT_DOWNLOADS_NAME}</td>
+                    <td width="85%">
+                        <!-- BEGIN downloads_download_name -->
+                        <input type="text" id="downloads_download_name_0" value="{DOWNLOADS_DOWNLOAD_NAME}" onchange="downloadsSyncNameFields(this.value,'input','downloads_download_name')" style="width:300px;" /> <a href="javascript:void(0);" onclick="document.getElementById('downloads_download_name_lang_div').style.display = (document.getElementById('downloads_download_name_lang_div').style.display == 'block' ? 'none' : 'block')" title="{TXT_DOWNLOADS_EXTENDED}">{TXT_DOWNLOADS_EXTENDED} &raquo;</a>
+                        <div id="downloads_download_name_lang_div" style="display:none;">
+                        <!-- BEGIN downloads_download_name_list -->
+                            <input type="text" name="downloads_download_name[{DOWNLOADS_DOWNLOAD_LANG_ID}]" id="downloads_download_name_{DOWNLOADS_DOWNLOAD_LANG_ID}" value="{DOWNLOADS_DOWNLOAD_NAME}" style="margin-top:1px; width:300px;" /> {DOWNLOADS_DOWNLOAD_LANG_NAME}<br />
+                        <!-- END downloads_download_name_list -->
+                        </div>
+                        <!-- END downloads_download_name -->
+                    </td>
+                </tr>
+                <tr class="row2">
+                    <td>{TXT_DOWNLOADS_DESCRIPTION}</td>
+                    <td>
+                        <!-- BEGIN downloads_download_description -->
+                        <textarea id="downloads_download_description_0" cols="10" rows="5" onchange="downloadsSyncNameFields(this.value,'textarea','downloads_download_description')" style="width:300px;">{DOWNLOADS_DOWNLOAD_DESCRIPTION}</textarea> <a href="javascript:void(0);" onclick="document.getElementById('downloads_download_description_lang_div').style.display = (document.getElementById('downloads_download_description_lang_div').style.display == 'block' ? 'none' : 'block')" title="{TXT_DOWNLOADS_EXTENDED}">{TXT_DOWNLOADS_EXTENDED} &raquo;</a>
+                        <div id="downloads_download_description_lang_div" style="display:none;">
+                        <!-- BEGIN downloads_download_description_list -->
+                            <textarea name="downloads_download_description[{DOWNLOADS_DOWNLOAD_LANG_ID}]" id="downloads_download_description_{DOWNLOADS_DOWNLOAD_LANG_ID}" cols="10" rows="5" style="margin-top:1px; width:300px;">{DOWNLOADS_DOWNLOAD_DESCRIPTION}</textarea> {DOWNLOADS_DOWNLOAD_LANG_DESCRIPTION}<br />
+                        <!-- END downloads_download_description_list -->
+                        </div>
+                        <!-- END downloads_download_description -->
+                    </td>
+                </tr>
+                <tr class="row1">
+                    <td>{TXT_DOWNLOADS_SOURCE}</td>
+                    <td>
+                        <input type="radio" name="downloads_download_type" id="downloads_download_type_file" value="file" {DOWNLOADS_DOWNLOAD_TYPE_FILE_CHECKED} onchange="downloadsAdjustSourceConfig()" /><label for="downloads_download_type_file">{TXT_DOWNLOADS_LOCAL_FILE}</label>
+                        <input type="radio" name="downloads_download_type" id="downloads_download_type_url" value="url" {DOWNLOADS_DOWNLOAD_TYPE_URL_CHECKED} onchange="downloadsAdjustSourceConfig()" /><label for="downloads_download_type_url">{TXT_DOWNLOADS_URL}</label>
+                        <br />
+                        <div id="downloads_download_type_file_config" style="display:{DOWNLOADS_DOWNLOAD_TYPE_FILE_CONFIG_DISPLAY}">
+                            <input type="text" id="downloads_download_file_source_0" value="{DOWNLOADS_DOWNLOAD_FILE_SOURCE}" style="width:300px;" onchange="downloadsSyncNameFields(this.value,'input','downloads_download_file_source')"/> <input type="button" value="{TXT_DOWNLOADS_BROWSE}" onclick="downloadsGetFileBrowser(document.getElementById('downloads_download_file_source_0'),null,null,document.getElementById('downloads_download_mime_type'))" />
+                                <a href="javascript:void(0);" onclick="document.getElementById('downloads_download_file_source_lang_div').style.display = (document.getElementById('downloads_download_file_source_lang_div').style.display == 'block' ? 'none' : 'block')" title="{TXT_DOWNLOADS_EXTENDED}">{TXT_DOWNLOADS_EXTENDED} &raquo;</a>
+                            <div id="downloads_download_file_source_lang_div" style="display:none;">
+                                <!-- BEGIN downloads_download_file_source_list -->
+                                <input type="text" name="downloads_download_file_source[{DOWNLOADS_DOWNLOAD_LANG_ID}]" id="downloads_download_file_source_{DOWNLOADS_DOWNLOAD_LANG_ID}" value="{DOWNLOADS_DOWNLOAD_FILE_SOURCE}" style="width:300px;" /> <input type="button" value="{TXT_DOWNLOADS_BROWSE}" onclick="downloadsGetFileBrowser(document.getElementById('downloads_download_file_source_{DOWNLOADS_DOWNLOAD_LANG_ID}'),null,null,document.getElementById('downloads_download_mime_type'))" /> {DOWNLOADS_DOWNLOAD_LANG_NAME}<br />
+                                <!-- END downloads_download_file_source_list -->
+                            </div>
+                        </div>
+                        <div id="downloads_download_type_url_config" style="display:{DOWNLOADS_DOWNLOAD_TYPE_URL_CONFIG_DISPLAY}">
+                            <input type="text" id="downloads_download_url_source_0" value="{DOWNLOADS_DOWNLOAD_URL_SOURCE}" style="width:300px;" onchange="downloadsSyncNameFields(this.value,'input','downloads_download_url_source')"/>
+                                <a href="javascript:void(0);" onclick="document.getElementById('downloads_download_url_source_lang_div').style.display = (document.getElementById('downloads_download_url_source_lang_div').style.display == 'block' ? 'none' : 'block')" title="{TXT_DOWNLOADS_EXTENDED}">{TXT_DOWNLOADS_EXTENDED} &raquo;</a>
+                            <div id="downloads_download_url_source_lang_div" style="display:none;">
+                                <!-- BEGIN downloads_download_url_source_list -->
+                                <input type="text" name="downloads_download_url_source[{DOWNLOADS_DOWNLOAD_LANG_ID}]" id="downloads_download_url_source_{DOWNLOADS_DOWNLOAD_LANG_ID}" value="{DOWNLOADS_DOWNLOAD_URL_SOURCE}" style="width:300px;" /> {DOWNLOADS_DOWNLOAD_LANG_NAME}<br />
+                                <!-- END downloads_download_url_source_list -->
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr class="row2">
+                    <td>{TXT_DOWNLOADS_TYPE}</td>
+                    <td>{DOWNLOADS_DOWNLOAD_MIME_TYPE_MENU}</td>
+                </tr>
+                <!-- BEGIN downloads_download_attr_metakeys -->
+                <tr class="row1">
+                    <td>{TXT_DOWNLOADS_METAKEYS}</td>
+                    <td>
+                        <!-- BEGIN downloads_download_metakeys -->
+                        <textarea id="downloads_download_metakeys_0" cols="10" rows="5" onchange="downloadsSyncNameFields(this.value,'textarea','downloads_download_metakeys')" style="width:300px;">{DOWNLOADS_DOWNLOAD_METAKEYS}</textarea> <a href="javascript:void(0);" onclick="document.getElementById('downloads_download_metakeys_lang_div').style.display = (document.getElementById('downloads_download_metakeys_lang_div').style.display == 'block' ? 'none' : 'block')" title="{TXT_DOWNLOADS_EXTENDED}">{TXT_DOWNLOADS_EXTENDED} &raquo;</a>
+                        <div id="downloads_download_metakeys_lang_div" style="display:none;">
+                        <!-- BEGIN downloads_download_metakeys_list -->
+                            <textarea name="downloads_download_metakeys[{DOWNLOADS_DOWNLOAD_LANG_ID}]" id="downloads_download_metakeys_{DOWNLOADS_DOWNLOAD_LANG_ID}" cols="10" rows="5" style="margin-top:1px; width:300px;">{DOWNLOADS_DOWNLOAD_METAKEYS}</textarea> {DOWNLOADS_DOWNLOAD_LANG_METAKEYS}<br />
+                        <!-- END downloads_download_metakeys_list -->
+                        </div>
+                        <!-- END downloads_download_metakeys -->
+                    </td>
+                </tr>
+                <!-- END downloads_download_attr_metakeys -->
+
+                <!-- BEGIN downloads_download_attr_size -->
+                <tr class="row{DOWNLOADS_DOWNLOAD_ATTRIBUTE_ROW}">
+                    <td>{TXT_DOWNLOADS_SIZE}</td>
+                    <td><input type="text" name="downloads_download_size" value="{DOWNLOADS_DOWNLOAD_SIZE}" style="width:300px;" /> {TXT_DOWNLOADS_BYTES}</td>
+                </tr>
+                <!-- END downloads_download_attr_size -->
+                <!-- BEGIN downloads_download_attr_license -->
+                <tr class="row{DOWNLOADS_DOWNLOAD_ATTRIBUTE_ROW}">
+                    <td>{TXT_DOWNLOADS_LICENSE}</td>
+                    <td><input type="text" name="downloads_download_license" value="{DOWNLOADs_DOWNLOAD_LICENSE}" style="width:300px;" /></td>
+                </tr>
+                <!-- END downloads_download_attr_license -->
+                <!-- BEGIN downloads_download_attr_version -->
+                <tr class="row{DOWNLOADS_DOWNLOAD_ATTRIBUTE_ROW}">
+                    <td>{TXT_DOWNLOADS_VERSION}</td>
+                    <td><input type="text" name="downloads_download_version" value="{DOWNLOADS_DOWNLOAD_VERSION}" style="width:300px;" /></td>
+                </tr>
+                <!-- END downloads_download_attr_version -->
+                <!-- BEGIN downloads_download_attr_author -->
+                <tr class="row{DOWNLOADS_DOWNLOAD_ATTRIBUTE_ROW}">
+                    <td>{TXT_DOWNLOADS_AUTHOR}</td>
+                    <td><input type="text" name="downloads_download_author" value="{DOWNLOADS_DOWNLOAD_AUTHOR}" style="width:300px;" /></td>
+                </tr>
+                <!-- END downloads_download_attr_author -->
+                <!-- BEGIN downloads_download_attr_website -->
+                <tr class="row{DOWNLOADS_DOWNLOAD_ATTRIBUTE_ROW}">
+                    <td>{TXT_DOWNLOADS_WEBSITE}</td>
+                    <td><input type="text" name="downloads_download_website" value="{DOWNLOADS_DOWNLOAD_WEBSITE}" style="width:300px;" /></td>
+                </tr>
+                <!-- END downloads_download_attr_website -->
+                <tr class="row{DOWNLOADS_DOWNLOAD_ATTRIBUTE_ROW}">
+                    <td>{TXT_DOWNLOADS_VALIDITY_EXPIRATION}</td>
+                    <td>{DOWNLOADS_DOWNLOAD_VALIDITY_EXPIRATION_MENU}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- end div downloadsTab_downloadGeneral -->
+
+    <!-- start div downloadsTab_downloadPicture -->
+    <div id="downloadPicture" class="downloadsTab" style="display: none;">
+        <table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+            <thead>
+                <tr>
+                    <th>{TXT_DOWNLOADS_IMAGE}</th>
+                </tr>
+            </thead>
+            <tbody style="vertical-align:top;">
+                <tr class="row2">
+                    <td>
+                        <input type="hidden" name="downloads_download_image" id="downloads_download_image" value="{DOWNLOADS_DOWNLOAD_IMAGE}" />
+                        <img src="{DOWNLOADS_DOWNLOAD_IMAGE_SRC}" id="downloads_download_image_preview" alt="{TXT_DOWNLOADS_DOWNLOAD_IMAGE}" border="0" style="padding-bottom:4px;" /><a
+                            id="downloads_download_image_remove_button"
+                            style="display:{DOWNLOADS_DOWNLOAD_IMAGE_REMOVE_DISPLAY};"
+                            href="javascript:void(0)"
+                            onclick="
+                                document.getElementById('downloads_download_image_preview').src='{DOWNLOADS_DEFAULT_DOWNLOAD_IMAGE}';
+                                //document.getElementById('downloads_category_image_preview').style.width='{DOWNLOADS_DEFAULT_CATEGORY_IMAGE_WIDTH}';
+                                //document.getElementById('downloads_category_image_preview').style.height='{DOWNLOADS_DEFAULT_CATEGORY_IMAGE_HEIGHT}';
+                                document.getElementById('downloads_download_image').value = '';
+                                this.style.display='none'"
+                            title="{TXT_DOWNLOADS_REMOVE_IMAGE}">
+                        <img
+                            src="images/icons/delete.gif"
+                            alt="{TXT_DOWNLOADS_REMOVE_IMAGE}"
+                            border="0"
+                            width="17"
+                            height="17"
+                        />
+                        </a>
+                        <br /><input type="button" value="{TXT_DOWNLOADS_BROWSE}" onclick="downloadsGetFileBrowser(document.getElementById('downloads_download_image'),document.getElementById('downloads_download_image_preview'),document.getElementById('downloads_download_image_remove_button'))" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- end div downloadsTab_downloadPicture -->
+
+    <!-- start div downloadsTab_downloadCategories -->
+    <div id="downloadCategories" class="downloadsTab" style="display: none;">
+        <table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+            <thead>
+                <tr>
+                    <th>{TXT_DOWNLOADS_CATEGORIES}</th>
+                </tr>
+            </thead>
+            <tbody style="vertical-align:top;">
+                <tr class="row2">
+                    <td>
+                        <table cellspacing="0" cellpadding="3" border="0" summary="user group assignements">
+                            <tbody style="vertical-align:top;">
+                                <tr>
+                                    <td width="300" style="border-bottom:0px;">{TXT_DOWNLOADS_AVAILABLE_CATEGORIES}<br />
+                                        <select name="downloads_download_not_associated_categories[]" id="downloads_download_not_associated_categories" size="15" style="width:300px;" multiple="multiple">
+                                        {DOWNLOADS_DOWNLOAD_NOT_ASSOCIATED_CATEGORIES}
+                                        </select>
+                                        <br />
+                                        <a href="javascript:void(0);" onclick="downloadsSelectAllOptions(document.getElementById('downloads_download_not_associated_categories'))" title="{TXT_DOWNLOADS_CHECK_ALL}">{TXT_DOWNLOADS_CHECK_ALL}</a>
+                                        <br />
+                                        <a href="javascript:void(0);" onclick="downloadsDeselectAllOptions(document.getElementById('downloads_download_not_associated_categories'))" title="{TXT_DOWNLOADS_UNCHECK_ALL}">{TXT_DOWNLOADS_UNCHECK_ALL}</a>
+                                    </td>
+                                    <td width="45" style="border-bottom:0px; text-align:center;">
+                                        <br />
+                                        <input type="button" value="&gt;&gt;" name="addOption" onclick="downloadsAddOptionToList(document.getElementById('downloads_download_not_associated_categories'), document.getElementById('downloads_download_associated_categories'))" style="margin-bottom:2px;" />
+                                        <br />
+                                        <input type="button" value="&lt;&lt;" name="removeOption" onclick="downloadsRemoveOptionFromList(document.getElementById('downloads_download_not_associated_categories'), document.getElementById('downloads_download_associated_categories'))" />
+                                    </td>
+                                   <td width="100%" style="border-bottom:0px;">{TXT_DOWNLOADS_ASSIGNED_CATEGORIES}<br />
+                                        <select name="downloads_download_associated_categories[]" id="downloads_download_associated_categories" size="15" style="width:300px;" multiple="multiple">
+                                        {DOWNLOADS_DOWNLOAD_ASSOCIATED_CATEGORIES}
+                                        </select>
+                                        <br />
+                                        <a href="javascript:void(0);" onclick="downloadsSelectAllOptions(document.getElementById('downloads_download_associated_categories'))" title="{TXT_DOWNLOADS_CHECK_ALL}">{TXT_DOWNLOADS_CHECK_ALL}</a>
+                                        <br />
+                                        <a href="javascript:void(0);" onclick="downloadsDeselectAllOptions(document.getElementById('downloads_download_associated_categories'))" title="{TXT_DOWNLOADS_UNCHECK_ALL}">{TXT_DOWNLOADS_UNCHECK_ALL}</a>
+                                     </td>
+                                </tr>
+                           </tbody>
+                        </table>
+                        <br />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- end div downloadsTab_downloadCategories -->
+
+    <!-- start div downloadsTab_downloadRelatedDownloads -->
+    <div id="downloadRelatedDownloads" class="downloadsTab" style="display: none;">
+        <table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+            <thead>
+                <tr>
+                    <th>{TXT_DOWNLOADS_RELATED_DOWNLOADS}</th>
+                </tr>
+            </thead>
+            <tbody style="vertical-align:top;">
+                <tr class="row2">
+                    <td>
+                        <table cellspacing="0" cellpadding="3" border="0" summary="related download assignements">
+                            <tbody style="vertical-align:top;">
+                                <tr>
+                                    <td width="300" style="border-bottom:0px;">{TXT_DOWNLOADS_AVAILABLE_DOWNLOADS}<br />
+                                        <select name="downloads_download_not_associated_downloads[]" id="downloads_download_not_associated_downloads" size="15" style="width:300px;" multiple="multiple">
+                                        {DOWNLOADS_DOWNLOAD_NOT_ASSOCIATED_DOWNLOADS}
+                                        </select>
+                                        <br />
+                                        <a href="javascript:void(0);" onclick="downloadsSelectAllOptions(document.getElementById('downloads_download_not_associated_downloads'))" title="{TXT_DOWNLOADS_CHECK_ALL}">{TXT_DOWNLOADS_CHECK_ALL}</a>
+                                        <br />
+                                        <a href="javascript:void(0);" onclick="downloadsDeselectAllOptions(document.getElementById('downloads_download_not_associated_downloads'))" title="{TXT_DOWNLOADS_UNCHECK_ALL}">{TXT_DOWNLOADS_UNCHECK_ALL}</a>
+                                    </td>
+                                    <td width="45" style="border-bottom:0px; text-align:center;">
+                                        <br />
+                                        <input type="button" value="&gt;&gt;" name="addOption" onclick="downloadsAddOptionToList(document.getElementById('downloads_download_not_associated_downloads'), document.getElementById('downloads_download_associated_downloads'))" style="margin-bottom:2px;" />
+                                        <br />
+                                        <input type="button" value="&lt;&lt;" name="removeOption" onclick="downloadsRemoveOptionFromList(document.getElementById('downloads_download_not_associated_downloads'), document.getElementById('downloads_download_associated_downloads'))" />
+                                    </td>
+                                   <td width="100%" style="border-bottom:0px;">{TXT_DOWNLOADS_ASSIGNED_DOWNLOADS}<br />
+                                        <select name="downloads_download_associated_downloads[]" id="downloads_download_associated_downloads" size="15" style="width:300px;" multiple="multiple">
+                                        {DOWNLOADS_DOWNLOAD_ASSOCIATED_DOWNLOADS}
+                                        </select>
+                                        <br />
+                                        <a href="javascript:void(0);" onclick="downloadsSelectAllOptions(document.getElementById('downloads_download_associated_downloads'))" title="{TXT_DOWNLOADS_CHECK_ALL}">{TXT_DOWNLOADS_CHECK_ALL}</a>
+                                        <br />
+                                        <a href="javascript:void(0);" onclick="downloadsDeselectAllOptions(document.getElementById('downloads_download_associated_downloads'))" title="{TXT_DOWNLOADS_UNCHECK_ALL}">{TXT_DOWNLOADS_UNCHECK_ALL}</a>
+                                     </td>
+                                </tr>
+                           </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- end div downloadsTab_downloadRelatedDownloads -->
+
+    <!-- start div downloadsTab_downloadPermissions -->
+    <div id="downloadPermissions" class="downloadsTab" style="display:none;">
+        <table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+            <thead>
+                <tr>
+                    <th>{TXT_DOWNLOADS_PERMISSIONS}</th>
+                </tr>
+            </thead>
+            <tbody style="vertical-align:top;">
+                <tr class="row1">
+                    <td>
+                        <input type="radio" name="downloads_download_access" id="downloads_download_access_all" value="0" onchange="downloadsAdjustAccessConfig()" {DOWNLOADS_DOWNLOAD_ACCESS_ALL_CHECKED} /><label for="downloads_download_access_all">{TXT_DOWNLOADS_DOWNLOAD_ALL_ACCESS_DESC}</label><br />
+                        <input type="radio" name="downloads_download_access" id="downloads_download_access_selected" value="1" onchange="downloadsAdjustAccessConfig()" {DOWNLOADS_DOWNLOAD_ACCESS_SELECTED_CHECKED} /><label for="downloads_download_access_selected">{TXT_DOWNLOADS_DOWNLOAD_SELECTED_ACCESS_DESC}</label><br />
+                        <div id="downloads_download_access_config" style="display:{DOWNLOADS_DOWNLOAD_ACCESS_DISPLAY}">
+                            <br />
+                            <table cellspacing="0" cellpadding="3" border="0" summary="user group assignements">
+                                <tbody style="vertical-align:top;">
+                                    <tr>
+                                        <td width="300" style="border-bottom:0px;">{TXT_DOWNLOADS_AVAILABLE_USER_GROUPS}<br />
+                                            <select name="downloads_download_access_not_associated_groups[]" id="downloads_download_access_not_associated_groups" size="15" style="width:300px;" multiple="multiple">
+                                            {DOWNLOADS_DOWNLOAD_ACCESS_NOT_ASSOCIATED_GROUPS}
+                                            </select>
+                                            <br />
+                                            <a href="javascript:void(0);" onclick="downloadsSelectAllOptions(document.getElementById('downloads_download_access_not_associated_groups'))" title="{TXT_DOWNLOADS_CHECK_ALL}">{TXT_DOWNLOADS_CHECK_ALL}</a>
+                                            <br />
+                                            <a href="javascript:void(0);" onclick="downloadsDeselectAllOptions(document.getElementById('downloads_download_access_not_associated_groups'))" title="{TXT_DOWNLOADS_UNCHECK_ALL}">{TXT_DOWNLOADS_UNCHECK_ALL}</a>
+                                        </td>
+                                        <td width="45" style="border-bottom:0px; text-align:center;">
+                                            <br />
+                                            <input type="button" value="&gt;&gt;" name="addOption" onclick="downloadsAddOptionToList(document.getElementById('downloads_download_access_not_associated_groups'), document.getElementById('downloads_download_access_associated_groups'))" style="margin-bottom:2px;" />
+                                            <br />
+                                            <input type="button" value="&lt;&lt;" name="removeOption" onclick="downloadsRemoveOptionFromList(document.getElementById('downloads_download_access_not_associated_groups'), document.getElementById('downloads_download_access_associated_groups'))" />
+                                        </td>
+                                       <td width="100%" style="border-bottom:0px;">{TXT_DOWNLOADS_ASSIGNED_USER_GROUPS}<br />
+                                            <select name="downloads_download_access_associated_groups[]" id="downloads_download_access_associated_groups" size="15" style="width:300px;" multiple="multiple">
+                                            {DOWNLOADS_DOWNLOAD_ACCESS_ASSOCIATED_GROUPS}
+                                            </select>
+                                            <br />
+                                            <a href="javascript:void(0);" onclick="downloadsSelectAllOptions(document.getElementById('downloads_download_access_associated_groups'))" title="{TXT_DOWNLOADS_CHECK_ALL}">{TXT_DOWNLOADS_CHECK_ALL}</a>
+                                            <br />
+                                            <a href="javascript:void(0);" onclick="downloadsDeselectAllOptions(document.getElementById('downloads_download_access_associated_groups'))" title="{TXT_DOWNLOADS_UNCHECK_ALL}">{TXT_DOWNLOADS_UNCHECK_ALL}</a>
+                                         </td>
+                                    </tr>
+                               </tbody>
+                            </table>
+                            <br />
+                            <input type="checkbox" name="downloads_download_visibility" id="downloads_download_visibility" value="1" {DOWNLOADS_DOWNLOAD_VISIBILITY_CHECKED} /><label for="downloads_download_visibility">{TXT_DOWNLOADS_DOWNLOAD_VISIBILITY_DESC}</label>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- end div downloadsTab_downloadPermissions -->
+
+    <br />
+    <input type="button" name="downloads_download_cancel" value="{TXT_DOWNLOADS_CANCEL}" onclick="document.location.href='index.php?cmd=downloads&{CSRF_PARAM}&act={DOWNLOADS_DOWNLOAD_CANCEL_LINK_SECITON}&amp;parent_id={DOWNLOADS_PARENT_CATEGORY_ID}&amp;category_sort={DOWNLOADS_DOWNLOAD_CATEGORY_SORT}&amp;category_by={DOWNLOADS_DOWNLOAD_CATEGORY_SORT_BY}&amp;download_sort={DOWNLOADS_DOWNLOAD_DOWNLOAD_SORT}&amp;download_by={DOWNLOADS_DOWNLOAD_DOWNLOAD_BY}&amp;category_pos={DOWNLOADS_DOWNLOAD_CATEGORY_OFFSET}&amp;download_pos={DOWNLOADS_DOWNLOAD_DOWNLOAD_OFFSET}'" />
+    <input type="submit" name="downloads_download_save" value="{TXT_DOWNLOADS_SAVE}" />
+</form>
+<!-- end module_downloads_download_modify.html -->

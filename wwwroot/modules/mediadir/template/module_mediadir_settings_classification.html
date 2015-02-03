@@ -1,0 +1,27 @@
+<!-- START module_mediadir_settings_classfication.html -->
+<form id="settingsFilesForm" action="index.php?cmd={MODULE_NAME}&act=settings&tpl=classification" method="post" >
+<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+    <tr>
+        <th colspan="2">{TXT_MEDIADIR_CLASSIFICATION}</th>
+    </tr>
+    <tr class="row1">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_CLASSIFICATION_POINTS}</td>
+        <td>
+            <input name="settingsClassificationPoints" type="text" style="width: 35px" value="{MEDIADIR_SETTINGS_CLASSIFICATION_POINTS}" />&nbsp;&nbsp;<span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_CLASSIFICATION_POINTS_INFO}</span>
+        </td>
+    </tr>
+    <tr class="row2">
+        <td>{TXT_MEDIADIR_SETTINGS_CLASSIFICATION_SEARCH}</td>
+        <td>
+            <select name="settingsClassificationSearch" style="width: 302px">
+                <option value="1" {MEDIADIR_SETTINGS_CLASSIFICATION_SEARCH_FROM}>{TXT_MEDIADIR_SETTINGS_CLASSIFICATION_SEARCH_FROM}</option>
+                <option value="2" {MEDIADIR_SETTINGS_CLASSIFICATION_SEARCH_TO}>{TXT_MEDIADIR_SETTINGS_CLASSIFICATION_SEARCH_TO}</option>
+                <option value="3" {MEDIADIR_SETTINGS_CLASSIFICATION_SEARCH_EXACT}>{TXT_MEDIADIR_SETTINGS_CLASSIFICATION_SEARCH_EXACT}</option>
+            </select>&nbsp;&nbsp;<span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_CLASSIFICATION_SEARCH_INFO}</span>
+        </td>
+    </tr>
+</table>
+<br />
+<input type="submit" name="submitSettingsForm" value="{TXT_MEDIADIR_SUBMIT}" />
+</form>
+<!-- END module_mediadir_settings_classification.html -->

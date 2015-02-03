@@ -1,0 +1,33 @@
+<!-- START module_crm_interface.html -->
+<div id="subnavbar_level2">
+<ul>
+    <li><a href="./index.php?cmd={MODULE_NAME}&amp;act=settings&amp;tpl=interface&amp;subTpl=import" title="{TXT_CRM_IMPORT_NAME}">{TXT_CRM_IMPORT_NAME}</a></li>
+	<li><a class="active" href="./index.php?cmd={MODULE_NAME}&amp;act=settings&amp;tpl=interface&amp;subTpl=export" title="{TXT_CRM_EXPORT_NAME}">{TXT_CRM_EXPORT_NAME}</a></li>
+</ul>
+</div>
+<table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+    <tr>
+        <th colspan="2">{TXT_CRM_EXPORT_NAME}</th>
+    </tr>
+    <tr class="row3">
+        <td nowrap="nowrap" width="90%"><span style="font-weight:bold;">{TXT_CRM_EXPORT_INFO}</span></td>
+        <td nowrap="nowrap" style="text-align: right;"><span style="font-weight:bold;">{TXT_CRM_FUNCTIONS}</span></td>
+    </tr>
+    <tr class="row2">
+        <td> {TXT_CRM_EXPORT_CUSTOMER_CSV}</td>
+        <td style="text-align: right;"> <a title="CSV Export" target="_self" href="index.php?cmd=crm&amp;act=settings&amp;tpl=interface&amp;subTpl=exportcsv"> <img border="0" title="Detail Export of All Customers" alt="" src="images/icons/csv.gif"> </a></td>
+    </tr>
+    <tr class="row2">
+        <td> {TXT_CRM_EXPORT_COMPANY}</td>
+        <td style="text-align: right;"> <a title="CSV Export" target="_self" href="index.php?cmd=crm&amp;act=settings&amp;tpl=interface&amp;subTpl=exportcsv&amp;process=1"> <img border="0" title="Detail Export of All Companies" alt="" src="images/icons/csv.gif"> </a></td>
+    </tr>
+    <tr class="row2">
+        <td> {TXT_CRM_EXPORT_PERSON}</td>
+        <td style="text-align: right;"> <a title="CSV Export" target="_self" href="index.php?cmd=crm&amp;act=settings&amp;tpl=interface&amp;subTpl=exportcsv&amp;process=2"> <img border="0" title="Detail Export of All Persons" alt="" src="images/icons/csv.gif"> </a></td>
+    </tr>
+    <tr class="row2">
+        <td> {TXT_CRM_EXPORT_ACTIVE_CUSTOMER}</td>
+        <td style="text-align: right;"> <a title="CSV Export" target="_self" href="index.php?cmd=crm&amp;act=settings&amp;tpl=interface&amp;subTpl=exportcsv&amp;process=active"> <img border="0" title="Detail Export of All Active Customers" alt="" src="images/icons/csv.gif"> </a></td>
+    </tr>
+</table>
+<!-- END module_crm_interface.html -->

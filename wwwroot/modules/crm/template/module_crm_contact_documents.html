@@ -1,0 +1,41 @@
+<!-- BEGIN skipAjaxBlock -->
+<table id="doc_overview" class="adminlist" width="100%" cellspacing="0" cellpadding="3">
+    <thead>
+        <tr><th colspan="8">{TXT_CRM_DOCUMENTS}</th></tr>
+        <tr class="row3">            
+            <td width="50%">
+                <strong>{TXT_CRM_DOCUMENT_NAME}</strong>
+            </td>
+            <td width="25%"><strong>{TXT_CRM_ADDED_BY}</strong></td>
+            <td width="17%"><strong>{TXT_CRM_ADDED_DATE}</strong></td>
+            <td width="8%" style="text-align:right;padding: 4px"><strong>{TXT_CRM_FUNCTIONS}</strong></td>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- END skipAjaxBlock -->
+        <!-- BEGIN noRecords -->
+        <tr class="row1"><td colspan="10" style="font-style:italic;">{TXT_NO_RECORDS_FOUND}</td></tr>
+        <!-- END noRecords -->
+        <!-- BEGIN contact_documents -->
+        <tr class="row1">
+            <td>
+                <div class="document-view {CRM_FILE_TYPE}">
+                    <a href="./index.php?cmd={MODULE_NAME}&act=getcontactdocuments&{CSRF_PARAM}&tpl=download&customer={CRM_CUSTOMER_ID}&id={CRM_DOCUMENT_ID}" target="_blank" title="{TXT_CRM_IMAGE_DOWNLOAD}">
+                        {CRM_DOCUMENT_NAME}
+                    </a>
+                </div>
+            </td>
+            <td>{CRM_ADDED_BY}</td>
+            <td>{CRM_ADDED_DATE}</td>
+            <td style="text-align:right;padding: 4px">
+                <a href="./index.php?cmd={MODULE_NAME}&act=getcontactdocuments&{CSRF_PARAM}&tpl=download&customer={CRM_CUSTOMER_ID}&id={CRM_DOCUMENT_ID}" target="_blank" title="{TXT_CRM_IMAGE_DOWNLOAD}"><img src="images/icons/green_arrow_down.png" border="0" alt="{TXT_CRM_IMAGE_DOWNLOAD}" title="{TXT_CRM_IMAGE_DOWNLOAD}" /></a>
+                <a class="delete_document" href="./index.php?cmd={MODULE_NAME}&{CSRF_PARAM}&act=getcontactdocuments&tpl=delete&customer={CRM_CUSTOMER_ID}&id={CRM_DOCUMENT_ID}" target="_self" title="{TXT_CRM_IMAGE_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{TXT_CRM_IMAGE_DELETE}" title="{TXT_CRM_IMAGE_DELETE}" /></a>
+            </td>
+        </tr>
+        <!-- END contact_documents -->
+        <!-- BEGIN skipAjaxBlock1 -->
+    </tbody>
+</table>
+<br>
+<input type="button" class="add-document" value="{TXT_CRM_ADD_DOCUMENTS}" />
+<!-- END skipAjaxBlock1 -->

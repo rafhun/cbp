@@ -1,0 +1,265 @@
+<!-- START skins_examples.html -->
+<ul id="tabmenu">
+    <li><a id="setTab_placeholder-list" class="active" href="#" onclick="selectTab('placeholder-list'); return false;" title="{TXT_REPLACEMENT_LIST}">{TXT_REPLACEMENT_LIST}</a></li>
+    <li><a id="setTab_template-system-example" href="#" onclick="selectTab('template-system-example'); return false;" title="{TXT_STANDARD_TEMPLATE_STRUCTURE}">{TXT_STANDARD_TEMPLATE_STRUCTURE}</a></li>
+</ul>
+
+<div id="placeholder-list" class="setTab">
+    <table summary="" width="100%" border="0" cellspacing="0" cellpadding="3" class="adminlist">
+        <tr>
+            <th width="10%">
+                <div align="left">{TXT_REPLACEMENT_LIST}</div>
+            </th>
+            <th width="15%"></th>
+            <th width="15%"></th>
+            <th width="60%"></th>
+        </tr>
+        <tr class="row1" valign="top">
+            <td><b>{TXT_PLACEHOLDER_DIRECTORY}</b></td>
+            <td colspan="3">{TXT_PLACEHOLDER_DIRECTORY_DESCRIPTION}</td>
+        </tr>
+        <tr class="row2" valign="top">
+            <td><b>{TXT_FILES}</b></td>
+            <td>
+        		[[JAVASCRIPT_FILE]]<br />
+        		[[STYLE_FILE]]<br />
+        		[[BUILDIN_STYLE_FILE]]<br />
+        		[[CONTENT_FILE]]<br />
+        		[[NAVBAR_FILE]]
+        	</td>
+        	<td>
+        	    [[SUBNAVBAR_FILE]]<br />
+                [[SHOPNAVBAR_FILE]]<br />
+                [[SIDEBAR_FILE]]<br />
+        		[[DIRECTORY_HOME]]<br />
+        		[[EVENTS_FILE]]
+            </td>
+            <td>
+                [[HEADLINES_FILE]]<br />
+                [[FORUM_FILE]]<br />
+                [[PODCAST_FILE]]<br />
+                [[BLOG_FILE]]<br />
+                [[JAVASCRIPT]]
+            </td>
+        </tr>
+        <tr>
+            <td><b>{TXT_CONTENTS}</b></td>
+            <td>
+        		[[TITLE]]<br />
+        		[[GLOBAL_TITLE]]<br />
+        		[[METATITLE]]<br />
+        		[[NAVTITLE]]<br />
+        		[[METAKEYS]]<br />
+        		[[METADESC]]<br />
+        		[[METAROBOTS]]<br />
+        		[[NAVTREE]]<br />
+        		[[ONLINE_USERS]]<br />
+                [[PARSING_TIME]]
+            </td>
+            <td>
+                [[PAGE_URL]]<br />
+                [[CURRENT_URL]]<br />
+                [[RANDOM]]<br />
+                [[VERSION]]<br />
+                [[ACTIVE_LANGUAGE_NAME]]<br />
+                [[CHARSET]]<br />
+                [[CSS_NAME]]<br />
+                [[COUNTER]]<br />
+                [[CONTENT_TITLE]]<br />
+                [[CONTENT_TEXT]]
+            </td>
+            <td>
+                [[DATE]]<br />
+                [[TIME]]<br />
+                [[LANGUAGE_NAVBAR]]<br />
+                [[LOGGING_STATUS]]<br />
+                [[XING_SHARE]]<br />
+                [[FACEBOOK_LIKE_IFRAME]]<br />
+                [[GOOGLE_PLUSONE]]<br />
+                [[GOOGLE_ANALYTICS]]
+            </td>
+        </tr>
+        <tr class="row2" valign="top">
+            <td><b>{TXT_CONTACT}</b></td>
+            <td>
+                [[CONTACT_EMAIL]]<br />
+                [[CONTACT_COMPANY]]<br />
+                [[CONTACT_ADDRESS]]<br />
+                [[CONTACT_ZIP]]
+            </td>
+            <td colspan="2">
+                [[CONTACT_PLACE]]<br />
+                [[CONTACT_COUNTRY]]<br />
+                [[CONTACT_PHONE]]<br />
+                [[CONTACT_FAX]]
+            </td>
+        </tr>
+        <tr class="row1" valign="top">
+            <td><b>{TXT_CHANNELS}</b></td>
+            <td>
+                [[STANDARD_URL]]<br />
+                [[MOBILE_URL]]<br />
+                [[PRINT_URL]]<br />
+                [[PDF_URL]]<br />
+                [[APP_URL]]
+            </td>
+            <td colspan="2">
+                <a href="{CONTREXX_BASE_URL}?smallscreen=0" target="_blank">{CONTREXX_BASE_URL}?smallscreen=0</a><br />
+                <a href="{CONTREXX_BASE_URL}?smallscreen=1" target="_blank">{CONTREXX_BASE_URL}?smallscreen=1</a><br />
+                <a href="{CONTREXX_BASE_URL}?printview=1" target="_blank">{CONTREXX_BASE_URL}?printview=1</a><br />
+                <a href="{CONTREXX_BASE_URL}?pdfview=1" target="_blank">{CONTREXX_BASE_URL}?pdfview=1</a><br />
+                <a href="{CONTREXX_BASE_URL}?appview=1" target="_blank">{CONTREXX_BASE_URL}?appview=1</a>
+            </td>
+        </tr>
+        <tr class="row2" valign="top">
+            <td><b>{TXT_MODULE_URLS}</b></td>
+            <td>
+                [[NODE_AGB]]<br />
+                [[NODE_HOME]]<br />
+                [[NODE_IMPRINT]]<br />
+                [[NODE_LOGIN]]<br />
+                [[NODE_RECOMMEND]]<br />
+                [[NODE_CRM]]
+            </td>
+            <td colspan="2">
+                [[NODE_LOGOUT]]<br />
+                [[NODE_NEWS]]<br />
+                [[NODE_PRIVACY]]<br />
+                [[NODE_SITEMAP]]<br />
+                [[NODE_SEARCH]]<br />
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="template-system-example" class="setTab" style="display: none;">
+    <table summary="" width="100%" border="0" cellspacing="0" cellpadding="3" class="adminlist">
+      <tr>
+        <th><div align="left">{TXT_STANDARD_TEMPLATE_STRUCTURE}</div></th>
+      </tr>
+      <tr class="row1">
+        <td>
+          <table summary="" width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr valign="top">
+              <td>{TXT_STARTPAGE}<br />
+                <table summary="" width="100%" border="0" cellspacing="2" cellpadding="2">
+                  <tr>
+                    <td bgcolor="#FFFF99" valign="top">INDEX.HTML<br />
+                      <table summary="" width="95%" border="0" cellspacing="2" cellpadding="2" align="center">
+                        <tr>
+                          <td bgcolor="#FFCC33" valign="top">JAVASCRIPT.JS</td>
+                        </tr>
+                      </table>
+                      <table summary="" width="95%" border="0" cellspacing="2" cellpadding="2" align="center">
+                        <tr>
+                          <td valign="top" bgcolor="#FFCC33">STYLE.CSS</td>
+                        </tr>
+                      </table>
+                      <table summary="" width="95%" border="0" cellspacing="2" cellpadding="2" align="center">
+                        <tr>
+                          <td bgcolor="#FFCC33" valign="top">BUILDIN_STYLE.CSS</td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#CCCCCC" valign="top">CONTENT_HOME.HTML<br />
+                            <table summary="" width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+                              <tr>
+                                <td colspan="3" valign="top">
+                                  <table summary="" width="100%" border="0" cellspacing="2" cellpadding="2">
+                                    <tr>
+                                      <td bgcolor="#FF9999">NAVBAR.HTML</td>
+    	                            </tr>
+                                    <tr>
+           			                   <td bgcolor="#FF9999">FORUM.HTML<br />
+                    			       </td>
+                              		</tr>
+                              		<tr>
+           			                   <td bgcolor="#FF9999">PODCAST.HTML<br />
+                    			       </td>
+                              		</tr>
+                                  </table>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td valign="top" width="20%">&nbsp;</td>
+                                <td valign="top">&nbsp;</td>
+                                <td width="20%" valign="top">
+                                <table summary="" width="100%" border="0" cellspacing="2" cellpadding="2">
+                                    <tr>
+                                      <td bgcolor="#FF9999">HEADLINES.HTML<br />
+                                      </td>
+                                    </tr>
+                                </table></td>
+                              </tr>
+                            </table></td>
+                        </tr>
+                      </table>
+                      <br />
+                      [[COUNTER]]</td>
+                  </tr>
+                </table>
+              </td>
+              <td>{TXT_STANDARD_PAGES}<br />
+                <table summary="" width="100%" border="0" cellspacing="2" cellpadding="2">
+                  <tr>
+                    <td bgcolor="#FFFF99" valign="top">INDEX.HTML<br />
+                      <table summary="" width="95%" border="0" cellspacing="2" cellpadding="2" align="center">
+                        <tr>
+                          <td bgcolor="#FFCC33" valign="top">JAVASCRIPT.JS</td>
+                        </tr>
+                      </table>
+                      <table summary="" width="95%" border="0" cellspacing="2" cellpadding="2" align="center">
+                        <tr>
+                          <td bgcolor="#FFCC33" valign="top">STYLE.CSS</td>
+                        </tr>
+                      </table>
+                      <table summary="" width="95%" border="0" cellspacing="2" cellpadding="2" align="center">
+                        <tr>
+                          <td bgcolor="#FFCC33" valign="top" width="5%">BUILDIN_STYLE.CSS</td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#CCCCCC" valign="top">CONTENT.HTML<br />
+                            <table summary="" width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+                              <tr>
+                                <td colspan="3" valign="top">
+                                  <table summary="" width="100%" border="0" cellspacing="2" cellpadding="2">
+                                    <tr>
+                                      <td bgcolor="#FF9999">NAVBAR.HTML</td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td valign="top" width="20%">
+                                  <table summary="" width="100%" border="0" cellspacing="2" cellpadding="2">
+                                    <tr>
+                                      <td bgcolor="#FF9999">
+                                          SHOPNAVBAR.HTML<br />
+                                          SUBNAVBAR.HTML
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </td>
+                                <td valign="top">&nbsp;</td>
+                                <td width="20%" valign="top">
+                                  <table summary="" width="100%" border="0" cellspacing="2" cellpadding="2">
+                                    <tr>
+                                      <td bgcolor="#FF9999">SIDEBAR.HTML</td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table></td>
+                        </tr>
+                      </table>
+                      <br />
+                      [[COUNTER]]</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+</div>
+<!-- END skins_examples.html -->

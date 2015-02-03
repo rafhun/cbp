@@ -1,0 +1,79 @@
+<script type="text/javascript">
+    $J(function(){        
+        $J("#addTasktype").submit(function(){
+            var errChk;
+            if ($J.trim($J("#type_name").val()) == '') {
+                errChk = 1;
+                $J("#type_name").css('border','1px solid red');
+            }
+            
+            if (errChk == 1) {
+                $J('#formerr').html("{TXT_CRM_MANDATORY_FIELDS_NOT_FILLED_OUT}");
+                $J('#formerr').css('display','block');
+                return false;
+            } else {
+                return true;
+            }
+        });
+        $J("#browse").click(function(){
+           $J("#contactFormFieldId_taskType").trigger('click');
+        });
+    });
+</script>
+<style type="text/css">
+    input.contactFormField {
+        position: absolute;
+        left: -5000px;
+    }
+</style>
+<div id="formerr" style="display: none;"></div>
+<form action="" method="post" id="addTasktype">
+    <table class="adminlist" width="100%" cellspacing="0" cellpadding="3">
+        <tr>
+            <th colspan="2">{TXT_CRM_ADD_TASK_TYPE}</th>
+        </tr>
+        <tr class="row1">
+            <td width="10%">{TXT_CRM_TASK_TYPE_NAME}&nbsp;<font color="red">*</font></td>
+            <td width="90%" style="padding-left: 5px;">
+                <input type="text" name="name" id="type_name" value="{CRM_TASK_TYPE_NAME}" style="width: 300px;" />
+                &nbsp;&nbsp;<input type="checkbox" name="active" value="1" {CRM_TASK_TYPE_ADD_ACTIVE} />{TXT_CRM_TASK_TYPE_ACTIVE}</td>
+        </tr>
+        <tr class="row2">
+            <td width="10%">{TXT_CRM_TASK_TYPE_SORTING1}</td>
+            <td width="90%" style="padding-left: 5px;"><input type="text" name="sort" class="validate[custom[integer]] text-input" value="{CRM_TASK_TYPE_SORTING}" style="width: 300px;" /></td>
+        </tr>
+        <tr class="row1">
+            <td valign="top">{TXT_CRM_TASK_TYPE_DESCRIPTION}</td>
+            <td style="padding-left: 5px;"><textarea cols="40" rows="10" name="description" id="description" size="30" style="margin: 0px;">{CRM_TASK_TYPE_DESCRIPTION}</textarea></td>
+        </tr>
+        <tr class="row2">
+            <td width="10%">{TXT_CRM_ICON}</td>
+            <td width="90%">
+                <div id="contactFormField_uploadWidget_taskType"></div>
+                <input type="file" class="contactFormField" id="contactFormFieldId_taskType" name="contactFormFieldId_taskType" value="" />
+                <input type="text" name="icon" id="icon" value="{CRM_TASK_TYPE_ICON}" style="width: 198px;"/>&nbsp;<input type="button" name="browse" id="browse" value="{TXT_BROWSE}" style="width: 100px;"/>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <!-- BEGIN taskBackButton -->
+    <input style="margin-left: 2px;margin-right: 1px;" type="button" name="back" onclick="window.location.replace('index.php?cmd=crm&amp;act=settings&tpl=tasktypes&{CSRF_PARAM}');" value="{TXT_CRM_BACK1}" />&nbsp;&nbsp;
+    <!-- END taskBackButton -->
+    <input style="margin-top: 2.5px;margin-left: 2px;" type="submit" name="saveTaskType" value="{TXT_CRM_SAVE}" />
+</form>
+{COMBO_UPLOADER_CODE_TASK_TYPE}
+<script type="text/javascript">
+	cx.ready(function() {
+		var uploader = cx.instances.get('exposed_combo_uploader_taskType','uploader');
+		uploader.dialog().bind('close', function(){
+                    $J.getJSON( '{REDIRECT_URL}', function( data ) {
+                        $J.each(data, function(key, val) {
+                            var file = val.fileName;
+                            if ($J.trim(file) != '') {
+                                $J('#icon').val(file);
+                            }
+                        });
+                    });
+		});
+	},true);
+</script>

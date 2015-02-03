@@ -1,0 +1,129 @@
+[[SHOP_JAVASCRIPT_CODE]]
+<div id="shop">
+  <!-- BEGIN core_message -->
+  <span class="[[MESSAGE_CLASS]]">[[MESSAGE_TEXT]]</span>
+  <!-- END core_message -->
+  <div class="menu">
+    <form name="shopSearch" action="index.php?section=shop" method="post">
+      <select name="catId" tabindex="2">
+        [[SHOP_CATEGORIES_MENUOPTIONS]]
+      </select>
+      <input type="text" name="term" value="[[SHOP_SEARCH_TERM]]"
+             tabindex="1" style="width: 170px;" />
+      <input type="submit" name="bsubmit" value="[[TXT_SHOP_SEARCH]]"
+             style="width: 66px;" />
+    </form>
+  </div>
+  <!-- <div class="cart_info">[[SHOP_CART_INFO]]</div> -->
+  <div class="product detail" itemscope itemtype="http://schema.org/Offer">
+    <!-- BEGIN seller -->
+    <span itemprop="seller" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="[[SHOP_SELLER_NAME]]" />
+      <meta itemprop="url" content="[[SHOP_SELLER_URL]]" />
+    </span>
+    <!-- END seller -->
+    <form id="[[SHOP_PRODUCT_FORM_NAME]]" name="[[SHOP_PRODUCT_FORM_NAME]]"
+          action="index.php?section=shop&amp;cmd=cart" method="post"
+          [[SHOP_FORM_ENCTYPE]]>
+      <div itemprop="itemOffered" itemscope itemtype="http://schema.org/Product">
+        <meta itemprop="url" content="[[SHOP_PRODUCT_DETAIL_URL]]" />
+        <input type="hidden" name="productId" value="[[SHOP_PRODUCT_ID]]" />
+        <div class="images">
+          <meta itemprop="image" content="[[SHOP_PRODUCT_IMAGE]]" />
+          <!-- BEGIN productImage1 -->
+          <a href="[[SHOP_PRODUCT_THUMBNAIL_LINK_1]]">
+            <img border="0" src="[[SHOP_PRODUCT_THUMBNAIL_1]]"
+                 [[SHOP_PRODUCT_THUMBNAIL_SIZE_1]]
+                 alt="[[TXT_SEE_LARGE_PICTURE]]" />
+          </a><br /><!-- END productImage1 --><!-- BEGIN productImage2 -->
+          <a href="[[SHOP_PRODUCT_THUMBNAIL_LINK_2]]">
+            <img border="0" src="[[SHOP_PRODUCT_THUMBNAIL_2]]"
+                 [[SHOP_PRODUCT_THUMBNAIL_SIZE_2]]
+                 alt="[[TXT_SEE_LARGE_PICTURE]]" />
+          </a><br /><!-- END productImage2 --><!-- BEGIN productImage3 -->
+          <a href="[[SHOP_PRODUCT_THUMBNAIL_LINK_3]]">
+            <img border="0" src="[[SHOP_PRODUCT_THUMBNAIL_3]]"
+                 [[SHOP_PRODUCT_THUMBNAIL_SIZE_3]]
+                 alt="[[TXT_SEE_LARGE_PICTURE]]" />
+          </a><br /><!-- END productImage3 -->
+        </div>
+        <div class="description">
+          <h2 itemprop="name">[[SHOP_PRODUCT_TITLE]]</h2>
+          <i itemprop="description">[[SHOP_PRODUCT_DESCRIPTION]]</i>
+          <br /><br />
+          [[SHOP_PRODUCT_DETAILDESCRIPTION]]
+          <!-- BEGIN shop_product_stock -->
+          <div class="stock">[[SHOP_PRODUCT_STOCK]]</div>
+          <!-- END shop_product_stock -->
+          <!-- BEGIN shop_product_code -->
+          <div class="product_id">
+            ([[TXT_SHOP_PRODUCT_CUSTOM_ID]]: [[SHOP_PRODUCT_CUSTOM_ID]])
+          </div>
+          <!-- END shop_product_code -->
+          <!-- BEGIN shopProductOptionsRow -->
+          <div class="shop_options">
+            [[SHOP_PRODUCT_OPTIONS_TITLE]]<br />
+            <div id="product_options_layer[[SHOP_PRODUCT_ID]]"
+                 style="display: none;">
+              <div class="shop_options_click">
+                <!-- BEGIN shopProductOptionsValuesRow -->
+                <strong>
+                  [[SHOP_PRODUCT_OPTIONS_NAME]]
+                  <!-- BEGIN product_attribute_mandatory -->
+                  <span class="mandatory">&nbsp;*</span>
+                  <!-- END product_attribute_mandatory -->
+                </strong><br />
+                [[SHOP_PRODUCT_OPTION]]
+                <!-- END shopProductOptionsValuesRow -->
+              </div>
+            </div>
+          </div>
+          <!-- END shopProductOptionsRow -->
+          <!-- BEGIN shopProductManufacturer -->
+          <div class="manufacturer" itemprop="manufacturer" itemscope
+               itemtype="http://schema.org/Organization">
+            <meta itemprop="name" content="[[SHOP_MANUFACTURER_NAME]]" />
+            <meta itemprop="url" content="[[SHOP_MANUFACTURER_URL]]" />
+            <h3>[[TXT_SHOP_MANUFACTURER]]</h3>
+            [[SHOP_MANUFACTURER_LINK]]
+          </div>
+          <!-- END shopProductManufacturer -->
+        </div>
+      </div>
+      <div class="functions">
+        <!--input type="text" name="productQuantity"
+               value="1" maxlength="3"
+               class="shop-product-quantity" /-->
+        <button class="add-to-cart" type="submit"
+                onclick="[[SHOP_PRODUCT_SUBMIT_FUNCTION]]"
+                name="[[SHOP_PRODUCT_SUBMIT_NAME]]">
+          [[TXT_ADD_TO_CARD]]
+        </button>
+        <div class="price">
+          <!-- BEGIN price -->
+          <span itemprop="priceCurrency">
+            [[SHOP_PRODUCT_PRICE_UNIT]]
+          </span>
+          <span itemprop="price">[[SHOP_PRODUCT_PRICE]]</span>
+          <!-- END price -->
+          <!-- BEGIN price_discount -->
+          statt <span itemprop="price">[[SHOP_PRODUCT_PRICE]]</span>
+          <span class="discount">
+            nur <span itemprop="priceCurrency">
+              [[SHOP_PRODUCT_DISCOUNTPRICE_UNIT]]
+            </span>
+            <span itemprop="price">
+              [[SHOP_PRODUCT_DISCOUNTPRICE]]
+            </span>
+          </span>
+          <!-- END price_discount -->
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- END shopProductRow --><!-- BEGIN no_product -->
+  <div class="no_product">
+    <h2>[[TXT_SHOP_NO_PRODUCTS]]</h2>
+  </div>
+  <!-- END no_product -->
+</div>

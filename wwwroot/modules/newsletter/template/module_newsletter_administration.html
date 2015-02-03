@@ -1,0 +1,134 @@
+<!-- START module_newsletter_administration.html -->
+<table width="100%" border="0" cellpadding="3" cellspacing="0" class="adminlist">
+  <tr>
+    <th>{TXT_NEWSLETTER_ADMINISTRATION}</th>
+  </tr>
+</table>
+  <!--<tr>
+    <td>--><div style="margin:5px;">
+			<input type="button" value="{TXT_NEWSLETTER_CREATE_NEW_EMAIL}" onclick="window.location.href='index.php?cmd=newsletter&{CSRF_PARAM}&amp;act=editMail'" />
+			<input type="button" value="{TXT_NEWSLETTER_ADD_NEW_LIST}" onclick="window.location.href='index.php?cmd=newsletter&{CSRF_PARAM}&amp;act=editlist'" />
+			<input type="button" value="{TXT_NEWSLETTER_IMPORT_RECIPIENTS}" onclick="window.location.href='index.php?cmd=newsletter&{CSRF_PARAM}&amp;act=users&amp;tpl=import'" />
+			<input type="button" value="{TXT_NEWSLETTER_EXPORT_RECIPIENTS}" onclick="window.location.href='index.php?cmd=newsletter&{CSRF_PARAM}&amp;act=users&amp;tpl=export'" /></div>
+    <!--</td>
+  </tr>
+</table>-->
+<br />
+<br />
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tr style="vertical-align:top;">
+    <td width="45%">
+      <table width="100%" border="0" cellpadding="3" cellspacing="0" class="adminlist">
+        <tr>
+          <th colspan="5">{TXT_NEWSLETTER_LISTS}</th>
+        </tr>
+        <!-- BEGIN newsletter_lists_list -->
+            <tr class="row3">
+              <td width="2%"><b>{TXT_NEWSLETTER_ID_UC}</b></td>
+              <td width="5%" style="text-align:center;"><b>{TXT_NEWSLETTER_STATUS}</b></td>
+            <td width="43%"><b>{TXT_NEWSLETTER_NAME}</b></td>
+            <td width="40%"><b>{TXT_NEWSLETTER_LAST_EMAIL}</b></td>
+            <td width="10%"><b>{TXT_NEWSLETTER_RECIPIENTS}</b></td>
+          </tr>
+          <!-- BEGIN newsletter_lists -->
+            <tr class="{NEWSLETTER_LIST_ROW_CLASS}">
+              <td>{NEWSLETTER_LIST_ID}</td>
+              <td style="text-align:center;"><img src="images/icons/{NEWSLETTER_LIST_STATUS_IMG}" width="15" height="13" alt="" border="0" /></td>
+              <td style="white-space:nowrap;"><a href="index.php?cmd=newsletter&amp;act=editlist&amp;id={NEWSLETTER_LIST_ID}" title="{TXT_NEWSLETTER_MODIFY_LIST}">{NEWSLETTER_LIST_NAME}</a></td>
+              <td style="white-space:nowrap;">{NEWSLETTER_LIST_LAST_SENT_MAIL}</td>
+              <td style="text-align:right;">{NEWSLETTER_LIST_RECIPIENT_COUNT}</td>
+            </tr>
+          <!-- END newsletter_lists -->
+          <tr>
+            <td colspan="5" style="border:0px; text-align:right; height:30px; vertical-align:bottom;">
+              <div style="float:left;">{TXT_NEWSLETTER_LIST_COUNT}: <b>{NEWSLETTER_LIST_COUNT}</b></div>
+              <div style="float:right;"><a href="index.php?cmd=newsletter&amp;act=lists" title="{TXT_NEWSELTTER_GO_TO_LIST_ADMINISTRATION}"> {TXT_NEWSELTTER_GO_TO_LIST_ADMINISTRATION}...</a></div>
+            </td>
+          </tr>
+        <!-- END newsletter_lists_list -->
+        <!-- BEGIN newsletter_lists_no_list -->
+          <tr class="row1">
+            <td colspan="5"><a href="index.php?cmd=newsletter&amp;act=editList&amp;id=0" title="{TXT_NEWSLETTER_ADD_NEW_LIST_MSG}">{TXT_NEWSLETTER_ADD_NEW_LIST_MSG}</a></td>
+          </tr>
+        <!-- END newsletter_lists_no_list -->
+      </table>
+    </td>
+  </tr></table><br />
+      <table width="100%" border="0" cellpadding="3" cellspacing="0" class="adminlist">
+        <tr>
+          <th colspan="3">{TXT_NEWSLETTER_SENT_EMAILS}</th>
+        </tr>
+        <!-- BEGIN newsletter_mails_list -->
+          <tr class="row3">
+              <td width="2%"><b>{TXT_NEWSLETTER_ID_UC}</b></td>
+            <td style="white-space:nowrap;" width="88%"><b>{TXT_NEWSLETTER_SUBJECT}</b></td>
+            <td style="white-space:nowrap;" width="10%"><b>{TXT_NEWSLETTER_SENT}</b></td>
+          </tr>
+          <!-- BEGIN newsletter_mails -->
+            <tr class="{NEWSLETTER_MAIL_ROW_CLASS}">
+              <td>{NEWSLETTER_MAIL_ID}</td>
+              <td style="white-space:nowrap;"><a href="?cmd=newsletter&amp;act=showMail&amp;id={NEWSLETTER_MAIL_ID}" title="{TXT_NEWSLETTER_DISPLAY_EMAIL}">{NEWSLETTER_MAIL_SUBJECT}</a></td>
+              <td style="white-space:nowrap;">{NEWSLETTER_MAIL_SENT_DATE}</td>
+            </tr>
+          <!-- END newsletter_mails -->
+          <tr>
+            <td colspan="3" style="border:0px; height:30px; vertical-align:bottom;">
+              <div style="float:left;">{TXT_NEWSLETTER_TOTAL_SENT_EMAILS}: <b>{VALUE_SENT_NEWSLETTERS}</b>&nbsp;&nbsp;&nbsp;&nbsp;{TXT_NEWSLETTER_UNSENDET_EMAILS}: <b>{VALUE_NOT_SENT_NEWSLETTERS}</b></div>
+              <div style="float:right;"><a href="index.php?cmd=newsletter&amp;act=mails" title="{TXT_NEWSLETTER_GO_TO_EMAIL_ADMINISTRATION}"> {TXT_NEWSLETTER_GO_TO_EMAIL_ADMINISTRATION}...</a></div>
+            </td>
+          </tr>
+        <!-- END newsletter_mails_list -->
+        <!-- BEGIN newsletter_mails_no_mail -->
+          <tr class="row1">
+            <td><a href="index.php?cmd=newsletter&amp;act=editMail&amp;id=0" title="{TXT_NEWSLETTER_CREATE_NEW_EMAIL_MSG}">{TXT_NEWSLETTER_CREATE_NEW_EMAIL_MSG}</a></td>
+          </tr>
+        <!-- END newsletter_mails_no_mail -->
+      </table>
+    </td>
+  </tr>
+</table>
+<br />
+<br />
+<table width="100%" border="0" cellpadding="3" cellspacing="0" class="adminlist">
+  <tr>
+    <th colspan="9">{TXT_NEWSLETTER_NEWEST_RECIPIENTS}</th>
+  </tr>
+  <!-- BEGIN newsletter_recipients_list -->
+    <tr class="row3">
+        <td width="3%"><b>{TXT_NEWSLETTER_STATUS}</b></td>
+      <td width="30%"><b>{TXT_NEWSLETTER_EMAIL_ADDRESS}</b></td>
+      <td width="10%"><b>{TXT_NEWSLETTER_LASTNAME}</b></td>
+      <td width="10%"><b>{TXT_NEWSLETTER_FIRSTNAME}</b></td>
+      <td width="10%"><b>{TXT_NEWSLETTER_ADDRESS}</b></td>
+      <td width="7%"><b>{TXT_NEWSLETTER_ZIP}</b></td>
+      <td width="10%"><b>{TXT_NEWSLETTER_CITY}</b></td>
+      <td width="10%"><b>{TXT_NEWSLETTER_COUNTRY}</b></td>
+      <td width="10%" style="text-align:right;"><b>{TXT_NEWSLETTER_REGISTRATION_DATE}</b></td>
+    </tr>
+    <!-- BEGIN newsletter_recipients -->
+    <tr class="{NEWSLETTER_RECIPIENT_ROW_CLASS}">
+      <td style="white-space:nowrap;"><img src="images/icons/{NEWSLETTER_RECIPIENT_STATUS_IMG}" width="13" height="13" alt="{NEWSLETTER_RECIPIENT_STATUS}" /></td>
+      <td style="white-space:nowrap;"><a href="index.php?cmd=newsletter&amp;act=users&amp;tpl=edit&amp;id={NEWSLETTER_RECIPIENT_ID}" title="{TXT_NEWSLETTER_MODIFY_RECIPIENT}">{NEWSLETTER_RECIPIENT_EMAIL}</a></td>
+      <td style="white-space:nowrap;">{NEWSLETTER_RECIPIENT_LASTNAME}</td>
+      <td style="white-space:nowrap;">{NEWSLETTER_RECIPIENT_FIRSTNAME}</td>
+      <td style="white-space:nowrap;">{NEWSLETTER_RECIPIENT_ADDRESS}</td>
+      <td style="white-space:nowrap;">{NEWSLETTER_RECIPIENT_ZIP}</td>
+      <td style="white-space:nowrap;">{NEWSLETTER_RECIPIENT_CITY}</td>
+      <td style="white-space:nowrap;">{NEWSLETTER_RECIPIENT_COUNTRY}</td>
+      <td style="white-space:nowrap; text-align:right;">{NEWSLETTER_RECIPIENT_REGISTRATION_DATE}</td>
+    </tr>
+    <!-- END newsletter_recipients -->
+    <tr>
+      <td colspan="9" style="border:0px; text-align:right; height:30px; vertical-align:bottom;">
+        <div style="float:left;">{TXT_NEWSLETTER_ANNOUNCED_USERS}: <b>{NEWSLETTER_RECIPIENT_COUNT}</b></div>
+        <div style="float:right;"><a href="index.php?cmd=newsletter&amp;act=users" title="{TXT_NEWSLETTER_GO_TO_RECIPIENT_ADMINISTRATION}"> {TXT_NEWSLETTER_GO_TO_RECIPIENT_ADMINISTRATION}...</a></div>
+      </td>
+    </tr>
+  <!-- END newsletter_recipients_list -->
+  <!-- BEGIN newsletter_recipients_no_data -->
+    <tr class="row1">
+      <td>{TXT_NEWSLETTER_NO_RECIPIENTS_MSG}</td>
+    </tr>
+  <!-- END newsletter_recipients_no_data -->
+</table>
+<!-- END module_newsletter_administration.html -->

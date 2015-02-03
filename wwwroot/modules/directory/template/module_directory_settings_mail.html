@@ -1,0 +1,82 @@
+<!-- START module_directory_settings_email.html -->
+<form name="settings" method="post" action="index.php?cmd=directory&amp;act=settings&amp;tpl=email">
+  <table width="100%" cellspacing="0" cellpadding="3" border="0" align="top" class="adminlist">
+    <tr>
+      <th colspan=2>{TXT_EMAIL_TEMPLATE}</th>
+    </tr>
+    <tr class="row3">
+      <td colspan="2" valign="top"><b>{TXT_PLACEHOLDER}</b></td>
+    </tr>
+    <tr class="row1">
+      <td width="150" valign="top">{TXT_USERNAME}</td>
+      <td >[[USERNAME]]</td>
+    </tr>
+    <tr class="row2">
+      <td width="150" valign="top">{TXT_FIRSTNAME}</td>
+      <td >[[FIRSTNAME]]</td>
+    </tr>
+    <tr class="row1">
+      <td width="150" valign="top">{TXT_LASTNAME}</td>
+      <td >[[LASTNAME]]</td>
+    </tr>
+    <tr class="row2">
+      <td width="150" valign="top">{TXT_TITLE}</td>
+      <td >[[TITLE]]</td>
+    </tr>
+    <tr class="row1">
+      <td width="150" valign="top">{TXT_LINK}</td>
+      <td >[[LINK]]</td>
+    </tr>
+    <tr class="row2">
+      <td width="150" valign="top">{TXT_URL}</td>
+      <td >[[URL]]</td>
+    </tr>
+     <tr class="row1">
+      <td width="150" valign="top">{TXT_DATE}</td>
+      <td >[[DATE]]</td>
+    </tr>
+   </table>
+   <br />
+   <ul id="tabmenu">
+	    <li><a id="mailTab_confirm" class="active" href="javascript:{}" onclick="selectTab('confirm')" title="">{TXT_CONFIRM}</a></li>
+	    <li><a id="mailTab_remember" href="javascript:{}" onclick="selectTab('remember')" title="" hidefocus>{TXT_REMEMBER}</a></li>
+	</ul>
+   <table width="100%" cellspacing="0" cellpadding="3" border="0" align="top" class="adminlist">
+    <tr class="row3">
+      <th valign="top"><b>{TXT_CONTENT}</b></h>
+    </tr>
+   </table>
+   <div id="confirm" class="mailTab" style="display:block;">
+   <table width="100%" cellspacing="0" cellpadding="3" border="0" align="top" class="adminlist">
+    <tr class="row1">
+      <td width="150" valign="top">{TXT_TITLE}</td>
+      <td ><input type="text" name="mailConfirmTitle" value="{MAIL_CONFIRM_TITLE}" style="width:468px;"></td>
+    </tr>
+    <tr class="row2">
+      <td width="150" valign="top">{TXT_TEXT}</td>
+      <td ><textarea name="mailConfirmContent" style="width:468px; overflow: auto;" rows='15'>{MAIL_CONFIRM_CONTENT}</textarea></td>
+    </tr>
+   </table>
+   </div>
+   <div id="remember" class="mailTab" style="display:none;">
+   <table width="100%" cellspacing="0" cellpadding="3" border="0" align="top" class="adminlist">
+   <tr class="row1">
+      <td width="150" valign="top">{TXT_ADRESS}</td>
+      <td ><input type="text" name="mailRememberAdress" value="{MAIL_REMEMBER_ADRESS}" style="width:468px;"></td>
+    </tr>
+    <tr class="row2">
+      <td width="150" valign="top">{TXT_TITLE}</td>
+      <td ><input type="text" name="mailRememberTitle" value="{MAIL_REMEMBER_TITLE}" style="width:468px;"></td>
+    </tr>
+    <tr class="row1">
+      <td width="150" valign="top">{TXT_TEXT}</td>
+      <td ><textarea name="mailRememberContent" style="width:468px; overflow: auto;" rows='15'>{MAIL_REMEMBER_CONTENT}</textarea></td>
+    </tr>
+   </table>
+   </div>
+<br />
+<input type="submit" value="{TXT_SAVE_CHANGES}" name="set_mail_submit">
+</form>
+<br>
+<br />
+<!-- END module_directory_settings_email.html -->

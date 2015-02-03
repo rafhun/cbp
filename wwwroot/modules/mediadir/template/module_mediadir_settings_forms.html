@@ -1,0 +1,70 @@
+<!-- START module_marketplace_settings_forms.html -->
+<script type="text/javascript">
+//<![CDATA[
+function deleteForm(formId)
+{
+    if (confirm('{TXT_MEDIADIR_CONFIRM_DELETE_DATA}\n{TXT_MEDIADIR_FORM_DEL_INFO}\n{TXT_MEDIADIR_ACTION_IS_IRREVERSIBLE}')) {
+        window.location.replace("index.php?cmd={MODULE_NAME}&act=settings&tpl=delete_form&{CSRF}&id="+formId);
+    }
+}
+
+var switchState = function(id, obj, action, type)
+{
+    $J.ajax({
+        type: 'get',
+        url:  'index.php?cmd={MODULE_NAME}&act=switchState',
+        data: {
+            id:    id,
+            state: action,
+            type:  type
+        },
+        success: function() {
+            if (action) {
+                path = 'images/icons/status_green.gif';
+                action = 0;
+            } else {
+                path = 'images/icons/status_red.gif';
+                action = 1;
+            }
+            $J(obj).children('img:first').attr('src', path);
+            $J(obj).attr('onclick', 'switchState('+id+', this, '+action+', \''+type+'\')');
+        }
+    });
+}
+//]]>
+</script>
+
+<form id="settingsFormsForm" action="index.php?cmd={MODULE_NAME}&act=settings&tpl=forms" method="post" >
+<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+    <tr>
+        <th colspan="5">{TXT_MEDIADIR_FORMS}</th>
+    </tr>
+    <tr class="row3">
+        <td width="1%"><strong>{TXT_MEDIADIR_STATUS}&nbsp;&nbsp;&nbsp;</strong></td>
+        <td width="1%"><strong>{TXT_MEDIADIR_ORDER}&nbsp;&nbsp;&nbsp;</strong></td>
+        <td width="25%"><strong>{TXT_MEDIADIR_TITLE}&nbsp;</strong></td>
+        <td width="63%"><strong>{TXT_MEDIADIR_DESCRIPTION}&nbsp;</strong></td>
+        <td width="10%" style="text-align: right;"><strong>{TXT_MEDIADIR_ACTION}&nbsp;</strong></td>
+    </tr>
+    <!-- BEGIN mediadirFormTemplateList -->
+    <tr class="{MEDIADIR_FORM_ROW_CLASS}">
+        <td valign="middle" style="text-align: center;"><a href="javascript: void(0);" onclick="switchState({MEDIADIR_FORM_ID}, this, {MEDIADIR_FORM_SWITCH_STATUS}, 'form_template')"><img src="{MEDIADIR_FORM_STATUS}" border="0" alt="" title="" /></a></td>
+        <td valign="top"><input name="formsOrder[{MEDIADIR_FORM_ID}]" style="width: 30px;" type="text" value="{MEDIADIR_FORM_ORDER}" onfocus="this.select();" /></td>
+        <td valign="top"><b><a href="index.php?cmd={MODULE_NAME}&act=settings&tpl=modify_form&amp;id={MEDIADIR_FORM_ID}" target="_self" title="{MEDIADIR_FORM_TITLE} {TXT_EDIT}">{MEDIADIR_FORM_TITLE}</a></b></td>
+        <td valign="top" >{MEDIADIR_FORM_DESCRIPTION}</td>
+        <td valign="top"  style="text-align: right;" nowrap="nowrap"><a href="index.php?cmd={MODULE_NAME}&act=settings&tpl=modify_form&amp;id={MEDIADIR_FORM_ID}" target="_self" title="{MEDIADIR_FORM_TITLE} {TXT_EDIT}"><img src="images/icons/edit.gif" border="0" alt="{MEDIADIR_FORM_TITLE} {TXT_EDIT}" title="{MEDIADIR_FORM_TITLE} {TXT_EDIT}" /></a><a href="javascript:deleteForm('{MEDIADIR_FORM_ID}');" title="{MEDIADIR_FORM_TITLE} {TXT_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{MEDIADIR_FORM_TITLE} {MEDIADIR_FORM_ID}" title="{MEDIADIR_FORM_TITLE} {TXT_DELETE}" /></a></td>
+    </tr>
+    <!-- END mediadirFormTemplateList -->
+
+    <!-- BEGIN mediadirFormTemplateNoEntries -->
+    <tr class="row1">
+        <td colspan="6"><em>{TXT_MEDIADIR_NO_ENTRIES_FOUND}</em></td>
+    </tr>
+    <!-- END mediadirFormTemplateNoEntries -->
+</table>
+<input style="margin-left: 53px; margin-top: 5px;" type="submit" name="submitSettingsForm" value="{TXT_MEDIADIR_SUBMIT}" />
+</form>
+<br />
+<br />
+<input type="button" name="newForm" onclick="location.href='index.php?cmd={MODULE_NAME}&{CSRF}&act=settings&tpl=modify_form'" value="{TXT_MEDIADIR_NEW_FORM_TEMPLATE}" />
+<!-- END module_mediadir_settings_forms.html -->

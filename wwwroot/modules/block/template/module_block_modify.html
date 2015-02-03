@@ -1,0 +1,642 @@
+<!-- START module_block_block.html -->
+<script type="text/javascript">
+    $J(document).ready(function() {
+        $J('#wysiwyg_editor').change(function() {
+            updateContent(0, true);
+            switchEditor();
+        });
+        cx.jQuery("#blockLanguages li a:visible").first().click();
+    });
+
+    function switchEditor() {
+        if ($J('#wysiwyg_editor').prop('checked')) {
+            if (typeof(CKEDITOR.instances.ckeditor) == 'undefined') {
+                var config = {
+                    customConfig : cx.variables.get('basePath', 'contrexx') + cx.variables.get('ckeditorconfigpath', 'block'),
+                    toolbar: 'Full',
+                    skin: 'moono',
+                    height: 380
+                };
+                CKEDITOR.replace('page[content]', config);
+            }
+
+            activeLangId = $J('ul.blockLang a.active').attr('id').split('_')[2];
+            CKEDITOR.instances.ckeditor.setData($J('#blockFormText_'+activeLangId).val());
+        } else {
+            if (typeof(CKEDITOR.instances.ckeditor) !== 'undefined') {
+                try {
+                    CKEDITOR.instances.ckeditor.destroy();
+                } catch (e) {
+                    // this is a bug in CKEDITOR. Until we apply the patch we
+                    // just catch it. See http://dev.ckeditor.com/ticket/6203
+                }
+            }
+
+            activeLangId = $J('ul.blockLang a.active').attr('id').split('_')[2];
+            $J('#ckeditor').val($J('#blockFormText_'+activeLangId).val());
+        }
+    }
+
+    arrTabToDiv = new Object();
+    {EDIT_JS_TAB_TO_DIV}
+
+    // <![CDATA[
+    function switchBoxAndTab(objElement, strTabId) {
+
+        if (countActiveLanguages() == 0) {
+            //We just "unchecked" the last language, disallow this
+            objElement.checked = true;
+        } else {
+            //There are more active languages, hide the tab
+            switchTabVisibility(strTabId);
+        }
+
+        //Now make sure that a possible div is shown
+        activateAnyActiveDiv();
+    }
+
+    function switchTabVisibility(strTabId) {
+        if (document.getElementById(strTabId).style.display == 'none') {
+            document.getElementById(strTabId).style.display = 'inline';
+        } else {
+            document.getElementById(strTabId).style.display = 'none';
+        }
+    }
+
+    function countActiveLanguages() {
+        var activeLanguages = 0;
+        activeLanguages = $J("input[name*=blockFormLanguages]:checked").length;
+        return activeLanguages;
+    }
+
+    function activateAnyActiveDiv() {
+        for (var TabName in arrTabToDiv) {
+            if (document.getElementById(TabName).style.display == 'inline') {
+                updateContent(TabName.split('_')[2], false);
+                break;
+            }
+        }
+        //Deactivate every div first first
+        for (var TabName in arrTabToDiv) {
+            document.getElementById(TabName).className = 'inactive';
+        }
+
+        //Activate the first possible div with an acitvated checkbox
+        for (var TabName in arrTabToDiv) {
+            if (document.getElementById(TabName).style.display == 'inline') {
+                document.getElementById(TabName).className = 'active';
+                break;
+            }
+        }
+        swapHeaderLangName();
+    }
+    /**
+    Select the super tab according to the name
+
+    @author  Stefan Heinemann <sh@adfinis.com>
+    @param   string name
+     */
+    function superTab(ele, name) {
+        $J('.tabs').hide();
+        $J('#tab_' + name).show();
+        $J('#tabmenu li a').removeClass('active');
+        $J(ele).addClass('active');
+    }
+
+    function langTab(ele, id) {
+        updateContent(id, false);
+
+        $J('.tabmenu li a').removeClass('active').addClass('inactive');
+        $J(ele).removeClass('inactive').addClass('active');
+        swapHeaderLangName();
+    }    
+    function swapHeaderLangName(){
+        $J('form[name=blockFormModifyBlock] table.block_lang th:first-child').each(
+            function(){
+                $J(this).text($J(this).text().replace(/\s\(.*?\)$/, '')+' ('+$J('#blockLanguages li a.active').text()+')')
+            }
+        )
+    }
+    function updateContent(newActiveLangId, invertChecked) {
+        oldActiveLangId = $J('ul.blockLang a.active').attr('id').split('_')[2];
+        wysiwygStatus = invertChecked ? !$J('#wysiwyg_editor').prop('checked') : $J('#wysiwyg_editor').prop('checked');
+
+        if (!CKEDITOR.instances.ckeditor) {
+            return;
+        }
+        if (wysiwygStatus) {
+            $J('#blockFormText_'+oldActiveLangId).val(CKEDITOR.instances.ckeditor.getData());
+            if (newActiveLangId > 0) {
+                CKEDITOR.instances.ckeditor.setData($J('#blockFormText_'+newActiveLangId).val());
+            }
+        } else {
+            $J('#blockFormText_'+oldActiveLangId).val($J('#ckeditor').val());
+            if (newActiveLangId > 0) {
+                $J('#ckeditor').val($J('#blockFormText_'+newActiveLangId).val());
+            }
+        }
+    }
+    function moveSelectedPages(from, dest, add, remove)
+    {
+        if (from.selectedIndex < 0) {
+            if (from.options[0] != null) from.options[0].selected = true;
+            from.focus();
+            return false;
+        } else {
+            for (i = 0; i < from.length; ++i) {
+                if (from.options[i].selected) {
+                    dest.options[dest.options.length] = new Option(from.options[i].text, from.options[i].value, false, false);
+                }
+            }
+            for (i = from.options.length-1; i >= 0; --i) {
+                if (from.options[i].selected) {
+                    from.options[i] = null;
+                }
+            }
+        }
+        disableButtons(from, dest, add, remove);
+    }
+    function onSubmit() {
+        activeLangId = $J('ul.blockLang a.active').attr('id').split('_')[2];
+        
+        if ($J('#wysiwyg_editor').prop('checked')) {
+            $J('#blockFormText_'+activeLangId).val(CKEDITOR.instances.ckeditor.getData());
+        } else {
+            $J('#blockFormText_'+activeLangId).val($J('#ckeditor').val());
+        }
+        // update hidden list of active pages
+        changePageTitlesByLang($J('input[name*=pagesLang]:checked').val(), 'global');
+        changePageTitlesByLang($J('input[name*=pagesLang]:checked').val(), 'direct');
+        changePageTitlesByLang($J('input[name*=pagesLang]:checked').val(), 'category');
+        return true;
+    }
+    function disableButtons(from,dest,add,remove)
+    {
+        if (from.options.length > 0 )
+        {
+            add.disabled = 0;
+        }
+        else
+            add.disabled = 1;
+
+        if (dest.options.length > 0)
+            remove.disabled = 0;
+        else
+            remove.disabled = 1;
+    }
+
+    function selectAll(CONTROL)
+    {
+        for(var i = 0;i < CONTROL.length;i++)
+        {
+            CONTROL.options[i].selected = true;
+        }
+    }
+
+    function deselectAll(CONTROL)
+    {
+        for(var i = 0;i < CONTROL.length;i++)
+        {
+            CONTROL.options[i].selected = false;
+        }
+    }
+
+    function showOrHide(strElement, bolStatus)
+    {
+        elm = document.getElementById(strElement);
+
+        if(bolStatus==1){
+            elm.style.display = 'block';
+        } else {
+            elm.style.display = 'none';
+        }
+    }
+    function selectDataTab(ele, tabName) {  
+	if(document.getElementById(tabName).style.display != "block")
+	{
+		document.getElementById(tabName).style.display = "block";
+		strClass = document.getElementById(tabName).className;
+		
+		arrTags = document.getElementsByTagName("*");
+		for (i=0;i<arrTags.length;i++)
+		{
+			if(arrTags[i].className == strClass && arrTags[i] != document.getElementById(tabName))
+			{
+				arrTags[i].style.display = "none";
+			}
+		}
+                $J('#tabmenu li a').removeClass('active');
+                $J(ele).addClass('active');
+	}
+    }
+    // ]]>
+</script>
+<script type="text/javascript">
+    //adds the datetimepicker to the date fields
+    cx.ready(function() {
+        var dpOptions = {
+            dateFormat: 'yy-mm-dd',
+            timeFormat: 'hh:mm' 
+        };
+
+        $J('input[name=inputStartDate]').datetimepicker(dpOptions);
+        $J('input[name=inputEndDate]').datetimepicker(dpOptions);
+
+    }, true);
+    // <![CDATA[
+    (function(){
+        $J(function(){
+            
+            var $inputDateEnd   = $J('[name=inputEndDate]');
+            var $inputDateStart = $J('[name=inputStartDate]');
+            var $spansDate      = $J('#startTime,#endTime');
+            var $spanAlways     = $J('#showAlways');
+            var $a = $J('#toggleShowAlways');
+
+            var hideInputs = function(){
+                $spansDate.hide();
+                $spanAlways.show();
+                $inputDateEnd.val(0).trigger('change');
+                $inputDateStart.val(0).trigger('change');
+                $a.text('{TXT_BLOCK_SHOW_TIMED}');
+            }
+
+            var showInputs = function(){
+                $spansDate.show();
+                $spanAlways.hide();
+
+                date = new Date();
+                var year = date.getFullYear();
+                var month = date.getMonth()+1;
+                var month = month.toString().length > 1 ? month : '0' + month;
+                var day = date.getDate().toString().length > 1 ? date.getDate() : '0' + date.getDate();
+                var hour = date.getHours().toString().length > 1 ? date.getHours() : '0' + date.getHours();
+                var minute = date.getMinutes().toString().length > 1 ? date.getMinutes() : '0' + date.getMinutes()
+                $inputDateStart.val(year+'-'+month+'-'+day+' '+hour+':'+minute).trigger('change');
+                $inputDateEnd.val((year+1)+'-'+month+'-'+day+' '+hour+':'+minute).trigger('change');
+
+                $a.text('{TXT_BLOCK_SHOW_ALWAYS}');
+            }
+
+            $a.click(function(){
+                if($inputDateEnd.is(':hidden')){
+                    showInputs();
+                } else {
+                    hideInputs();
+                }
+            });
+            if($inputDateEnd.val() == '0'){ //check if we display always
+                hideInputs();
+            }
+
+            switchEditor();
+            swapHeaderLangName();
+        });
+    })();
+    
+    $J(document).ready(function() {
+        refreshRadioButtons();
+        
+        $J('input[name*=blockFormLanguages]').click(function() {
+            refreshRadioButtons();
+        });
+        $J('input[name*=pagesLangGlobal]').click(function() {
+            changePageTitlesByLang($J(this).val(), 'global');
+        });
+        $J('input[name*=pagesLangDirect]').click(function() {
+            changePageTitlesByLang($J(this).val(), 'direct');
+        });
+        $J('input[name*=pagesLangCategory]').click(function() {
+            changePageTitlesByLang($J(this).val(), 'category');
+        });
+    });
+    
+    var refreshRadioButtons = function() {
+        $J('input[name*=blockFormLanguages]:checked').each(function() {
+            $J('#changePageTitlesTo_' + $J(this).attr('id').match(/\d$/)).show();
+        });
+        $J('input[name*=blockFormLanguages]:not(:checked)').each(function() {
+            $J('#changePageTitlesTo_' + $J(this).attr('id').match(/\d$/)).hide();
+        });
+
+        refreshPageTree();
+    }
+
+    var refreshPageTree = function() {
+        $J.each(['global', 'direct', 'category'], function(index, value) {
+            if ($J('input[name*=' + value + 'PagesLang]:checked').parent().is(function() {return $J(this).css('display') == 'none';}) || $J('input[name*=' + value + 'PagesLang]:checked').length == 0) {
+                $J('input[name*=' + value + 'PagesLang]:checked').prop('checked', false);
+                var element = $J('span[id*=' + value + 'ChangePageTitlesTo_]').not(function() {$J(this).css('display') == 'none'}).first().children('input');
+                element.prop('checked', true);
+                langCode = element.val();
+            } else {
+                langCode = $J('input[name*=' + value + 'PagesLang]:checked').val();
+            }
+            changePageTitlesByLang(langCode, value);
+        });
+    }
+    
+    /**
+     * Called on click of language switch radio buttons
+     * also on startup and before sending the form
+     */
+    var changePageTitlesByLang = function(langCode, placeholder) {
+        var cachedLang = cx.jQuery("input#" + placeholder + "CachedLang").val();
+        var selectedOps, unselectedOps;
+        // do not overwrite data on first call, but parse it into json object
+        if (cachedLang == "") {
+            selectedOps = cx.jQuery.parseJSON(cx.variables.get(placeholder + "PagesSelectedOptions", "block"));
+            unselectedOps = cx.jQuery.parseJSON(cx.variables.get(placeholder + "PagesUnselectedOptions", "block"));
+        } else {
+            selectedOps = cx.variables.get(placeholder + "PagesSelectedOptions", "block");
+            unselectedOps = cx.variables.get(placeholder + "PagesUnselectedOptions", "block");
+            if (selectedOps === "") {
+                selectedOps = new Object();
+            }
+            if (unselectedOps === "") {
+                unselectedOps = new Object();
+            }
+            selectedOps[cachedLang] = cx.jQuery.trim(cx.jQuery('select[name="' + placeholder + 'SelectedPages[]"]').html());
+            unselectedOps[cachedLang] = cx.jQuery.trim(cx.jQuery('select[name="' + placeholder + 'NotSelectedPages[]"]').html());
+            var activeIds = new Array();
+            cx.jQuery.each(selectedOps, function(lang, data) {
+                cx.jQuery.each(cx.jQuery(data), function(index, el) {
+                    activeIds[activeIds.length] = cx.jQuery(el).attr("value");
+                });
+            });
+            cx.jQuery("input#" + placeholder + "SelectedPagesList").val(activeIds.join(","));
+        }
+
+        if (selectedOps[langCode] == undefined) {
+            selectedOps[langCode] = "";
+        }
+        if (unselectedOps[langCode] == undefined) {
+            unselectedOps[langCode] = "";
+        }
+
+        cx.jQuery('select[name="' + placeholder + 'SelectedPages[]"]').html(selectedOps[langCode]);
+        cx.jQuery('select[name="' + placeholder + 'NotSelectedPages[]"]').html(unselectedOps[langCode]);
+        cx.variables.set(placeholder + "PagesSelectedOptions", selectedOps, "block");
+        cx.variables.set(placeholder + "PagesUnselectedOptions", unselectedOps, "block");
+        cx.jQuery("input#" + placeholder + "CachedLang").val(langCode);
+    }
+    // ]]>
+</script>
+
+<form name="blockFormModifyBlock" action="index.php?cmd=block&amp;act=modify" method="post" onsubmit="onSubmit();">
+    <input type="hidden" name="blockId" value="{BLOCK_ID}" size="50" />
+    <input type="hidden" id="globalCachedLang" name="globalCachedLang" value="" />
+    <input type="hidden" id="directCachedLang" name="directCachedLang" value="" />
+    <input type="hidden" id="categoryCachedLang" name="categoryCachedLang" value="" />
+    <input type="hidden" id="globalSelectedPagesList" name="globalSelectedPagesList" value="" />
+    <input type="hidden" id="directSelectedPagesList" name="directSelectedPagesList" value="" />
+    <input type="hidden" id="categorySelectedPagesList" name="categorySelectedPagesList" value="" />
+
+    <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist block_lang">
+        <tr>
+            <th colspan="4">{TXT_BLOCK_LANGUAGE}</th>
+        </tr>
+        <tr class="row1">
+            <td width="10%">{TXT_BLOCK_LANGUAGE}</td>
+            <td width="12%" valign="top">{EDIT_LANGUAGES_1}</td>
+            <td width="12%" valign="top">{EDIT_LANGUAGES_2}</td>
+            <td width="66%" valign="top">{EDIT_LANGUAGES_3}</td>
+        </tr>
+    </table>
+    <br />
+    <ul id="tabmenu">
+        <li><a class="active" href="javascript:{}" id="data_{TXT_BLOCK_BASIC_DATA}" onclick="selectDataTab(this, '{TXT_BLOCK_BASIC_DATA}')" title="{TXT_BLOCK_BASIC_DATA}">{TXT_BLOCK_BASIC_DATA}</a></li>
+        <li><a href="javascript:{}" id="data_{TXT_BLOCK_ADDITIONAL_OPTIONS}" onclick="selectDataTab(this, '{TXT_BLOCK_ADDITIONAL_OPTIONS}')" title="{TXT_BLOCK_ADDITIONAL_OPTIONS}">{TXT_BLOCK_ADDITIONAL_OPTIONS}</a></li>
+    </ul>
+    <div id="{TXT_BLOCK_BASIC_DATA}" class="data">
+        <table cellspacing="0" cellpadding="3" width="100%" border="0" class="adminlist" summary="block list">
+            <tbody>
+                <tr>
+                    <th colspan="3">{TXT_BLOCK_BASIC_DATA}</th>
+                </tr>
+                <tr class="row1">
+                    <td width="250px">{TXT_BLOCK_NAME}:</td>
+                    <td width="250px"><input type="text" name="blockName" value="{BLOCK_NAME}" style="width: 250px;" /></td>
+                    <td><br /></td>
+                </tr>   
+                <tr class="row2">
+                    <td>{TXT_BLOCK_CATEGORY}:</td>
+                    <td colspan="2">
+                        <select name="blockCat" style="width: 252px;">
+                            <option value="0">{TXT_BLOCK_NONE}</option>
+                            {BLOCK_CATEGORIES_PARENT_DROPDOWN}
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <div>
+            <ul id="blockLanguages" class="tabmenu blockLang">
+                <!-- BEGIN block_language_tabs -->
+                <li><a id="lang_blockContent_{BLOCK_LANG_TAB_LANG_ID}" style="{BLOCK_LANGTAB_DISPLAY}" class="{BLOCK_LANG_TAB_CLASS}" href="javascript:{}" onclick="langTab(this, {BLOCK_LANG_TAB_LANG_ID})" title="{TXT_BLOCK_LANG_TAB_LANG_NAME}">{TXT_BLOCK_LANG_TAB_LANG_NAME}</a></li>
+                <!-- END block_language_tabs -->
+            </ul>
+            <!-- BEGIN block_language_content -->
+            <input id="blockFormText_{BLOCK_LANG_ID}" type="hidden" name="blockFormText_[{BLOCK_LANG_ID}]" value="{BLOCK_CONTENT_TEXT_HIDDEN}" />
+            <!-- END block_language_content -->
+            <table  border="0" cellpadding="0" cellspacing="0" width="100%" class="adminlist block_lang">
+                <tbody>
+                    <tr>
+                        <th>{TXT_BLOCK_FORM_DESC}</th>
+                    </tr>
+                    <tr class="row2 reset">
+                        <td><textarea id="ckeditor" name="page[content]" style="width: 99.9%; height: auto; min-height: 500px; padding: 0; margin: 0;"></textarea></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br />
+    </div>
+    <div id="{TXT_BLOCK_ADDITIONAL_OPTIONS}" class="data" style="display:none;">
+        <table cellspacing="0" cellpadding="3" width="100%" border="0" class="adminlist" summary="block list">
+            <tbody>
+                <tr>
+                    <th colspan="2">{TXT_BLOCK_ADDITIONAL_OPTIONS}</th>
+                </tr>
+                <tr class="row1">
+                    <td valign="top" width="250px">{TXT_BLOCK_RANDOM}:</td>
+                    <td>
+                        <input type="checkbox" name="blockRandom" id="blockRandom" value="1" {BLOCK_RANDOM}/><label for="blockRandom">[[BLOCK_RANDOMIZER]]</label><br />
+                        <input type="checkbox" name="blockRandom2" id="blockRandom2" value="1" {BLOCK_RANDOM_2}/><label for="blockRandom2">[[BLOCK_RANDOMIZER_2]]</label><br />
+                        <input type="checkbox" name="blockRandom3" id="blockRandom3" value="1" {BLOCK_RANDOM_3}/><label for="blockRandom3">[[BLOCK_RANDOMIZER_3]]</label><br />
+                        <input type="checkbox" name="blockRandom4" id="blockRandom4" value="1" {BLOCK_RANDOM_4}/><label for="blockRandom4">[[BLOCK_RANDOMIZER_4]]</label><br />
+                    </td>
+                </tr>
+                <tr class="row2">
+                    <td valign="top">{TXT_BLOCK_DISPLAY_TIME}</td>
+                    <td>
+                        <span id="startTime">
+                            <span style="float: left; width: auto; margin-bottom: 3px;">
+                                <label name="{TXT_BLOCK_SHOW_FROM}" style="float: left; width: auto; min-width: 30px; margin-right: 3px;">{TXT_BLOCK_SHOW_FROM}:</label>
+                                <input type="text" name="inputStartDate" value="{BLOCK_START}" />
+                            </span>
+                        </span>
+                        <span id="endTime">
+                            <span style="float: left; clear: both; width: auto;">
+                                <label name="{TXT_BLOCK_SHOW_UNTIL}" style="float: left; width: auto; min-width: 30px; margin-right: 3px;" >{TXT_BLOCK_SHOW_UNTIL}:</label>
+                                <input type="text" name="inputEndDate" value="{BLOCK_END}" />
+                            </span>
+                        </span>
+                        <span id="showAlways" style="display: none;">
+                            {TXT_BLOCK_SHOW_ALWAYS}
+                        </span>
+                        <a style="margin-left: 15px;" href="#" id="toggleShowAlways">{TXT_BLOCK_SHOW_ALWAYS}</a><br />
+                    </td>
+                </tr>
+                <tr class="row1">
+                    <td width="250px" valign="top">{TXT_BLOCK_GLOBAL_PLACEHOLDERS}: <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_BLOCK_GLOBAL_PLACEHOLDERS_INFO}</span></td>
+                    <td nowrap="nowrap">
+                        <input onclick="showOrHide('globalPageSelector', '0');" type="radio" name="blockGlobal" id="blockGlobal0" value="0" {BLOCK_GLOBAL_0} />
+                               <label for="blockGlobal0">{TXT_DONT_SHOW_ON_PAGES}</label><br />
+                        <input onclick="showOrHide('globalPageSelector', '0');" type="radio" name="blockGlobal" id="blockGlobal1" value="1" {BLOCK_GLOBAL_1} />
+                               <label for="blockGlobal1">{TXT_SHOW_ON_ALL_PAGES}</label><br />
+                        <input onclick="showOrHide('globalPageSelector', '1');" type="radio" name="blockGlobal" id="blockGlobal2" value="2" {BLOCK_GLOBAL_2} />
+                               <label for="blockGlobal2">{TXT_SHOW_ON_SELECTED_PAGES}</label><br />
+                        <div id="globalPageSelector" class="blockLangTab"  style="display:{BLOCK_GLOBAL_SHOW_PAGE_SELECTOR};">
+                            <div style="float: left; width: auto;">
+                                <label name="{TXT_BLOCK_AVAILABLE_PAGES}">{TXT_BLOCK_AVAILABLE_PAGES}</label><br/>
+                                <select id="globalNotSelectedPages" name="globalNotSelectedPages[]" size="12" style="margin-top: 5px;width:100%;" multiple="multiple">
+                                    {BLOCK_GLOBAL_RELATION_PAGES_UNSELECTED}
+                                </select>
+                                <br />
+                                <a href="javascript:selectAll(document.blockFormModifyBlock.elements['globalNotSelectedPages[]']);" title="{TXT_BLOCK_SELECT_ALL}">{TXT_BLOCK_SELECT_ALL}</a><br />
+                                <a href="javascript:deselectAll(document.blockFormModifyBlock.elements['globalNotSelectedPages[]']);" title="{TXT_BLOCK_UNSELECT_ALL}">{TXT_BLOCK_UNSELECT_ALL}</a>
+                            </div>
+                            <div style="margin: 100px 10px 0; float: left; width: auto;">
+                                <input type="button" value=" &gt;&gt; " name="addpages" onclick="moveSelectedPages(document.getElementById('globalNotSelectedPages'),document.getElementById('globalSelectedPages'),document.getElementsByName('addpages')[0],document.getElementsByName('removepages')[0]);" style="float: left; clear: both;" />
+                                <input type="button" value=" &lt;&lt; " name="removepages" onclick="moveSelectedPages(document.getElementById('globalSelectedPages'),document.getElementById('globalNotSelectedPages'),document.getElementsByName('removepages')[0],document.getElementsByName('addpages')[0]);" style="float: left; clear: both;" />
+                            </div>
+                            <div style="float: left; width: auto;">
+                                <label name="{TXT_BLOCK_SELECTED_PAGES}">{TXT_BLOCK_SELECTED_PAGES}</label><br />
+                                <div align="left">
+                                    <select id="globalSelectedPages" name="globalSelectedPages[]" size="12" style="margin-top: 5px;width:100%;" multiple="multiple">
+                                        {BLOCK_GLOBAL_RELATION_PAGES_SELECTED}
+                                    </select>
+                                    <br />
+                                    <a href="javascript:selectAll(document.blockFormModifyBlock.elements['globalSelectedPages[]']);" title="{TXT_BLOCK_SELECT_ALL}">{TXT_BLOCK_SELECT_ALL}</a><br />
+                                    <a href="javascript:deselectAll(document.blockFormModifyBlock.elements['globalSelectedPages[]']);" title="{TXT_BLOCK_UNSELECT_ALL}">{TXT_BLOCK_UNSELECT_ALL}</a>
+                                </div>
+                            </div>
+                            <div style="float: left; padding: 0 0 0 20px;">
+                                <label>{TXT_BLOCK_LANGUAGE}</label>
+                                <br />
+                                <!-- BEGIN pages_languages_global -->
+                                <span id="globalChangePageTitlesTo_{BLOCK_PAGES_LANGUAGE_ID}">
+                                    <input type="radio" name="pagesLangGlobal[]" value="{BLOCK_PAGES_LANGUAGE_CODE}" id="globalRadio_{BLOCK_PAGES_LANGUAGE_CODE}" {BLOCK_PAGES_LANGUAGE_CHECKED} />
+                                    <label for="globalRadio_{BLOCK_PAGES_LANGUAGE_CODE}">{BLOCK_PAGES_LANGUAGE_NAME}</label><br />
+                                </span>
+                                <!-- END pages_languages_global -->
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="row2">
+                    <td width="250px" valign="top">{TXT_BLOCK_DIRECT_PLACEHOLDERS}: <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_BLOCK_DIRECT_PLACEHOLDERS_INFO}</span></td>
+                    <td nowrap="nowrap">
+                        <input onclick="showOrHide('directPageSelector', '0');" type="radio" name="blockDirect" id="blockDirect1" value="0" {BLOCK_DIRECT_0} />
+                               <label for="blockDirect1">{TXT_SHOW_ON_ALL_PAGES}</label><br />
+                        <input onclick="showOrHide('directPageSelector', '1');" type="radio" name="blockDirect" id="blockDirect2" value="1" {BLOCK_DIRECT_1} />
+                               <label for="blockDirect2">{TXT_SHOW_ON_SELECTED_PAGES}</label><br />
+                        <div id="directPageSelector" class="blockLangTab"  style="display:{BLOCK_DIRECT_SHOW_PAGE_SELECTOR};">
+                            <div style="float: left; width: auto;">
+                                <label name="{TXT_BLOCK_AVAILABLE_PAGES}">{TXT_BLOCK_AVAILABLE_PAGES}</label><br/>
+                                <select id="directNotSelectedPages" name="directNotSelectedPages[]" size="12" style="margin-top: 5px;width:100%;" multiple="multiple">
+                                    {BLOCK_GLOBAL_RELATION_PAGES_UNSELECTED}
+                                </select>
+                                <br />
+                                <a href="javascript:selectAll(document.blockFormModifyBlock.elements['directNotSelectedPages[]']);" title="{TXT_BLOCK_SELECT_ALL}">{TXT_BLOCK_SELECT_ALL}</a><br />
+                                <a href="javascript:deselectAll(document.blockFormModifyBlock.elements['directNotSelectedPages[]']);" title="{TXT_BLOCK_UNSELECT_ALL}">{TXT_BLOCK_UNSELECT_ALL}</a>
+                            </div>
+                            <div style="margin: 100px 10px 0; float: left; width: auto;">
+                                <input type="button" value=" &gt;&gt; " name="addpages" onclick="moveSelectedPages(document.getElementById('directNotSelectedPages'),document.getElementById('directSelectedPages'),document.getElementsByName('addpages')[0],document.getElementsByName('removepages')[0]);" style="float: left; clear: both;" />
+                                <input type="button" value=" &lt;&lt; " name="removepages" onclick="moveSelectedPages(document.getElementById('directSelectedPages'),document.getElementById('directNotSelectedPages'),document.getElementsByName('removepages')[0],document.getElementsByName('addpages')[0]);" style="float: left; clear: both;" />
+                            </div>
+                            <div style="float: left; width: auto;">
+                                <label name="{TXT_BLOCK_SELECTED_PAGES}">{TXT_BLOCK_SELECTED_PAGES}</label><br />
+                                <div align="left">
+                                    <select id="directSelectedPages" name="directSelectedPages[]" size="12" style="margin-top: 5px;width:100%;" multiple="multiple">
+                                        {BLOCK_GLOBAL_RELATION_PAGES_SELECTED}
+                                    </select>
+                                    <br />
+                                    <a href="javascript:selectAll(document.blockFormModifyBlock.elements['directSelectedPages[]']);" title="{TXT_BLOCK_SELECT_ALL}">{TXT_BLOCK_SELECT_ALL}</a><br />
+                                    <a href="javascript:deselectAll(document.blockFormModifyBlock.elements['directSelectedPages[]']);" title="{TXT_BLOCK_UNSELECT_ALL}">{TXT_BLOCK_UNSELECT_ALL}</a>
+                                </div>
+                            </div>
+                            <div style="float: left; padding: 0 0 0 20px;">
+                                <label>{TXT_BLOCK_LANGUAGE}</label>
+                                <br />
+                                <!-- BEGIN pages_languages_direct -->
+                                <span id="directChangePageTitlesTo_{BLOCK_PAGES_LANGUAGE_ID}">
+                                    <input type="radio" name="pagesLangDirect[]" value="{BLOCK_PAGES_LANGUAGE_CODE}" id="directRadio_{BLOCK_PAGES_LANGUAGE_CODE}" {BLOCK_PAGES_LANGUAGE_CHECKED} />
+                                    <label for="directRadio_{BLOCK_PAGES_LANGUAGE_CODE}">{BLOCK_PAGES_LANGUAGE_NAME}</label><br />
+                                </span>
+                                <!-- END pages_languages_direct -->
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="row1">
+                    <td width="250px" valign="top">{TXT_BLOCK_CATEGORY_PLACEHOLDERS}: <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_BLOCK_CATEGORY_PLACEHOLDERS_INFO}</span></td>
+                    <td nowrap="nowrap">
+                        <input onclick="showOrHide('categoryPageSelector', '0');" type="radio" name="blockCategory" id="blockCategory1" value="0" {BLOCK_CATEGORY_0} />
+                               <label for="blockCategory1">{TXT_SHOW_ON_ALL_PAGES}</label><br />
+                        <input onclick="showOrHide('categoryPageSelector', '1');" type="radio" name="blockCategory" id="blockCategory2" value="1" {BLOCK_CATEGORY_1} />
+                               <label for="blockCategory2">{TXT_SHOW_ON_SELECTED_PAGES}</label><br />
+                        <div id="categoryPageSelector" class="blockLangTab"  style="display:{BLOCK_CATEGORY_SHOW_PAGE_SELECTOR};">
+                            <div style="float: left; width: auto;">
+                                <label name="{TXT_BLOCK_AVAILABLE_PAGES}">{TXT_BLOCK_AVAILABLE_PAGES}</label><br/>
+                                <select id="categoryNotSelectedPages" name="categoryNotSelectedPages[]" size="12" style="margin-top: 5px;width:100%;" multiple="multiple">
+                                    {BLOCK_GLOBAL_RELATION_PAGES_UNSELECTED}
+                                </select>
+                                <br />
+                                <a href="javascript:selectAll(document.blockFormModifyBlock.elements['categoryNotSelectedPages[]']);" title="{TXT_BLOCK_SELECT_ALL}">{TXT_BLOCK_SELECT_ALL}</a><br />
+                                <a href="javascript:deselectAll(document.blockFormModifyBlock.elements['categoryNotSelectedPages[]']);" title="{TXT_BLOCK_UNSELECT_ALL}">{TXT_BLOCK_UNSELECT_ALL}</a>
+                            </div>
+                            <div style="margin: 100px 10px 0; float: left; width: auto;">
+                                <input type="button" value=" &gt;&gt; " name="addpages" onclick="moveSelectedPages(document.getElementById('categoryNotSelectedPages'),document.getElementById('categorySelectedPages'),document.getElementsByName('addpages')[0],document.getElementsByName('removepages')[0]);" style="float: left; clear: both;" />
+                                <input type="button" value=" &lt;&lt; " name="removepages" onclick="moveSelectedPages(document.getElementById('categorySelectedPages'),document.getElementById('categoryNotSelectedPages'),document.getElementsByName('removepages')[0],document.getElementsByName('addpages')[0]);" style="float: left; clear: both;" />
+                            </div>
+                            <div style="float: left; width: auto;">
+                                <label name="{TXT_BLOCK_SELECTED_PAGES}">{TXT_BLOCK_SELECTED_PAGES}</label><br />
+                                <div align="left">
+                                    <select id="categorySelectedPages" name="categorySelectedPages[]" size="12" style="margin-top: 5px;width:100%;" multiple="multiple">
+                                        {BLOCK_GLOBAL_RELATION_PAGES_SELECTED}
+                                    </select>
+                                    <br />
+                                    <a href="javascript:selectAll(document.blockFormModifyBlock.elements['categorySelectedPages[]']);" title="{TXT_BLOCK_SELECT_ALL}">{TXT_BLOCK_SELECT_ALL}</a><br />
+                                    <a href="javascript:deselectAll(document.blockFormModifyBlock.elements['categorySelectedPages[]']);" title="{TXT_BLOCK_UNSELECT_ALL}">{TXT_BLOCK_UNSELECT_ALL}</a>
+                                </div>
+                            </div>
+                            <div style="float: left; padding: 0 0 0 20px;">
+                                <label>{TXT_BLOCK_LANGUAGE}</label>
+                                <br />
+                                <!-- BEGIN pages_languages_category -->
+                                <span id="categoryChangePageTitlesTo_{BLOCK_PAGES_LANGUAGE_ID}">
+                                    <input type="radio" name="pagesLangCategory[]" value="{BLOCK_PAGES_LANGUAGE_CODE}" id="categoryRadio_{BLOCK_PAGES_LANGUAGE_CODE}" {BLOCK_PAGES_LANGUAGE_CHECKED} />
+                                    <label for="categoryRadio_{BLOCK_PAGES_LANGUAGE_CODE}">{BLOCK_PAGES_LANGUAGE_NAME}</label><br />
+                                </span>
+                                <!-- END pages_languages_category -->
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="row1">
+                    <td>{TXT_BLOCK_USE_WYSIWYG_EDITOR}</td>
+                    <td>
+                        <input type="checkbox" name="wysiwyg_editor" id="wysiwyg_editor" value="1" {BLOCK_WYSIWYG_EDITOR} />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+    </div>
+<br />
+<input type="submit" name="block_save_block" value="{TXT_BLOCK_SAVE}" />
+</form>
+<!-- END module_block_block.html -->

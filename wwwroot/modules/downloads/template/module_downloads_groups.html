@@ -1,0 +1,87 @@
+<!-- start module_downloads_groups.html -->
+<script type="text/javascript">
+// <![CDATA[
+function downloadsDeleteGroup(id,name)
+{
+    strMsg = '{DOWNLOADS_CONFIRM_DELETE_GROUP_TXT}';
+    if (confirm(strMsg.replace('%s', name)+'\n{TXT_DOWNLOADS_OPERATION_IRREVERSIBLE}')) {
+        window.location.href = 'index.php?cmd=downloads&{CSRF_PARAM}&act=delete_group&id='+id
+        +'&group_sort={DOWNLOADS_GROUP_GROUP_SORT}'
+        +'&group_by={DOWNLOADS_GROUP_GROUP_SORT_BY}'
+        +'&group_pos={DOWNLOADS_GROUP_GROUP_OFFSET}';
+    }
+}
+
+function downloadsGroupDoAction(action)
+{
+    if (checkboxIsChecked('downloads_group_form', 'downloads_group_id[]')) {
+        if (confirm('{DOWNLOADS_CONFIRM_DELETE_GROUPS_TXT}')) {
+            document.getElementById('downloads_group_form').submit(); return true;
+        }
+    }
+    document.getElementById('downloads_group_select_action').value=0;
+}
+// ]]>
+</script>
+
+<form name="downloads_group_form" id="downloads_group_form" action="index.php?cmd=downloads&amp;act=groups&amp;group_sort={DOWNLOADS_GROUP_GROUP_SORT}&amp;group_by={DOWNLOADS_GROUP_GROUP_SORT_BY}&amp;group_pos={DOWNLOADS_GROUP_GROUP_OFFSET}" method="post">
+<table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist" summary="group list">
+    <tr>
+        <th colspan="6">{TXT_DOWNLOADS_GROUPS}</th>
+    </tr>
+<!-- BEGIN downloads_group_data -->
+    <tr class="row3" style="font-weight: bold; white-space:nowrap;">
+        <td width="1%" style="text-align: center;">#</td>
+        <td width="1%" style="text-align: center;"><a href="index.php?cmd=downloads&amp;act=groups&amp;group_sort={DOWNLOADS_GROUP_SORT_ID}&amp;group_by=id" title="{TXT_DOWNLOADS_CHANGE_SORT_DIRECTION}">{DOWNLOADS_GROUP_SORT_ID_LABEL}</a></td>
+        <td width="1%" style="text-align: center;"><a href="index.php?cmd=downloads&amp;act=groups&amp;group_sort={DOWNLOADS_GROUP_SORT_STATUS}&amp;group_by=is_active" title="{TXT_DOWNLOADS_CHANGE_SORT_DIRECTION}">{DOWNLOADS_GROUP_SORT_STATUS_LABEL}</a></td>
+        <td width="20%"><a href="index.php?cmd=downloads&amp;act=groups&amp;group_sort={DOWNLOADS_GROUP_SORT_NAME}&amp;group_by=name" title="{TXT_DOWNLOADS_CHANGE_SORT_DIRECTION}">{DOWNLOADS_GROUP_SORT_NAME_LABEL}</a></td>
+        <td width="76%"><a href="index.php?cmd=downloads&amp;act=groups&amp;group_sort={DOWNLOADS_GROUP_SORT_PLACEHOLDER}&amp;group_by=placeholder" title="{TXT_DOWNLOADS_CHANGE_SORT_DIRECTION}">{DOWNLOADS_GROUP_SORT_PLACEHOLDER_LABEL}</a></td>
+        <td width="1%">{TXT_DOWNLOADS_FUNCTIONS}</td>
+    </tr>
+<!-- BEGIN downloads_group_list -->
+    <tr class="{DOWNLOADS_GROUP_ROW_CLASS}">
+        <td style="text-align: center;">
+            <input type="checkbox" name="downloads_group_id[]" value="{DOWNLOADS_GROUP_ID}" />
+        </td>
+        <td nowrap="nowrap" style="text-align: center;">{DOWNLOADS_GROUP_ID}</td>
+        <td style="text-align: center;">
+            <a href="index.php?cmd=downloads&amp;act=switch_group_status&amp;id={DOWNLOADS_GROUP_ID}&amp;group_sort={DOWNLOADS_GROUP_GROUP_SORT}&amp;group_by={DOWNLOADS_GROUP_GROUP_SORT_BY}&amp;group_pos={DOWNLOADS_GROUP_GROUP_OFFSET}" title="{DOWNLOADS_GROUP_SWITCH_STATUS_DESC}">
+                <img src="images/icons/{DOWNLOADS_GROUP_STATUS_LED}" alt="{DOWNLOADS_GROUP_SWITCH_STATUS_IMG_DESC}" border="0" width="13" height="13" />
+            </a>
+        </td>
+        <td nowrap="nowrap">
+            <img src="images/icons/folder_on.gif" alt="{DOWNLOADS_GROUP_NAME}" />
+            <a href="index.php?cmd=downloads&amp;act=group&amp;id={DOWNLOADS_GROUP_ID}" title="{TXT_DOWNLOADS_EDIT}">{DOWNLOADS_GROUP_NAME}</a>
+        </td>
+        <td nowrap="nowrap">[[{DOWNLOADS_GROUP_PLACEHOLDER}]]</td>
+		<td nowrap="nowrap" style="text-align: right;">
+		    <a href="index.php?cmd=downloads&amp;act=group&amp;id={DOWNLOADS_GROUP_ID}&amp;group_sort={DOWNLOADS_GROUP_GROUP_SORT}&amp;group_by={DOWNLOADS_GROUP_GROUP_SORT_BY}&amp;group_pos={DOWNLOADS_GROUP_GROUP_OFFSET}" title="{TXT_DOWNLOADS_EDIT}"><img src="images/icons/edit.gif" alt="{TXT_DOWNLOADS_EDIT}" width="16" height="16" border="0" /></a>
+		    <a href="javascript:void(0);" onclick="downloadsDeleteGroup({DOWNLOADS_GROUP_ID},'{DOWNLOADS_GROUP_NAME_JS}')" title="{TXT_DOWNLOADS_DELETE}"><img src="images/icons/delete.gif" alt="{TXT_DOWNLOADS_DELETE}" width="17" height="17" border="0" /></a>
+		</td>
+    </tr>
+<!-- END downloads_group_list -->
+</table>
+<!-- BEGIN downloads_group_action_dropdown -->
+<img src="images/icons/arrow.gif" width="38" height="22" style="margin-left:5px;" alt="arrow" />
+<a href="javascript:void(0);" onclick="changeCheckboxes('downloads_group_form','downloads_group_id[]',true); return false;" title="{TXT_DOWNLOADS_CHECK_ALL}">{TXT_DOWNLOADS_CHECK_ALL}</a> /
+<a href="javascript:void(0);" onclick="changeCheckboxes('downloads_group_form','downloads_group_id[]',false); return false;" title="{TXT_DOWNLOADS_UNCHECK_ALL}">{TXT_DOWNLOADS_UNCHECK_ALL}</a>
+<img src="images/icons/strike.gif" width="34" height="22" alt="design" />
+<select name="downloads_group_select_action" id="downloads_group_select_action" onchange="downloadsGroupDoAction(this.value)">
+    <option value="0" selected="selected" style="border-bottom: 1px solid #000;">{TXT_DOWNLOADS_SELECT_ACTION}</option>
+    <option value="delete">{TXT_DOWNLOADS_DELETE}</option>
+</select>
+<!-- END downloads_group_action_dropdown -->
+<br />
+<br />
+{DOWNLOADS_GROUP_PAGING}
+<!-- END downloads_group_data -->
+<!-- BEGIN downloads_group_no_data -->
+    <tr class="row3">
+        <td>{TXT_DOWNLOADS_NO_GROUPS_AVAILABLE}</td>
+    </tr>
+</table>
+<!-- END downloads_group_no_data -->
+</form>
+<br />
+<br />
+<!-- end module_downloads_groups.html -->

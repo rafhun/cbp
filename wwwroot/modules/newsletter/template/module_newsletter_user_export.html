@@ -1,0 +1,72 @@
+<!-- START module_newsletter_user_export.html -->
+{JAVASCRIPTCODE}
+<form name="exportuser" action="index.php?cmd=newsletter&amp;act=users&amp;tpl=export" method="post">
+<table width="100%" border="0" cellpadding="3" cellspacing="0" class="adminlist">
+  <tr>
+    <th colspan="2">{TXT_TITLE}</th>
+  </tr>
+  <tr class="row2">
+    <td nowrap="true" width="10%"><label for="a">{TXT_EMAIL_ADDRESS}</label></td>
+    <td><input id="a" type="checkbox" name="email" checked="checked" value="1" /></td>
+  </tr>
+  <tr class="row1">
+    <td nowrap="true"><label for="b">{TXT_USER_TITLE}</label></td>
+    <td><input id="b" type="checkbox" name="title" checked="checked" value="1" /></td>
+  </tr>
+  <tr class="row2">
+    <td nowrap="true"><label for="c">{TXT_LASTNAME}</label></td>
+    <td><input id="c" type="checkbox" name="lastname" checked="checked" value="1" /></td>
+  </tr>
+  <tr class="row1">
+    <td nowrap="true"><label for="d">{TXT_FIRSTNAME}</label></td>
+    <td><input id="d" type="checkbox" name="firstname" checked="checked" value="1" /></td>
+  </tr>
+  <tr class="row2">
+    <td nowrap="true"><label for="e">{TXT_COMPANY}</label></td>
+    <td><input id="e" type="checkbox" name="company" checked="checked" value="1" /></td>
+  </tr>
+  <tr class="row1">
+    <td nowrap="true"><label for="e">{TXT_NEWSLETTER_ADDRESS}</label></td>
+    <td><input id="f" type="checkbox" name="address" checked="checked" value="1" /></td>
+  </tr>
+  <tr class="row2">
+    <td nowrap="true"><label for="f">{TXT_ZIP}</label></td>
+    <td><input id="g" type="checkbox" name="zip" checked="checked" value="1" /></td>
+  </tr>
+  <tr class="row1">
+    <td nowrap="true"><label for="g">{TXT_CITY}</label></td>
+    <td><input id="h" type="checkbox" name="city" checked="checked" value="1" /></td>
+  </tr>
+  <tr class="row2">
+    <td nowrap="true"><label for="h">{TXT_COUNTRY}</label></td>
+    <td><input id="i" type="checkbox" name="country" checked="checked" value="1" /></td>
+  </tr>
+  <tr class="row1">
+    <td nowrap="true"><label for="i">{TXT_PHONE}</label></td>
+    <td><input id="j" type="checkbox" name="phone_office" checked="checked"  value="1" /></td>
+  </tr>
+  <tr class="row2">
+    <td nowrap="true"><label for="j">{TXT_BIRTHDAY}</label></td>
+    <td><input id="k" type="checkbox" name="birthday" checked="checked" value="1" /></td>
+  </tr>
+  <tr class="row2">
+    <td>{TXT_ACTIVE}</td>
+    <td><input type="checkbox" name="active" checked="checked" value="1" /></td>
+  </tr>
+  <tr class="row1">
+    <td>{TXT_OPEN_ISSUE}</td>
+    <td><input type="checkbox" name="inactive" checked="checked" value="1" /></td>
+  </tr>
+  <tr class="row2">
+    <td valign="top">{TXT_NEWSLETTER_CATEGORYS}</td>
+    <td valign="top">{CATEGORY_VALUES}</td>
+  </tr>
+  <tr class="row1">
+    <td>{TXT_CHOOSE_SEPERATOR}</td>
+    <td><select name="separetor"><option value=",">,</option><option value=";">;</option><option value="/">/</option><option value="-">-</option></select></td>
+  </tr>
+</table>
+<br/>
+<input type="submit" name="newsletter_user_export" value="{TXT_EXPORT}" />
+</form>
+<!-- END module_newsletter_user_export.html -->

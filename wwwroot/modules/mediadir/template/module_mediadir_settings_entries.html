@@ -1,0 +1,232 @@
+<!-- START module_mediadir_settings_entries.html -->
+<script type="text/javascript">
+function toggleDisplayDourationType(){
+    elmSelect = document.getElementById('durationType');
+    elmLayer = document.getElementById('durationTypePeriod');
+
+    if(elmSelect.value == 1) {
+        elmLayer.style.display = 'none';
+    } else {
+        elmLayer.style.display = 'inline';
+    }
+}
+
+function toggleDisplayDourationNotification(){
+    elmSelect = document.getElementById('durationNotification');
+    elmLayer = document.getElementById('durationNotificationValue');
+    elmInput = document.getElementById('settingsEntryDisplaydurationNotification');
+
+    if(elmSelect.value == 0) {
+        elmLayer.style.display = 'none';
+        elmInput.value = 0;
+    } else {
+        elmLayer.style.display = 'inline';
+    }
+}
+
+</script>
+
+
+<form id="settingsEntriesForm" action="index.php?cmd={MODULE_NAME}&act=settings&tpl=entries" method="post" >
+<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+    <tr>
+        <th colspan="2">{TXT_MEDIADIR_SETTINGS_ENTRIES}</th>
+    </tr>
+    <tr class="row1">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_CONFIRM_NEW_ENTRIES}</td>
+        <td>
+            <input type="radio" name="settingsConfirmNewEntries" value="1" {MEDIADIR_SETTINGS_CONFIRM_NEW_ENTRIES_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="settingsConfirmNewEntries" value="0" {MEDIADIR_SETTINGS_CONFIRM_NEW_ENTRIES_OFF} /> {TXT_MEDIADIR_DEACTIVATE}&nbsp;&nbsp;<span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_CONFIRM_NEW_ENTRIES_INFO}</span>
+        </td>
+    </tr>
+    <tr class="row2">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_CONFIRM_UPDATED_ENTRIES}</td>
+        <td>
+            <input type="radio" name="settingsConfirmUpdatedEntries" value="1" {MEDIADIR_SETTINGS_CONFIRM_UPDATED_ENTRIES_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="settingsConfirmUpdatedEntries" value="0" {MEDIADIR_SETTINGS_CONFIRM_UPDATED_ENTRIES_OFF} /> {TXT_MEDIADIR_DEACTIVATE}&nbsp;&nbsp;<span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_CONFIRM_UPDATED_ENTRIES_INFO}</span>
+        </td>
+    </tr>
+    <tr class="row1">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_ALLOW_ADD_ENTRIES}</td>
+        <td>
+            <input type="radio" name="settingsAllowAddEntries" value="1" {MEDIADIR_SETTINGS_ALLOW_ADD_ENTRIES_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="settingsAllowAddEntries" value="0" {MEDIADIR_SETTINGS_ALLOW_ADD_ENTRIES_OFF} /> {TXT_MEDIADIR_DEACTIVATE}&nbsp;&nbsp;<span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_ALLOW_ADD_ENTRIES_INFO}</span>
+        </td>
+    </tr>
+    <tr class="row2">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_ADD_ONLY_COMMUNITY}</td>
+        <td>
+            <input type="radio" name="settingsAddEntriesOnlyCommunity" value="1" {MEDIADIR_SETTINGS_ADD_ONLY_COMMUNITY_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="settingsAddEntriesOnlyCommunity" value="0" {MEDIADIR_SETTINGS_ADD_ONLY_COMMUNITY_OFF} /> {TXT_MEDIADIR_DEACTIVATE}&nbsp;&nbsp;<span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_ADD_ONLY_COMMUNITY_INFO}</span>
+        </td>
+    </tr>
+    <!--<tr class="row1">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_READY_TO_CONFIRM}</td>
+        <td>
+            <input type="radio" name="settingsReadyToConfirm" value="1" {MEDIADIR_SETTINGS_READY_TO_CONFIRM_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="settingsReadyToConfirm" value="0" {MEDIADIR_SETTINGS_READY_TO_CONFIRM_OFF} /> {TXT_MEDIADIR_DEACTIVATE}&nbsp;&nbsp;<span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_READY_TO_CONFIRM_INFO}</span>
+        </td>
+    </tr>   -->
+    <tr class="row1">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_ALLOW_EDIT_ENTRIES}</td>
+        <td>
+            <input type="radio" name="settingsAllowEditEntries" value="1" {MEDIADIR_SETTINGS_ALLOW_EDIT_ENTRIES_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="settingsAllowEditEntries" value="0" {MEDIADIR_SETTINGS_ALLOW_EDIT_ENTRIES_OFF} /> {TXT_MEDIADIR_DEACTIVATE}&nbsp;&nbsp;<span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_ALLOW_EDIT_ENTRIES_INFO}</span>
+        </td>
+    </tr>
+    <tr class="row2">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_ALLOW_DEL_ENTRIES}</td>
+        <td>
+            <input type="radio" name="settingsAllowDelEntries" value="1" {MEDIADIR_SETTINGS_ALLOW_DEL_ENTRIES_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="settingsAllowDelEntries" value="0" {MEDIADIR_SETTINGS_ALLOW_DEL_ENTRIES_OFF} /> {TXT_MEDIADIR_DEACTIVATE}&nbsp;&nbsp;<span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_ALLOW_DEL_ENTRIES_INFO}</span>
+        </td>
+    </tr>
+    <tr class="row1">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_ENTRIEY_INDIVIDUAL_ORDER}</td>
+        <td>
+            <input type="radio" name="settingsIndividualEntryOrder" value="1" {MEDIADIR_SETTINGS_ENTRIEY_INDIVIDUAL_ORDER_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="settingsIndividualEntryOrder" value="0" {MEDIADIR_SETTINGS_ENTRIEY_INDIVIDUAL_ORDER_OFF} /> {TXT_MEDIADIR_DEACTIVATE}
+        </td>
+    </tr>
+<!--    <tr class="row2">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_COUNT_ENTRIES}</td>
+        <td>
+            <input type="radio" name="settingsCountEntries" value="1" {MEDIADIR_SETTINGS_COUNT_ENTRIES_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="settingsCountEntries" value="0" {MEDIADIR_SETTINGS_COUNT_ENTRIES_OFF} /> {TXT_MEDIADIR_DEACTIVATE}&nbsp;&nbsp;<span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_COUNT_ENTRIES_INFO}</span>
+        </td>
+    </tr> -->
+    <tr class="row1">
+        <td width="280" valign="top">{TXT_MEDIADIR_SETTINGS_NUM_ENTRIES_PER_GROUP}</td>
+        <td>
+            <table border="0" cellpadding="2" cellspacing="0">
+                <tr>
+                    <td width="160" style="border: 0px;"><b>{TXT_MEDIADIR_SETTINGS_COMMUNITY_GROUP}</b></td>
+                    <td style="border: 0px;"><b>{TXT_MEDIADIR_SETTINGS_NUM}</b>&nbsp;&nbsp;<span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_NUM_ENTRIES_PER_GROUP_INFO}</span></td>
+                </tr>
+                <!-- BEGIN communityGroupList -->
+                <tr>
+                    <td style="border: 0px;">{MEDIADIR_SETTINGS_NUM_ENTRIES_GROUP_NAME}</td>
+                    <td style="border: 0px;"><input type="text" name="settingsNumEntries[{MEDIADIR_SETTINGS_NUM_ENTRIES_GROUP_ID}]" value="{MEDIADIR_SETTINGS_NUM_ENTRIES}" style="width: 35px"></td>
+                </tr>
+                <!-- END communityGroupList -->
+                <!-- BEGIN noCommunityGroupList -->
+                <tr>
+                    <td style="border: 0px;" colspan="2"><i>{TXT_MEDIADIR_SETTINGS_NO_COMMUNITY_GROUPS}</i></td>
+                </tr>
+                <!-- END noCommunityGroupList -->
+            </table>
+        </td>
+    </tr>
+    <tr class="row2">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_PAGING_NUM_ENTRIES}</td>
+        <td>
+            <input name="settingsPagingNumEntries" type="text" style="width: 35px" value="{MEDIADIR_SETTINGS_PAGING_NUM_ENTRIES}" />&nbsp;&nbsp;<span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_PAGING_NUM_ENTRIES_INFO}</span>
+        </td>
+    </tr>
+    <tr class="row1">
+        <td>{TXT_MEDIADIR_SETTINGS_DISPLAYDURATION}</td>
+        <td>
+            <select id="durationType" name="settingsEntryDisplaydurationType" style="width: 302px;" onchange="toggleDisplayDourationType();">
+                <option value="1" {MEDIADIR_SETTINGS_DISPLAYDURATION_SELECT_ALWAYS}>{TXT_MEDIADIR_DISPLAY_DURATION_ALWAYS}</option>
+                <option value="2" {MEDIADIR_SETTINGS_DISPLAYDURATION_SELECT_PERIOD}>{TXT_MEDIADIR_DISPLAY_DURATION_PERIOD}</option>
+            </select>
+            <span id="durationTypePeriod" style="display:{MEDIADIR_SETTINGS_DISPLAYDURATION_SHOW_PERIOD};">
+                &nbsp;&nbsp;&nbsp;<input type="text" name="settingsEntryDisplaydurationValue"  value="{MEDIADIR_SETTINGS_DISPLAYDURATION_VALUE}" size="3" />&nbsp;<select  name="settingsEntryDisplaydurationValueType" style="width: 80px;" ><option value="1" {MEDIADIR_SETTINGS_DISPLAYDURATION_VALUE_TYPE_DAY}>{TXT_MEDIADIR_SETTINGS_DISPLAYDURATION_VALUE_TYPE_DAY}</option><option value="2" {MEDIADIR_SETTINGS_DISPLAYDURATION_VALUE_TYPE_MONTH}>{TXT_MEDIADIR_SETTINGS_DISPLAYDURATION_VALUE_TYPE_MONTH}</option><option value="3" {MEDIADIR_SETTINGS_DISPLAYDURATION_VALUE_TYPE_YEAR}>{TXT_MEDIADIR_SETTINGS_DISPLAYDURATION_VALUE_TYPE_YEAR}</option></select>
+            </span>
+        </td>
+    </tr>
+    <tr class="row2">
+        <td>{TXT_MEDIADIR_SETTINGS_NOTIFICATION_DISPLAYDURATION}</td>
+        <td>
+            <select id="durationNotification" name="durationNotification" style="width: 302px;" onchange="toggleDisplayDourationNotification();">
+                <option value="0" {MEDIADIR_SETTINGS_DISPLAYDURATION_NOTIFICATION_OFF}>{TXT_MEDIADIR_DEACTIVATE}</option>
+                <option value="1" {MEDIADIR_SETTINGS_DISPLAYDURATION_NOTIFICATION_ON}>{TXT_MEDIADIR_ACTIVATE}</option>
+            </select>
+            <span id="durationNotificationValue" style="display:{MEDIADIR_SETTINGS_DISPLAYDURATION_NOTIFIVATION_SHOW_DAYBEFORE};">
+                &nbsp;&nbsp;&nbsp;<input type="text" id="settingsEntryDisplaydurationNotification" name="settingsEntryDisplaydurationNotification"  value="{MEDIADIR_SETTINGS_DISPLAYDURATION_NOTIFICATION_VALUE}" size="3" />&nbsp;{TXT_MEDIADIR_SETTINGS_DISPLAYDURATION_NOTIFICATION_DAYSBEFOR}
+            </span>
+        </td>
+    </tr>
+</table>
+<br />
+<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+    <tr>
+        <th colspan="2">{TXT_MEDIADIR_LANGUAGES}</th>
+    </tr>
+    <tr class="row1">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_SHOW_ENTRIES_IN_ALL_LANG}</td>
+        <td>
+            <input type="radio" name="settingsShowEntriesInAllLang" value="1" {MEDIADIR_SETTINGS_SHOW_ENTRIES_IN_ALL_LANG_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="settingsShowEntriesInAllLang" value="0" {MEDIADIR_SETTINGS_SHOW_ENTRIES_IN_ALL_LANG_OFF} /> {TXT_MEDIADIR_DEACTIVATE}&nbsp;&nbsp;<span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_SHOW_ENTRIES_IN_ALL_LANG_INFO}</span>
+        </td>
+    </tr>
+    <tr class="row2">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_MULTILANG_FRONTEND}</td>
+        <td>
+            <input type="radio" name="settingsFrontendUseMultilang" value="1" {MEDIADIR_SETTINGS_MULTILANG_FRONTEND_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="settingsFrontendUseMultilang" value="0" {MEDIADIR_SETTINGS_MULTILANG_FRONTEND_OFF} /> {TXT_MEDIADIR_DEACTIVATE}&nbsp;&nbsp;<span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_MULTILANG_FRONTEND_INFO}</span>
+        </td>
+    </tr>
+    <tr class="row1">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_TRANSLATION_STATUS}</td>
+        <td>
+            <input type="radio" name="settingsTranslationStatus" value="1" {MEDIADIR_SETTINGS_TRANSLATION_STATUS_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="settingsTranslationStatus" value="0" {MEDIADIR_SETTINGS_TRANSLATION_STATUS_OFF} /> {TXT_MEDIADIR_DEACTIVATE}&nbsp;&nbsp;<span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_TRANSLATION_STATUS_INFO}</span>
+        </td>
+    </tr>
+    <tr class="row2">
+        <td width="280" valign="top">{TXT_MEDIADIR_SETTINGS_ACTIVE_LANGUAGES}</td>
+        <td>
+            <!-- BEGIN activeLanguageList -->
+            <input type="checkbox" name="settingsActiveLanguages[]" value="{MEDIADIR_SETTINGS_ACTIVE_LANG_ID}" {MEDIADIR_SETTINGS_ACTIVE_LANG_STATUS} /> {MEDIADIR_SETTINGS_ACTIVE_LANG_NAME}<br />
+            <!-- END activeLanguageList -->
+        </td>
+    </tr>
+</table>
+<br />
+<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+    <tr>
+        <th colspan="2">{TXT_MEDIADIR_LATEST_ENTRIES}</th>
+    </tr>
+<!-- not yet implemented
+    <tr class="row1">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_LATEST_NUM_XML}</td>
+        <td>
+            <input name="settingsLatestNumXML" type="text" style="width: 35px" value="{MEDIADIR_SETTINGS_LATEST_NUM_XML}" />
+        </td>
+    </tr> -->
+    <tr class="row2">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_LATEST_NUM_OVERVIEW}</td>
+        <td>
+            <input name="settingsLatestNumOverview" type="text" style="width: 35px" value="{MEDIADIR_SETTINGS_LATEST_NUM_OVERVIEW}" />
+        </td>
+    </tr>
+    <tr class="row1">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_LATEST_NUM_BACKEND}</td>
+        <td>
+            <input name="settingsLatestNumBackend" type="text" style="width: 35px" value="{MEDIADIR_SETTINGS_LATEST_NUM_BACKEND}" />
+        </td>
+    </tr>
+    <tr class="row2">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_LATEST_NUM_FRONTEND}</td>
+        <td>
+            <input name="settingsLatestNumFrontend" type="text" style="width: 35px" value="{MEDIADIR_SETTINGS_LATEST_NUM_FRONTEND}" />
+        </td>
+    </tr>
+    <tr class="row1">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_LATEST_NUM_HEADLINES}</td>
+        <td>
+            <input name="settingsLatestNumHeadlines" type="text" style="width: 35px" value="{MEDIADIR_SETTINGS_LATEST_NUM_HEADLINES}" />
+        </td>
+    </tr>
+</table>
+<br />
+<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+    <tr>
+        <th colspan="2">{TXT_MEDIADIR_POPULAR_HITS}</th>
+    </tr>
+    <tr class="row1">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_POPULAR_NUM_FRONTEND}</td>
+        <td>
+            <input name="settingsPopularNumFrontend" type="text" style="width: 35px" value="{MEDIADIR_SETTINGS_POPULAR_NUM_FRONTEND}" />
+        </td>
+    </tr>
+    <tr class="row2">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_POPULAR_NUM_RESTORE}</td>
+        <td>
+            <input name="settingsPopularNumRestore" type="text" style="width: 35px" value="{MEDIADIR_SETTINGS_POPULAR_NUM_RESTORE}" />
+        </td>
+    </tr>
+</table>
+<br />
+<input type="submit" name="submitSettingsForm" value="{TXT_MEDIADIR_SUBMIT}" />
+</form>
+<!-- END modulemediadir_settings_entries.html -->

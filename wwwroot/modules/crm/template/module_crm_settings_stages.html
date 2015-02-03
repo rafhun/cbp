@@ -1,0 +1,246 @@
+<style type="text/css">
+    body table.adminlist input[type=text] {
+        width: 255px;
+    }
+    #ajaxMessageDiv {
+        width: 100px;position:fixed;left: 45%;background-color: #ccc;padding: 10px;font-size: 14px;top: 0;
+    }
+    #ajaxMessageDiv:hover{
+        background-color: #D0D0A8;
+    }    
+    .okBox-new {
+        background: #DFF0D8;
+        clear: left;
+        color: #39950C;
+        margin-bottom: 5px;
+        padding: 8px;
+    }
+    </style>
+    <script type="text/javascript">
+        function htmlEncode(value) {
+            if (value) {
+                return cx.jQuery('<div />').text(value).html();
+            } else {
+                return '';
+            }
+        }
+
+        function htmlDecode(value) {
+            if (value) {
+                return $('<div />').html(value).text();
+            } else {
+                return '';
+            }
+        }
+
+        function setTableRow(tableId) {
+            count = 0;
+            $J('table#' + tableId + ' tbody tr:visible').each(function() {
+                $J(this).removeClass("row1 row2");
+                rowClass = (count % 2 == 0) ? "row1" : "row2";
+                $J(this).addClass(rowClass);
+                count++;
+            });
+        }
+        $J(function() {
+            $J('.changestatus').click(function(e) {
+                var $elm = $J(this);
+                url = $elm.attr("href");
+                $J.get(url, function(data) {
+                    image = $elm.find('img').attr('src').split('/')[2] == 'led_green.gif' ? 'led_red.gif' : 'led_green.gif';
+                    $elm.find('img').attr('src', 'images/icons/' + image);
+                    fadeOkbox('{TXT_CRM_STATUS_SUCCESSFULLY_CHANGED}');
+                });
+                e.preventDefault();
+            });
+            $J("#multiAction").change(function() {
+
+                if ($J(".entrySelection:checked").length <= 0 && $J(this).val() != 0) {
+                    alert('{TXT_PRODUCTS_SELECT_ENTRIES}');
+                    return
+                }
+                if ($J(this).val() == "delete") {
+                    if (confirm('{TXT_CRM_ARE_YOU_SURE_DELETE_ENTRIES}'))
+                        $J("#stage_entries").submit();
+                    else
+                        return;
+
+                }
+                if ($J(this).val() != 0)
+                    $J("#stage_entries").submit();
+            });
+            $J(".deleteEntry").click(function() {
+                $elm = $J(this);
+                en_id = $J(this).attr('rel').split('_')[1]
+                if (confirm("{TXT_CRM_ARE_YOU_SURE_DELETE_ENTRIES}")) {
+                    $J.ajax({
+                        url: './index.php?cmd={MODULE_NAME}&act=settings&tpl=opstages&actionType=deletestage&ajax=1&id=' + en_id,
+                        type: 'POST',
+                        success: function(msg) {
+                            $elm.closest("tr").remove();
+                            setTableRow("entryList");
+                            fadeOkbox('{TXT_CRM_DELETE_MESSAGE}');
+                        }
+                    });
+                }
+            });
+            $J(".editEntry ").click(function() {
+
+                en_id = $J(this).attr('rel').split('_')[1];
+                $J(".entry_" + en_id + "_hidden").show();
+                $J(".entry_" + en_id + "_text").hide();
+
+                $J(this).hide();
+                $J(".entry_" + en_id + "_save").show();
+
+            });
+            $J(".saveEntry").click(function() {
+                var $elm = $J(this);
+                form_value = $J("#stage_entries").serialize();
+
+                $J.ajax({
+                    url: './index.php?cmd={MODULE_NAME}&act=settings&tpl=opstages&fn=modify&ajax=1',
+                    type: 'POST',
+                    data: form_value,
+                    success: function(result) {
+                        en_id = $elm.attr('rel').split('_')[1];
+                        $J(".entry_" + en_id + "_hidden").hide();
+                        $J(".entry_" + en_id + "_hidden").each(function() {
+                            $J(this).next().html(htmlEncode($J(this).val()));
+                        });
+                        $J(".entry_" + en_id + "_text").show();
+
+                        $elm.hide();
+                        $J(".entry_" + en_id + "_edit").show();
+                        fadeOkbox('{TXT_CRM_EDIT_MESSAGE}');
+                    }
+                });
+            });
+        });
+        $J(document).ajaxStart(function() {
+            $J('body').append(getMessageDiv('Saving'));
+        }).ajaxStop(function() {
+            $J("#ajaxMessageDiv").remove();
+        });
+        function getMessageDiv(mes) {
+            return '<div id="ajaxMessageDiv">' + mes + '..</div>';
+        }
+        function fadeOkbox(msg) {
+            $J('.okBox-new').html(msg);
+            $J('.okBox-new').fadeIn('slow');
+            setTimeout(function() {
+                $J('.okBox-new').fadeOut('slow');
+            }, 6000);
+        }
+function checkValidations() {
+            var errChk;
+            $J("input , select").css("border","1px solid #0A50A1");
+            if (document.getElementById('label').value.trim() == '') {
+                errChk = 1;
+                $J('#label').css('border', '1px solid red');
+            }
+            
+            if (document.getElementById('stage').value.trim() == '') {
+                errChk = 1;
+                $J('#stage').css('border', '1px solid red');
+            } else if (!/^[+-]?\d+(\.\d+)?([eE][+-]?\d+)?$/.test($J("#stage").val())) {
+                errChk = 1;
+                $J("#stage").val("");
+                $J('#stage').css('border', '1px solid red');
+            }
+
+            if (errChk == 1) {
+                $J('#formerr').html("{TXT_CRM_MANDATORY_FIELDS_NOT_FILLED_OUT}");
+                $J('#formerr').css('display', 'block');
+                return false;
+            } else {
+                return true;
+            }
+        }
+        </script>
+
+    <div id="stage_page">
+    <div class="okBox-new" style="display:none;"></div>
+    <br>
+    <div id="formerr"></div>
+    <ul id="tabmenu">
+        <li><a id="Entries_ShowEntries" class="active" href="javascript:{}" onclick="selectTab('ShowEntries')" title="{TXT_CRM_DEALS_STAGES}">{TXT_CRM_DEALS_STAGES}</a></li>
+        <li><a id="Entries_AddOpStages" class="inactive" href="javascript:{}" onclick="selectTab('AddOpStages')" title="{TXT_CRM_ADD_STAGE}">{TXT_CRM_ADD_STAGE}</a></li>
+    </ul>
+    <div id="ShowEntries" class="Entries">
+        <form id="stage_entries" name="stage_overview_entries" action="" method="post">
+            <table class="adminlist" id="entryList" width="100%" cellspacing="0" cellpadding="3" >
+                <thead>
+                    <tr>
+                        <th colspan="6">{TXT_CRM_DEALS_STAGES}</th>
+                    </tr>
+                    <tr class="row3">
+                        <td width="3%">&nbsp;&nbsp;<strong>#</strong></td>
+                        <td width="5%"><strong>{TXT_STATUS}</strong></td>
+                        <td width="7%"><strong>{TXT_CRM_SORTING}</strong></td>
+                        <td width="35%"><strong>{TXT_CRM_LABEL}</strong></td>
+                        <td width="40%"><strong>{TXT_CRM_DEALS_STAGE}</strong></td>
+                        <td width="10%" style="text-align: right;"><strong>{TXT_CRM_FUNCTIONS}</strong></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- BEGIN stageEntries -->
+                    <tr class="{ROW_CLASS}" id="entry_{ENTRY_ID}">
+                        <td><input type="checkbox" name="stageEntry[]" class="entrySelection" value="{ENTRY_ID}" /></td>
+                        <td>&nbsp;
+                            <a href="index.php?cmd={MODULE_NAME}&ajax=1&act=settings&tpl=opstages&actionType=changestatus&id={ENTRY_ID}" class="changestatus" ><img src="{CRM_STAGE_STATUS}" /></a>
+                        </td>
+                        <td>&nbsp;&nbsp;<input style="width: 25px;text-align: right;padding: 2px;" type="text" name="sorting[{ENTRY_ID}]" value="{CRM_SORTING}" /></td>
+                        <td><input type="text" style="display:none" class="entry_{ENTRY_ID}_hidden" name="label[{ENTRY_ID}]" value="{CRM_LABEL}" /><span class="entry_{ENTRY_ID}_text">{CRM_LABEL}</span></td>
+                        <td><input type="text" style="display:none" class="entry_{ENTRY_ID}_hidden" name="rate[{ENTRY_ID}]" value="{CRM_STAGE}" /><span class="entry_{ENTRY_ID}_text">{CRM_STAGE}</span></td>
+                        <td>
+                            <div align="right">
+                                <a title="{TXT_CRM_IMAGE_EDIT}" target="_self" rel="entry_{ENTRY_ID}_edit" class="entry_{ENTRY_ID}_edit editEntry" href="javascript:void(0);" ><img border="0" title="{TXT_CRM_IMAGE_EDIT}" alt="{TXT_CRM_IMAGE_EDIT}" src="images/icons/edit.gif" /></a>
+                                <a title="{TXT_IMAGE_SAVE}" target="_self" style="display: none;" rel="entry_{ENTRY_ID}_save" class="entry_{ENTRY_ID}_save saveEntry" href="javascript:void(0);" ><img border="0" title="{TXT_IMAGE_SAVE}" alt="{TXT_IMAGE_SAVE}" src="images/icons/save.png" /></a>
+                                <a rel="entry_{ENTRY_ID}_delete" class="entry_{ENTRY_ID}_delete deleteEntry" href="javascript:void(0);" target="_self" title="{TXT_CRM_IMAGE_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{TXT_CRM_IMAGE_DELETE}" title="{TXT_CRM_IMAGE_DELETE}" /></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- END stageEntries -->
+                </tbody>
+            </table>
+            <br>
+            <img height="22" border="0" width="38" src="images/icons/arrow.gif" alt=":" />
+            <a href="#" onclick="changeCheckboxes('stage_overview_entries', 'stageEntry[]', true);
+        return false;">{TXT_CRM_SELECT_ALL}</a> / <a href="#" onclick="changeCheckboxes('stage_overview_entries', 'stageEntry[]', false);
+        return false;">{TXT_CRM_REMOVE_SELECTION}</a>
+            <select name="actionType" id="multiAction">
+                <option value="0">{TXT_CRM_SELECT_ACTION}</option>
+                <option value="activate">{TXT_CRM_ACTIVATESELECTED}</option>
+                <option value="deactivate">{TXT_CRM_DEACTIVATESELECTED}</option>
+                <option value="delete">{TXT_CRM_DELETE_SELECTED}</option>
+            </select>
+            <br>
+            <br>
+            <input type="submit" name="save_entries" value="{TXT_CRM_SAVE}" />
+        </form>
+    </div>
+    <div id="AddOpStages" class="Entries" style="display: none;">
+        <form action="" method="post" name="add_stage" id="add_stage">
+            <table cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+                <thead>
+                    <tr>
+                        <th colspan="2">{TXT_CRM_ADD_STAGE}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row1">
+                        <td width="15%">{TXT_CRM_LABEL}<font color="red">&nbsp;*</font></td>
+                        <td><input type="text" name="label" id="label" value="{CRM_STAGE_LABEL}" />&nbsp;<input type="checkbox" {CRM_STAGE_CHECKED} name="status" value="1" />&nbsp;{TXT_ACTIVE}</td>
+                    </tr>
+                    <tr class="row2">
+                        <td>{TXT_CRM_DEALS_STAGE}<font color="red">&nbsp;*</font></td>
+                        <td><input type="text" name="stage" id="stage" value="{CRM_STAGE_VALUE}" /></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <input type="submit" name="add_stage" value="{TXT_CRM_SAVE}" onClick="return checkValidations();"/>
+        </form>
+    </div>
+</div>

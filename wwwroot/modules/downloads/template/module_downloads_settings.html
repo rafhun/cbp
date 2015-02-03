@@ -1,0 +1,232 @@
+<!-- start module_downloads_settings.html -->
+<script type="text/javascript">
+// <![CDATA[
+    function downloadsSelectAllOptions(CONTROL)
+    {
+        for(var i = 0;i < CONTROL.length;i++)
+        {
+            CONTROL.options[i].selected = true;
+        }
+    }
+
+    function downloadsDeselectAllOptions(CONTROL)
+    {
+        for(var i = 0;i < CONTROL.length;i++)
+        {
+            CONTROL.options[i].selected = false;
+        }
+    }
+
+    function downloadsSelectAll()
+    {
+    	downloadsSelectAllOptions(document.getElementById('downloads_settings_associate_user_to_groups_associated_groups'))
+    }
+
+    function downloadsAddOptionToList(from, dest)
+    {
+        if (from.selectedIndex < 0) {
+            if (from.options[0] != null) {
+                from.options[0].selected = true;
+            }
+            from.focus();
+            return false;
+        } else {
+            for (var i=0; i<from.length; i++) {
+                if (from.options[i].selected && !from.options[i].disabled) {
+                    dest.options[dest.length] = new Option(from.options[i].text, from.options[i].value, false, false);
+                }
+            }
+            for (var i=from.length-1; i>=0; i--) {
+                if (from.options[i].selected && !from.options[i].disabled) {
+                   from.options[i] = null;
+                }
+            }
+        }
+    }
+
+    function downloadsRemoveOptionFromList(from,dest)
+    {
+        if (dest.selectedIndex < 0) {
+            if (dest.options[0] != null) {
+                dest.options[0].selected = true;
+            }
+            dest.focus();
+            return false;
+        } else {
+            for (var i=0; i<dest.options.length; i++) {
+                if (dest.options[i].selected && !dest.options[i].disabled) {
+                    from.options[from.options.length] = new Option(dest.options[i].text, dest.options[i].value, false, false);
+                }
+            }
+            for (var i=dest.options.length-1; i>=0; i--) {
+                if (dest.options[i].selected && !dest.options[i].disabled) {
+                   dest.options[i] = null;
+                }
+            }
+        }
+    }
+// ]]>
+</script>
+
+<ul id="tabmenu">
+    <li><a id="downloadsTab_settingsGeneral" class="active" href="javascript:void(0)" onclick="selectTab('settingsGeneral')" title="{TXT_DOWNLOADS_GENERAL}">{TXT_DOWNLOADS_GENERAL}</a></li>
+    <li><a id="downloadsTab_settingsInterfaces" href="javascript:void(0)" onclick="selectTab('settingsInterfaces')" title="{TXT_DOWNLOADS_INTERFACES}">{TXT_DOWNLOADS_INTERFACES}</a></li>
+</ul>
+
+<form name="downloads_settings_form" id="downloads_settings_form" action="index.php?cmd=downloads&amp;act=settings" method="post" onsubmit="downloadsSelectAll(); return true;">
+<!-- start div downloadsTab_settingsGeneral -->
+    <div id="settingsGeneral" class="downloadsTab">
+        <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist" summary="downloads settings">
+            <tbody style="vertical-align:top;">
+                <tr>
+                    <th colspan="2">{TXT_DOWNLOADS_SETTINGS}</th>
+                </tr>
+                <tr class="row3">
+                    <td colspan="2" style="font-weight:bold;">{TXT_DOWNLOADS_OVERVIEW_PAGE}</td>
+                </tr>
+                <tr class="row1">
+                    <td width="280">
+                        <strong>{TXT_DOWNLOADS_COL_COUNT}</strong><br />
+                    {TXT_DOWNLOADS_COL_COUNT_DESC}
+                    </td>
+                    <td><input type="text" name="downloads_settings_col_count" value="{DOWNLOADS_SETTINGS_COL_COUNT}" /></td>
+                </tr>
+                <tr class="row2">
+                    <td style="padding-bottom: 10px;">
+                        <strong>{TXT_DOWNLOADS_SUBCAT_COUNT}</strong><br />
+                        {TXT_DOWNLOADS_SUBCAT_COUNT_DESC}
+                    </td>
+                    <td style="padding-bottom: 10px;"><input type="text" name="downloads_settings_subcat_count" value="{DOWNLOADS_SETTINGS_SUBCAT_COUNT}" /></td>
+                </tr>
+                <tr class="row3">
+                    <td colspan="2" style="font-weight:bold;">{TXT_DOWNLOADS_BLOCKS}</td>
+                </tr>
+                <tr class="row1">
+                    <td>
+                        <strong>{TXT_DOWNLOADS_MOST_VIEWED_FILE_COUNT}</strong><br />
+                        {TXT_DOWNLOADS_MOST_VIEWED_FILE_COUNT_DESC}
+                    </td>
+                    <td><input type="text" name="downloads_settings_most_viewed_file_count" value="{DOWNLOADS_SETTINGS_MOST_VIEWED_FILE_COUNT}" /></td>
+                </tr>
+                <tr class="row2">
+                    <td>
+                        <strong>{TXT_DOWNLOADS_MOST_DOWNLOADED_FILE_COUNT}</strong><br />
+                        {TXT_DOWNLOADS_MOST_DOWNLOADED_FILE_COUNT_DESC}
+                    </td>
+                    <td><input type="text" name="downloads_settings_most_downloaded_file_count" value="{DOWNLOADS_SETTINGS_MOST_DOWNLOADED_FILE_COUNT}" /></td>
+                </tr>
+                <tr class="row1">
+                    <td>
+                        <strong>{TXT_DOWNLOADS_MOST_POPULAR_FILE_COUNT}</strong><br />
+                        {TXT_DOWNLOADS_MOST_POPULAR_FILE_COUNT_DESC}
+                    </td>
+                    <td><input type="text" name="downloads_settings_most_popular_file_count" value="{DOWNLOADS_SETTINGS_MOST_POPULAR_FILE_COUNT}" /></td>
+                </tr>
+                <tr class="row2">
+                    <td>
+                        <strong>{TXT_DOWNLOADS_NEWEST_FILE_COUNT}</strong><br />
+                        {TXT_DOWNLOADS_NEWEST_FILE_COUNT_DESC}
+                    </td>
+                    <td><input type="text" name="downloads_settings_newest_file_count" value="{DOWNLOADS_SETTINGS_NEWEST_FILE_COUNT}" /></td>
+                </tr>
+                <tr class="row1">
+                    <td style="padding-bottom: 10px;">
+                        <strong>{TXT_DOWNLOADS_UPDATE_FILE_COUNT}</strong><br />
+                        {TXT_DOWNLOADS_UPDATE_FILE_COUNT_DESC}
+                    </td>
+                    <td style="padding-bottom: 10px;"><input type="text" name="downloads_settings_updated_file_count" value="{DOWNLOADS_SETTINGS_UPDATED_FILE_COUNT}" /></td>
+                </tr>
+                <tr class="row3">
+                    <td colspan="2" style="font-weight:bold;">{TXT_DOWNLOADS_MISCELLANEOUS}</td>
+                </tr>
+                <tr class="row1">
+                    <td>
+                        <strong>{TXT_DOWNLOADS_NEW_FILE_TIME_LIMIT}</strong><br />
+                        {TXT_DOWNLOADS_NEW_FILE_TIME_LIMIT_DESC}<br />
+                        {TXT_DOWNLOADS_SECONDS_COMB_EXAMPLES}
+                    </td>
+                    <td><input type="text" name="downloads_settings_new_file_time_limit" value="{DOWNLOADS_SETTINGS_NEW_FILE_TIME_LIMIT}" /></td>
+                </tr>
+                <tr class="row2">
+                    <td style="padding-bottom: 10px;">
+                        <strong>{TXT_DOWNLOADS_UPDATED_FILE_TIME_LIMIT}</strong><br />
+                        {TXT_DOWNLOADS_UPDATED_FILE_TIME_LIMIT_DESC}<br />
+                        {TXT_DOWNLOADS_SECONDS_COMB_EXAMPLES}
+                    </td>
+                    <td style="padding-bottom: 10px;"><input type="text" name="downloads_settings_updated_file_time_limit" value="{DOWNLOADS_SETTINGS_UPDATEDED_FILE_TIME_LIMIT}" /></td>
+                </tr>
+                <tr class="row3">
+                    <td colspan="2" style="font-weight:bold;">{TXT_DOWNLOADS_ATTRIBUTES}</td>
+                </tr>
+                <tr class="row1">
+                    <td>{TXT_DOWNLOADS_ATTRIBUTES_DESC}</td>
+                    <td>
+                        <input type="checkbox" name="downloads_settings_attribute_metakeys" id="downloads_settings_attribute_metakeys" value="1" {DOWNLOADS_SETTINGS_ATTRIBUTE_METAKEYS_CHECKED} /> <label for="downloads_settings_attribute_metakeys">{TXT_DOWNLOADS_METAKEYS}</label><br />
+                        <input type="checkbox" name="downloads_settings_attribute_size" id="downloads_settings_attribute_size" value="1" {DOWNLOADS_SETTINGS_ATTRIBUTE_SIZE_CHECKED} /> <label for="downloads_settings_attribute_size">{TXT_DOWNLOADS_SIZE}</label><br />
+                        <input type="checkbox" name="downloads_settings_attribute_license" id="downloads_settings_attribute_license" value="1" {DOWNLOADS_SETTINGS_ATTRIBUTE_LICENSE_CHECKED} /> <label for="downloads_settings_attribute_license">{TXT_DOWNLOADS_LICENSE}</label><br />
+                        <input type="checkbox" name="downloads_settings_attribute_version" id="downloads_settings_attribute_version" value="1" {DOWNLOADS_SETTINGS_ATTRIBUTE_VERSION_CHECKED} /> <label for="downloads_settings_attribute_version">{TXT_DOWNLOADS_VERSION}</label><br />
+                        <input type="checkbox" name="downloads_settings_attribute_author" id="downloads_settings_attribute_author" value="1" {DOWNLOADS_SETTINGS_ATTRIBUTE_AUTHOR_CHECKED} /> <label for="downloads_settings_attribute_author">{TXT_DOWNLOADS_AUTHOR}</label><br />
+                        <input type="checkbox" name="downloads_settings_attribute_website" id="downloads_settings_attribute_website" value="1" {DOWNLOADS_SETTINGS_ATTRIBUTE_WEBSITE_CHECKED} /> <label for="downloads_settings_attribute_website">{TXT_DOWNLOADS_WEBSITE}</label><br />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<!-- end div downloadsTab_settingsGeneral -->
+<!-- start div downloadsTab_settingsInterfaces -->
+    <div id="settingsInterfaces" class="downloadsTab" style="display:none;">
+        <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist" summary="downloads settings interfaces">
+            <tbody style="vertical-align:top;">
+                <tr>
+                    <th colspan="2">{TXT_DOWNLOADS_INTERFACES}</th>
+                </tr>
+                <tr class="row3">
+                    <td colspan="2" style="font-weight:bold;">{TXT_DOWNLOADS_USER_ADMIN}</td>
+                </tr>
+                <tr class="row1">
+                    <td width="280">
+                        <strong>{TXT_DOWNLOADS_AUTOMATIC_CATEGORY_CREATION}</strong><br />
+                    {TXT_DOWNLOADS_AUTOMATIC_CATEGORY_CREATION_DESC}
+                    </td>
+                    <td>
+                        <table cellspacing="0" cellpadding="3" border="0" summary="user group assignements">
+                            <tbody style="vertical-align:top;">
+                                <tr>
+                                    <td width="300" style="border-bottom:0px;">{TXT_DOWNLOADS_AVAILABLE_USER_GROUPS}<br />
+                                        <select name="downloads_settings_associate_user_to_groups_not_associated_groups[]" id="downloads_settings_associate_user_to_groups_not_associated_groups" size="15" style="width:300px;" multiple="multiple">
+                                        {DOWNLOADS_SETTINGS_NOT_ASSOCIATED_GROUPS}
+                                        </select>
+                                        <br />
+                                        <a href="javascript:void(0);" onclick="downloadsSelectAllOptions(document.getElementById('downloads_settings_associate_user_to_groups_not_associated_groups'))" title="{TXT_DOWNLOADS_CHECK_ALL}">{TXT_DOWNLOADS_CHECK_ALL}</a>
+                                        <br />
+                                        <a href="javascript:void(0);" onclick="downloadsDeselectAllOptions(document.getElementById('downloads_settings_associate_user_to_groups_not_associated_groups'))" title="{TXT_DOWNLOADS_UNCHECK_ALL}">{TXT_DOWNLOADS_UNCHECK_ALL}</a>
+                                    </td>
+                                    <td width="45" style="border-bottom:0px; text-align:center;">
+                                        <br />
+                                        <input type="button" value="&gt;&gt;" name="addOption" onclick="downloadsAddOptionToList(document.getElementById('downloads_settings_associate_user_to_groups_not_associated_groups'), document.getElementById('downloads_settings_associate_user_to_groups_associated_groups'))" style="margin-bottom:2px;" />
+                                        <br />
+                                        <input type="button" value="&lt;&lt;" name="removeOption" onclick="downloadsRemoveOptionFromList(document.getElementById('downloads_settings_associate_user_to_groups_not_associated_groups'), document.getElementById('downloads_settings_associate_user_to_groups_associated_groups'))" />
+                                    </td>
+                                   <td width="100%" style="border-bottom:0px;">{TXT_DOWNLOADS_ASSIGNED_USER_GROUPS}<br />
+                                        <select name="downloads_settings_associate_user_to_groups_associated_groups[]" id="downloads_settings_associate_user_to_groups_associated_groups" size="15" style="width:300px;" multiple="multiple">
+                                        {DOWNLOADS_SETTINGS_ASSOCIATED_GROUPS}
+                                        </select>
+                                        <br />
+                                        <a href="javascript:void(0);" onclick="downloadsSelectAllOptions(document.getElementById('downloads_settings_associate_user_to_groups_associated_groups'))" title="{TXT_DOWNLOADS_CHECK_ALL}">{TXT_DOWNLOADS_CHECK_ALL}</a>
+                                        <br />
+                                        <a href="javascript:void(0);" onclick="downloadsDeselectAllOptions(document.getElementById('downloads_settings_associate_user_to_groups_associated_groups'))" title="{TXT_DOWNLOADS_UNCHECK_ALL}">{TXT_DOWNLOADS_UNCHECK_ALL}</a>
+                                     </td>
+                                </tr>
+                           </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<!-- end div downloadsTab_settingsInterfaces -->
+<br />
+<br />
+<input type="submit" name="downloads_settings_save" value="{TXT_DOWNLOADS_SAVE}" />
+</form>
+<!-- end module_downloads_settings.html -->

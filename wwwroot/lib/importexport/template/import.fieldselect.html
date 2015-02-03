@@ -1,0 +1,148 @@
+<!-- START import_fieldselect.html -->
+
+<script type="text/javascript" >
+/* <![CDATA[ */
+	function addPair() {
+		var selectGiven = document.getElementById("given_field");
+		var selectFile = document.getElementById("file_field");
+		var selectLeft = document.getElementById("pairs_left");
+		var selectRight = document.getElementById("pairs_right");
+
+		if (selectGiven.selectedIndex >= 0 && selectFile.selectedIndex >= 0) {
+			selectLeft[selectLeft.length] = new Option(selectFile[selectFile.selectedIndex].text,selectFile[selectFile.selectedIndex].value);
+	        selectRight[selectRight.length] = new Option(selectGiven[selectGiven.selectedIndex].text, selectGiven[selectGiven.selectedIndex].value);
+	        selectGiven[selectGiven.selectedIndex] = null;
+	        selectFile[selectFile.selectedIndex] = null;
+	        selectFile.selectedIndex = 0;
+	        selectGiven.selectedIndex = 0;
+		}
+
+		resetHidden();
+	}
+
+	function removePair() {
+	    var selectGiven = document.getElementById("given_field");
+		var selectFile = document.getElementById("file_field");
+		var selectLeft = document.getElementById("pairs_left");
+		var selectRight = document.getElementById("pairs_right");
+
+	    if (selectLeft.selectedIndex >= 0 || selectRight.selectedIndex >= 0) {
+	        selectFile[selectFile.length] = new Option(selectLeft[selectLeft.selectedIndex].text, selectLeft[selectLeft.selectedIndex].value);
+	        selectGiven[selectGiven.length] = new Option(selectRight[selectRight.selectedIndex].text, selectRight[selectRight.selectedIndex].value);
+	        selectLeft[selectLeft.selectedIndex] = null;
+	        selectRight[selectRight.selectedIndex] = null;
+	        selectLeft.selectedIndex = 0;
+	        selectRight.selectedIndex = 0;
+	    }
+
+	    resetHidden();
+	}
+
+	function resetHidden()
+	{
+		var selectLeft = document.getElementById("pairs_left");
+		var selectRight = document.getElementById("pairs_right");
+		var leftKeys = document.getElementById("pairs_left_keys");
+		var rightKeys = document.getElementById("pairs_right_keys");
+
+	    var tmp = '';
+	    for (i = 0; i < selectLeft.length; i++) {
+	        tmp += selectLeft[i].value;
+	        tmp += ";";
+	    }
+	    leftKeys.value = tmp;
+
+	    tmp = '';
+	    for (i = 0; i < selectRight.length; i++) {
+	        tmp += selectRight[i].value;
+	        tmp += ";";
+	    }
+	    rightKeys.value = tmp;
+	}
+/* ]]> */
+</script>
+
+<form action="{IMPORT_ACTION}" method="post"  style="empty-cells: show;" id="fieldSelectForm">
+<input type="hidden" name="importfile" value="{IMPORT_FILE}" />
+<input type="hidden" name="fieldsSelected" value="1" />
+<input type="hidden" name="importtype" value="{IMPORT_TYPE}" />
+
+<!-- some option fields -->
+<input type="hidden" name="import_options_csv_separator" value="{IMPORT_OPTIONS_CSV_SEPARATOR}" />
+<input type="hidden" name="import_options_csv_enclosure" value="{IMPORT_OPTIONS_CSV_ENCLOSURE}" />
+
+<!-- BEGIN hidden_fields -->
+<input type="hidden" name="{IMPORT_HIDDEN_NAME}" value="{IMPORT_HIDDEN_VALUE}" />
+<!-- END hidden_fields -->
+<table class="adminlist" cellspacing="0" cellpadding="3" style="width: 100%" >
+	<tr>
+		<th colspan="3">{TXT_IMPORT}</th>
+	</tr>
+	<tr class="row2">
+		<td style="width: 200px;">
+			<select size="10" name="file_field" id="file_field" style="width: 200px;">
+			<!-- BEGIN file_field_row -->
+				<option value="{IMPORT_FIELD_VALUE}">{IMPORT_FIELD_NAME}</option>
+			<!-- END file_field_row -->
+			</select>
+		</td>
+		<td>
+			<select size="10" name="given_field" id="given_field" style="width: 200px;">
+			<!-- BEGIN given_field_row -->
+				<option value="{IMPORT_FIELD_VALUE}">{IMPORT_FIELD_NAME}</option>
+			<!-- END given_field_row -->
+			</select>
+			<script type="text/javascript">
+			// <[CDATA[
+			document.getElementById('file_field').selectedIndex = 0;
+	        document.getElementById('given_field').selectedIndex = 0;
+			// ]]>
+			</script>
+		</td>
+		<td style="vertical-align: top;">
+			{TXT_FIELDSELECT_SELECT_DESC}
+		</td>
+	</tr>
+	<tr class="row1">
+		<td>
+			<input type="button" onclick="addPair()" value="{TXT_ADD_PAIR}"/>
+		</td>
+		<td colspan="2">
+			&nbsp;
+		</td>
+	</tr>
+	<tr class="row2">
+		<td style="width: 200px;">
+			<select size="10" name="pairs_left" id="pairs_left" style="width: 200px;" onchange="document.getElementById('pairs_right')[this.selectedIndex].selected=true">
+			</select>
+		</td>
+		<td>
+			<select size="10" name="pairs_right" id="pairs_right" style="width: 200px;" onchange="document.getElementById('pairs_left')[this.selectedIndex].selected=true">
+			</select>
+		</td>
+		<td style="vertical-align: top;">
+			{TXT_FIELDSELECT_SHOW_DESC}
+		</td>
+	</tr>
+	<tr class="row1">
+		<td>
+			<input type="button" onclick="removePair()" value="{TXT_REMOVE_PAIR}"/>
+		</td>
+		<td colspan="2">
+			&nbsp;
+		</td>
+	</tr>
+	<!-- BEGIN additional -->
+	<tr class="{IMPORT_ROWCLASS}">
+		<td>{IMPORT_ADD_NAME}</td>
+		<td>{IMPORT_ADD_VALUE}</td>
+	</tr>
+	<!-- END additional -->
+</table>
+<br /><br />
+<input type="hidden" name="pairs_left_keys" id="pairs_left_keys" value="" />
+<input type="hidden" name="pairs_right_keys" id="pairs_right_keys" value="" />
+<input type="submit" value="{TXT_IMPORT}" name="imported" />
+<input type="submit" value="{TXT_CANCEL}" name="import_cancel" />
+</form>
+<!-- END import_fieldselect.html -->

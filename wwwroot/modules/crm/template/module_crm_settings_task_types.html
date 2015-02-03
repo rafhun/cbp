@@ -1,0 +1,89 @@
+<!-- START module_crm_settings_task.html -->
+<script type="text/javascript">
+    $J(function(){
+        $J('.changestatus').click(function(e){
+            var $elm = $J(this);
+            url = $elm.attr("href");
+            $J.get(url, function(data) {
+                image = $elm.find('img').attr('src').split('/')[2] == 'led_green.gif' ? 'led_red.gif' : 'led_green.gif';
+                $elm.find('img').attr('src', 'images/icons/'+image);
+                fadeOkbox('{TXT_CRM_STATUS_SUCCESSFULLY_CHANGED}');
+            });
+            e.preventDefault();
+        });
+
+        $J("#multiAction").change(function(){
+            if ($J(".entrySelection:checked").length <= 0 && $J(this).val() != 0) {
+                alert('{TXT_SELECT_ENTRIES}');
+                return
+            }
+            if ($J(this).val() == "delete") {
+                if(confirm('{TXT_CRM_ARE_YOU_SURE_DELETE_ENTRIES}')) {
+                    $J("#taskTypeOverview").submit();
+                }
+            } else if ($J(this).val() != 0)
+                $J("#taskTypeOverview").submit();
+        });
+    });
+    function fadeOkbox(msg) {
+            $J('#okbox').html(msg);
+            $J('#okbox').fadeIn('slow');
+            setTimeout(function () {
+                    $J('#okbox').fadeOut('slow');
+            }, 6000);
+    }
+
+    function fadeAlertbox(msg) {
+            $J('#alertbox').html(msg);
+            $J('#alertbox').fadeIn('slow');
+            setTimeout(function () {
+                    $J('#alertbox').fadeOut('slow');
+            }, 6000);
+    }
+    function deleteEntry(entryId) {
+        if(confirm('{TXT_CRM_ARE_YOU_SURE_DELETE_ENTRIES}')) {
+            $J.ajax({
+                url: 'index.php?cmd={MODULE_NAME}&{CSRF_PARAM}&ajax=1&act=settings&tpl=tasktypes&actionType=deletecatalog&taskTypeId='+entryId
+            }).done(function(msg){
+                fadeOkbox(msg);
+                $J("#entry_"+entryId).remove();
+            });
+        }
+    }
+</script>
+<br />
+<div id="formerr"></div>
+<div style="display: none;overflow:auto;margin-bottom: 5px;" id="okbox"></div>
+<ul id="tabmenu">
+    <li><a id="Entries_ShowEntries" class="active" href="javascript:{}" onclick="selectTab('ShowEntries')" title="{TXT_CRM_TASK_TYPES}">{TXT_CRM_TASK_TYPES}</a></li>
+    <li><a id="Entries_AddTaskTypes" class="inactive" href="javascript:{}" onclick="selectTab('AddTaskTypes')" title="{TXT_CRM_ADD_TASK_TYPE}">{TXT_CRM_ADD_TASK_TYPE}</a></li>
+</ul>
+<div id="ShowEntries" class="Entries">
+    <form id="taskTypeOverview" method="post" action="" name="taskTypeOverview">
+        <input type="hidden" name="multiAction" value="1" />
+        {CRM_TASK_TYPES_TABLE_FILE}
+        <table cellpadding="2" cellspacing="0" border="0" >
+            <tr>
+                <td>
+                    <img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="{TXT_ENTRIES_MARKED}:" />
+                    <a href="#" onclick="changeCheckboxes('taskTypeOverview','taskTypeId[]',true); return false;">{TXT_CRM_SELECT_ALL}</a> /
+                    <a href="#" onclick="changeCheckboxes('taskTypeOverview','taskTypeId[]',false); return false;">{TXT_CRM_DESELECT_ALL}</a>
+                    <img src="images/icons/strike.gif" alt="" />
+                    <select name="actionType" id="multiAction">
+                        <option value="0">{TXT_CRM_SELECT_ACTION}</option>
+                        <option value="activate">{TXT_CRM_ACTIVATE_SELECTED}</option>
+                        <option value="deactivate">{TXT_CRM_DEACTIVATE_SELECTED}</option>
+                        <option value="savesorting">{TXT_CRM_SAVE_SORTING}</option>
+                        <option value="delete">{TXT_CRM_DELETE_SELECTED}</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <input style="margin-left:3px;" type="submit" name="actionType" value="{TXT_CRM_SAVE}" />
+    </form>
+</div>
+<div id="AddTaskTypes" class="Entries" style="display: none;">
+    {CRM_TASK_TYPES_MODIFY_FILE}    
+</div>
+<!-- START module_crm_settings_task.html -->

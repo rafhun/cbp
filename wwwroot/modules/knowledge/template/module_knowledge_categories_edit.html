@@ -1,0 +1,83 @@
+<!-- START module_knowledge_categories_add.html -->
+
+<script type="text/javascript">
+/* <![CDATA[ */
+
+/**
+ * show or hide
+ */
+function showOrHide(elem) {
+    if ($(elem).visible()) {
+        $(elem).hide();
+    } else {
+        $(elem).show();
+    }
+}
+
+/**
+ * Cop text
+ */
+var copyText = function(obj) 
+{
+    var names = $$('.cat_form_name');
+    var toCopy = obj.value;
+    names.each(function(field) {
+        field.value = toCopy;
+    });
+}
+
+
+
+/* ]]> */
+</script>
+
+<form action="index.php?cmd=knowledge{MODULE_INDEX}&amp;section=categories&amp;act={FORM_ACTION}" method="post">
+<table class="adminlist" style="width: 100%;"  cellspacing="0" cellpadding="3">
+    <thead>
+        <tr>
+            <th colspan="2">{TXT_GENERAL_SETTINGS}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="row1">
+            <td style="vertical-align: top; width: 200px;">
+                {TXT_NAME}
+            </td>
+            <td>
+                <input type="text" name="name" value="{EDIT_NAME}" maxlength="100" onchange="copyText(this);" style="width:30%;" />&nbsp;
+                <a href="javascript:showOrHide('other_languages');">{TXT_EDIT_EXTENDED}</a>
+                <div id="other_languages" style="display: none;">
+                    <!-- BEGIN lang_name -->
+                        <input type="text" name="name_{EDIT_NAME_LANGID}" value="{EDIT_NAME_VALUE}" class="cat_form_name" maxlength="100" style="width:30%; margin-top:1px;" />&nbsp;
+                        <label for="frmEditCategory_Name_{EDIT_NAME_LANGID}">{EDIT_NAME_LANG}</label><br />
+                    <!-- END lang_name -->
+                </div>	
+            </td>
+        </tr>
+        <tr class="row2">
+            <td style="vertical-align: top;">
+                {TXT_PARENT_CATEGORY}
+            </td>
+            <td>
+                <select name="parentCategory">
+                    <option value="0">{TXT_TOP_CATEGORY}</option>
+                    {CATEGORY_DROPDOWN}
+                </select>
+            </td>
+        </tr>
+        <tr class="row1">
+            <td style="vertical-align: top;">
+                {TXT_STATE}
+            </td>
+            <td>
+                <input type="radio" name="state" value="1" id="active_1" {ACTIVE_CHECKED} /> <label for="active_1">{TXT_ACTIVE}</label><br />
+                <input type="radio" name="state" value="0" id="active_0" {INACTIVE_CHECKED}  /> <label for="active_0">{TXT_INACTIVE}</label>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<input type="hidden" name="update_id" value="{UPDATE_ID}" />
+<input type="submit" value="{TXT_SUBMIT}" />
+</form>
+<!-- END module_knowledge_categories_add.html -->

@@ -1,0 +1,286 @@
+<!-- START shop_categories.html -->
+<div id="subnavbar_level2">
+  <ul>
+    <li><a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=categories" title="{TXT_CATEGORIES}">{TXT_CATEGORIES}</a></li>
+    <li><a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=categories&amp;tpl=pricelists" title="{TXT_PDF_OVERVIEW}">{TXT_PDF_OVERVIEW}</a></li>
+  </ul>
+</div>
+<br />
+<ul id="tabmenu">
+  <li>
+    <a id="categoryTab_content1" class="{SHOP_CATEGORY_LIST_ACTIVE}"
+       href="javascript:void(0);" onclick="selectTab('content1')"
+       title="{TXT_SHOP_CATEGORY_LIST}">{TXT_SHOP_CATEGORY_LIST}
+    </a>
+  </li>
+  <li>
+    <a id="categoryTab_content2" class="{SHOP_CATEGORY_EDIT_ACTIVE}"
+       href="javascript:void(0);" onclick="selectTab('content2')"
+       title="{TXT_SHOP_CATEGORY_ADD_OR_EDIT}">{TXT_SHOP_CATEGORY_ADD_OR_EDIT}
+    </a>
+  </li>
+</ul>
+<div id="content1" class="categoryTab"
+  style="display:{SHOP_CATEGORY_LIST_DISPLAY};">
+  <form name="selectCat" method="post"
+      action="index.php?cmd=shop{MODULE_INDEX}&amp;act=categories">
+    <table width="100%" cellspacing="0" cellpadding="2" border="0" class="adminlist">
+      <tr>
+        <th colspan="6">{TXT_CATEGORIES}&nbsp;({TXT_TOTAL}&nbsp;{SHOP_TOTAL_CATEGORIES})</th>
+      </tr>
+      <tr class="row3">
+        <td width="01%" class="a_center f_bold">#</td>
+        <td width="03%" class="a_right f_bold">{TXT_ID}&nbsp;&nbsp;</td>
+        <td width="03%" class="a_center f_bold">{TXT_ACTIVE}</td>
+        <td width="92%" class="f_bold">{TXT_NAME}&nbsp;&nbsp;&nbsp;</td>
+        <!-- This feature isn't ready to use yet: td width=" 3%" class="f_bold">{TXT_SHOP_CATEGORY_VIRTUAL}</td-->
+        <td width="01%" class="a_right f_bold">{TXT_ACTION}</td>
+      </tr>
+      <!-- BEGIN category_row -->
+      <tr class="{SHOP_ROWCLASS}">
+        <td>
+          <input type="checkbox" name="selected_category_id[]" value="{SHOP_CATEGORY_ID}" />
+        </td>
+        <td class="a_right">
+          <input type="hidden" value="{SHOP_CATEGORY_ID}" name="update_category_id[]" />
+          {SHOP_CATEGORY_ID}&nbsp;&nbsp;
+        </td>
+        <td class="a_center">
+<!--          <input type="checkbox" name="active[{SHOP_CATEGORY_ID}]"
+              value="1" {SHOP_CATEGORY_ACTIVE_CHECKED} />
+          <input type="hidden" value="{SHOP_CATEGORY_ACTIVE_VALUE}"
+              name="active_old[{SHOP_CATEGORY_ID}]" />-->
+          <span style="cursor: pointer;"
+               onclick="toggleCategory({SHOP_CATEGORY_ID});">
+            <img src="images/icons/{SHOP_CATEGORY_ACTIVE_PICTURE}"
+                 alt="{SHOP_CATEGORY_ACTIVE}" title="{SHOP_CATEGORY_ACTIVE}" />
+          </span>
+        </td>
+        <td>
+          {SHOP_CATEGORY_LEVELSPACE}<input type="text" name="ord[{SHOP_CATEGORY_ID}]"
+              value="{SHOP_CATEGORY_ORD}" size="3" maxlength="4" />
+          &nbsp;
+          <a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=categories&amp;category_id={SHOP_CATEGORY_ID}"
+             title="{SHOP_CATEGORY_NAME}">
+            <b>{SHOP_CATEGORY_NAME}</b>
+          </a>
+          &nbsp;
+          <a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=products&amp;category_id={SHOP_CATEGORY_ID}"
+            title="{TXT_PREVIEW}">
+            <img src="images/icons/details.gif" width="14" height="16"
+                border="0" alt="{TXT_PREVIEW}" />
+          </a>
+          <input type="hidden" value="{SHOP_CATEGORY_ORD}"
+              name="ord_old[{SHOP_CATEGORY_ID}]" />
+        </td>
+        <!--td>
+          <input type="checkbox" name="virtual[{SHOP_CATEGORY_ID}]"
+              value="1" {SHOP_CATEGORY_VIRTUAL_CHECKED} />
+          <input type="hidden" value="{SHOP_CATEGORY_VIRTUAL_CHECKED}"
+              name="virtual_old[{SHOP_CATEGORY_ID}]" />
+        </td-->
+        <td class="a_right">
+<!-- BEGIN category_language -->
+          <a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=categories&amp;category_id={SHOP_CATEGORY_ID}&amp;userFrontendLangId={SHOP_CATEGORY_LANGUAGE_ID}">
+            <img src="images/icons/edit.gif" border="0"
+                 alt="{SHOP_CATEGORY_LANGUAGE_EDIT}"
+                 title="{SHOP_CATEGORY_LANGUAGE_EDIT}" />
+          </a>
+<!-- END category_language -->
+<!--a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=categories&amp;category_id={SHOP_CATEGORY_ID}"
+                title="{TXT_EDIT}">
+              <img src="images/icons/edit.gif" alt="{TXT_EDIT}" border="0" />
+            </a-->
+
+          <a href="javascript:deleteCategory('{SHOP_CATEGORY_ID}')"
+              title="{TXT_DELETE}">
+            <img src="images/icons/delete.gif" alt="{TXT_DELETE}" border="0" />
+          </a>
+        </td>
+      </tr><!-- END category_row -->
+    </table>
+    <img src="images/icons/arrow.gif" border="0" width="38" height="22" title="{TXT_MARKED}:" alt="{TXT_MARKED}:" />
+    <a href="javascript:{}" onclick="changeCheckboxes('selectCat','selected_category_id[]',true)" title="{TXT_SELECT_ALL}">{TXT_SELECT_ALL}</a>&nbsp;/&nbsp;
+    <a href="javascript:{}" onclick="changeCheckboxes('selectCat','selected_category_id[]',false)" title="{TXT_REMOVE_SELECTION}">{TXT_REMOVE_SELECTION}</a>&nbsp;&nbsp;&nbsp;
+    <select name="multi_action" onchange="shopCatDoAction('selectCat','selected_category_id[]',this,this.value)">
+      <option value="0" selected="selected">{TXT_SELECT_ACTION}:</option>
+      <option value="del">{TXT_DELETE_MARKED}</option>
+    </select>
+    <br /><br />
+    <input type="submit" name="bcategories" value="{TXT_ACCEPT_CHANGES}" />
+  </form>
+</div>
+
+<!-- BEGIN category_edit -->
+<div id="content2" class="categoryTab" style="display:{SHOP_CATEGORY_EDIT_DISPLAY};">
+  <form name="categoryForm" method="post"
+      action="index.php?cmd=shop{MODULE_INDEX}&amp;act=categories">
+    <input type="hidden" name="category_id" value="{SHOP_CATEGORY_ID}" />
+    <table width="100%" border="0" cellspacing="0" cellpadding="2" class="adminlist">
+      <tr>
+        <th colspan="2">{TXT_ADD_NEW_SHOP_GROUP}</th>
+      </tr>
+      <tr class="row1">
+        <td width="20%">
+          <label for="name">{TXT_NAME}</label>
+        </td>
+        <td width="80%">
+          <input type="text" id="name" name="name" size="40" maxlength="255"
+              value="{SHOP_CATEGORY_NAME}" />
+        </td>
+      </tr>
+      <tr class="row2">
+        <td>
+          <label for="parent_id">{TXT_SHOP_CATEGORY_PARENT}</label>
+        </td>
+        <td>
+          <select id="parent_id" name="parent_id" size="1" style="width: 220px;">
+            <option value="0">{TXT_NEW_MAIN_ARTICLE_GROUP}</option>
+            {SHOP_CATEGORY_MENUOPTIONS}
+          </select>
+        </td>
+      </tr>
+      <tr class="row1">
+        <td>
+          <label for="active">{TXT_ACTIVE}</label>
+        </td>
+        <td>
+          <input type="checkbox" id="active" name="active" value="1"
+              {SHOP_CATEGORY_ACTIVE_CHECKED} />
+        </td>
+      </tr>
+      <!--tr class="row1">
+        <td>
+          <label for="virtual">{TXT_SHOP_CATEGORY_VIRTUAL}</label>
+        </td>
+        <td>
+          <input type="checkbox" id="virtual" name="virtual" value="1"
+              {SHOP_CATEGORY_VIRTUAL_CHECKED} />
+        </td>
+      </tr-->
+      <tr class="row2">
+        <td>
+          {TXT_SHOP_CATEGORY_IMAGE}
+        </td>
+        <td>
+          <!-- Note: Do not modify the content of the link below!
+               This may corrupt the image selection and update process. -->
+          <a href="javascript:void(0);" name="image_link"
+              title="{TXT_SHOP_EDIT_OR_ADD_IMAGE}"
+              onclick="openBrowser('index.php?cmd=fileBrowser&amp;{CSRF_PARAM}&amp;standalone=true&amp;type=shop{MODULE_INDEX}','img','width=800,height=640,resizable=yes,status=no,scrollbars=yes');">
+            {TXT_SHOP_EDIT_OR_ADD_IMAGE}
+            <br />
+            <img id="img_img" style="border: none;" src="{SHOP_THUMB_IMG_HREF}"
+                 title="{TXT_SHOP_EDIT_OR_ADD_IMAGE}" />
+            <br />
+            <span id="img_name">
+              {SHOP_CATEGORY_IMAGE_FILENAME}
+            </span>
+          </a>
+          <img id="img_remove" onclick="remove_image()"
+               style="cursor: pointer; vertical-align: text-bottom; {SHOP_PICTURE_REMOVE_DISPLAY}"
+               src="images/icons/delete.gif" border="0"
+               alt="{TXT_SHOP_DEL_ICON}" title="{TXT_SHOP_DEL_ICON}" />
+          <input type="hidden" id="img" name="image_href"
+              value="{SHOP_PICTURE_IMG_HREF}" />
+        </td>
+      </tr>
+      <tr class="row1">
+        <td>
+          <label for="desc">{TXT_SHOP_CATEGORY_DESCRIPTION}</label>
+        </td>
+        <td>
+          <textarea rows="5" id="desc" name="desc" style="width: 300px;"
+          >{SHOP_CATEGORY_DESCRIPTION}</textarea>
+        </td>
+      </tr>
+      <!--tr class="row2">
+        <td>
+          {TXT_SHOP_CATEGORY_DOCUMENT}
+        </td>
+        <td>
+          <input type="text" name="document" maxlength="255" id="doc"
+              style="width: 300px;" value="{SHOP_CATEGORY_DOCUMENT}" />
+          <input type="button" value="{TXT_SHOP_CATEGORY_DOCUMENT_CHOOSE}"
+              onclick="openBrowser('index.php?cmd=fileBrowser&amp;{CSRF_PARAM}&amp;standalone=true&amp;type=shop{MODULE_INDEX}','doc','width=800,height=640,resizable=yes,status=no,scrollbars=yes');" />
+        </td>
+      </tr-->
+    </table>
+    <br /><br />
+    <input type="button" name="bcancel" value="{TXT_SHOP_CANCEL}"
+        onclick="cancelEdit();" />
+    <input type="submit" name="bcategory" value="{TXT_STORE}" />
+  </form>
+</div>
+<!-- END category_edit -->
+<script type="text/javascript">
+// <![CDATA[
+function deleteCategory(id) {
+  if (confirm('{TXT_CONFIRM_DELETE_SHOP_CATEGORIES}\n{TXT_ACTION_IS_IRREVERSIBLE}'))
+    window.location.replace("index.php?{CSRF_PARAM}&cmd=shop{MODULE_INDEX}&act=categories&delete_category_id="+id);
+}
+function toggleCategory(id) {
+  window.location.replace("index.php?{CSRF_PARAM}&cmd=shop{MODULE_INDEX}&act=categories&toggle_category_id="+id);
+}
+function shopCatDoAction(strForm, strCheckbox, objSelect, strAct) {
+  if (checkboxIsChecked(strForm, strCheckbox)) {
+    switch (strAct) {
+      case 'del':
+        if (confirm('{TXT_CONFIRM_DELETE_SHOP_CATEGORIES}\n{TXT_ACTION_IS_IRREVERSIBLE}')) {
+//          document.forms[strForm].action = "index.php?cmd=shop{MODULE_INDEX}&act=categories";
+          document.forms[strForm].submit();
+        }
+        break;
+    }
+  } else {
+    alert("{TXT_MAKE_SELECTION}");
+  }
+  objSelect.value = 0;
+}
+var browserPopup = { "closed": true };
+function openBrowser(url, id, attrs) {
+  try {
+    if (!browserPopup.closed) {
+      return browserPopup.focus();
+    }
+  } catch(e) {}
+  if (!window.focus) {
+    return true;
+  }
+  browserPopup = window.open(url, "", attrs);
+  browserPopup.focus();
+  return false;
+}
+var imageMaxWidth = {SHOP_IMAGE_WIDTH};
+var imageMaxHeight = {SHOP_IMAGE_HEIGHT};
+function SetUrl(url, width, height, alt) {
+  // Compute width/height ratio in order to set the correct size.
+  // i.e.  2 =       200/100
+  var imgRatioWidth = width/imageMaxWidth;
+  // i.e.  3 =       240/80
+  var imgRatioHeight = height/imageMaxHeight;
+  // Now the higher ratio determines the scale factor
+  var factor = imgRatioHeight;
+  if (imgRatioWidth > imgRatioHeight) {
+    factor = imgRatioWidth;
+  }
+  var file_name = /.*\/(.*?)$/.exec(url)[1];
+  cx.jQuery("#img").attr('value', url);
+  cx.jQuery("#img_name").html(file_name);
+  cx.jQuery("#img_remove").show();
+  cx.jQuery("#img_img")
+    .attr("src", url)
+    .css("width", (width/factor)+"px")
+    .css("height", (height/factor)+"px");
+}
+function cancelEdit() {
+  window.location.replace("index.php?{CSRF_PARAM}&cmd=shop{MODULE_INDEX}&act=categories");
+}
+function remove_image() {
+  cx.jQuery("#img").val("");
+  cx.jQuery("#img_name").html("{TXT_SHOP_IMAGE_UNDEFINED}");
+  cx.jQuery("#img_remove").hide();
+  cx.jQuery("#img_img").attr("src", "../images/shop/no_picture.gif");//hide();//
+}
+// ]]></script>
+<!-- END shop_categories.html -->

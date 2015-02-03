@@ -1,0 +1,139 @@
+<!-- START module_directory_entry_edit.html -->
+<script language="JavaScript">
+function deleteFile(id)
+{
+   if(confirm('{TXT_CONFIRM_DELETE_DATA}\n{TXT_ACTION_IS_IRREVERSIBLE}'))
+        window.location.replace("index.php?cmd=directory&{CSRF_PARAM}&act=delfile&id="+id);
+}
+
+function confirmFile(id)
+{
+   window.location.replace("index.php?cmd=directory&{CSRF_PARAM}&act=confirmfile&id="+id);
+}
+
+
+function confirmIsChecked(fieldName)
+{
+    var x = 0;
+    for(var i = 0; i < document.fileList.elements.length; i++)
+    {
+        var e = document.fileList.elements[i];
+        if(e.name == fieldName && e.checked == true)
+        {
+            x++;
+        }
+    }
+    if(x > 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
+function confirmDoAction()
+{
+    if(confirmIsChecked("formSelected[]") == true)
+    {
+	    if(document.fileList.selectAction.value == "confirm")
+	    {
+	        document.fileList.action = "index.php?cmd=directory&act=confirmfile";
+	        document.fileList.submit();
+	    }
+        if(document.fileList.selectAction.value == "delete")
+	    {
+	    	if(confirm('{TXT_CONFIRM_DELETE_DATA}\n{TXT_ACTION_IS_IRREVERSIBLE}'))
+	        	document.fileList.action = "index.php?cmd=directory&act=delfile";
+        		document.fileList.submit();
+	    }
+    }
+    else
+    {
+        alert("{TXT_IMPORT_MAKE_SELECTION}");
+    }
+
+    document.fileList.selectAction.value = "0";
+}
+</script>
+<table width="100%" border="0" cellspacing="0" cellpadding="3" class="adminlist">
+  <tr>
+    <th nowrap>{TXT_OPTIONS}</th>
+  </tr>
+  <tr class="row1">
+    <td nowrap>
+      <form method=post action='index.php?cmd=directory&amp;act=files'>
+        {TXT_FILE_SEARCH}:
+        <input type="text" name="term">
+        <input type="submit" name="Submit" value="{TXT_SEARCH}">
+      </form>
+    </td>
+  </tr>
+</table>
+<br />
+<form name="fileList" method="post" action="index.php?cmd=directory&amp;act=confirm">
+<table width="100%" cellspacing=0 cellpadding=3 border="0" class="adminlist" align="center">
+  <tr>
+    <th colspan="11">{TXT_CONFIRMLIST}</th>
+  </tr>
+  <tr class="row3">
+  	<td width="16">
+       <center><b>#</b></center>
+    </td>
+    <td width="55%"><b><a href="index.php?cmd=directory&amp;act=confirm&amp;sort=name{CATID_SORT}">{TXT_NAME}</a></b></td>
+    <td width="20%"><b><a href="index.php?cmd=directory&amp;act=confirm&amp;sort=date{CATID_SORT}">{TXT_DATE}</a></b></td>
+    <td width="20%"><b><a href="index.php?cmd=directory&amp;act=confirm&amp;sort=addby{CATID_SORT}">{TXT_ADDEDBY}</a></b></td>
+    <td width="5%"><b>&nbsp;</b></td>
+  </tr>
+  <!-- BEGIN filesRow -->
+  <tr class={FILES_ROW}>
+  	<td width="16" valign="top">
+        <center>
+        {FILES_CHECKBOX}
+        </center>
+    </td>
+    <td width="55%" valign="top"><b>{FILES_NAME}</b><br>{FILES_DESCRIPTION}</td>
+    <td width="20%" valign="top">{FILES_DATE}&nbsp;</td>
+    <td width="20%" valign="top">{FILES_ADDEDBY}&nbsp;</td>
+    <td width="1%" valign="top" nowrap>
+      <div align="right"><a href="javascript:confirmFile({FILES_ID})"><img src="images/icons/refresh.png" alt='{TXT_CONFIRMFILE}' border="0"></a>
+      <a href="index.php?cmd=directory&amp;act=detailfile&amp;id={FILES_ID}"><img src="images/icons/details.gif" alt='{TXT_DETAILS}' border="0"></a>
+      <a href="javascript:deleteFile({FILES_ID})"><img src="images/icons/delete.gif" alt='{TXT_DELETE}' border="0"></a>
+      </div>
+    </td>
+  </tr>
+  <!-- END filesRow -->
+  <!-- BEGIN nofilesRow -->
+  <tr class={FILES_ROW}>
+    <td width="16" valign="top">
+        <br />
+    </td>
+  	<td width="100%" valign="top" colspan="6">
+        {NO_FILES_FOUND}
+    </td>
+  </tr>
+  <!-- END nofilesRow -->
+</table>
+<!-- BEGIN importSelectAction -->
+<table width="100%" height="50" cellspacing="0" cellpadding="5" border="0">
+	<tr>
+		<td valign="top">
+			<img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="{TXT_MARKED}:" />
+			<a href="javascript:{void(0)};" onclick="changeCheckboxes('fileList','formSelected[]',true); return false;">{TXT_SELECT_ALL}</a> /
+			<a href="javascript:{void(0)};" onclick="changeCheckboxes('fileList','formSelected[]',false); return false;">{TXT_DESELECT_ALL}</a>
+			<img src="images/icons/strike.gif" width="34" height="22" alt="strike" />
+			<select name="selectAction" onchange="confirmDoAction();">
+				<option value="0" selected="selected">{TXT_SELECT_ACTION}</option>
+				<option value="confirm">{TXT_IMPORT}</option>
+				<option value="delete">{TXT_DELETE}</option>
+			 </select>
+		</td>
+	</tr>
+</table>
+<!-- END importSelectAction -->
+</form>
+<br>
+{FILES_PAGING}
+<!-- END module_directory_entry_edit.html -->

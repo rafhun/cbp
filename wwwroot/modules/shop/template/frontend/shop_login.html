@@ -1,0 +1,40 @@
+<div id="shop">
+  <!-- BEGIN core_message -->
+  <span class="[[MESSAGE_CLASS]]">[[MESSAGE_TEXT]]</span>
+  <!-- END core_message -->
+  <div class="customer_old">
+    <form name="shop_login" action="index.php?section=login" method="post">
+      <input name="redirect" type="hidden" value="[[SHOP_LOGIN_REDIRECT]]" />
+      <h2>[[TXT_SHOP_ACCOUNT_EXISTING_CUSTOMER]]</h2>
+      <p>
+        <label for="username">[[TXT_SHOP_EMAIL_ADDRESS]]</label>
+        <input type="text" maxlength="250" value="[[SHOP_LOGIN_EMAIL]]" id="username" name="USERNAME" />
+      </p>
+      <p>
+        <label for="password">[[TXT_SHOP_PASSWORD]]</label>
+        <input type="password" maxlength="50" id="password" name="PASSWORD" />
+      </p>
+      <p>
+        <input type="submit" value="[[TXT_SHOP_ACCOUNT_LOGIN]]" name="login" />
+      </p>
+      <p>
+        <a class="lostpw" href="index.php?section=login&amp;cmd=lostpw" title="[[TXT_SHOP_ACCOUNT_LOST_PASSWORD]]">
+        [[TXT_SHOP_ACCOUNT_LOST_PASSWORD]]
+        </a>
+      </p>
+    </form>
+  </div>
+  <div class="customer_new">
+    <form name="shop_register" action="index.php?section=shop&amp;cmd=login" method="post">
+      <h2>[[TXT_SHOP_ACCOUNT_NEW_CUSTOMER]]</h2>
+      [[TXT_SHOP_ACCOUNT_NOTE]]<br />
+      <br />
+      <!-- BEGIN register -->
+      <input type="submit" value="[[TXT_SHOP_BUTTON_REGISTRATION]]" name="baccount" />
+      <!-- END register -->
+      <!-- BEGIN dont_register -->
+      <input type="submit" value="[[TXT_SHOP_BUTTON_NO_REGISTRATION]]" name="bnoaccount" />
+      <!-- END dont_register -->
+    </form>
+  </div>
+</div>

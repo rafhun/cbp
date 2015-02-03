@@ -1,0 +1,345 @@
+<style type="text/css">
+    body table.adminlist input[type=text] {width: 255px;}
+    body table.adminlist select {width: 256px;}
+</style>
+<style type="text/css">@import url(../lib/jscalendar/skins/cupertino/theme.css);</style>
+<script type="text/javascript">
+    $J(function(){
+        $J(".delete-customer").click(function(){
+            $J(".selectCustomer").val('');
+            $J("#customer").val('');
+            $J("#customer").trigger('change');
+        });
+        $J("input").keyup(function () {
+            $J(this).css("border","1px solid #0A50A1");
+        });
+        $J("select").change(function () {
+            $J(this).css("border","1px solid #0A50A1");
+        });
+        $J("form#addDeal").submit(function(){
+            $J("input, select").css("border","1px solid #0A50A1");
+
+            var errors   = new  Array();
+            var errChk   = 0;
+            var quoteErr = "{TXT_CRM_OPPORTUNITY_QUOTE_PRICE_ERROR}";
+            
+            if ($J.trim($J("#title").val()) == '') {
+                errChk = 1;
+                $J("#title").css("border","1px solid red");
+                $J("#title").val("");                
+            }            
+            if ($J('#domainName').length && $J.trim($J('#domainName').val()) == "") {
+                errChk = 1;                
+                document.getElementById("domainName").style.border = "1px solid red";
+                document.getElementById("domainName").value = "";
+            }
+            var customerName = document.getElementById("customer_name").value;
+            customer = $J("#customer").val();
+            if ($J.trim(customerName) == "" || $J.trim(customer) == "") {
+                errChk = 1;
+                document.getElementById("customer_name").style.border = "1px solid red";
+                document.getElementById("customer_name").value = "";
+            }
+            var project_volume = $J('#quotedPrice').val();
+            if (project_volume == "") {
+                errChk = 1;
+                $J('#quotedPrice').css("border", "1px solid red");
+            } else if (/^[0-9']+(\.\d{1,2})?$/.test(project_volume) == false) {
+                errors.push(quoteErr);
+                $J('#quotedPrice').css("border", "1px solid red");
+            }
+            var AssignedTo =  document.getElementById("assigned_to").value;
+            if (AssignedTo == "") {
+                errChk = 1;
+                document.getElementById("assigned_to").style.border = "1px solid red";
+                document.getElementById("assigned_to").value = "";
+            }
+
+            var projectType =  $J("#project_type").val();
+            if (($J("#project_type").length) && projectType == "") {
+                errChk = 1;
+                document.getElementById("project_type").style.border = "1px solid red";
+                document.getElementById("project_type").value = "";
+            }
+            var status =  $J('#status').val();
+            if (($J('#status').length) && status == "") {
+                errChk = 1;
+                document.getElementById("status").style.border = "1px solid red";
+                document.getElementById("status").value = "";
+            }
+            if ( errors.length >= 1 || errChk == 1) {
+                if ( errors.length >= 1 && errChk == 1) {
+                    errString = errors.join('<br />');
+                    $J('#formerr').html("{TXT_CRM_MANDATORY_FIELDS_NOT_FILLED_OUT}<br />"+errString);
+                }  else if (  errors.length >= 1) {
+                    errString = errors.join('<br />');
+                    $J('#formerr').html(errString);
+                } else {
+                    $J('#formerr').html("{TXT_CRM_MANDATORY_FIELDS_NOT_FILLED_OUT}");
+                }
+                $J('#formerr').css('display','block');
+                return false;
+            } else {
+                $J('#formerr').html('');
+                $J('#formerr').css('display', 'none');
+                return true;
+            }            
+        });
+        $J( ".date" ).datepicker({ dateFormat: 'yy-mm-dd' });
+         
+        var cache = {},
+        lastXhr;
+        var optionsCustomer = {
+            source: function( request, response ) {
+                var term = request.term;
+
+                lastXhr = $J.getJSON( "./index.php?cmd={MODULE_NAME}&act=getdomains&customer="+customer_id, request, function( data, status, xhr ) {
+                    cache[ term ] = data;
+                    if ( xhr === lastXhr ) {
+                        response( data );
+                    }
+                });
+            },
+            select: function(event, ui) {
+                $J('#domain').val(ui.item.id).change();
+                $J('#customer_name').val(ui.item.company);
+                $J('#customer').val(ui.item.companyId);
+            }
+        };
+        $J( "#customer_name" ).autocomplete({
+            minLength: 1,
+            source: function( request, response ) {
+                var term = request.term;
+                
+                lastXhr = $J.getJSON( "./index.php?cmd={MODULE_NAME}&act=getcustomers", request, function( data, status, xhr ) {
+                    cache[ term ] = data;
+                    if ( xhr === lastXhr ) {
+                        response( data );
+                    }
+                });
+            },
+            select: function(event, ui) {                
+                $J('#customer').val(ui.item.id);
+                $J('#customer').trigger('change');
+            }
+        });   
+        $J('#customer').change(function() {
+            customer_id = $J('#customer').val();
+            
+            $J('#customer_contact option').remove();
+            $J.getJSON('./index.php?cmd={MODULE_NAME}&act=autosuggest&json=true&id='+customer_id, function(data) {
+                $J.each(data.customer, function(index, value){                    
+                    $J('#customer_contact').append('<option value="'+value.id+'">'+value.name+'</option>');
+                });
+            });
+            domain = $J( "#domainName" ).val();
+            if ($J.trim(domain) == "") {
+                $J( "#domainName" ).autocomplete('option',optionsCustomer);
+                $J( "#domainName" ).autocomplete('search','');
+            }
+        });
+
+        var optionsDomain = {
+            source: function( request, response ) {
+                var term = request.term;
+                /*if ( term in cache ) {
+                                            response( cache[ term ] );
+                                            return;
+                                        }*/
+
+                lastXhr = $J.getJSON( "./index.php?cmd={MODULE_NAME}&act=getdomains", request, function( data, status, xhr ) {
+                    cache[ term ] = data;
+                    if ( xhr === lastXhr ) {
+                        response( data );
+                    }
+                });
+            },
+            select: function(event, ui) {
+                $J('#domain').val(ui.item.id).change();
+                $J('#customer_name').val(ui.item.company);
+                $J('#customer').val(ui.item.companyId);
+
+                // trigger the change event to update the customer contact option
+                $J('#customer').trigger('change');
+            }
+        };
+        $J( "#domainName" ).keyup(function(){
+            $J( "#domainName" ).autocomplete('option', optionsDomain);
+        });
+        $J( "#domainName" ).autocomplete({minLength: 0});
+
+        var edit = {IS_EDIT_TRUE};
+        if (!edit) {
+            if ($J("#customer").val() != 0) {
+                $J('#customer').trigger('change');
+            }
+        }
+                    
+    });
+</script>
+<div id="dealsModify">
+    <div id="subnavbar_level2">
+        <ul>
+            <li><a title="{TXT_CRM_DEALS_OVERVIEW}"  href="index.php?cmd={MODULE_NAME}&amp;act=deals" >
+                    {TXT_CRM_DEALS_OVERVIEW}</a></li>            
+        </ul>
+    </div>
+    <div id="formerr"></div>
+    
+    <form action="" method="post" enctype="multipart/form-data" name="addDeal" id="addDeal">
+        <table class="adminlist" width="100%" cellpadding="3" cellspacing="0">
+            <thead>
+                <tr>
+                    <th colspan="2">{CRM_MODIFY_DEAL_TITLE}</th>
+                    <th>{CRM_MODIFY_DEAL_DESCRIPTION}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="row1">
+                    <td width="10%">{TXT_CRM_DEALS_TITLE}&nbsp;<font color="red">*</font></td>
+                    <td width="30%">
+                        <input type="text" name="title" id="title" value="{CRM_DEALS_TITLE}" />
+                    </td>
+                    <td rowspan="8" width="60%" valign="top">
+                        {CRM_DEALS_DESCRIPTION}
+                    </td>
+                </tr>                
+                <tr class="row1">
+                    <td>{TXT_CRM_DEALS_CUSTOMER_NAME}&nbsp;<font color="red">*</font></td>
+                    <td  >
+                        <input type="hidden" name="customer" id="customer" value="{CRM_DEALS_CUSTOMER}" />
+                        <input type="text" name="customer_name" id="customer_name" value="{CRM_DEALS_CUSTOMER_NAME}" class="selectCustomer" placeholder="{TXT_CRM_FIND_COMPANY_BY_NAME}" style="width: 239px;" /><span class="delete-customer"></span>&nbsp;
+                    </td>
+                </tr>
+                <tr class="row2">
+                    <td>{TXT_CRM_DEALS_CONTACT_PERSON}</td>
+                    <td  >
+                        <select id="customer_contact" name="customer_contact" style="width: 262px;">
+                            <!-- BEGIN Contacts -->
+                            <option {TXT_SELECTED} value="{TXT_CONTACT_ID}">{TXT_CONTACT_NAME}</option>
+                            <!-- END Contacts -->
+                        </select>
+                    </td>
+                </tr>
+                <tr class="row1">
+                    <td>{TXT_CRM_DEALS_QUOTED_PRICE}&nbsp;<font color="red">*</font></td>
+                    <td>
+                        <input type="text" name="quoted_price" id="quotedPrice" value="{CRM_DEALS_QUOTED_PRICE}" />
+                    </td>
+                </tr>
+                <tr class="row2">
+                    <td>{TXT_CRM_DEALS_DUE_DATE}</td>
+                    <td  >
+                        <input type="text" name="due_date" readonly class="date" value="{DEALS_DUE_DATE}" />
+                    </td>
+                </tr>
+                <tr class="row1">
+                    <td>{TXT_CRM_DEALS_RESPONSIBLE}&nbsp;<font color="red">*</font></td>
+                    <td>
+                        <select name="assigned_to" id="assigned_to" style="width: 262px;" >
+                            <option value="">--{TXT_CRM_SELECT_MEMBER_NAME}--</option>
+                            <!-- BEGIN Members -->
+                            <option value="{TXT_USER_MEMBERID}" {TXT_SELECTED}>{TXT_USER_MEMBERNAME}</option>
+                            <!-- END Members -->
+                        </select>
+                    </td>
+                </tr>
+                <tr class="row2">
+                    <td>{TXT_CRM_DEALS_STAGES}</td>
+                    <td>
+                        <select name="dealsStage" style="width: 262px;">
+                            <!-- BEGIN dealsStages -->
+                            <option value="{STAGE_VALUE}" {STAGE_SELECTED} >{STAGE_NAME}</option>
+                            <!-- END dealsStages -->
+                        </select>
+                    </td>
+                </tr>
+                <tr class="row1"><td style="height:auto;" colspan="2">&nbsp;</td></tr>
+                <!-- BEGIN projectEntryBlock -->                
+                <tr>
+                    <th colspan="3">{TXT_CRM_ADDITIONAL_INFO}</th>
+                </tr>
+                <tr class="row1">
+                    <td>{TXT_CRM_INVOICE_TYPE}</td>
+                    <td colspan="2">
+                        <input type="radio" name="invoiceType" id="invoiceProject" value="3" {PROJECT_INVOICETYPE_PROJECT} />
+                               <label for="invoiceProject">{TXT_CRM_PROJECT_INVOICETYPE_PROJECT}</label>
+                        <input type="radio" name="invoiceType" id="invoiceCollective" value="2" {PROJECT_INVOICETYPE_COLLECTIVE} />
+                               <label for="invoiceCollective">{TXT_CRM_PROJECT_INVOICETYPE_COLLECTIVE}</label>
+                        <input type="radio" name="invoiceType" id="invoiceInternal" value="1" {PROJECT_INVOICETYPE_INTERNAL} />
+                               <label for="invoiceInternal">{TXT_CRM_PROJECT_INVOICETYPE_INTERNAL}</label>
+                    </td>
+                </tr>
+                <tr class="row2">
+                    <td>Website&nbsp;<font color="red">*</font></td>
+                    <td colspan="2">
+                        <input type="hidden" name="domain" id="domain"  value="{PM_PROJECT_DOMAIN_ID}" />
+                        <input type="text" name="domainName" id="domainName" value="{PM_PROJECT_DOMAIN_NAME}" />
+                    </td>
+                </tr>
+                <tr class="row2">
+                    <td>{TXT_CRM_PROJECT_TYPE}&nbsp;<font color="red">*</font></td>
+                    <td colspan="2">
+                        <select name="project_type" id="project_type" style="width: 265px;">
+                            <option value="">--{TXT_CRM_SELECT_PROJECT_TYPE}--</option>
+                            <!-- BEGIN projectTypes -->
+                            <option value="{TXT_PROJECT_PROJECTTYPEID}" {TXT_SELECTEDTYPE}>{TXT_PROJECT_PROJECTTYPE}</option>
+                            <!-- END projectTypes -->
+                        </select>
+                    </td>
+                </tr>
+                <tr class="row1">
+                    <td>{TXT_CRM_PROJECT_STATUS}&nbsp;<font color="red">*</font></td>
+                    <td colspan="2"> <select name="status" id="status" style="width: 265px;">
+                            <!-- BEGIN ProjStatus -->
+                            <option value="{TXT_PROJECT_PROJECTSTATUSID}" {TXT_STATUSSELECTEDPLANNED}>{TXT_PROJECT_PROJECTSTATUS}</option>
+                            <!-- END ProjStatus -->
+                        </select>
+                    </td>
+                </tr>
+                <tr class="row2">
+                    <td>{TXT_CRM_PRIORITY}&nbsp;</td>
+                    <td colspan="2">
+                        <select name="priority" id="priority" style="width: 265px;">
+                            <option value="">--{TXT_CRM_SELECT_PRIORITY}--</option>
+                            <!-- BEGIN priority -->
+                            <option value="{TXT_PM_PRIORITY_VALUE}" {PRIORITY_SELECTED}>{TXT_PM_PRIORITY_VALUE}</option>
+                            <!-- END priority -->
+                        </select>
+                    </td>
+                </tr>
+                <tr class="row1">
+                    <td>{TXT_CRM_SEND_PARTIAL_INVOICE}</td>
+                    <td colspan="2"><input type="checkbox" id="invoice" name="send-partial-invoice" {PM_SEND_PARTIAL_INVOICE_CHECKED} /></td>
+                </tr>
+                <tr class="row2 with-quote">
+                    <td>{TXT_CRM_PROJECT_DURATION}&nbsp;</td>
+                    <td colspan="2">
+                        <input type="text" name="projectDuration" id="projectDuration" style="width: 39px;float:left;" value="{PROJECT_DURATION}" />
+                    </td>
+                </tr>
+                <tr class="row1">
+                    <td>{TXT_CRM_QUOTE_NUMBER}</td>
+                    <td colspan="2"><input type="text" name="quoteNumber" id="quoteNumber" style="width: 265px;" value="{CRM_QUOTATION_NUMBER}" />
+                </tr>
+                <!-- BEGIN projectDocUpload -->
+                <tr class="row2">
+                    <td>{TXT_CRM_DOCUMENT_UPLOAD}</td>
+                    <td colspan="2"><input type="file" name="documentUpload" id="documentUpload" style="width: 265px;" value="" readonly />
+                </tr>
+                <!-- END projectDocUpload -->
+                <tr class="row1">
+                    <td colspan="3">
+                        <div style="padding: 3px 0;">{TXT_CRM_BILLING_INFORMATION}</div>
+                        {PROJECT_BILLING_INFO}
+                    </td>
+                </tr>
+                <!-- END projectEntryBlock -->
+            </tbody>
+        </table>
+        <br>
+        <input type="hidden" name="redirect" value="{CRM_REDIRECT_LINK}" />
+        <input type="button" value="{TXT_CRM_BACK}" onclick="window.location='./index.php?cmd={MODULE_NAME}{CRM_BACK_LINK}&csrf='+cx.variables.get('csrf', 'contrexx')" />
+        <input type="submit" name="save_deal" value="{TXT_CRM_SAVE}" />
+    </form>
+</div>

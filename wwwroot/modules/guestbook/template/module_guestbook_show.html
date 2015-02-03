@@ -1,0 +1,76 @@
+<!-- START module_guestbook_show.html --> 
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+function guestbookDelete(pageId){
+    if(confirm('{TXT_CONFIRM_DELETE_DATA}\n{TXT_ACTION_IS_IRREVERSIBLE}'))
+        window.location.replace("?cmd=guestbook&{CSRF_PARAM}&act=delete&id="+pageId);
+}
+
+function selectMultiAction()
+{
+	with (document.guestbook) {
+		switch (guestbook_MultiAction.value) {
+			case 'activate':
+				action='?cmd=guestbook&act=multi_activate';
+				submit();
+			break;
+			case 'deactivate':
+				action='?cmd=guestbook&act=multi_deactivate';
+				submit();
+			break;
+			case 'delete':
+				if (confirm('{TXT_DELETE_CATEGORY_ALL}')) {
+					action='?cmd=guestbook&act=multi_delete';
+					submit();
+				}
+			break;
+			default: //do nothing			
+		}
+	}
+}
+// ]]>
+</script>
+<form method="post" name="guestbook">
+<table class="adminlist" cellspacing="0" cellpadding="3" width="100%" border="0">
+  <tr> 
+    <th colspan="5">
+      <div align="left">{TXT_MANAGE_ENTRIES}</div>
+    </th>
+  </tr>
+  <tr class="row1"> 
+    <td width="1%"><strong>#</strong></td>
+    <td width="4%"><strong>Status</strong></td>
+    <td width="21%"><strong>{TXT_NAME}</strong></td>
+    <td width="70%"><strong>{TXT_COMMENT}</strong></td>
+    <td width="4%" style="text-align: right;"><strong>{TXT_ACTION}</strong></td>
+  </tr>
+  <!-- BEGIN guestbook_row -->
+  <tr class="{GUESTBOOK_ROWCLASS}"> 
+    <td valign="top"><input type="checkbox" name="selectedId[]" id="selectedId" value="{GUESTBOOK_ID}"></td>     
+    <td valign="top"><a href="?cmd=guestbook&amp;act=activate&amp;id={GUESTBOOK_ID}" target="_self"><img src="images/icons/{GUESTBOOK_STATUS}.gif" border="0" alt="Status" /></a></td>
+    <td valign="top"><strong>{GUESTBOOK_FORENAME} {GUESTBOOK_NAME}</strong>{GUESTBOOK_GENDER} <i>{GUESTBOOK_IP}</i><br />{GUESTBOOK_LOCATION}<br /><div style="margin-top: 5px">{GUESTBOOK_MAIL} {GUESTBOOK_URL}</div></td>
+    <td valign="top"><img alt="" hspace="0" src="images/icons/profile_edit.gif" border="0" style="float: left"/><div style="margin-left: 22px;">{GUESTBOOK_DATE}</div><br /><div style="margin-left: 22px;">{GUESTBOOK_COMMENT}</div></td>
+    <td valign="top" style="text-align: right"><a href="index.php?cmd=guestbook&amp;act=edit&amp;id={GUESTBOOK_ID}"><img src="images/icons/edit.gif" border="0" alt="Eintrag editieren" width="15" height="15" /></a> <a href="javascript:guestbookDelete({GUESTBOOK_ID})"><img src="images/icons/delete.gif" border="0" alt="Eintrag l&ouml;schen"  width="17" height="17" /></a> </td>
+  </tr>
+  <!-- END guestbook_row -->
+</table>
+<table cellpadding="2" cellspacing="0" border="0">
+	<tr>
+		<td>
+			<img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="{TXT_MARKED}:" />
+			<a href="#" onclick="changeCheckboxes('guestbook','selectedId[]',true); return false;">{TXT_SELECT_ALL}</a> / 
+			<a href="#" onclick="changeCheckboxes('guestbook','selectedId[]',false); return false;">{TXT_DESELECT_ALL}</a>
+			<img src="images/icons/strike.gif">
+			<select name="guestbook_MultiAction" onchange="selectMultiAction();">
+				<option value="0">{TXT_SUBMIT_SELECT}</option>
+				<option value="delete">{TXT_SUBMIT_DELETE}</option>
+				<option value="activate">{TXT_SUBMIT_ACTIVATE}</option>
+				<option value="deactivate">{TXT_SUBMIT_DEACTIVATE}</option>
+			</select>
+		</td>
+	</tr>
+</table>
+</form>
+<br />
+{GUESTBOOK_PAGING}
+<!-- END module_guestbook_show.html -->

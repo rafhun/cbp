@@ -1,0 +1,37 @@
+<!-- START settings_image.html -->
+<form name="settings_image" method="post" action="index.php?cmd=settings&amp;act=image">
+    <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+        <tr>
+            <th colspan="2">{TXT_IMAGE_TITLE}</th>
+        </tr>
+        <tr class="row2">
+            <td width="20%">{TXT_IMAGE_CUT_WIDTH}</td>
+            <td width="80%"><input type="text" name="image_cut_width" value="{SETTINGS_IMAGE_CUT_WIDTH}" size="5" maxlength="250" />&nbsp;px</td>
+        </tr>
+        <tr class="row2">
+            <td width="20%">{TXT_IMAGE_CUT_HEIGHT}</td>
+            <td width="80%"><input type="text" name="image_cut_height" value="{SETTINGS_IMAGE_CUT_HEIGHT}" size="5" maxlength="250" />&nbsp;px</td>
+        </tr>
+        <!-- <tr class="row2">
+            <td width="20%">{TXT_IMAGE_SCALE_WIDTH}</td>
+            <td width="80%"><input type="text" name="image_scale_width" value="{SETTINGS_IMAGE_SCALE_WIDTH}" size="5" maxlength="250" />&nbsp;px</td>
+        </tr>
+        <tr class="row2">
+            <td width="20%">{TXT_IMAGE_SCALE_HEIGHT}</td>
+            <td width="80%"><input type="text" name="image_scale_height" value="{SETTINGS_IMAGE_SCALE_HEIGHT}" size="5" maxlength="250" />&nbsp;px</td>
+        </tr> -->
+        <tr class="row2">
+            <td width="20%">{TXT_IMAGE_COMPRESSION}</td>
+            <td width="80%">
+                <select name="image_compression" style="width: 53px; margin: 2px;">
+                    <!-- BEGIN settings_image_compression_options -->
+                    <option value="{IMAGE_COMPRESSION_VALUE}" {OPTION_SELECTED}>{IMAGE_COMPRESSION_NAME}</option>
+                    <!-- END settings_image_compression_options -->
+                </select>&nbsp;%
+            </td>
+        </tr>
+    </table>
+    <br />
+    <input type="submit" name="submit" value="{TXT_SAVE}" />
+</form>
+<!-- END settings_image.html -->

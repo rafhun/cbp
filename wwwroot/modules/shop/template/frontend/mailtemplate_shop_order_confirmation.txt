@@ -1,0 +1,64 @@
+[CUSTOMER_SALUTATION],
+
+Herzlichen Dank für Ihre Bestellung im [SHOP_COMPANY] Online Shop.
+
+Ihre Auftrags-Nr. lautet: [ORDER_ID]
+Ihre Kunden-Nr. lautet: [CUSTOMER_ID]
+Bestellungszeit: [ORDER_DATE] [ORDER_TIME]
+
+------------------------------------------------------------------------
+Bestellinformationen
+------------------------------------------------------------------------[[ORDER_ITEM]
+ID:             [PRODUCT_ID]
+Artikel Nr.:    [PRODUCT_CODE]
+Menge:          [PRODUCT_QUANTITY]
+Beschreibung:   [PRODUCT_TITLE][[PRODUCT_OPTIONS]
+                [PRODUCT_OPTIONS][PRODUCT_OPTIONS]]
+Stückpreis:      [PRODUCT_ITEM_PRICE] [CURRENCY]                       Total [PRODUCT_TOTAL_PRICE] [CURRENCY][[USER_DATA]
+Benutzername:   [USER_NAME]
+Passwort:       [USER_PASS][USER_DATA]][[COUPON_DATA]
+Gutschein Code: [COUPON_CODE][COUPON_DATA]][ORDER_ITEM]]
+------------------------------------------------------------------------
+Zwischensumme:    [ORDER_ITEM_COUNT] Artikel                             [ORDER_ITEM_SUM] [CURRENCY][[DISCOUNT_COUPON]
+Gutschein Code: [DISCOUNT_COUPON_CODE]   [DISCOUNT_COUPON_AMOUNT] [CURRENCY][DISCOUNT_COUPON]]
+------------------------------------------------------------------------[[SHIPMENT]
+Versandart:     [SHIPMENT_NAME]   [SHIPMENT_PRICE] [CURRENCY][SHIPMENT]][[PAYMENT]
+Bezahlung:      [PAYMENT_NAME]   [PAYMENT_PRICE] [CURRENCY][PAYMENT]][[VAT]
+[VAT_TEXT]                   [VAT_PRICE] [CURRENCY][VAT]]
+------------------------------------------------------------------------
+Gesamtsumme                                                [ORDER_SUM] [CURRENCY]
+------------------------------------------------------------------------
+
+Bemerkungen:
+[REMARKS]
+
+
+Ihre Kundenadresse:
+[CUSTOMER_COMPANY]
+[CUSTOMER_FIRSTNAME] [CUSTOMER_LASTNAME]
+[CUSTOMER_ADDRESS]
+[CUSTOMER_ZIP] [CUSTOMER_CITY]
+[CUSTOMER_COUNTRY][[SHIPPING_ADDRESS]
+
+
+Lieferadresse:
+[SHIPPING_COMPANY]
+[SHIPPING_FIRSTNAME] [SHIPPING_LASTNAME]
+[SHIPPING_ADDRESS]
+[SHIPPING_ZIP] [SHIPPING_CITY]
+[SHIPPING_COUNTRY][SHIPPING_ADDRESS]]
+
+Ihr Link zum Online Store: [SHOP_HOMEPAGE][[CUSTOMER_LOGIN]
+
+Ihre Zugangsdaten zum Shop:
+Benutzername:   [CUSTOMER_USERNAME]
+Passwort:       [CUSTOMER_PASSWORD][CUSTOMER_LOGIN]]
+
+Wir freuen uns auf Ihren nächsten Besuch im [SHOP_COMPANY] Online Store und wünschen Ihnen noch einen schönen Tag.
+
+P.S. Diese Auftragsbestätigung wurde gesendet an: [CUSTOMER_EMAIL]
+
+Mit freundlichen Grüssen
+Ihr [SHOP_COMPANY] Online Shop Team
+
+[SHOP_HOMEPAGE]

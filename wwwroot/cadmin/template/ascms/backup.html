@@ -1,0 +1,118 @@
+<!-- START backup.html -->
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+function SelectAllList(CONTROL)
+{
+	for(var i = 0;i < CONTROL.length;i++)
+{
+		CONTROL.options[i].selected = true;
+	}
+}
+
+function DeselectAllList(CONTROL)
+{
+	for(var i = 0;i < CONTROL.length;i++)
+	{
+		CONTROL.options[i].selected = false;
+	}
+}
+
+function deleteBackup(id)
+{
+    if(confirm('{TXT_CONFIRM_DELETE_DATA}\n{TXT_ACTION_IS_IRREVERSIBLE}'))
+		window.location.replace("?cmd=backup&{CSRF_PARAM}&act=delete&backupid="+id);
+}
+
+function restoreBackup(id)
+{
+    if(confirm('{TXT_CONFIRM_RESTORE_DATA}\n{TXT_ACTION_IS_IRREVERSIBLE}'))
+        window.location.replace("?cmd=backup&{CSRF_PARAM}&act=restore&backupid="+id);
+}
+// ]]>
+</script>
+<form name="formbackup" method="post" action="?cmd=backup&amp;act=create">
+  <table cellspacing="0" cellpadding="3" width="100%" border="0" class="adminlist">
+    <tr>
+      <th valign="top" colspan="4">
+        <div align="left">{TXT_BACKUP_CREATE}</div>
+      </th>
+    </tr>
+    <tr class="row1">
+      <td valign="top" width="13%"><b>{TXT_DESCRIPTION}</b></td>
+      <td valign="top" colspan="3">
+        <input type="text" name="description" size="50" />
+      </td>
+      <!--<td valign="top">
+        <div align="right">
+          <input type="submit" name="backup_default" value="{TXT_DEFAULT_BACKUP}" />
+          <input type="submit" name="backup_shop" value="{TXT_SHOP_BACKUP}" />
+        </div>
+      </td>-->
+    </tr>
+    <tr class="row1">
+      <td valign="top" width="13%">
+        <p><b>{TXT_TABLES}<br />
+          </b></p>
+        <p>&nbsp;</p>
+      </td>
+      <td valign="top" class="row1" width="8%">
+        <select name="tables[]" size="10" multiple="multiple">
+        {BACKUP_TABLE_OPTIONS}
+        </select>
+
+      </td>
+      <td valign="middle" class="row1" width="15%" nowrap="nowrap"><b>{TXT_DATABASE}</b>
+        <b>{DB_NAME}</b> <br />
+        CMS: {CMS_SIZE}<br />
+        <br />
+        <font face="arial" size="1"><a href="javascript:SelectAllList(document.formbackup.elements['tables[]']);" style="color:blue;">{TXT_SELECT_ALL}<br />
+        </a><a href="javascript:DeselectAllList(document.formbackup.elements['tables[]']);" style="color:blue;">{TXT_DESELECT_ALL}</a></font> </td>
+      <td valign="top" class="row1">&nbsp; </td>
+    </tr>
+    <tr class="row1">
+      <td valign="top" class="row1" colspan="4">
+        <script language="JavaScript" type="text/javascript">
+SelectAllList(document.formbackup.elements['tables[]']);
+  </script>
+        <input type="hidden" name="default_tables" value="{DEFAULT_TABLES}" />
+        <input type="hidden" name="shop_tables" value="{SHOP_TABLES}" />
+        <input type="submit" name="backup_starten" value="{TXT_BACKUP_SUBMIT}" />
+      </td>
+    </tr>
+  </table>
+ </form>
+<br />
+<table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+  <tr>
+    <th colspan="5">
+      <div align="left"><b>{TXT_BACKUP_LIST}</b></div>
+    </th>
+  </tr>
+  <tr class="row1">
+    <td width="19%"><b>{TXT_DATE}</b></td>
+    <td width="39%"> <b>{TXT_DESCRIPTION}</b></td>
+    <td width="14%"> <b> {TXT_TABLES} </b></td>
+    <td width="10%"> <b>{TXT_SIZE}</b> </td>
+    <td width="18%" style="text-align:right;">
+      <b>{TXT_ACTION}</b>
+    </td>
+  </tr>
+
+<!-- BEGIN backupRow -->
+  <tr class="{BACKUP_ROWCLASS}">
+    <td width="19%">{BACKUP_DATE}</td>
+    <td width="39%"> {BACKUP_DESCRIPTION} </td>
+    <td width="14%"> <a href="?cmd=backup&amp;act=viewtables&amp;backupid={BACKUP_ID}">{BACKUP_TABLES}</a>
+    </td>
+    <td width="10%"> {BACKUP_SIZE} </td>
+    <td nowrap="nowrap" width="18%" style="text-align:right;">
+      <!--<a href="javascript:restoreBackup({BACKUP_ID})"><img src="images/icons/fs_refresh.png" border="0" title="{TXT_RESTORE}" alt="" width="18" height="18" /></a>-->
+      	<a href="?cmd=backup&amp;act=download&amp;backupid={BACKUP_ID}"><img src="images/icons/save.png" border="0" title="{TXT_DOWNLOAD}" alt="{TXT_DOWNLOAD}" /></a>
+        <a href="?cmd=backup&amp;act=view&amp;backupid={BACKUP_ID}"> <img src="images/icons/viewmag.png" border="0" title="{TXT_VIEW}" alt="{TXT_VIEW}" /></a>
+        <a href="javascript:deleteBackup({BACKUP_ID})"><img src="images/icons/delete.gif" border="0" title="{TXT_DELETE}" alt="{TXT_DELETE}" /></a>
+    </td>
+  </tr>
+<!-- END backupRow -->
+
+</table>
+<!-- END backup.html -->

@@ -1,0 +1,2 @@
+Comvation AG - http://comvation.com
+Turned all include(), include_once(), require() and require_once() into absolute URL.

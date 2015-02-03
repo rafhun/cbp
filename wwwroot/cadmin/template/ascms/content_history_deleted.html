@@ -1,0 +1,46 @@
+<!-- START content_history_deleted.html -->
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+function restoreDeleted(id) {
+	if (confirm('{TXT_DELETED_RESTORE_JS}')) {
+		window.location.replace("index.php?cmd=workflow&{CSRF_PARAM}&act=restoreHistory&id="+id);
+	}
+}
+// ]]>
+</script>
+<style type="text/css">
+    table.adminlist td {
+        vertical-align: top;
+        white-space: nowrap;
+    }
+</style>
+<div id="content1" class="editorTab" style="display:block">
+    <table summary="" border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+        <tr>
+            <th colspan="10">{TXT_TITLE}</th>
+        </tr>
+        <tr class="row3">
+            <td width="10%"><b>{TXT_DATE}</b></td>
+            <td width="20%"><b>{TXT_NAVIGATION_TITLE}</b></td>
+            <td width="5%"><b>{TXT_LANGUAGE}</b></td>
+            <td width="29%"><b>{TXT_TYPE}</b></td>
+            <td width="20%"><b>{TXT_SLUG}</b></td>
+            <td width="15%"><b>{TXT_USER}</b></td>
+            <td width="1%"><b>{TXT_FUNCTIONS}</b></td>
+        </tr>
+        <!-- BEGIN page_row -->
+        <tr class="{HISTORY_ROW}">
+            <td>{HISTORY_DATE}</td>
+            <td>{HISTORY_TITLE}</td>
+            <td>{HISTORY_LANGUAGE}</td>
+            <td>{HISTORY_TYPE}</td>
+            <td>{HISTORY_SLUG}</td>
+            <td>{HISTORY_USER}</td>
+            <td style="text-align: right;">{HISTORY_IMGDETAILS}</td>
+        </tr>
+        <!-- END page_row -->
+    </table>
+    <br />
+    {HISTORY_PAGING}
+</div>
+<!-- END content_history_deleted.html -->

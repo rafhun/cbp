@@ -1,0 +1,22 @@
+<!-- START module_market_settings.html -->
+<form name="formSettings" method="post" action="?cmd=market&act=settings">
+  <table width="100%" cellspacing="0" cellpadding="3" border="0" align="top" class="adminlist">
+    <tr>
+      <th colspan=2>{TXT_TITLE}</th>
+    </tr>
+    <tr class="row3">
+      <td width="180" valign="top"><b>{TXT_DESCRIPTION}</b></td>
+      <td><b>{TXT_VALUE}</b></td>
+    </tr>
+    <!-- BEGIN settings -->
+    <tr class="{SETTINGS_ROWCLASS}">
+      <td width="180" valign="top">{SETTINGS_DESCRIPTION}</td>
+      <td >{SETTINGS_SETVALUE}</td>
+    </tr>
+    <!-- END settings -->
+    </table>
+<br />
+<input type="submit" value="{TXT_SAVE}" name="submitSettings">
+</form>
+<br>
+<!-- END module_market_settings.html -->

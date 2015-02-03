@@ -1,0 +1,76 @@
+<!-- start settingDb.html -->
+<!-- BEGIN core_settingdb_subnav -->
+<div id="subnavbar_level2"><ul>{CONTENT_SUBNAVIGATION}</ul></div><br />
+<!-- END core_settingdb_subnav -->
+<!-- BEGIN core_settingdb_tab -->
+<ul id="tabmenu">
+<!-- BEGIN core_settingdb_tab_row -->
+  <li><a id="settingdb_tab-{CORE_SETTINGDB_TAB_INDEX}"
+        class="{CORE_SETTINGDB_TAB_CLASS}" href="javascript:void(0);"
+        onclick="selectTab('tab-{CORE_SETTINGDB_TAB_INDEX}');"
+        title="{CORE_SETTINGDB_TAB_NAME}">{CORE_SETTINGDB_TAB_NAME}</a></li>
+<!-- END core_settingdb_tab_row -->
+</ul>
+<!-- END core_settingdb_tab -->
+
+<!-- BEGIN core_settingdb_tab_div -->
+<div id="tab-{CORE_SETTINGDB_TAB_INDEX}" class="settingdb" style="display: {CORE_SETTINGDB_TAB_DISPLAY};">
+  <form name="formSettings-{CORE_SETTINGDB_TAB_INDEX}" method="post" action="{URI_BASE}"{CORE_SETTINGDB_ENCTYPE}>
+<!-- BEGIN core_settingdb_sections -->
+<!-- BEGIN core_settingdb_section -->
+    <table class="adminlist" border="0" cellspacing="0" cellpadding="2" width="100%" summary="">
+      <thead>
+        <tr>
+          <th colspan="2">
+            {CORE_SETTINGDB_SECTION}
+          </th>
+        </tr>
+<!-- BEGIN core_settingdb_header -->
+        <tr class="row3">
+          <td width="25%">
+            <b>{TXT_CORE_SETTINGDB_NAME}</b>
+          </td>
+          <td width="75%">
+            <b>{TXT_CORE_SETTINGDB_VALUE}</b>
+          </td>
+        </tr>
+<!-- END core_settingdb_header -->
+      </thead>
+      <tbody>
+<!-- BEGIN core_settingdb_row -->
+<!-- BEGIN core_settingdb_row_1 -->
+        <tr class="row{CORE_SETTINGDB_ROWCLASS1}">
+          <td colspan="2" valign="top">
+            {CORE_SETTINGDB_ROW}
+          </td>
+        </tr>
+<!-- END core_settingdb_row_1 -->
+<!-- BEGIN core_settingdb_row_2 -->
+        <tr class="row{CORE_SETTINGDB_ROWCLASS2}">
+          <td valign="top" width="25%">
+            {CORE_SETTINGDB_NAME}
+          </td>
+          <td valign="top" width="75%">
+            {CORE_SETTINGDB_VALUE}
+          </td>
+        </tr>
+<!-- END core_settingdb_row_2 -->
+<!-- END core_settingdb_row -->
+      </tbody>
+    </table>
+<!-- END core_settingdb_section -->
+<!-- END core_settingdb_sections -->
+    <br />
+    <br />
+    <input type="submit" value="{TXT_CORE_SETTINGDB_STORE}" name="bsubmit"
+        tabindex="101" />
+  </form>
+</div>
+<!-- END core_settingdb_tab_div -->
+
+<!-- BEGIN core_settingdb_tab_div_external -->
+<div id="tab-{CORE_SETTINGDB_TAB_INDEX}" class="settingdb" style="display: {CORE_SETTINGDB_TAB_DISPLAY};">
+{CORE_SETTINGDB_EXTERNAL}
+</div>
+<!-- END core_settingdb_tab_div_external -->
+<!-- end settingDb.html -->

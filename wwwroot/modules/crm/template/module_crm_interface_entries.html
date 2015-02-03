@@ -1,0 +1,107 @@
+{INTERFACE_JAVASCRIPT}
+<!-- START module_blog_entries.html -->
+
+<ul id="tabmenu">
+    <li><a id="Entries_Import" class="active" href="javascript:{}" onclick="selectTab('Import')" title="{TXT_CRM_IMPORT_NAME}">{TXT_CRM_IMPORT_NAME}</a></li>
+    <li><a id="Entries_Export" class="" href="javascript:{}" onclick="selectTab('Export')" title="{TXT_CRM_EXPORT_NAME}">{TXT_CRM_EXPORT_NAME}</a></li>
+
+</ul>
+
+
+
+<!-- Import Section Start-->
+<div id="Import" class="Entries" style="display: block;">
+    <form name="frmImport" method="post" action="index.php?cmd={MODULE_NAME}&act=importcsv" enctype="multipart/form-data">
+        <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+            <tr>
+                <th colspan="2">{TXT_CRM_IMPORT_NAME}</th>
+            </tr>
+
+            <tr class="row2">
+                <td colspan="2">{TXT_CRM_IMPORT_PAGE_HEADING}:</td>
+            </tr>
+            <tr class="row1">
+                <td style="width: 200px;">
+			{TXT_CRM_IMPORT_FILE_TYPE}
+                </td>
+                <td>
+                    <select name="importtype" style="width: 200px;" onchange="changeType(this.value)">
+
+                        <option value="csv" >{TXT_CRM_IMPORT_CSV_TXT}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="row2">
+                <td>
+		{TXT_CRM_CHOOSE_FILE}
+                </td>
+                <td>
+
+                    <input type="file" name="importfile" id="importfile" style="width: 200px;"/>
+                </td>
+            </tr>
+            <tr class="row1" id="csv_separator">
+                <td>
+			{TXT_CRM_CSV_SEPARATOR}
+                </td>
+                <td>
+                    <input type="text" name="import_options_csv_separator" id="import_options_csv_separator" style="width: 200px;" value=";" />
+
+                    <!--img src="images/icons/note.gif" alt="Note" width="12" height="12" onmouseout="htm()" onmouseover="stm(Text[0],Style[0])" /-->
+                </td>
+            </tr>
+            <tr class="row2" id="csv_enclosure">
+                <td>
+			{TXT_CRM_CSV_ENCLOSURE}
+                </td>
+                <td>
+                    <input type="text" name="import_options_csv_enclosure" id="import_options_csv_enclosure" style="width: 200px;" maxlength="1" value="&quot;" />
+
+                    <!--img src="images/icons/note.gif" alt="Note" width="12" height="12" onmouseout="htm()" onmouseover="stm(Text[1],Style[0])" /-->
+                </td>
+            </tr>
+            <tr class="row1">
+                <td>{TXT_CRM_CSV_TABLE}</td>
+                <td>
+                    <select name="table" id="table">
+                        <option value="0">{TXT_CRM_CSV_CHOOSE_TABLE}</option>
+                        <option value="1">{TXT_CRM_CUSTOMERS}</option>
+                    </select>
+                </td>
+
+            </tr>
+
+
+        </table>
+        <br />
+
+        <input type="submit" value="{TXT_CRM_IMPORT_NAME}" title="{TXT_CRM_IMPORT_NAME}" name="imported" onclick="return formValidation();"/>
+    </form>
+</div>
+
+<!-- Import Section End-->
+
+<!-- Export Section Start -->
+<div id="Export" class="Entries" style="display: none;">
+    <form name="frmExport" method="post" action="">
+        <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+            <tr>
+                <th colspan="2">{TXT_CRM_EXPORT_NAME}</th>
+            </tr>
+            <tr class="row3">
+                <td nowrap="nowrap" width="90%"><span style="font-weight:bold;">{TXT_CRM_EXPORT_INFO}</span></td>
+                <td nowrap="nowrap"><span style="font-weight:bold;">{TXT_CRM_FUNCTIONS}</span></td>
+            </tr>
+            <tr class="row2">
+                <td> {TXT_CRM_EXPORT_CUSTOMER_CSV}</td>
+                <td> <a title="CSV Export" target="_self" href="index.php?cmd=crm&act=export"> <img border="0" title="Detail Export of All Customers" alt="" src="images/icons/csv.gif"> </a></td>
+            </tr>
+        </table>
+        <br />
+    </form>
+</div>
+<!-- Export Section End -->
+
+<!-- END module_partners_entries.html -->
+
+
