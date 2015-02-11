@@ -1,0 +1,41 @@
+// helper classes to toggle visibility over media queries and the whole page
+@mixin hidden {
+  display: none !important;
+  visibility: invisible !important;
+}
+
+.hidden {
+  @include hidden;
+}
+
+.visible-block {
+  display: block;
+}
+
+.visible-inline {
+  display: inline-block;
+}
+
+.hidden-xs {
+  @include susy-media(max-xs) {
+    @include hidden;
+  }
+}
+
+.hidden-sm {
+  @include susy-media(xs-sm) {
+    @include hidden;
+  }
+}
+
+.hidden-md {
+  @include susy-media(sm-md) {
+    @include hidden;
+  }
+}
+
+.hidden-lg {
+  @include susy-media(md-lg) {
+    @include hidden;
+  }
+}

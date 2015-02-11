@@ -1,0 +1,9 @@
+// every single color that is used throughout the stylesheet should be assigned
+// to a variable in this file
+// also set !default flags to enable theming
+
+// colors (no defaults here, as variable name describes color)
+$black-pearl: #041322;
+
+// stylesheet variables
+$color-primary: $black-pearl !default;

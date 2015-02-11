@@ -1,0 +1,35 @@
+// this file contains the main definitions for the layout, here managed by susy.
+// all susy settings including the breakpoints are defined here
+
+$susy: (
+  gutter-position: after,
+  columns: 12,
+  gutters: .25,
+  global-box-sizing: border-box,
+  last-flow: to,
+  debug: (
+    image: hide,
+    color: rgba(#66f, .25),
+    output: background,
+    toggle: top right,
+  ),
+  use-custom: (
+    background-image: true,
+    background-options: false,
+    box-sizing: true,
+    clearfix: false,
+    rem: true,
+  )
+);
+
+// breakpoints
+$susy-media: (
+  xs: 20em,
+  sm: 40em,
+  md: 60em,
+  lg: 80em,
+  max-xs: max-width 20em,
+  xs-sm: 20em 40em,
+  sm-md: 40em 60em,
+  md-lg: 60em 80em
+);
