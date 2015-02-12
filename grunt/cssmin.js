@@ -1,7 +1,7 @@
 module.exports = {
-  combine: {
+  minify: {
     files: {
-      '<%= pkg.build-folders.theme %>style.min.css': ['<%= pkg.source-folders.css %>style-prefixed.css']
+      '<%= destFolder %>style.min.css': ['<%= autoprefixer.single_files.dest %>']
     }
   }
 }

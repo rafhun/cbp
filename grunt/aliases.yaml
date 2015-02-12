@@ -1,5 +1,7 @@
 default:
  - 'clean'
+ - 'jshint:grunt'
+ - 'jshint:src'
  - 'newer:concat'
  - 'newer:uglify'
  - 'newer:sass'
@@ -12,6 +14,15 @@ default:
  - 'jade'
  - 'hashres'
  - 'hologram'
+
+ship:
+  - 'jshint:grunt'
+  - 'jshint:shipping'
+  - 'concat'
+  - 'uglify'
+  - 'sass'
+  - 'autoprefixer'
+  - 'cssmin'
 
 build:
  - 'clean'
@@ -32,3 +43,14 @@ build:
 setup:
  - 'shell:bundler'
  - 'bower'
+
+scss:
+  - 'sass'
+  - 'autoprefixer'
+  - 'cssmin'
+
+js:
+  - 'jshint:grunt'
+  - 'jshint:src'
+  - 'concat'
+  - 'uglify'

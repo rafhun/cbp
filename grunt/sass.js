@@ -4,8 +4,7 @@ module.exports = {
       style: 'expanded',
       require: 'susy'
     },
-    files: {
-      '<%= pkg.src-folders.css %>main.css': '<%= pkg.src-folders.scss %>main.scss'
-    }
+    src: '<%= pkg.srcFolders.scss %>main.scss',
+    dest: '<%= pkg.srcFolders.css %>style.css',
   }
 }

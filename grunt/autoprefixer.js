@@ -1,11 +1,9 @@
 module.exports = {
   options: {
-    browsers: ['last 2 version']
+    browsers: ['last 2 versions']
   },
-  multiple_files: {
-    expand: true,
-    flatten: true,
-    src: '<%= pkg.source-folders.css %>style.css',
-    dest: '<%= pkg.source-folders.css %>style-prefixed.css'
+  single_files: {
+    src: '<%= sass.dist.dest %>',
+    dest: '<%= pkg.srcFolders.css %>style-prefixed.css'
   }
 }

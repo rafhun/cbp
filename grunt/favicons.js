@@ -1,12 +1,12 @@
 module.exports = {
   options: {
-    html: '<%= pkg.source-folders.jade %>favicons.html',
+    html: '<%= pkg.srcFolders.jade %>favicons.html',
     coast: true,
     firefox: true,
     androidHomescreen: true,
   },
   icons: {
-    src: '<%= pkg.source-folders.images %>favicon.png',
+    src: '<%= pkg.srcFolders.images %>favicon.png',
     dest: 'wwwroot/'
   }
 }

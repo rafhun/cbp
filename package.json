@@ -40,14 +40,14 @@
   },
   "dependencies": {},
   "themeName": "rafhun",
-  "build-folders": {
-    "config": "wwwroot/config/"
-    "theme": "wwwroot/theme/",
+  "buildFolders": {
+    "config": "wwwroot/config/",
+    "theme": "wwwroot/themes/",
     "img": "images/",
     "contentImg": "wwwroot/images/",
     "fonts": "fonts/"
   },
-  "src-folders": {
+  "srcFolders": {
     "bower": "src/bower_components",
     "css": "src/css/",
     "scss": "src/scss/",
@@ -59,7 +59,6 @@
     "svg": "src/images/svg/",
     "contentImg": "src/images/content-images/",
     "fonts": "src/fonts/",
-    "bower": "src/bower_components/",
     "secrets": "src/secrets/"
   }
 }

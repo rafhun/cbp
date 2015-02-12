@@ -1,6 +1,6 @@
 module.exports = {
   build: {
-    src: '<%= concat.dist.dest',
-    dest: '<%= pkg.build-folders.theme %>script.min.js'
+    src: '<%= concat.dist.dest %>',
+    dest: '<%= destFolder %>script.min.js'
   }
 }

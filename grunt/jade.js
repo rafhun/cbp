@@ -7,9 +7,9 @@ module.exports = {
     },
     files: [{
       expand: true,
-      cwd: '<%= pkg.src-folders.jade %>',
+      cwd: '<%= pkg.srcFolders.jade %>',
       src: ['*.jade'],
-      dest: '<%= pkg.build-folders.theme%>',
+      dest: '<%= destFolder %>',
       ext: '.html'
     }]
   }

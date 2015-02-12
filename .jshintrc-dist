@@ -18,7 +18,7 @@
   "sub": true,
 
   "browser": true,
-  "devel": true,
+  "devel": false,
   "jquery": true,
   "node": true,
   "strict": false,

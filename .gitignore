@@ -33,7 +33,7 @@ sftp-config.json
 *.css.map
 
 # Compiled Files
-wwwroot/themes/**/{css/, js/build/}
+wwwroot/themes
 src/css
 src/js/build
 

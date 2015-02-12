@@ -5,9 +5,9 @@ module.exports = {
   },
   prod: {
     src: [
-      '<%= pkg.build-folders.theme %>style.min.css',
-      '<%= pkg.build-folders.theme %>script.min.js'
+      '<%= destFolder %>style.min.css',
+      '<%= destFolder %>script.min.js'
     ],
-    dest: '<%=pgk.build-folders.theme %>index.html'
+    dest: '<%=destFolder %>index.html'
   }
 }

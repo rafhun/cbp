@@ -1,0 +1,24 @@
+doctype html
+html(lang="{ACTIVE_LANGUAGE_NAME}")
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        title {METATITLE} | {GLOBAL_TITLE}
+        meta(name='description', content='{METADESC}')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        //- include favicons.html
+
+        //- add dns prefetch link when using google webfonts
+        link(rel='dns-prefetch', href='//fonts.googleapis.com')
+        link(rel='stylesheet', href='/themes/rafhun/style.min.css')
+    body(class='{CSS_NAME}')
+        //- include ../images/svg-defs.svg
+        <!--[if lt IE 8]><p class="browserupgrade">Sie benutzen einen <strong>veralteten</strong> Browser. Bitte <a href="http://browsehappy.com/">aktualisieren Sie Ihren Browser</a> um eine bessere Web Erfahrung geniessen zu k&ouml;nnen.</p><![endif]-->
+
+        //- content goes here
+        
+        div {CONTENT_FILE}
+
+        script(src='/themes/rafhun/script.min.js')
+
+        // remember ga

@@ -1,7 +1,7 @@
 module.exports = {
   install: {
     options: {
-      targetDir: '<%= pkg.source-folders.bower %>',
+      targetDir: '<%= pkg.srcFolders.bower %>',
       cleanBowerDir: false,
     }
   }

@@ -4,7 +4,7 @@ module.exports = {
       expand: true,
       cwd: '<%=pkg.src-folders.contentImg%>',
       src: ['**/*.{png,jpg,gif,svg}', '!**/pixel.gif'],
-      dest: '<%= pkg.build-folders.contentImg %>'
+      dest: '<%= pkg.buildFolders.contentImg %>'
     }]
   },
   themeImg: {
@@ -12,7 +12,7 @@ module.exports = {
       expand: true,
       cwd: '<%=pkg.src-folders.themeImg %>',
       src: ['**/*.{png,jpg,gif,svg}'],
-      dest: '<%= destFolder %><%= pkg.build-folders.img %>'
+      dest: '<%= destFolder %><%= pkg.buildFolders.img %>'
     }]
   }
 }
