@@ -20,7 +20,7 @@ css_include:
 
 # List all js to include for the styleguide render examples (path from styleguide directory)
 js_include:
-  - ../src/js/build/script.min.js
+  - ../src/js/build/script.js
 
-# String who is used to split the category name and create category wrapper
+# String used to split the category name and create category wrapper
 name_scope: ' - '

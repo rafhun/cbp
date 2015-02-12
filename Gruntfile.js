@@ -5,7 +5,8 @@ module.exports = function(grunt) {
   require('load-grunt-config')(grunt, {
     data: {
       pkg: grunt.file.readJSON('package.json'),
-      destFolder: '<%= pkg.buildFolders.theme %><%= pkg.themeName %>/'
+      destFolder: '<%= pkg.buildFolders.theme %><%= pkg.themeName %>/',
+      secrets: grunt.file.readJSON('secrets.json')
     }
   });
 };

@@ -15,7 +15,11 @@ default:
  - 'hashres'
  - 'hologram'
 
+local:
+  - 'replace:local'
+
 ship:
+  - 'replace:server'
   - 'jshint:grunt'
   - 'jshint:shipping'
   - 'concat'
@@ -42,7 +46,16 @@ build:
 
 setup:
  - 'shell:bundler'
- - 'bower'
+ - 'shell:bower'
+ - 'bower_concat'
+
+setupUpdate:
+  - 'shell:bunderUpdate'
+  - 'shell:bowerUpdate'
+  - 'bower_concat'
+  - 'concat'
+  - 'uglify'
+  - 'hashres'
 
 scss:
   - 'sass'

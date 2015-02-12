@@ -1,7 +1,7 @@
 module.exports = {
   dist: {
     src: [
-      '<%= pkg.srcFolders.bower %>**/jquery.min.js',
+      '<%= bower_concat.all.dest %>',
       '<%= pkg.srcFolders.js %>plugins.js',
       '<%= pkg.srcFolders.js %>script.js'
     ],

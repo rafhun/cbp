@@ -33,7 +33,7 @@ sftp-config.json
 *.css.map
 
 # Compiled Files
-wwwroot/themes
+wwwroot/themes/**
 src/css
 src/js/build
 
@@ -41,8 +41,9 @@ src/js/build
 .grunt
 node_modules
 
-# bower
+# bower, second file is compiled from bower_components
 bower_components
+src/js/bower.js
 
 # tmp folders
 cache
@@ -71,5 +72,5 @@ firefox-icon-*
 homescreen-*
 
 # secrets (config files, db passwords, etc)
-secrets
+secrets.json
 wwwroot/config/configuration.php

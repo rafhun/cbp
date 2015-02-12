@@ -83,7 +83,7 @@ if ($selectedTimezoneId !== '') {
 $_CONFIG['coreCmsName']         = 'Contrexx';
 $_CONFIG['coreCmsVersion']      = '4.0.0';
 $_CONFIG['coreCmsStatus']       = 'Stable';
-$_CONFIG['coreCmsEdition']      = 'Standard';
+$_CONFIG['coreCmsEdition']      = 'Minimal';
 $_CONFIG['coreCmsCodeName']     = 'Eric S. Raymond';
 $_CONFIG['coreCmsReleaseDate']  = '17.12.2014';
 
@@ -354,21 +354,6 @@ $arrDatabaseTables = array(
 	'module_memberdir_name',
 	'module_memberdir_settings',
 	'module_memberdir_values',
-	'module_news',
-	'module_news_categories',
-	'module_news_categories_catid',
-	'module_news_categories_locale',
-	'module_news_categories_locks',
-	'module_news_comments',
-	'module_news_locale',
-	'module_news_settings',
-	'module_news_settings_locale',
-	'module_news_stats_view',
-	'module_news_teaser_frame',
-	'module_news_teaser_frame_templates',
-	'module_news_ticker',
-	'module_news_types',
-	'module_news_types_locale',
 	'module_newsletter',
 	'module_newsletter_access_user',
 	'module_newsletter_attachment',
@@ -384,6 +369,21 @@ $arrDatabaseTables = array(
 	'module_newsletter_tmp_sending',
 	'module_newsletter_user',
 	'module_newsletter_user_title',
+	'module_news',
+	'module_news_categories',
+	'module_news_categories_catid',
+	'module_news_categories_locale',
+	'module_news_categories_locks',
+	'module_news_comments',
+	'module_news_locale',
+	'module_news_settings',
+	'module_news_settings_locale',
+	'module_news_stats_view',
+	'module_news_teaser_frame',
+	'module_news_teaser_frame_templates',
+	'module_news_ticker',
+	'module_news_types',
+	'module_news_types_locale',
 	'module_podcast_category',
 	'module_podcast_medium',
 	'module_podcast_rel_category_lang',
