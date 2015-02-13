@@ -10,7 +10,7 @@ The basic folder structure is defined respectively mirrored within `package.json
 To change your themes name change `themeName` in `package.json`. This automatically names your theme folder and adjusts your grunt paths.
 
 ## Grunt Tasks
-Here a quick overview is given over important grunt tasks and their usage. Not everything is described and most of these tasks have been assigned to other tasks and are being run automatically.
+Here a quick overview is given over important grunt tasks and their usage. Not everything is described and most of these tasks have been assigned to other tasks and are being run automatically. They are more or less described in the order that you would need them or how they are used within the build tasks.
 
 ### Default and Shipping Task
 There are two basic tasks set up which allow you to build a development version or a production version. The default task is set up as development build while `grunt ship` creates the production build. The main differences between the two tasks are:
@@ -18,10 +18,25 @@ There are two basic tasks set up which allow you to build a development version 
 * The JSHint rules: for production the `devel` option is set to `false` to prevent commands typically used for development (such as `alert()`) from being shipped to the server. During development however these tasks can be of great use when debugging your scripts and are therefore allowed.
 
 ### Update Dependencies
-To update gem and bower dependencies run `grunt setup`
+To update gem and bower dependencies run `grunt setup`.
 
-### Copy Task
-The copy task serves to copy files. One usage of them is to keep sensitive data out of the repository and to be able to quickly change the `configuration.php` file of Contrexx to the environment that is being used. Run `copy:local` to change to the local configuration and `copy:server` to change to the server configuration. Usually these two files only differ in the root paths given however this task makes it possible to also have different database credentials without the need to go into the config file directly. Just run the `copy:server` task before deploying to your server.
+### Replace
+Takes all your configuration data from the `secrets.json` file in your root and builds a valid Contrexx `configuration.php` file. You have the possibility to define a local and a server environment. The task is also part of the respective build tasks so you automatically get the correct configuration for the chosen environment.
+* `grunt replace:local` fills in the credentials for your local environment.
+* `grunt replace:server` is used to create the server environment configuration.
+
+### Clean
+This task is responsible for wiping out the whole build folder before a new build starts. To keep the filesystem clean while in development several subtasks have been defined which are called by the watch task:
+* `grunt hashes` is used to delete the previously hashed script and stylesheet files. Since hashres always hashes both files they can both be deleted.
+* `grunt html` deletes all `.html` files in the build folder. This task can be used to completely rebuild your jade templates. It is not integrated to another grunt task and as such can only be run on its own.
+* `grunt images` cleans only the `images` folder in the theme folder. Use it to clean up previously compressed images (i.e. if you get an error or wrong minification). As such this task is not part of any defined grunt tasks.
+* `grunt dest` wipes out the whole build folder. Use this if you want to completely rebuild all your resources.
+* `grunt unhashed` cleans up your unhashed styles and javascript in the build folder. Use this before deploying to the server if you do not wish for your unhashed files to be available there.
+
+### Imagemin
+Used to compress images to their minimum file size. Since there are two different image locations in the CMS there are two tasks:
+* `grunt imagemin:contentImg`
+* `grunt imagemin:themeImg`
 
 ## Important File Names
 A list to give you a quick overview over the filenames being used:
