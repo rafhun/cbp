@@ -71,6 +71,9 @@ coast-icon-*
 firefox-icon-*
 homescreen-*
 
+# generated favicon html
+favicons.html
+
 # secrets (config files, db passwords, etc)
 secrets.json
 wwwroot/config/configuration.php
