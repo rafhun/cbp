@@ -38,6 +38,11 @@ Used to compress images to their minimum file size. Since there are two differen
 * `grunt imagemin:contentImg`
 * `grunt imagemin:themeImg`
 
+### Hashres
+The hashres task is used for cache busting your assets. It automatically adds an 8 charachter long hash from the file contents to your styles and script file. This means that the hash only changes if the file contents actually changed, perfect for cache busting.
+The task furthermore changes the links in the `index.html` to include the generated hash. To keep your build folder clean the hashed files are wiped out automatically before the task is run however the unhashed files will not be replaced.
+Before deployment or when running the `grunt ship` task, the source files are wiped after the hashes are created to keep the files on your server clean.
+
 ## Important File Names
 A list to give you a quick overview over the filenames being used:
 * Styles: style.css -> style-prefixed.css -> style.min.css
