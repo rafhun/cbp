@@ -3,56 +3,56 @@ module.exports = {
     livereload: true,
   },
   jsHint: {
-    files: ['<%= pkg.src-folders.js %>main.js', 'grunt/*.js', 'Gruntfile.js'],
+    files: ['<%= pkg.srcFolders.js %>main.js', 'grunt/*.js', 'Gruntfile.js'],
     tasks: ['jshint'],
     options: {
       spawn: false,
     }
   },
   scripts: {
-    files: ['<%= pkg.src-folders.bower %>**/*.js', '<%= pkg.src-folders.js %>**/*.js'],
+    files: ['<%= pkg.srcFolders.js %>**/*.js'],
     tasks: ['clean:hashes', 'concat', 'uglify', 'hashres'],
     options: {
       spawn: false,
     }
   },
   styles: {
-    files: ['<%= pkg.src-folders.scss %>**/*.scss'],
+    files: ['<%= pkg.srcFolders.scss %>**/*.scss'],
     tasks: ['clean:hashes', 'sass', 'autoprefixer', 'cssmin', 'hashres', 'hologram'],
     options: {
       spawn: false,
     }
   },
   images: {
-    files: ['<%= pkg.src-folders.img %>**/*.{png,jpg,gif,svg}'],
+    files: ['<%= pkg.srcFolders.img %>**/*.{png,jpg,gif,svg}'],
     tasks: ['imagemin'],
     options: {
       spawn: false,
     }
   },
   svg: {
-    files: ['<%= pkg.src-folders.svg %>*.svg'],
+    files: ['<%= pkg.srcFolders.svg %>*.svg'],
     tasks: ['svgstore', 'jade', 'hashres'],
     options: {
       spawn: false,
     }
   },
   favicons: {
-    files: ['<%= pkg.src-folders.images %>favicon.png'],
-    tasks: ['favicons', 'htmlmin', 'jade', 'hashres'],
+    files: ['<%= pkg.srcFolders.images %>favicon.png'],
+    tasks: ['clean:hashes','favicons', 'htmlmin', 'jade', 'hashres'],
     options: {
       spawn: false,
     }
   },
   jade: {
-    files: ['<%= pkg.src-folders.jade %>*.{jade,html}'],
-    tasks: ['jade', 'hashres'],
+    files: ['<%= pkg.srcFolders.jade %>*.{jade,html}'],
+    tasks: ['clean:hashes', 'jade', 'hashres'],
     options: {
       spawn: false,
     }
   },
   hologram: {
-    files: ['<%= pkg.src-folders.scss %>README.md'],
+    files: ['<%= pkg.srcFolders.scss %>README.md'],
     tasks: ['hologram'],
     options: {
       spawn: false,

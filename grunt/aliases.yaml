@@ -16,7 +16,22 @@ default:
  - 'hologram'
 
 local:
+  - 'jshint:grunt'
+  - 'jshint:src'
   - 'replace:local'
+  - 'clean:dest'
+  - 'concat'
+  - 'uglify'
+  - 'imagemin'
+  - 'svgstore'
+  - 'sass'
+  - 'autoprefixer'
+  - 'cssmin'
+  - 'favicons'
+  - 'htmlmin'
+  - 'jade'
+  - 'hashres'
+  - 'hologram'
 
 ship:
   - 'replace:server'

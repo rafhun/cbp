@@ -1,7 +1,7 @@
 module.exports = {
   options: {
     prefix: 'shape-',
-    cleanup: false,
+    cleanup: true, // cleans up inline style formatting that might interfere with css
     svg: {
       style: 'display: none;'
     }

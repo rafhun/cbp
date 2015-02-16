@@ -57,7 +57,7 @@ bundler_components
 wwwroot/styleguide
 
 # generated SVG sprite
-svg-defs.svg
+shapes.svg
 
 # compiled html files
 wwwroot/themes/**/*.html
