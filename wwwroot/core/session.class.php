@@ -489,13 +489,6 @@ class cmsSession extends RecursiveArrayAccess {
                     VALUES ("' . $aKey . '", ' . ($this->rememberMe ? 1 : 0) . ', "' . time() . '", "' . time() . '", "' . $this->status . '", ' . intval($this->userId) . ')
                 ');
                 
-                // This is a dirty hotfix to avoid the system from getting extremly slow
-                // because of session tables overhead. See #2370
-                \Env::get('db')->Execute('
-                    OPTIMIZE TABLE
-                        `' . DBPREFIX . 'sessions`,
-                        `' . DBPREFIX . 'session_variable`
-                ');
                 return '';
             }
         }

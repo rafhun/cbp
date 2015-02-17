@@ -3216,7 +3216,7 @@ CREATE TABLE `contrexx_sessions` (
   `user_id` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`sessionid`),
   KEY `LastUpdated` (`lastupdated`)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB;
 
 CREATE TABLE `contrexx_session_variable` (
   `id` int(11) NOT NULL auto_increment,
@@ -3227,7 +3227,7 @@ CREATE TABLE `contrexx_session_variable` (
   `value` text ,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `key_index` (`parent_id`,`key`,`sessionid`)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB;
 
 CREATE TABLE `contrexx_settings` (
   `setid` int(6) unsigned NOT NULL auto_increment,
