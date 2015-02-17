@@ -24,7 +24,7 @@ module.exports = {
     }
   },
   images: {
-    files: ['<%= pkg.srcFolders.img %>**/*.{png,jpg,gif,svg}'],
+    files: ['<%= pkg.srcFolders.images %>**/*.{png,jpg,gif,svg}'],
     tasks: ['imagemin'],
     options: {
       spawn: false,
