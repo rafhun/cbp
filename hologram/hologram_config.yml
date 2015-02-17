@@ -16,11 +16,11 @@ index: README
 
 # List all css to include for the styleguide render examples (path from styleguide directory)
 css_include:
-  - ../src/css/style-prefixed.css
+  - /themes/rafhun/style.min.css
 
 # List all js to include for the styleguide render examples (path from styleguide directory)
 js_include:
-  - ../src/js/build/script.js
+  - /themes/rafhun/script.min.js
 
 # String used to split the category name and create category wrapper
 name_scope: ' - '
