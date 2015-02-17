@@ -17,8 +17,9 @@ There are two basic tasks set up which allow you to build a development version 
 * The copied `configuration.php` file (development variables vs. production variables)
 * The JSHint rules: for production the `devel` option is set to `false` to prevent commands typically used for development (such as `alert()`) from being shipped to the server. During development however these tasks can be of great use when debugging your scripts and are therefore allowed.
 
-### Update Dependencies
-To update gem and bower dependencies run `grunt setup`.
+### Setup
+There are two setup tasks configured, one for the initiale setup and one that can be used to update gem and bower dependencies after the project has been setup. Run `grunt setup` immediately after `npm install` to initialize your installation. The task loads in all gems defined in the `Gemfile` (respecting given versions if `Gemfile.lock` is found) and prepares all bower dependencies according to the `bower.json` file. All bower javascript files are automatically concatenated and put into the `src/js` folder, prepared for combining them with your other scripts. Bower scripts are automatically ordered correctly according to their dependencies. Should this not work as it should for a component add the dependency yourself to the `grunt/bower_concat.js` file. Refer to the [documentation](https://www.npmjs.com/package/grunt-bower-concat#dependencies) for further instructions.
+To update gem and bower dependencies run `grunt setupUpdate`. Make sure you are in a safe testing environment (i. e. a new testing branch or similar) so you can easily revert should something break because of an update. Thoroughly test your installation after running this update task. Should everything work fine put it into production otherwise go back to the previously used versions.
 
 ### Replace
 Takes all your configuration data from the `secrets.json` file in your root and builds a valid Contrexx `configuration.php` file. You have the possibility to define a local and a server environment. The task is also part of the respective build tasks so you automatically get the correct configuration for the chosen environment.
@@ -27,16 +28,17 @@ Takes all your configuration data from the `secrets.json` file in your root and 
 
 ### Clean
 This task is responsible for wiping out the whole build folder before a new build starts. To keep the filesystem clean while in development several subtasks have been defined which are called by the watch task:
-* `grunt hashes` is used to delete the previously hashed script and stylesheet files. Since hashres always hashes both files they can both be deleted.
-* `grunt html` deletes all `.html` files in the build folder. This task can be used to completely rebuild your jade templates. It is not integrated to another grunt task and as such can only be run on its own.
-* `grunt images` cleans only the `images` folder in the theme folder. Use it to clean up previously compressed images (i.e. if you get an error or wrong minification). As such this task is not part of any defined grunt tasks.
-* `grunt dest` wipes out the whole build folder. Use this if you want to completely rebuild all your resources.
-* `grunt unhashed` cleans up your unhashed styles and javascript in the build folder. Use this before deploying to the server if you do not wish for your unhashed files to be available there.
+* Immediately after installing Contrexx you have the opportunity to run `grunt clean:contrexx` which will remove all content Contrexx puts into the `images/` folder, while keeping its folder structure intact since it is needed this way by Contrexx. Still this allows you to upload a clean folder containing only files you put there yourself (in the best case only minified/compressed images).
+* `grunt clean:hashes` is used to delete the previously hashed script and stylesheet files. Since hashres always hashes both files they can both be deleted.
+* `grunt clean:html` deletes all `.html` files in the build folder. This task can be used to completely rebuild your jade templates. It is not integrated to another grunt task and as such can only be run on its own.
+* `grunt clean:images` cleans only the `images` folder in the theme folder. Use it to clean up previously compressed images (i.e. if you get an error or wrong minification). As such this task is not part of any defined grunt tasks.
+* `grunt clean:dest` wipes out the whole build folder. Use this if you want to completely rebuild all your resources.
+* `grunt clean:unhashed` cleans up your unhashed styles and javascript in the build folder. Use this before deploying to the server if you do not wish for your unhashed files to be available there.
 
 ### Imagemin
 Used to compress images to their minimum file size. Since there are two different image locations in the CMS there are two tasks:
-* `grunt imagemin:contentImg`
-* `grunt imagemin:themeImg`
+* `grunt imagemin:contentImg` is used for images with no direct connection to your theme. It is run on the `src/images/content-images` folder which should only contain images that are part of the content.
+* All images that are part of the theme should be put into the `src/images/theme` folder and are compressed by the `grunt imagemin:themeImg` task. Put all images referenced from your CSS in here. However keep these files to a minimum while trying to use as many svg's as possible throughout the site.
 
 ### Hashres
 The hashres task is used for cache busting your assets. It automatically adds an 8 charachter long hash from the file contents to your styles and script file. This means that the hash only changes if the file contents actually changed, perfect for cache busting.
