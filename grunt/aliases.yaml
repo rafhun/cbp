@@ -15,6 +15,7 @@ default:
  - 'jade'
  - 'hashres'
  - 'hologram'
+ - 'browserSync'
  - 'watch'
 
 local:
@@ -84,3 +85,7 @@ js:
   - 'jshint:src'
   - 'concat'
   - 'uglify'
+
+bsWatch:
+  - 'browserSync'
+  - 'watch'
