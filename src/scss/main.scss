@@ -17,6 +17,9 @@
 
 // modular, reusable UI components
 @import 'components/buttons';
+@import 'components/news-teaser';
+@import 'components/shortlinks';
+@import 'components/subnav';
 
 // page sections & regions
 @import 'regions/footer';
@@ -26,3 +29,4 @@
 
 // non-semantic layout helper classes & placeholders
 @import 'helpers/visibility';
+@import 'helpers/shadows';

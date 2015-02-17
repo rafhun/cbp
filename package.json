@@ -43,7 +43,7 @@
   },
   "dependencies": {},
   "themeName": "rafhun",
-  "devUrl": "christenortho.dev",
+  "devUrl": "http://christenortho.dev",
   "buildFolders": {
     "config": "wwwroot/config/",
     "theme": "wwwroot/themes/",

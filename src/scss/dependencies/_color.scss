@@ -3,7 +3,14 @@
 // also set !default flags to enable theming
 
 // colors (no defaults here, as variable name describes color)
-$black-pearl: #041322;
+$deep-koamaru: #336;
+
+$white-smoke: #ECEAEA;
+$grey: #808080;
+$grey-very-light: #CACACA;
 
 // stylesheet variables
-$color-primary: $black-pearl !default;
+$color-primary: $deep-koamaru !default;
+$color-text: $grey;
+$color-lines: $grey-very-light;
+$color-background: $white-smoke;

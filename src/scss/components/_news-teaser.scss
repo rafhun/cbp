@@ -1,0 +1,62 @@
+/*doc
+---
+title: News Teaser
+category: Component - News Teaser
+---
+# News Teaser Box
+This box will be placed on the landing page automatically filled with news.
+Make sure to create the news teaser templates according to these classes.
+
+```html_example
+<div class="news-teaser">
+	<div class="news-teaser-date">11.08.2014</div>
+	<h3 class="news-teaser-title">Aufnahme ins Board der European Knee Associates (EKA)</h3>
+	<p class="news-teaser-text">Im Juni 2014 wurde Bernhard Christen als Mitglied des Boards der European Knee Associates (EKA)
+	gewählt. Die EKA ver... <a href="#">>>></a>
+</div>
+```
+
+# News Teaser Box Button
+This button is placed underneath the news teasers and points to the news page
+where all articles are listed.
+
+```html_example
+<button class="news-teaser-all-button">
+	<a href="#">Alle anzeigen >>></a>
+</button>
+```
+  */
+
+.news-teaser {
+	position: relative; // for positioning of the date
+	padding: 18px 12px; // numbers are relative to grid gutter width
+
+	background: $color-background;
+}
+
+.news-teaser-title {
+	margin-top: 0; // remove standard h3 margin-top -> headline is always on top of box
+}
+
+.news-teaser-date {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+
+	font-size: 14px;
+}
+
+.news-teaser-text {
+
+}
+
+.news-teaser-all-button {
+	float: right;
+
+	background: $color-background;
+
+	padding: 12px 24px;
+
+	border: none;
+	border-radius: 4px;
+}
