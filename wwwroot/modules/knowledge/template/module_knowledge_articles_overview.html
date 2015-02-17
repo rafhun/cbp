@@ -1,0 +1,290 @@
+<!-- START module_knowledge_articles_overview.html -->
+
+<script type="text/javascript" src="../modules/knowledge/template/javascript/functions.js"></script>
+<script type="text/javascript" src="../modules/knowledge/rating.js"></script>
+
+<script type="text/javascript">
+/* <![CDATA[ */ 
+
+var lastDragged = 0;
+
+var editAllowed = {EDIT_ALLOWED};
+var notAllowedMsg = "{NOT_ALLOWED_MSG}";
+
+var Articles = function() {
+   // constructor 
+}
+
+/**
+ * Get the categorie's articles
+ */
+Articles.prototype.getCategory = function(id) {
+    
+    this.setLoading();
+    new Ajax.Request('index.php', {
+        method : "get",
+        parameters : {
+            cmd     : "knowledge",
+            section : "articles",
+            act     : "getArticles",
+            id      : id
+        },
+        onSuccess : function(transport) {
+            response = transport.responseText.evalJSON();
+            $('articles').update(response.list);
+            /*$('head').update(response.category);*/
+            setRows();
+            initSortableArea();
+            cx.ready(function() {
+                cx.jQuery('.article-edit-link').each(function() {
+                    cx.jQuery(this).attr('href', cx.jQuery(this).attr('href')+'&csrf='+cx.variables.get('csrf'));
+                });
+            });
+        }
+    })
+     
+}
+
+/**
+ * Set loading
+ *
+ * Show the loading image
+ */
+Articles.prototype.setLoading = function()
+{
+    if (loading) {
+        return;
+    }
+    
+    /*
+    if ($('inner_right')) {
+        $('articles').removeChild($('inner_right'));
+    }
+    */
+    
+    //var overlay = document.createElement("div");
+    //overlay.id = "overlay";
+    //$('articles').appendChild(overlay);
+    //$('articles').update('<div id="loading">&nbsp;</div>');
+    $('articles').update('<center><img src="../modules/knowledge/template/loading.gif" alt="" id="loading"  /></center>');
+    
+    var loading = document.createElement("div");
+    var text = document.createTextNode(" ");
+    loading.appendChild(text);
+    loading.id = "loading";
+    
+    $('articles').appendChild(loading);
+    this.loading = true;
+}
+
+Articles.prototype.deleteRow = function(id)
+{
+    new Effect.Highlight('article_'+id, {
+        startcolor  : '#ff9898', 
+        endcolor    : '#ffffff',
+        duration    : 1
+    });
+    
+    var obj = $('article_'+id);
+    window.setTimeout(function() {
+        obj.parentNode.removeChild(obj);
+    }, 1000);
+    
+    delete obj;
+}
+
+var articles = new Articles();
+
+/**
+ * Set the row classes
+ *
+ * Each alternating row has either a row1 or row2 class.
+ * Update these classes
+ */
+var setRows = function()
+{
+    rows =$A($('articlelist').getElementsByTagName("li"));
+    nr = 1;
+    rows.each(function(row) {
+            row.style.backgroundColor = "";
+            if (row.removeClassName == undefined) {
+                Element.extend(row);
+            }
+            row.removeClassName("li_row1");
+            row.removeClassName("li_row2");
+            row.addClassName("li_row"+((nr % 2) + 1));
+            nr++;
+    });
+}
+
+var initSortableArea = function()
+{  
+    if (editAllowed) {
+        Sortable.create("articlelist", {
+           onUpdate: function() {
+                setRows();
+                new Ajax.Request("index.php?cmd=knowledge{MODULE_INDEX}&section=articles&act=sort", {
+                    method : "post",
+                    parameters : Sortable.serialize("articlelist"),
+                    onSuccess : function(transport) {
+                        if (statusMsg(transport.responseText)) {
+                            new Effect.Highlight('article_'+lastDragged, {duration: 1.5});
+                        }
+                    }
+                }); 
+           },
+           handle : "drag_handle"
+        });
+    }
+}
+
+var catTree = {
+    /**
+     * Open a category
+     */
+    openPart : function(obj)
+    {
+        if (obj.parentNode.cleanWhitespace == undefined) {
+            Element.extend(obj.parentNode);
+        }
+        obj.parentNode.cleanWhitespace();
+        var subLists = $A(obj.parentNode.parentNode.childNodes);
+        subLists.each(function(elem) {
+            try {
+                if (elem.tagName == "UL") {
+                    //elem.show();
+                /* show doesn't work in ie6 */
+                    elem.style.display = "";
+                }
+            } catch (e) {}
+        });
+        if (obj.select == undefined) {
+            Element.extend(obj);
+        }
+        obj.select('.openClosePicture')[0].src = "images/icons/minuslink.gif";
+        obj.nextSibling.src = "../images/modules/knowledge/folder-open.small.png";
+        obj.onclick = function() { catTree.closePart(obj); }
+    },
+    /**
+     * Close a category
+     */
+    closePart : function(obj)
+    {
+        var subLists = $A(obj.parentNode.parentNode.childNodes);
+        subLists.each(function(elem) {
+            if (elem.tagName == "UL") {
+                if (elem.hide == undefined) {
+                    Element.extend(elem);
+                }
+                elem.hide();
+            }
+        });
+        if (obj.select == undefined) {
+            Element.extend(obj);
+        }
+        obj.select('.openClosePicture')[0].src = "images/icons/pluslink.gif";
+        obj.nextSibling.src = "../images/modules/knowledge/folder.small.png";
+        obj.onclick = function() { catTree.openPart(obj); }
+    }
+}
+
+/**
+ * Make an article
+ */
+var switchActive = function(id, obj, action)
+{
+    new Ajax.Request('index.php', {
+        method: 'get',
+        parameters: {cmd : "knowledge{MODULE_INDEX}", section : "articles", act : "switchState", id : id, switchTo : action},
+        onSuccess: function(transport) {
+            if (statusMsg(transport.responseText)) {
+                var img = obj.getElementsByTagName("img")[0];
+                if (action == 0) {
+                    img.src = "images/icons/led_red.gif";
+                    obj.onclick = function() { switchActive(id, obj, 1); }
+                } else {
+                    img.src = "images/icons/led_green.gif";
+                    obj.onclick = function() { switchActive(id, obj, 0); }
+                }
+                new Effect.Highlight('article_'+id);
+            }
+        }
+    });
+}
+
+var deleteArticle = function(id)
+{
+    if (confirm("{TXT_CONFIRM_ARTICLE_DELETION}")) {
+        new Ajax.Request('index.php', {
+            method: 'get',
+            parameters: {cmd : "knowledge{MODULE_INDEX}", section : "articles", act : "delete", id : id},
+            onSuccess: function() {
+                articles.deleteRow(id);
+            }
+        });
+    }
+}
+
+/* ]]> */
+</script>
+<div id="knowledge_articles">
+    <table style="float: left; width: 100%;">
+        <tr>
+            <td style="float: left; width: 230px;  margin-right: 15px; vertical-align: top;">
+                <form action="index.php?cmd=knowledge{MODULE_INDEX}&amp;section=articles&amp;act=edit&amp;id=18" method="get" style="margin-bottom: 5px;">
+                    {TXT_JUMP_TO_ARTICLE}
+                    <input type="hidden" name="cmd" value="knowledge" /> <input type="hidden" name="section" value="articles" />
+                    <input type="hidden" name="act" value="edit" />
+                    <input type="text" style="width: 30px;" name="id" />
+                    <input type="submit" value="Go" style="margin: 0;"/>
+                </form>
+                <table class="adminlist" style="width: 232px; border-collapse: collapse;">
+                    <tr>
+                        <th>{TXT_CATEGORIES}</th>
+                    </tr>
+                </table>
+                <div id="catlist">
+                    <!-- BEGIN remove_area -->
+                    <!-- BEGIN list -->
+                    <ul style="display: {CSS_DISPLAY}; width: 230px;">
+                        <!-- BEGIN row -->
+                        <li style="clear: both; width: 95%;">
+                            <div style="float: left; ">
+                                <img src="images/icons/sub_arrow.gif" class="sub_arrow" style="border: none;" /><a href="javascript: void(0);" onclick="catTree.openPart(this);" style="visibility: {CATEGORY_PLUS_VISIBLITY};"><img alt="" class="openClosePicture" src="images/icons/pluslink.gif" style="border: none; margin: 2px;" /></a><img src="../images/modules/knowledge/folder.small.png" style="margin-right:8px;" id="folder_{CATEGORY_ID}" />
+                            </div>
+                            <div><a href="javascript: void(0);" onclick="articles.getCategory({ID})">{NAME}</a> ({ENTRY_COUNT})</div>
+                            {SUB}
+                        </li>
+                        <!-- END row -->
+                        {ROWS}
+                    </ul>
+                    <!-- END list -->   
+                    <!-- END remove_area -->
+                    {CATLIST}
+                </div>
+            </td>   
+            <td style="width: 100%; vertical-align: top; padding-top: 34px;">
+                <div id="articles">
+                    <table class="adminlist" style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <th>
+                                <div id="head">&nbsp;</div>
+                            </th>
+                            </tr>
+                            <tr>
+                                <td>{TXT_SELECT_CATEGORY}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+    
+    <div style="position: relative; width: 232px;">
+        <div class="alertbox" id="error_box" style="display: none; position: absolute; top: 22px; left: 240px; z-index: 10; right: 0px; padding: 0px;">
+            <div id="error_box_content" style="padding: 4px;"></div>
+        </div>
+    </div>
+</div>
+<!-- END module_knowledge_articles_overview.html -->

@@ -1,0 +1,20 @@
+<!-- START upload_images.html -->
+<div id="okbox">{TXT_ENABLED_IMAGE_TYPE}</div><br />
+<table width="100%" cellspacing="0" cellpadding="3" border="0" align="top" class="adminlist">
+	<tr>
+		  <th colspan="2"> 
+			<div align="left">{TXT_TITLE}</div>
+		  </th>
+	</tr>
+</table><br />
+<input id="exposedComboUploaderStarter" name="exposedComboUploaderStarter" type="button" value="{TXT_BUTTON_SUBMIT}" />
+{COMBO_UPLOADER_CODE}
+<script type="text/javascript">
+	cx.ready(function() {
+		var uploader = cx.instances.get('exposed_combo_uploader','uploader');
+		uploader.dialog().bind('close',function(){
+			window.location = '{REDIRECT_URL}';
+		});
+	},true);
+</script>
+<!-- END upload_images.html -->

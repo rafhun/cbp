@@ -1,0 +1,112 @@
+<!-- START module_mediadir_settings_global.html -->
+<form id="settingsLevelsCategoriesForm" action="index.php?cmd={MODULE_NAME}&act=settings&tpl=levels_categories" method="post" >
+<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+    <tr>
+        <th colspan="2">{TXT_MEDIADIR_SETTINGS_CATEGORIES}</th>
+    </tr>
+    <tr class="row1">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_SHOW_CATEGORY_DESC}</td>
+        <td>
+            <input type="radio" name="settingsShowCategoryDescription" value="1" {MEDIADIR_SETTINGS_CATEGORY_DESC_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="settingsShowCategoryDescription" value="0" {MEDIADIR_SETTINGS_CATEGORY_DESC_OFF} /> {TXT_MEDIADIR_DEACTIVATE}&nbsp;
+            <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_SHOW_CATEGORY_DESC_INFO}</span>
+        </td>
+    </tr>
+    <tr class="row2">
+        <td>{TXT_MEDIADIR_SETTINGS_SHOW_CATEGORY_IMG}</td>
+        <td>
+            <input type="radio" name="settingsShowCategoryImage" value="1" {MEDIADIR_SETTINGS_CATEGORY_IMG_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="settingsShowCategoryImage" value="0" {MEDIADIR_SETTINGS_CATEGORY_IMG_OFF} /> {TXT_MEDIADIR_DEACTIVATE}&nbsp;
+            <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_SHOW_CATEGORY_IMG_INFO}</span>
+        </td>
+    </tr>
+    <tr class="row1">
+        <td>{TXT_MEDIADIR_SETTINGS_CATEGORY_ORDER}</td>
+        <td>
+            <select name="settingsCategoryOrder" style="width: 302px">
+                {MEDIADIR_SETTINGS_CATEGORY_ORDER}
+            </select>
+        </td>
+    </tr>
+    <tr class="row2">
+        <td width="280" valign="top">{TXT_MEDIADIR_SETTINGS_NUM_CATEGORIES_PER_GROUP}</td>
+        <td>
+            <table border="0" cellpadding="2" cellspacing="0">
+                <tr>
+                    <td width="160" style="border: 0px;"><b>{TXT_MEDIADIR_SETTINGS_COMMUNITY_GROUP}</b></td>
+                    <td style="border: 0px;"><b>{TXT_MEDIADIR_SETTINGS_NUM}</b>&nbsp;<span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_NUM_CATEGORIES_PER_GROUP_INFO}</span></td>
+                </tr>
+                <!-- BEGIN communityGroupCategoryList -->
+                <tr>
+                    <td style="border: 0px;">{MEDIADIR_SETTINGS_NUM_CATEGORIES_GROUP_NAME}</td>
+                    <td style="border: 0px;"><input type="text" name="settingsNumCategories[{MEDIADIR_SETTINGS_NUM_CATEGORIES_GROUP_ID}]" value="{MEDIADIR_SETTINGS_NUM_CATEGORIES}" style="width: 35px"></td>
+                </tr>
+                <!-- END communityGroupCategoryList -->
+                <!-- BEGIN noCommunityGroupCategoryList -->
+                <tr>
+                    <td style="border: 0px;" colspan="2"><i>{TXT_MEDIADIR_SETTINGS_NO_COMMUNITY_GROUPS}</i></td>
+                </tr>
+                <!-- END noCommunityGroupCategoryList -->
+            </table>
+        </td>
+    </tr>
+</table>
+<br />
+<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+    <tr>
+        <th colspan="2">{TXT_MEDIADIR_SETTINGS_LEVELS}</th>
+    </tr>
+    <tr class="row1">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_SHOW_LEVELS}</td>
+        <td>
+            <input type="radio" name="settingsShowLevels" value="1" {MEDIADIR_SETTINGS_LEVELS_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="settingsShowLevels" value="0" {MEDIADIR_SETTINGS_LEVELS_OFF} /> {TXT_MEDIADIR_DEACTIVATE}&nbsp;
+            <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_SHOW_LEVELS_INFO}</span>
+        </td>
+    </tr>
+    <tr class="row2">
+        <td>{TXT_MEDIADIR_SETTINGS_SHOW_LEVEL_DESC}</td>
+        <td>
+            <input type="radio" name="settingsShowLevelDescription" value="1" {MEDIADIR_SETTINGS_LEVEL_DESC_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="settingsShowLevelDescription" value="0" {MEDIADIR_SETTINGS_LEVEL_DESC_OFF} /> {TXT_MEDIADIR_DEACTIVATE}&nbsp;
+            <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_SHOW_LEVEL_DESC_INFO}</span>
+        </td>
+    </tr>
+    <tr class="row1">
+        <td>{TXT_MEDIADIR_SETTINGS_SHOW_LEVEL_IMG}</td>
+        <td>
+            <input type="radio" name="settingsShowLevelImage" value="1" {MEDIADIR_SETTINGS_LEVEL_IMG_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="settingsShowLevelImage" value="0" {MEDIADIR_SETTINGS_LEVEL_IMG_OFF} /> {TXT_MEDIADIR_DEACTIVATE}&nbsp;
+            <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_SHOW_LEVEL_IMG_INFO}</span>
+        </td>
+    </tr>
+    <tr class="row2">
+        <td>{TXT_MEDIADIR_SETTINGS_LEVEL_ORDER}</td>
+        <td>
+            <select name="settingsLevelOrder" style="width: 302px">
+                {MEDIADIR_SETTINGS_LEVEL_ORDER}
+            </select>
+        </td>
+    </tr>
+    <tr class="row1">
+        <td width="280" valign="top">{TXT_MEDIADIR_SETTINGS_NUM_LEVELS_PER_GROUP}</td>
+        <td>
+            <table border="0" cellpadding="2" cellspacing="0">
+                <tr>
+                    <td width="160" style="border: 0px;"><b>{TXT_MEDIADIR_SETTINGS_COMMUNITY_GROUP}</b></td>
+                    <td style="border: 0px;"><b>{TXT_MEDIADIR_SETTINGS_NUM}</b>&nbsp;<span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_NUM_LEVELS_PER_GROUP_INFO}</span></td>
+                </tr>
+                <!-- BEGIN communityGroupLevelList -->
+                <tr>
+                    <td style="border: 0px;">{MEDIADIR_SETTINGS_NUM_LEVELS_GROUP_NAME}</td>
+                    <td style="border: 0px;"><input type="text" name="settingsNumLevels[{MEDIADIR_SETTINGS_NUM_LEVELS_GROUP_ID}]" value="{MEDIADIR_SETTINGS_NUM_LEVELS}" style="width: 35px"></td>
+                </tr>
+                <!-- END communityGroupLevelList -->
+                <!-- BEGIN noCommunityGroupLevelList -->
+                <tr>
+                    <td style="border: 0px;" colspan="2"><i>{TXT_MEDIADIR_SETTINGS_NO_COMMUNITY_GROUPS}</i></td>
+                </tr>
+                <!-- END noCommunityGroupLevelList -->
+            </table>
+        </td>
+    </tr>
+</table>
+<br />
+<input type="submit" name="submitSettingsForm" value="{TXT_MEDIADIR_SUBMIT}" />
+</form>
+<!-- END module_mediadir_settings_global.html -->

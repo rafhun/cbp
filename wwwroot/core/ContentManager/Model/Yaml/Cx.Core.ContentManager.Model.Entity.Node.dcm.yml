@@ -1,0 +1,46 @@
+Cx\Core\ContentManager\Model\Entity\Node:
+  type: entity
+  table: content_node
+  repositoryClass: Cx\Core\ContentManager\Model\Repository\NodeRepository
+  gedmo:
+    tree:
+      type: nested
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:    
+    lft:
+      type: integer
+      gedmo:
+        - treeLeft
+    rgt:
+      type: integer 
+      gedmo:
+        - treeRight
+    lvl:
+      type: integer
+      gedmo:
+        - treeLevel
+  manyToOne: # owning side
+    parent:
+      targetEntity: Cx\Core\ContentManager\Model\Entity\Node
+      inversedBy: children
+      joinColumn:
+        name: parent_id
+        referencedColumnName: id
+        cascade: [remove]
+      gedmo:
+        - treeParent
+  oneToMany: # inverse side
+    children:
+      fetch: LAZY #progressive fetching
+      targetEntity: Cx\Core\ContentManager\Model\Entity\Node
+      mappedBy: parent
+    pages:
+      targetEntity: Cx\Core\ContentManager\Model\Entity\Page
+      mappedBy: node
+
+  lifecycleCallbacks:
+      prePersist: [ validate ]

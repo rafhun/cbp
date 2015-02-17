@@ -1,0 +1,323 @@
+#progressDetails {
+    margin-top: 10px;
+}
+#progressDetails span {
+    font-weight: bold;
+}
+#progressBar {
+    background-color: #ECECEC;
+    border: 1px solid #ECECEC;
+    height: 22px;
+    margin-top: 10px;
+    width: 75%;
+}
+
+#progressBar div {
+    height: 100%;
+    color: #0A85C8;
+    text-align: right;
+    line-height: 22px; /* same as #progressBar height if we want text middle aligned */
+    width: 0;
+    background: url("../../../../cadmin/images/icons/Load.gif")
+}
+.arrow-down {
+    background: url("../../../../cadmin/images/icons/advancedsearch-down.png") no-repeat scroll right 3px #FFFFFF;
+}
+.arrow-up {
+    background: url("../../../../cadmin/images/icons/advancedsearch-up.png") no-repeat scroll right 3px #FFFFFF;
+}
+.crm-watermark {
+    color: #AAAAAA;
+}
+.containerHeader {
+    font-size: 20px;
+}
+.detailsList {
+    padding-bottom: 3px;
+}
+td.td-subject {
+    /*text-align: right;*/
+}
+table.adminlist table.innerTable tr td {
+    border-bottom: medium none;
+}
+.crm-companyInfoCardLink {
+    background: url("../../../../modules/crm/View/Media/CompanySmall.png") no-repeat scroll left center transparent;
+    display: inline-block;
+    padding: 0 0 0 17px;
+}
+table.adminlist td table td { height: 0px; line-height: 12px; }
+.ui-autocomplete-loading { background: white url('../../../../cadmin/images/icons/ui-anim_basic_16x16.gif') right center no-repeat; }
+input#importfile {
+    position: absolute;
+    left: -5000px; /** move out of the screen */
+}
+.file-text{font-weight: bold;}
+div.csvImprtSteps{font-size: 46px;font-weight: bold;color: #3186AF;text-align: center;padding-top: 10px;}
+#Import select { width: 150px !important;}
+.text_header{color: #333;font-size: 18px;font-family: Arial;}
+.text_description{color: #333;font-weight: normal;}
+.warning{display: none;}
+body #content input.disabled{background: #ccc;}
+.import-button { background: url('../../../../cadmin/images/icons/import.png') left center no-repeat transparent; padding-left: 15px; }
+.clear{clear: both;}
+#Import .ui-state-highlight{background: #DFF0FE;display: none;}
+#Import .ui-state-error{background: #FEC9CF;display: none;}
+.ajax_loading{display: none;}
+table#mapCSVColumn thead tr td {padding: 10px;}
+table#mapCSVColumn tbody tr td {vertical-align: middle; padding-left: 7px;}
+#Import table#mapCSVColumn tbody tr td select { width: 247px !important;}
+table#mapCSVColumn tbody tr td.not_match {background-color: whiteSmoke;}
+.crmLeft {float: left;}
+.crmRight{float: right;}
+.notesdate{padding: 1px 0 1px 7px;margin: 5px 0;}
+#notesCategoriesLink, .CategoriesDropDownLink,#taskStatusPanel {padding: 1px 0 1px 7px;margin: 5px 0;border: 1px solid #DDDDDD; }
+#notesCategoriesLink, .CategoriesDropDownLink {width: 255px;}
+#notesCategoriesLink, .CategoriesDropDownLink, .CategoriesDropDownLink:hover,#notesCategoriesLink:hover {background: url('../../../../cadmin/images/icons/crm_arrow_down.gif') no-repeat 240px 3px  #fff;}
+#taskStatusPanel {background: #fff;min-width: 70px;padding: 0}
+#content #taskStatusPanel a {
+    padding: 5px 0;
+    background-color: #fff;    
+}
+#taskStatusPanel a span {
+    margin-left: 10px;
+}
+#taskStatusPanel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    list-style: none;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    *border-right-width: 2px;
+    *border-bottom-width: 2px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+}
+.arrow-down-task {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    vertical-align: top;
+    border-top: 4px solid #000000;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    content: "";
+    border-top-color: #777777;
+    border-bottom-color: #777777;
+    margin-left: 2px;
+    margin-top: 5px;
+}
+#notesCategoriesPanel a span, .CategoriesDropDownPanel a span {
+    padding-left: 46px;
+}
+.notesDiv {
+    padding-left: 50px;
+    min-height: 40px;
+}
+.notesItem {
+    background: url('../../../../cadmin/images/icons/customer_note.png') no-repeat 10px 7px  transparent;
+}
+.notesItem_1 {
+    background: url('../../../../cadmin/images/icons/key_icon.png') no-repeat 10px 7px  transparent;
+}
+.notesItem_13 {
+    background: url('../../../../cadmin/images/icons/customer_note.png') no-repeat 10px 7px  transparent;
+}
+.notesItem_14 {
+    background: url('../../../../cadmin/images/icons/acquire.png') no-repeat 10px 7px  transparent;
+}
+.notesItem_73 {
+    background: url('../../../../cadmin/images/icons/email.png') no-repeat 10px 7px  transparent;
+}
+.notesItem_74 {
+    background: url('../../../../cadmin/images/icons/call.png') no-repeat 10px 7px  transparent;
+}
+.notesItem_75 {
+    background: url('../../../../cadmin/images/icons/appointment.png') no-repeat 10px 7px  transparent;
+}
+.taskTypeItem {
+    background-image: url('../../../../modules/crm/View/Media/task_default.png');
+    background-repeat: no-repeat;
+    background-position: 2px 3px;
+    background-color: #fff;
+}
+.task_type_overview {
+    background-image: url('../../../../modules/crm/View/Media/task_default.png');
+    background-repeat: no-repeat;
+    background-position: 2px 3px;
+    background-color: transparent;
+    padding-left: 30px;
+}
+.taskTypeItem_8 {background-image: url('../../../../modules/crm/View/Media/task_call.png');}
+.taskTypeItem_9 {background-image: url('../../../../modules/crm/View/Media/task_demo.png');}
+.taskTypeItem_10 {background-image: url('../../../../modules/crm/View/Media/task_email.png');}
+.taskTypeItem_11 {background-image: url('../../../../modules/crm/View/Media/task_fax.png');}
+.taskTypeItem_12 {background-image: url('../../../../modules/crm/View/Media/task_follow_up.png');}
+.taskTypeItem_13 {background-image: url('../../../../modules/crm/View/Media/task_lunch.png');}
+.taskTypeItem_14 {background-image: url('../../../../modules/crm/View/Media/task_meeting.png');}
+.taskTypeItem_15 {background-image: url('../../../../modules/crm/View/Media/task_default.png');}
+.taskTypeItem_16 {background-image: url('../../../../modules/crm/View/Media/task_ship.png');}
+.taskTypeItem_17 {background-image: url('../../../../modules/crm/View/Media/task_social_networks.png');}
+.taskTypeItem_18 {background-image: url('../../../../modules/crm/View/Media/task_thank_you.png');}
+.taskStatusLink a {float: left;width: 23px;}
+#task_overview tr.task_expired {
+    background-color: #ffe7e7 !important;    
+}
+.task_status_wrapper {
+    width: 55px;
+    margin: 0 auto;
+}
+#notesCategoriesPanel a, .CategoriesDropDownPanel a, #taskStatusPanel a {
+    float: left;
+    width: 100%;
+    padding: 10px 0;
+    margin-bottom: 2px;
+    color: #444;    
+}
+#notesCategoriesPanel a:hover, .CategoriesDropDownPanel a:hover, #taskStatusPanel a {
+    background-color: #F2F2F2;
+}
+#notesCategoriesPanel, .CategoriesDropDownPanel {
+    width: 262px;
+    background: #fff;
+    border: 1px solid #C7C7C7;
+    z-index: 1000;
+    max-height: 200px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.containerHeader {
+    font-size: 20px;
+    margin: 0 0 15px 0;
+    font-weight: bold;
+}
+table#contact-details td table.innerTable td { line-height: 19px;}
+table#general-info tr td:first-child {
+    width: 145px;
+}
+#contact-details tr td {
+    border: 0px none;
+}
+#profile-photo h4{
+    margin: 5px 0;
+}
+#formerr, #newContact {
+    margin: 0px 0px 15px 0px;
+    display: none;
+    overflow: auto;
+    background-color: #F2DEDE;
+    color: #B94A48;
+    padding: 8px;
+}
+#content table.adminlist a,
+#content table.adminlist a:link,
+#content table.adminlist a:visited {
+    color: #1a74bd;
+    text-decoration: none;
+}
+#content table.adminlist a:hover,
+#content table.adminlist a:focus,
+#content table.adminlist a:active {
+    color: #0b4c7a;
+    cursor: pointer;
+}
+.button {
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font: 14px/100% Arial, Helvetica, sans-serif;
+    padding: .5em 1.2em .55em;
+    text-shadow: 0 1px 1px rgba(0,0,0,.3);
+    -webkit-border-radius: .5em;
+    -moz-border-radius: .5em;
+    border-radius: .5em;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+.button:hover {
+    text-decoration: none;
+}
+.button:active {
+    position: relative;
+    top: 1px;
+}
+/* white */
+.white {
+    color: #606060;
+    border: solid 1px #b7b7b7;
+    background: #fff;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed));
+    background: -moz-linear-gradient(top,  #fff,  #ededed);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');
+}
+.white:hover {
+    background: #ededed;
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dcdcdc));
+    background: -moz-linear-gradient(top,  #fff,  #dcdcdc);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc');
+}
+.white:active {
+    color: #999;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#fff));
+    background: -moz-linear-gradient(top,  #ededed,  #fff);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff');
+}
+/* blue */
+.blue {
+    color: #d9eef7;
+    border: solid 1px #0076a3;
+    background: #0095cd;
+    background: -webkit-gradient(linear, left top, left bottom, from(#00adee), to(#0078a5));
+    background: -moz-linear-gradient(top,  #00adee,  #0078a5);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#00adee', endColorstr='#0078a5');
+}
+.blue:hover {
+    background: #007ead;
+    background: -webkit-gradient(linear, left top, left bottom, from(#0095cc), to(#00678e));
+    background: -moz-linear-gradient(top,  #0095cc,  #00678e);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0095cc', endColorstr='#00678e');
+}
+.blue:active {
+    color: #80bed6;
+    background: -webkit-gradient(linear, left top, left bottom, from(#0078a5), to(#00adee));
+    background: -moz-linear-gradient(top,  #0078a5,  #00adee);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0078a5', endColorstr='#00adee');
+}
+.sort_order_icon { position: relative;top: 7px; cursor: pointer;margin-right: 15px;}
+#ajaxMessageDiv {
+    width: 100px;position:fixed;left: 45%;background-color: #ccc;padding: 10px;font-size: 14px;top: 0;
+}
+#ajaxMessageDiv:hover{
+    background-color: #D0D0A8;
+}
+.document-view {
+    min-height: 30px;
+    padding-left: 30px;
+
+}
+.document-txt{background: url('../../../../modules/crm/View/Media/Text.png') no-repeat;}
+.document-img{background: url('../../../../modules/crm/View/Media/Image.png') no-repeat;}
+.document-csv{background: url('../../../../modules/crm/View/Media/Spreadsheet.png') no-repeat;}
+.document-doc{background: url('../../../../modules/crm/View/Media/TextDocument.png') no-repeat;}
+.document-docx{background: url('../../../../modules/crm/View/Media/TextDocument.png') no-repeat;}
+.document-pdf{background: url('../../../../modules/crm/View/Media/Pdf.png') no-repeat;}
+.document-xls{background: url('../../../../modules/crm/View/Media/Spreadsheet.png') no-repeat;}
+.nowrap {white-space: nowrap;}

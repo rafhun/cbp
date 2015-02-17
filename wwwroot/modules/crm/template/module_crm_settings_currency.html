@@ -1,0 +1,162 @@
+<!-- START module_pm_settings_project.html -->
+<!--script language="JavaScript" src="cadmin/javascript/set_checkboxes.js" type="text/javascript"></script -->
+{PM_SETTINGS_CURRENCY_JAVASCRIPT}
+<div id="formerr"></div>
+
+<ul id="tabmenu">
+    <li><a id="Entries_ShowCurrencyEntries" class="active" href="javascript:{}" onclick="selectTab('ShowCurrencyEntries')" title="{TXT_CRM_CURRENCY}">{TXT_CRM_CURRENCY}</a></li>
+    <li><a id="Entries_AddCurrency" class="inactive" href="javascript:{}" onclick="selectTab('AddCurrency')" title="{TXT_CRM_ADD_CURRENCY}">{TXT_CRM_ADD_CURRENCY}</a></li>
+</ul>
+<div id="ShowCurrencyEntries" class="Entries" style="display:{TXT_DISPLAY_ENTRIES};">
+    <form name="frmShowCurrencyEntries" method="post" action="">
+        <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+            <tr>
+                <th colspan="15">{TXT_CRM_CURRENCY}</th>
+            </tr>
+
+            <tr class="row3">
+                <td  width="2%"><span style="font-weight:bold;">&nbsp;&nbsp;#</span></td>
+                <td width="8%"  style="text-align:center"><span style="font-weight:bold;">{TXT_CRM_TITLE_STATUS}</span></td>
+                <td width="26%"><span style="font-weight:bold;"><a href="index.php?cmd={MODULE_NAME}&act=settings&tpl=currency{PM_CURRENCY_ORDER_SORT}">{TXT_CRM_SORTING}</a></span></td>
+                <td width="26%"><span style="font-weight:bold;"><a href="index.php?cmd={MODULE_NAME}&act=settings&tpl=currency{PM_CURRENCY_NAME_SORT}">{TXT_CRM_NAME}</a></span></td>
+                <td width="10%" style="text-align:center;">{TXT_CRM_DEFAULT}</td>
+                <td  width="38%" colspan="2" align='right'><div style='text-align:right;font-weight:bold;'>{TXT_CRM_FUNCTIONS}</span></td>
+            </tr>
+            <!-- BEGIN currency_entries -->
+            <tr class="{ENTRY_ROWCLASS}">
+                <td><input type="checkbox" name="selectedEntriesId[]" id="selectedEntriesId" value="{TXT_CURRENCY_ID}" /></td>
+                <td style="text-align:center"><a href='?index.php&cmd={MODULE_NAME}&act=settings&tpl=currencyChangeStatus&id={TXT_CURRENCY_ID}&status={TXT_CURRENCY_ACTIVE}' ><img src="{TXT_CURRENCY_ACTIVE_IMAGE}" title="{TXT_CURRENCY_ACTIVE_TITLE}" border="0" alt="{TXT_CURRENCY_ACTIVE_TITLE}" /></a></td>
+                <td>
+                    <input type="hidden" name="form_id[]" value="{TXT_CURRENCY_ID}" />
+                    <input type="text" name="form_pos[]" value="{TXT_CURRENCY_POS}" style="width:25px; text-align:right; padding:2px;" />
+                </td>
+                <td>
+                    <a href="index.php?cmd={MODULE_NAME}&amp;act=settings&amp;tpl=currency&amp;fn=editcurrency&amp;id={TXT_CURRENCY_ID}&amp;pos={ENTRY_PAGING}"
+                       target="_self" title="{TXT_CURRENCY_NAME}">{TXT_CURRENCY_NAME}</a></td>
+                       <td style="text-align:center;"><input type="radio" name="default" value="{TXT_CURRENCY_ID}" {TXT_CURRENCY_DEFAULT}/></td>
+                <td nowrap="nowrap">
+                    <div align="right">
+                        <a href="index.php?cmd={MODULE_NAME}&amp;act=settings&amp;tpl=currency&amp;fn=editcurrency&amp;id={TXT_CURRENCY_ID}&amp;pos={ENTRY_PAGING}" target="_self" title="{TXT_CRM_IMAGE_EDIT}"><img src="images/icons/edit.gif" border="0" alt="{TXT_CRM_IMAGE_EDIT}" title="{TXT_CRM_IMAGE_EDIT}" /></a>
+                        <a href="javascript:deleteEntry({TXT_CURRENCY_ID});" target="_self" title="{TXT_CRM_IMAGE_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{TXT_CRM_IMAGE_DELETE}" title="{TXT_CRM_IMAGE_DELETE}" /></a>
+                    </div>
+                </td>
+            </tr>
+            <!-- END currency_entries -->
+
+            <!-- BEGIN showNoEntries -->
+            <tr><td colspan="15">{TXT_CRM_CONTAINS_NO_RECORDS}</td></tr>
+            <!-- END showNoEntries -->
+        </table>
+        <br />
+        <div style="display:{TXT_DISPLAY_SELECT_ACTION}">
+            <table cellpadding="2" cellspacing="0" border="0" >
+                <tr>
+                    <td>
+                        <img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="{TXT_ENTRIES_MARKED}:" />
+                        <a href="#" onclick="changeCheckboxes('frmShowCurrencyEntries','selectedEntriesId[]',true); return false;">{TXT_CRM_SELECT_ALL}</a> /
+                        <a href="#" onclick="changeCheckboxes('frmShowCurrencyEntries','selectedEntriesId[]',false); return false;">{TXT_CRM_DESELECT_ALL}</a>
+                        <img src="images/icons/strike.gif" alt="" />
+                        <select name="frmShowEntries_MultiAction" onchange="selectMultiAction();">
+                            <option value="0">{TXT_CRM_SELECT_ACTION}</option>
+                            <option value="activate">{TXT_CRM_ACTIVATESELECTED}</option>
+                            <option value="deactivate">{TXT_CRM_DEACTIVATESELECTED}</option>
+                            <option value="sort">{TXT_CRM_PROJECTSTATUS_SAVE_SORTING}</option>
+                            <option value="delete">{TXT_CRM_DELETE_SELECTED}</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br />
+
+        <table cellpadding="2" cellspacing="0" border="0">
+            <tr>
+                <td>
+
+                    <input type="submit" name="currencyfield_submit" id="currency_submit" value="{TXT_CRM_SAVE}"   />
+                </td>
+            </tr>
+        </table>
+    </form>
+    <br />
+    <div align="center">{ENTRIES_PAGING}</div>
+</div>
+<div id="AddCurrency" class="Entries" style="display: {TXT_DISPLAY_ADD};">
+    <form name="addcurrency" method="post" action="">
+        <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+            <tr>
+                <th colspan="15">{TXT_CRM_ADD_CURRENCY}</th>
+            </tr>
+
+            <tr class="row1">
+                <td width="13%" nowrap>{TXT_CRM_NAME}&nbsp;<font color="red">*</font></td>
+                <td width="10%"><input type="text" name="name" id="name" style="width: 300px;" value="{TXT_STATUSNAME}"></td>
+                <td><input type="checkbox" name="activeStatus" value="active" checked>{TXT_CRM_TITLEACTIVE}</td>
+            </tr>
+            <tr class="row2">
+                <td width="13%" nowrap>{TXT_CRM_SORTING_NUMBER}</td>
+                <td width="10%"><input type="text" name="sortingNumber" id="sortingNumber" style="width: 300px;" value=""></td>
+                <td></td>
+            </tr>
+            <!-- BEGIN show-rates -->
+            <tr class="row1">
+                <td nowrap valign="top" style="padding-top: 6px;">{TXT_CRM_CURRENCY_RATES}&nbsp;</td>
+                <td colspan="2" style='padding-left:0'><table cellspacing="0" cellpadding="3" border="0">
+                        <tbody>
+                            <tr>
+                                <td style='border: 0;'>  {TXT_CRM_HOURLY_RATE}
+                                </td>
+                                <td style='border: 0;padding-left:30px;'>    {TXT_CRM_CURRENCY}
+                                </td>
+                            </tr>
+                            <!-- BEGIN hourlyRate -->
+                            <tr>
+                                <td style='border: 0;'>
+                                    <input type='text' name='rateValue_{CRM_CUSTOMERTYPE_ID}' value='{PM_CURRENCY_HOURLY_RATE}'  style="width: 300px; " />
+                                </td>
+                                <td style='padding-left:30px;border: 0;'>
+                                    {CRM_CUSTOMER_TYPE}
+                                    <input type="hidden" name="customerType[]" value="{CRM_CUSTOMERTYPE_ID}" />
+                                </td>
+                            </tr>
+                            <!-- END hourlyRate -->
+                        </tbody>
+                    </table>
+                </td>                
+            </tr> 
+            <!-- END show-rates -->
+
+        </table>
+        <br />
+        <table cellpadding="2" cellspacing="0" border="0">
+            <tr>
+                <td>
+
+                    <input type="hidden" name="currency_id" value="{TXT_CURRENCY_ID}" />
+
+                    <input type="submit" name="currency_submit" value="{TXT_CRM_SAVE}" onClick="return checkValidations();" />
+                </td>
+            </tr>
+        </table>
+    </form>
+    <br />
+    <div align="center">{ENTRIES_PAGING}</div>
+</div>
+
+
+
+
+
+
+
+
+<!-- END module_pm_settings_project.html -->
+
+
+
+
+
+
+
+
+

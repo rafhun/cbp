@@ -1,0 +1,88 @@
+<!-- START module_newsletter_mails.html -->
+<script type="text/javascript" language="javascript">
+// <![CDATA[
+    function newsletterDeleteMail(id){
+        if (confirm('{TXT_NEWSLETTER_CONFIRM_DELETE_MAIL}\n{TXT_NEWSLETTER_CANNOT_UNDO_OPERATION}')) {
+            document.location.href = 'index.php?cmd=newsletter&{CSRF_PARAM}&act=deleteMail&id='+id;
+        }
+    }
+
+    function newsletterMailDoAction(action) {
+        for (i = 0; i < document.getElementById('newsletter_mail_selection').elements.length; i++) {
+            if (document.getElementById('newsletter_mail_selection').elements[i].name == 'newsletter_mail_selected[]' && document.getElementById('newsletter_mail_selection').elements[i].checked == true) {
+                if (confirm('{TXT_NEWSLETTER_CONFIRM_DELETE_CHECKED_EMAILS}\n{TXT_NEWSLETTER_CANNOT_UNDO_OPERATION}')) {
+                    document.getElementById('newsletter_mail_selection').submit();
+                    return true;
+                }
+                break;
+            }
+        }
+        document.getElementById('newsletter_select_action').value=0;
+    }
+// ]]>
+</script>
+<form action="index.php?cmd=newsletter&amp;act=editMail&amp;id=0" method="post">
+    <input type="submit" name="newsletter_add_mail" value="{TXT_NEWSLETTER_CREATE_NEW_EMAIL}" />
+    <input type="button" onclick="document.location.href='index.php?cmd=newsletter&amp;act=news&amp;{CSRF_PARAM}'" value="{TXT_NEWSLETTER_CREATE_NEW_EMAIL_WITH_NEWS}" />
+</form>
+<br />
+<form action="index.php?cmd=newsletter&amp;act=deleteMail" name="newsletter_mail_selection" id="newsletter_mail_selection" method="post">
+<table width="100%" border="0" cellpadding="3" cellspacing="0" class="adminlist">
+    <tr>
+        <th colspan="7">{TXT_NEWSLETTER_OVERVIEW}</th>
+    </tr>
+    <tr class="row3">
+        <td width="1%" style="text-align: center;">#</td>
+        <td width="40%">{TXT_NEWSLETTER_NAME_OF_EMAIL_CAMPAIGN}</td>
+        <td width="10%" style="white-space: nowrap;">{TXT_NEWSLETTER_DATE}</td>
+        <td width="10%"></td>
+        <td width="10%">{TXT_NEWSLETTER_SENT}</td>
+        <td width="10%">{TXT_NEWSLETTER_STATS}</td>
+        <!-- <td width="10%">{TXT_NEWSLETTER_SENDER}</td> -->
+        <!-- <td width="5%">{TXT_NEWSLETTER_FORMAT}</td> -->
+        <!-- <td width="15%">{TXT_NEWSLETTER_TEMPLATE}</td> -->
+        <td width="4%" style="white-space: nowrap; text-align: right;">{TXT_NEWSLETTER_FUNCTIONS}</td>
+    </tr>
+    <!-- BEGIN newsletter_list -->
+    <tr class="{NEWSLETTER_MAIL_ROW_CLASS}">
+        <td style="text-align: center;"><input type="checkbox" name="newsletter_mail_selected[]" value="{NEWSLETTER_MAIL_ID}" /></td>
+        <td>{NEWSLETTER_MAIL_SUBJECT}</td>
+        <td style="white-space: nowrap;">{NEWSLETTER_MAIL_DATE}</td>
+        <td style="white-space: nowrap;"><a href="index.php?cmd=newsletter&amp;act=sendMail&amp;id={NEWSLETTER_MAIL_ID}" title="{TXT_NEWSLETTER_SEND_EMAIL}">{TXT_NEWSLETTER_SEND_EMAIL}</a></td>
+        <td style="white-space: nowrap;">{NEWSLETTER_MAIL_COUNT} / {NEWSLETTER_MAIL_USERS} <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{NEWSLETTER_MAIL_SENT_DATE}</span></td>
+        <td>
+            <!-- BEGIN newsletter_mail_feedback_link -->
+            <a href="index.php?cmd=newsletter&amp;act=feedback&amp;id={NEWSLETTER_MAIL_ID}" title="{NEWSLETTER_FEEDBACK_OVERVIEW}">
+                <img src="images/icons/stats.png" width="16" height="16" />
+    {NEWSLETTER_MAIL_FEEDBACK}
+            </a>
+            <!-- END newsletter_mail_feedback_link -->
+            <!-- BEGIN newsletter_mail_feedback_empty -->
+            -
+            <!-- END newsletter_mail_feedback_empty -->
+        </td>
+        <!-- <td>{NEWSLETTER_MAIL_SENDER_NAME} ({NEWSLETTER_MAIL_SENDER_EMAIL})</td> -->
+        <!-- <td>{NEWSLETTER_MAIL_FORMAT}</td> -->
+        <!-- <td>{NEWSLETTER_MAIL_TEMPLATE}</td> -->
+        <td style="white-space: nowrap; text-align: right;">
+            <a href="index.php?cmd=newsletter&amp;act=editMail&amp;id={NEWSLETTER_MAIL_ID}" title="{TXT_NEWSLETTER_MODIFY_EMAIL}"><img src="images/icons/edit.gif" border="0" width="16" height="16" alt="{TXT_NEWSLETTER_MODIFY_EMAIL}" /></a>
+            <a href="index.php?cmd=newsletter&amp;act=copyMail&amp;id={NEWSLETTER_MAIL_ID}" title="{TXT_NEWSLETTER_COPY_EMAIL}"><img src="images/icons/copy.gif" border="0" width="16" height="16" alt="{TXT_NEWSLETTER_COPY_EMAIL}" /></a>
+            <a href="javascript:newsletterDeleteMail({NEWSLETTER_MAIL_ID});" title="{TXT_NEWSLETTER_DELETE_EMAIL}"><img src="images/icons/delete.gif" border="0" width="17" height="17" alt="{TXT_NEWSLETTER_DELETE_EMAIL}" /></a>
+        </td>
+    </tr>
+    <!-- END newsletter_list -->
+</table>
+<!-- BEGIN newsletter_list_multiAction -->
+    <img src="images/icons/arrow.gif" width="38" height="22" style="margin-left:5px;" alt="arrow" />
+    <a href="javascript:{}" onclick="changeCheckboxes('newsletter_mail_selection','newsletter_mail_selected[]',true); return false;" title="{TXT_NEWSLETTER_CHECK_ALL}">{TXT_NEWSLETTER_CHECK_ALL}</a> /
+    <a href="javascript:{}" onclick="changeCheckboxes('newsletter_mail_selection','newsletter_mail_selected[]',false); return false;" title="{TXT_NEWSLETTER_UNCHECK_ALL}">{TXT_NEWSLETTER_UNCHECK_ALL}</a>
+    <img src="images/icons/strike.gif" width="34" height="22" alt="design" />
+    <select name="newsletter_select_action" id="newsletter_select_action" onchange="newsletterMailDoAction(this.value)">
+        <option value="0" selected="selected">{TXT_NEWSLETTER_WITH_SELECTED}:</option>
+        <option value="delete">{TXT_NEWSLETTER_DELETE}</option>
+    </select>
+<!-- END newsletter_list_multiAction -->
+</form>
+{NEWSLETTER_MAILS_PAGING}
+<br />
+<!-- END module_newsletter_mails.html -->

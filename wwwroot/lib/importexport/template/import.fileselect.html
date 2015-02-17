@@ -1,0 +1,82 @@
+<!-- START import_fileselect.html -->
+<script type="text/javascript">
+/* <![CDATA[ */
+	function changeType(type ) {
+		if (type == "csv") {
+		    if (navigator.userAgent.indexOf("MSIE") > 1) {
+			 document.getElementById('csv_separator').style.display = "block";
+			 document.getElementById('csv_enclosure').style.display = "block";
+		    } else {
+			 document.getElementById('csv_separator').style.display = "table-row";
+			 document.getElementById('csv_enclosure').style.display = "table-row";
+		    }
+		} else if (type == "xls") {
+			document.getElementById('csv_separator').style.display = "none";
+			document.getElementById('csv_enclosure').style.display = "none";
+		}
+	}
+/* ]]> */
+</script>
+
+<form action="{IMPORT_ACTION}" method="post" enctype="multipart/form-data">
+<table class="adminlist" cellspacing="0" cellpadding="3" style="width: 100%" >
+	<tr>
+		<th colspan="2">{TXT_IMPORT}</th>
+	</tr>
+	<tr class="row2">
+	   <td colspan="2">{TXT_HELP}</td>
+	</tr>
+	<tr class="row1">
+		<td style="width: 200px;">
+			{TXT_FILETYPE}
+		</td>
+		<td>
+			<select name="importtype" style="width: 200px;" onchange="changeType(this.value)">
+			{IMPORT_TYPELIST}
+			</select>
+		</td>
+	</tr>
+	<tr class="row2">
+		<td>
+		{TXT_CHOOSE_FILE}
+		</td>
+		<td>
+			<input type="file" name="importfile" style="width: 200px;"/>
+		</td>
+	</tr>
+	<tr style="display: none;" class="row1" id="csv_separator">
+		<td>
+			{TXT_SEPARATOR}
+		</td>
+		<td>
+			<input type="text" name="import_options_csv_separator" style="width: 200px;" value=";" />
+            <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_DESC_DELIMITER}</span>
+		</td>
+	</tr>
+	<tr style="display: none;" class="row2" id="csv_enclosure">
+		<td>
+			{TXT_ENCLOSURE}
+		</td>
+		<td>
+			<input type="text" name="import_options_csv_enclosure" style="width: 200px;" maxlength="1" value="&quot;" />
+            <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_DESC_ENCLOSURE}</span>
+		</td>
+	</tr>
+	<!-- BEGIN additional -->
+	<tr class="{IMPORT_ROWCLASS}">
+		<td>{IMPORT_ADD_NAME}</td>
+		<td>{IMPORT_ADD_VALUE}</td>
+	</tr>
+	<!-- END additional -->
+</table>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+	changeType('csv');
+/* ]]> */
+</script>
+<br /><br />
+
+<input type="submit" value="{TXT_IMPORT}" name="imported" />
+</form>
+<!-- END import_fileselect.html -->

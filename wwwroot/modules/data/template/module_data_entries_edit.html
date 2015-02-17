@@ -1,0 +1,518 @@
+﻿<!-- START module_data_entries_add.html -->
+<script type="text/javascript">
+//<![CDATA[
+arrTabToDiv = new Array();
+{EDIT_JS_TAB_TO_DIV}
+
+function switchBoxAndTab(objElement, strTabId) {
+
+    if (countActiveLanguages() == 0) {
+        //We just "unchecked" the last language, disallow this
+        objElement.checked = true;
+    } else {
+        //There are more active languages, hide the tab
+        switchTabVisibility(strTabId);
+    }
+
+    //Now make sure that a possible div is shown
+    activateAnyActiveDiv();
+}
+
+function switchTabVisibility(strTabId) {
+    if (document.getElementById(strTabId).style.display == 'none') {
+        document.getElementById(strTabId).style.display = 'inline';
+    } else {
+        document.getElementById(strTabId).style.display = 'none';
+    }
+}
+
+
+function countActiveLanguages() {
+    var activeLanguages = 0;
+
+    for (var h=0; h < document.forms.length;h++) {
+        for (var i=0; i < document.forms[h].elements.length;i++) {
+            //read out all form-elements with the loop
+            if(document.forms[h].elements[i].name.search('frmEditEntry_Languages') != -1) {
+                if(document.forms[h].elements[i].checked) {
+                    activeLanguages++;
+                }
+            }
+        }
+    }
+
+    return activeLanguages;
+}
+
+function activateAnyActiveDiv() {
+    //Deactivate every div first first
+    for (var TabName in arrTabToDiv) {
+        document.getElementById(TabName).className = 'inactive';
+        document.getElementById(arrTabToDiv[TabName]).style.display = 'none';
+    }
+
+    //Activate the first possible div with an acitvated checkbox
+    for (var TabName in arrTabToDiv) {
+        if (document.getElementById(TabName).style.display == 'inline') {
+            document.getElementById(TabName).className = 'active';
+            document.getElementById(arrTabToDiv[TabName]).style.display = 'inline';
+            break;
+        }
+    }
+}
+
+function showSelectedThumbnailMethod(method, langId) {
+    if (method == 'original') {
+        document.getElementById('thumbnail_diff_'+langId).style.display = 'none';
+        document.getElementById('thumbnail_ori_'+langId).style.display = '';
+    } else {
+        document.getElementById('thumbnail_ori_'+langId).style.display = 'none';
+        document.getElementById('thumbnail_diff_'+langId).style.display = '';
+    }
+}
+
+//Following Functions are needed for Picture-Selection -------------------------------------------------------------
+function SetUrl(url, width, height, alt) {
+    document.getElementById(newsElInsertBox).value = url;
+}
+
+function newsGetFileBrowser(elInsertBox, sType)
+{
+    newsElInsertBox = elInsertBox;
+    newsElType = sType;
+
+    if (sType == 'link') {
+        newsElLinkText = prompt('{TXT_NEWS_DEFINE_LINK_ALT_TEXT}', '');
+        if (newsElLinkText == null) {
+            return false;
+        }
+    }
+
+    if (sType == 'webpages') {
+        openWindow('index.php?cmd=fileBrowser&{CSRF_PARAM}&standalone=true&type=webpages','','width=800,height=600,resizable=yes,status=no,scrollbars=yes');
+    } else {
+        openWindow('index.php?cmd=fileBrowser&{CSRF_PARAM}&standalone=true','','width=800,height=600,resizable=yes,status=no,scrollbars=yes');
+    }
+}
+
+function openWindow(theURL,winName,features){
+    dataPopup = window.open(theURL,"Data",features);
+    dataPopup.focus();
+}
+
+var switchMode = function(mode)
+{
+    var rows = $$(".forwardUrl");
+    if (mode == 'normal') {
+        for (i=0; i<rows.length; i++) {
+            rows[i].style.display = "none";
+        }
+    } else {
+        for (i=0; i<rows.length; i++) {
+            try {
+                rows[i].style.display = "table-row";
+            } catch(e) {
+                rows[i].style.display = "block";
+            }
+        }
+    }
+
+    setRows();
+}
+
+var setRows = function()
+{
+    var row = 1;
+    var bodies = $$('.editBody');
+
+    for (var i = 0; i<bodies.length; i++) {
+
+        var tb = bodies[i].getElementsByTagName("tr");
+        for (var j = 0; j<tb.length; j++) {
+            if (tb[j].visible) {
+                tb[j].className = tb[j].className.replace(/row[12]+/, "");
+                tb[j].className += "    row"+((row % 2) + 1);
+                row++;
+            }
+        }
+    }
+}
+
+cx.ready(function() {
+    var datepickerOptions = {
+        dateFormat: 'yy-mm-dd',
+        onSelect: function(dateText, inst) {
+            // adjust start or end date to avoid an invalid date range
+            var startDate = cx.jQuery('input[name=release_date]').datepicker('getDate');
+            var endDate = cx.jQuery('input[name=release_date_end]').datepicker('getDate');
+
+            if ((startDate != null) && (endDate != null) && (startDate > endDate)) {
+                if (cx.jQuery(this).attr('name') == 'release_date') {
+                    cx.jQuery('input[name=release_date_end]').datepicker('setDate', dateText);
+                } else {
+                    cx.jQuery('input[name=release_date]').datepicker('setDate', dateText);
+                }
+            }
+        }
+    };
+
+    cx.jQuery('input[name=release_date]').datepicker(datepickerOptions);
+    cx.jQuery('input[name=release_date_end]').datepicker(datepickerOptions);}
+);
+
+var changeReleaseTime = function()
+{
+    if ($('radio_release_time').checked) {
+        $('release_time').show();
+    } else {
+        $('release_time').hide();
+    }
+}
+
+var selectDataTab = function(id)
+{
+    selectTab(id);
+}
+
+var updateEndDate = function(obj)
+{
+    if (obj.checked) {
+        $('release_date_end').disable();
+        $('release_date_end').style.color = "gray";
+        $('release_hour_end').disable();
+        $('release_hour_end').style.color = "gray";
+        $('release_minute_end').disable();
+        $('release_minute_end').style.color = "gray";
+    } else {
+        $('release_date_end').enable();
+        $('release_date_end').style.color = "black";
+        $('release_hour_end').enable();
+        $('release_hour_end').style.color = "black";
+        $('release_minute_end').enable();
+        $('release_minute_end').style.color = "black";
+    }
+}
+
+function AddToTheList(from,dest,add,remove) {
+    if ( from.selectedIndex < 0){
+        if (from.options[0] != null)
+            from.options[0].selected = true;
+        from.focus();
+        return false;
+    }else{
+        for (var i=0; i<from.length; i++) {
+            if (from.options[i].selected)
+            {
+                dest.options[dest.length] = new Option( from.options[i].text, from.options[i].value, false, false);
+               }
+        }
+        for (var i=from.length-1; i>=0; i--) {
+            if (from.options[i].selected)
+            {
+               from.options[i] = null;
+               }
+        }
+    }
+    disapleButtons(from,dest,add,remove);
+}
+
+function RemoveFromTheList(from,dest,add,remove) {
+    if ( dest.selectedIndex < 0){
+        if (dest.options[0] != null)
+            dest.options[0].selected = true;
+        dest.focus();
+        return false;
+    }
+    else{
+        for (var i=0; i<dest.options.length; i++)
+        {
+            if (dest.options[i].selected)
+            {
+                from.options[from.options.length] = new Option( dest.options[i].text, dest.options[i].value, false, false);
+               }
+        }
+        for (var i=dest.options.length-1; i>=0; i--)
+        {
+            if (dest.options[i].selected)
+            {
+               dest.options[i] = null;
+               }
+        }
+    }
+    disapleButtons(from,dest,add,remove);
+}
+
+function disapleButtons(from,dest,add,remove) {
+    if (from.options.length > 0 )
+    {
+        add.disabled = 0;
+    }
+    else
+        add.disabled = 1;
+
+    if (dest.options.length > 0)
+        remove.disabled = 0;
+    else
+        remove.disabled = 1;
+}
+
+function SelectAllList(CONTROL) {
+    for(var i = 0;i < CONTROL.length;i++)
+    {
+        CONTROL.options[i].selected = true;
+    }
+}
+
+function DeselectAllList(CONTROL) {
+    for(var i = 0;i < CONTROL.length;i++)
+    {
+        CONTROL.options[i].selected = false;
+    }
+}
+
+var selectsToFill = [];
+
+function fillSelects() {
+    for (var i = 0; i < selectsToFill.length; i++) {
+        if(typeof(selectsToFill[i]) == "object") {
+            SelectAllList(selectsToFill[i]);
+        }
+    }
+}
+
+//]]>
+</script>
+
+<form name="frmEditEntry" method="post" action="{EDIT_POST_ACTION}" onsubmit="fillSelects();">
+    <ul id="tabmenu">
+        <!-- BEGIN showLanguageTabs -->
+        <li>
+            <a id="{TABS_LINK_ID}" class="{TABS_CLASS}" href="javascript:{}" 
+            onclick="selectDataTab('{TABS_DIV_ID}')" title="{TABS_NAME}" style="{TABS_DISPLAY_STYLE}">{TABS_NAME}</a>
+        </li>
+        <!-- END showLanguageTabs -->
+        <li>
+            <a id="addEntry_advSettings" class="inactive" href="javascript:{}" 
+                onclick="selectDataTab('advSettings')" title="{TXT_ADV_SETTINGS}" 
+                style="display: inline;">{TXT_ADV_SETTINGS}
+            </a>
+        </li>
+    </ul>
+    <!-- BEGIN showLanguageDivs -->
+    <div id="{DIV_ID}" class="addEntry" style="{DIV_DISPLAY_STYLE}">
+    <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+       <thead>
+            <tr>
+                <th colspan="4">{DIV_TITLE}</th>
+            </tr>
+        </thead>
+        <tbody class="editBody">
+            <tr class="row2">
+                <td style="width: 240px;">
+                    {TXT_DIV_SUBJECT}
+                </td>
+                <td colspan="3">
+                    <input type="text" name="frmEditEntry_Subject_{DIV_LANGUAGE_ID}" 
+                        value="{DIV_SUBJECT}" maxlength="250" style="width:30%;" />
+                </td>
+            </tr>
+            <tr class="row1">
+                <td>{TXT_DIV_IMAGE}</td>
+                <td colspan="3">
+                    <input type="text" name="frmEditEntry_Image_{DIV_LANGUAGE_ID}" id="frmEditEntry_Image_{DIV_LANGUAGE_ID}" style="width:30%;" value="{DIV_IMAGE}" />
+                    &nbsp;
+                    <input type="button" value="{TXT_DIV_IMAGE_BROWSE}" onclick="newsGetFileBrowser('frmEditEntry_Image_{DIV_LANGUAGE_ID}', 'image')" />
+                </td>
+            </tr>
+
+            <!-- THUMBNAIL SECTION -->
+            <tr class="row2">
+                <td style="vertical-align:top;">
+                    {TXT_DIV_THUMBNAIL}
+                </td>
+                <td colspan="3">
+                    <input type="radio" name="frmEditEntry_Thumbnail_Method_{DIV_LANGUAGE_ID}" 
+                        id="frmEditEntry_Thumbnail_Method_Original_{DIV_LANGUAGE_ID}" 
+                        value="original" onchange="showSelectedThumbnailMethod(this.value,{DIV_LANGUAGE_ID})" 
+                        {THUMBNAIL_METHOD_ORI_CHECKED} /> 
+                    <label for="frmEditEntry_Thumbnail_Method_Original_{DIV_LANGUAGE_ID}">
+                        {TXT_DATA_THUMBNAIL_ORI_DESC}</label><br />
+
+                    <input type="radio" name="frmEditEntry_Thumbnail_Method_{DIV_LANGUAGE_ID}" 
+                        id="frmEditEntry_Thumbnail_Method_Different_{DIV_LANGUAGE_ID}" 
+                        value="different" onchange="showSelectedThumbnailMethod(this.value,{DIV_LANGUAGE_ID})" 
+                        {THUMBNAIL_METHOD_DIFF_CHECKED} />
+                    <label for="frmEditEntry_Thumbnail_Method_Different_{DIV_LANGUAGE_ID}">
+                        {TXT_DATA_THUMBNAIL_DIFF_DESC}</label> <br />
+
+                    <div id="thumbnail_ori_{DIV_LANGUAGE_ID}" style="margin-top:15px; display:{DIV_THUMBNAIL_ORI_DISPLAY};">
+                        {TXT_DATA_THUMBNAIL_SIZE}<br />
+                        {TXT_DATA_WIDTH} 
+                        <input type="text" name="frmEditEntry_Thumbnail_Width_{DIV_LANGUAGE_ID}" 
+                            value="{THUMBNAIL_ORI_WIDTH}" /> 
+                            {TXT_DATA_HEIGHT} <input type="text" 
+                            name="frmEditEntry_Thumbnail_Height_{DIV_LANGUAGE_ID}" 
+                            value="{THUMBNAIL_ORI_HEIGHT}" />
+                    </div>
+
+                    <div id="thumbnail_diff_{DIV_LANGUAGE_ID}"
+                        style="margin-top:15px; display:{DIV_THUMBNAIL_DIFF_DISPLAY};">
+
+                        <input type="text" name="frmEditEntry_Thumbnail_{DIV_LANGUAGE_ID}" 
+                            id="frmEditEntry_Thumbnail_{DIV_LANGUAGE_ID}" style="width:30%;" 
+                            value="{DIV_THUMBNAIL}" />&nbsp;
+
+                        <input type="button" value="{TXT_DIV_THUMBNAIL_BROWSE}" 
+                            onclick="newsGetFileBrowser('frmEditEntry_Thumbnail_{DIV_LANGUAGE_ID}', 'image')" />
+                            <br /><br />
+
+                        <input type="checkbox" value="1" id="frmEditEntry_thumbnailType" {DIV_THUMBNAIL_TYPE_CHECKED}
+                            name="frmEditEntry_Thumbnail_Type_{DIV_LANGUAGE_ID}" />
+                        <label for="frmEditEntry_thumbnailType" >{TXT_DIV_THUMBNAIL_TYPE}</label>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- END THUMBNAIL SECTION -->
+
+            <tr class="row1">
+              <td>{TXT_DIV_ATTACHMENT}</td>
+              <td colspan="3">
+                  <input type="text" name="frmEditEntry_Attachment_{DIV_LANGUAGE_ID}" 
+                      id="frmEditEntry_Attachment_{DIV_LANGUAGE_ID}" style="width: 30%;" 
+                      value="{DIV_ATTACHMENT}" />&nbsp;
+                  <input type="button" value="{TXT_DIV_IMAGE_BROWSE}" 
+                      onclick="newsGetFileBrowser('frmEditEntry_Attachment_{DIV_LANGUAGE_ID}', 'image')" />
+              </td>
+              </td>
+            </tr>
+
+            <tr class="row2">
+                <td>{TXT_DIV_ATTACHMENT_DESC}</td>
+                <td colspan="3">
+                    <input type="text" name="frmEditEntry_Attachment_Desc_{DIV_LANGUAGE_ID}" style="width: 30%;" value="{DIV_ATTACHMENT_DESC}" />
+                </td>
+            </tr>
+
+            <tr class="row1">
+                <td>{TXT_DIV_CATEGORIES}</td>
+                <td colspan="2">
+                    <table class="reset">
+                        <tr>
+                            <td>Vorhandene Kategorien</td>
+                            <td> </td>
+                            <td>Zugewiesene Kategorien</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <select name="existingBlocks_{DIV_LANGUAGE_ID}[]" size="10" style="width: 300px;" multiple="multiple">
+                                    <!-- BEGIN availableCategories -->
+                                    <option value="{CATEGORY_OPT_VALUE}" {CATEGORY_OPT_SELECTED}>{CATEGORY_OPT_INDENT}{CATEGORY_OPT_LABEL}</option>
+                                    <!-- END availableCategories -->
+                                </select>
+                                <br />
+                                <font>
+                                    <a href="javascript:void(0);" onclick="SelectAllList(document.frmEditEntry.elements['existingBlocks_{DIV_LANGUAGE_ID}[]'])">Alles markieren</a><br />
+                                    <a href="javascript:void(0);" onclick="DeselectAllList(document.frmEditEntry.elements['existingBlocks_{DIV_LANGUAGE_ID}[]'])">Markierung löschen</a>
+                                </font>
+                            </td>
+                            <td>
+                                &nbsp;<input type="button" value="&gt;&gt;" name="adduser" onclick="AddToTheList(document.frmEditEntry.elements['existingBlocks_{DIV_LANGUAGE_ID}[]'],document.frmEditEntry.elements['assignedBlocks_{DIV_LANGUAGE_ID}[]'],adduser,removeuser);" style="margin-bottom:1px;" />&nbsp;<br />
+                                &nbsp;<input type="button" value="&lt;&lt;" name="removeuser" onclick="RemoveFromTheList(document.frmEditEntry.elements['existingBlocks_{DIV_LANGUAGE_ID}[]'],document.frmEditEntry.elements['assignedBlocks_{DIV_LANGUAGE_ID}[]'],adduser,removeuser);" />&nbsp;
+                            </td>
+                            <td>
+                                <select name="assignedBlocks_{DIV_LANGUAGE_ID}[]" size="10" style="width:300px;" multiple="multiple">
+                                    <!-- BEGIN assignedCategories -->
+                                    <option value="{CATEGORY_OPT_VALUE}" {CATEGORY_OPT_SELECTED}>{CATEGORY_OPT_INDENT}{CATEGORY_OPT_LABEL}</option>
+                                    <!-- END assignedCategories -->
+                                </select>
+                                <script type="text/javascript">
+                                    selectsToFill[{DIV_LANGUAGE_ID}] = document.frmEditEntry.elements['assignedBlocks_{DIV_LANGUAGE_ID}[]'];
+                                </script>
+                                
+                                <br />
+                                <font>
+                                    <a href="javascript:void(0);" onclick="SelectAllList(document.frmEditEntry.elements['assignedBlocks_{DIV_LANGUAGE_ID}[]'])">Alles markieren</a> <br />
+                                    <a href="javascript:void(0);" onclick="DeselectAllList(document.frmEditEntry.elements['assignedBlocks_{DIV_LANGUAGE_ID}[]'])">Markierung löschen</a>
+                                </font>
+                            </td>
+                            
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr style="display: {DISPLAY_FORWARD_URL}" class="forwardUrl">
+                <td>{TXT_FORWARD_URL}</td>
+                <td colspan="3">
+                    <input type="text" name="frmEditEntry_ForwardUrl_{DIV_LANGUAGE_ID}" id="frmEditEntry_ForwardUrl_{DIV_LANGUAGE_ID}" style="width: 30%;" value="{DIV_FORWARD_URL}" />
+                    <input type="button" value="{TXT_DIV_IMAGE_BROWSE}" onClick="newsGetFileBrowser('frmEditEntry_ForwardUrl_{DIV_LANGUAGE_ID}', 'webpages')" />&nbsp;
+                    <span class="tooltip-trigger icon-warning"></span><span class="tooltip-message">{TXT_REDIRECT_HELP}</span>
+                </td>
+            </tr>
+
+            <tr style="display: {DISPLAY_FORWARD_URL}" class="forwardUrl">
+                <td>{TXT_TARGET_WINDOW}</td>
+                <td colspan="3">
+                    <select name="frmEditEntry_ForwardTarget_{DIV_LANGUAGE_ID}" style="margin-right:5px; width: 30%;">
+                        <option value="" {TARGET_NOTHING_SELECTED}></option>
+                        <option value="_blank" {TARGET_BLANK_SELECTED}>{TXT_TARGET_BLANK} (_blank)</option>
+                        <option value="_parent" {TARGET_PARENT_SELECTED}>{TXT_TARGET_PARENT} (_parent)</option>
+                        <option value="_self" {TARGET_SELF_SELECTED}>{TXT_TARGET_SELF} (_self)</option>
+                        <option value="_top" {TARGET_TOP_SELECTED}>{TXT_TARGET_TOP} (_top)</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr class="row2 reset">
+                <td colspan="4">{DIV_CONTENT}</td>
+            </tr>
+
+        </tbody>
+    </table>
+    </div>
+    <!-- END showLanguageDivs -->
+    <div id="advSettings" class="addEntry" style="display: none;">
+    <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+       <tr>
+            <th colspan="4">{TXT_ADV_SETTINGS}</th>
+        </tr>
+        <tr class="row1">
+            <td width="10%">{TXT_EDIT_LANGUAGES}</td>
+            <td width="10%" valign="top">{EDIT_LANGUAGES_1}</td>
+            <td width="10%" valign="top">{EDIT_LANGUAGES_2}</td>
+            <td width="70%" valign="top">{EDIT_LANGUAGES_3}</td>
+        </tr>
+        <tr class="row2">
+            <td>{TXT_DIV_PLACEHOLDER}</td>
+            <td colspan="3">[[DATA_<input type="text" name="frmEditEntry_Placeholder" id="frmEditEntry_Placeholder" style="width: 150px;" value="{DIV_PLACEHOLDER}"/>]]</td>
+        </tr>
+        <tr class="row1">
+            <td>{TXT_DIV_MODE}</td>
+            <td colspan="3">
+                <label><input type="radio" value="normal" name="frmEditEntry_Mode" {DIV_MODE_NORMAL_CHECKED} onclick="switchMode('normal')" />{TXT_DIV_MODE_NORMAL}</label>
+                <label><input type="radio" value="forward" name="frmEditEntry_Mode" {DIV_MODE_FORWARD_CHECKED} onclick="switchMode('forward')" />{TXT_DIV_MODE_FORWARD}</label>
+            </td>
+        </tr>
+        <tr class="row2">
+            <td colspan="4"><input type="checkbox" name="release_time_activated" id="radio_release_time" onclick="changeReleaseTime()" {RADIO_RELEASE_TIME_CHECKED}/><label for="radio_release_time">{TXT_DIV_ACTIVATE_RELEASE_TIME}</td>
+        </tr>
+        <tr id="release_time" style="display: {DISPLAY_RELEASE_TIME};" class="row1">
+            <td>{TXT_DIV_RELEASE_TIME}</td>
+            <td colspan="3">
+                <input type="text" name="release_date" id="release_date" value="{RELEASE_DATE}" style="width: 100px;" />
+                <select name="release_hour">{RELEASE_HOUR_OPTIONS}</select> : <select name="release_minute">{RELEASE_MINUTES_OPTIONS}</select>
+                <span style="margin-left: 2em; margin-right: 2em;">-</span>
+                <input type="text" name="release_date_end" id="release_date_end" value="{RELEASE_DATE_END}" style="width: 100px; color: {RELEASE_COLOR};" {RELEASE_DISPLAY} />
+                <select id="release_hour_end" name="release_hour_end" style=" color: {RELEASE_COLOR};" {RELEASE_DISPLAY}>{RELEASE_HOUR_OPTIONS_END}</select> : <select style=" color: {RELEASE_COLOR};" id="release_minute_end" name="release_minute_end" {RELEASE_DISPLAY}>{RELEASE_MINUTES_OPTIONS_END}</select>
+                <input type="checkbox" name="endless" id="endless" {ENDLESS_CHECKED} onclick="updateEndDate(this)" /> <label for="endless">{TXT_ENDDATE_ENDLESS}</label>
+                
+            </td>
+        </tr>
+    </table>
+    </div>
+    <br />
+    <input type="hidden" name="frmEditCategory_MessageId" value="{EDIT_MESSAGE_ID}" />
+    <input type="submit" value="{TXT_EDIT_SUBMIT}" name="frmEditCategory_Submit" />
+</form>
+<!-- END module_data_entries_add.html -->

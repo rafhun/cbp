@@ -1,0 +1,64 @@
+<!-- BEGIN voting_results.html -->
+<script type="text/javascript">
+// <![CDATA[
+function deleteVoting(id)
+{
+    if(confirm('{TXT_CONFIRM_DELETE_DATA}\n{TXT_ACTION_IS_IRREVERSIBLE}'))
+        window.location.replace("?cmd=voting&{CSRF_PARAM}&act=delete&votingid="+id);
+}
+// ]]>
+</script>
+<table class="adminlist" cellspacing="0" cellpadding="3" width="100%" border="0">
+  <tr>
+    <th>
+      <div align="left"><b>{VOTING_TITLE}</b>- {VOTING_DATE}</div>
+    </th>
+  </tr>
+  <tr class="row1">
+    <td> {VOTING_RESULTS_TEXT}<br />
+      {VOTING_TOTAL_TEXT}: {VOTING_RESULTS_TOTAL_VOTES}</td>
+  </tr>
+</table>
+<br />
+<table class="adminlist" cellspacing="0" cellpadding="3" width="100%" border="0">
+  <tr>
+    <th valign="top" nowrap="nowrap" width="15%">
+      <div align="left">{TXT_DATE}</div>
+    </th>
+    <th valign="top" nowrap="nowrap" width="45%">
+      <div align="left">{TXT_TITLE}</div>
+    </th>
+    <th valign="top" nowrap="nowrap">
+      <div align="left">{TXT_VOTES}</div>
+    </th>
+    <th valign="top" nowrap="nowrap">
+      <div align="left">{TXT_ACTIVATION}</div>
+    </th>
+    <th valign="top" nowrap="nowrap">
+      <div align="left">&nbsp;{TXT_EXPORT_ADDITIONAL}&nbsp;</div>
+    </th>
+    <th valign="top" nowrap="nowrap">
+      <div align="left">&nbsp;{TXT_CREATE_HTML}&nbsp;</div>
+    </th>
+    <th valign="top" nowrap="nowrap">
+      <div align="left">{TXT_ACTION}</div>
+    </th>
+  </tr>
+  <!-- BEGIN votingRow -->
+  <tr class="{VOTING_LIST_CLASS}">
+    <td nowrap="nowrap" width="15%">{VOTING_OLDER_DATE}</td>
+    <td nowrap="nowrap" width="45%">{VOTING_OLDER_TEXT}</td>
+    <td nowrap="nowrap"            >{VOTING_OLDER_VOTES}</td>
+    <td nowrap="nowrap"            >{VOTING_RADIO}</td>
+	<td nowrap="nowrap"            ><a href="?cmd=voting&amp;act=additionalexport&amp;votingid={VOTING_ID}">{TXT_EXPORT_CSV}</a></td>
+    <td nowrap="nowrap"            ><a href="?cmd=voting&amp;act=code&amp;votingid={VOTING_ID}">{TXT_HTML_CODE}</a></td>
+    <td nowrap="nowrap"            >
+      <div align="right"><a href="?cmd=voting&amp;act=edit&amp;votingid={VOTING_ID}"><img src="images/icons/edit.gif" border="0" title="Edit Voting" alt="Edit Voting" />
+        </a> <a href="javascript:deleteVoting({VOTING_ID})"><img src="images/icons/delete.gif" border="0" title="Delete Voting" alt="Delete Voting" /></a>
+      </div>
+    </td>
+  </tr>
+  <!-- END votingRow -->
+</table>
+<br />
+<!-- END voting_results.html -->

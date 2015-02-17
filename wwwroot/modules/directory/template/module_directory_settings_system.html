@@ -1,0 +1,28 @@
+<!-- START module_directory_settings_system.html -->
+<script type="text/javascript">
+var alert = function(){return false};
+</script>
+<font color="#FF0000">{STATUS} </font>
+<form name="settings" method="post" action="index.php?cmd=directory&amp;act=settings">
+  <table width="100%" cellspacing="0" cellpadding="3" border="0" align="top" class="adminlist">
+    <tr>
+      <th colspan=2>{TXT_SYSTEM_VARIABLES_OVERVIEW}</th>
+    </tr>
+    <tr class="row3">
+      <td width="300" valign="top"><b>{TXT_DESCRIPTION}</b></td>
+      <td><b>{TXT_VALUE}</b></td>
+    </tr>
+    <!-- BEGIN settingsOutput -->
+    <tr class="{SETTINGS_ROWCLASS}">
+      <td width="300" valign="top">{SETTINGS_DESCRIPTION}</td>
+      <td >{SETTINGS_SETVALUE}</td>
+    </tr>
+    <!-- END settingsOutput -->
+    {DIRECTORY_GOOGLEMAP_HTML}
+    </table>
+<br />
+<input type="submit" value="{TXT_SAVE_CHANGES}" name="set_sys_submit">
+</form>
+{DIRECTORY_GOOGLEMAP_JAVASCRIPT_BLOCK}
+<br>
+<!-- END module_directory_settings_system.html -->

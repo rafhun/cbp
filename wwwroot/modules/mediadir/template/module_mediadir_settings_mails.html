@@ -1,0 +1,65 @@
+<!-- START module_mediadir_settings_mails.html -->
+<script type="text/javascript">
+//<![CDATA[
+function deleteTemplate(templateId)
+{
+    if (confirm('{TXT_MEDIADIR_CONFIRM_DELETE_DATA}\n{TXT_MEDIADIR_ACTION_IS_IRREVERSIBLE}')) {
+        window.location.replace("index.php?cmd={MODULE_NAME}&act=settings&tpl=delete_template&{CSRF}&id="+templateId);
+    }
+}
+
+var switchState = function(id, obj, action, type)
+{
+    cx.jQuery.get('index.php', {cmd : '{MODULE_NAME}', act : 'switchState', id : id, state : action, type : type}).success(function() {
+        if (action) {
+            path = 'images/icons/status_green.gif';
+            action = 0;
+        } else {
+            path = 'images/icons/status_red.gif';
+            action = 1;
+        }
+        cx.jQuery(obj).children('img:first').attr('src', path);
+        cx.jQuery(obj).attr('onclick', 'switchState('+id+', this, '+action+', \''+type+'\')');
+    });
+}
+//]]>
+</script>
+
+<form id="settingsMailsForm" action="index.php?cmd={MODULE_NAME}&act=settings&tpl=mails" method="post" >
+<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+    <tr>
+        <th colspan="6">{TXT_MEDIADIR_MAIL_TEMPLATES}</th>
+    </tr>
+    <tr class="row3">
+        <td width="1%"><strong>{TXT_MEDIADIR_STATUS}&nbsp;&nbsp;&nbsp;</strong></td>
+        <td width="25%"><strong>{TXT_MEDIADIR_TITLE}&nbsp;</strong></td>
+        <td width="25%"><strong>{TXT_MEDIADIR_ACTION}&nbsp;</strong></td>
+        <td width="20%"><strong>{TXT_MEDIADIR_LANG}&nbsp;</strong></td>
+
+        <td width="19%"><strong>{TXT_MEDIADIR_DEFAULT}&nbsp;</strong></td>
+        <td width="10%" style="text-align: right;"><strong>{TXT_MEDIADIR_ACTION}&nbsp;</strong></td>
+    </tr>
+    <!-- BEGIN mediadirMailTemplateList -->
+    <tr class="{MEDIADIR_TEMPLATE_ROW_CLASS}">
+        <td style="text-align: center;"><a href="javascript: void(0);" onclick="switchState({MEDIADIR_TEMPLATE_ID}, this, {MEDIADIR_TEMPLATE_SWITCH_STATUS}, 'mail_template')"><img src="{MEDIADIR_TEMPLATE_STATUS}" border="0" alt="" title="" /></a></td>
+        <td><b><a href="index.php?cmd={MODULE_NAME}&act=settings&tpl=modify_mail&amp;id={MEDIADIR_TEMPLATE_ID}" target="_self" title="{MEDIADIR_TEMPLATE_TITLE} {TXT_EDIT}">{MEDIADIR_TEMPLATE_TITLE}</a></b></td>
+        <td ><em>{MEDIADIR_TEMPLATE_ACTION}</em></td>
+        <td>{MEDIADIR_TEMPLATE_LANG}</td>
+        <td><input type="radio" onclick="submit();" name="{MEDIADIR_TEMPLATE_DEFAULT_NAME}" value="{MEDIADIR_TEMPLATE_ID}" {MEDIADIR_TEMPLATE_DEFAULT}/></td>
+        <td style="text-align: right;">
+            <a href="index.php?cmd={MODULE_NAME}&act=settings&tpl=modify_mail&amp;id={MEDIADIR_TEMPLATE_ID}" target="_self" title="{MEDIADIR_TEMPLATE_TITLE} {TXT_EDIT}"><img src="images/icons/edit.gif" border="0" alt="{MEDIADIR_TEMPLATE_TITLE} {TXT_EDIT}" title="{MEDIADIR_TEMPLATE_TITLE} {TXT_EDIT}" /></a>
+            <a href="javascript:deleteTemplate('{MEDIADIR_TEMPLATE_ID}');" title="{MEDIADIR_TEMPLATE_TITLE} {TXT_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{MEDIADIR_TEMPLATE_TITLE} {TXT_DELETE}" title="{MEDIADIR_TEMPLATE_TITLE} {TXT_DELETE}" /></a>
+        </td>
+    </tr>
+    <!-- END mediadirMailTemplateList -->
+
+    <!-- BEGIN mediadirMailTemplateNoEntries -->
+    <tr class="row1">
+        <td colspan="6"><em>{TXT_MEDIADIR_NO_ENTRIES_FOUND}</em></td>
+    </tr>
+    <!-- END mediadirMailTemplateNoEntries -->
+</table>
+<br />
+<input type="button" name="newTemplate" onclick="location.href='index.php?cmd={MODULE_NAME}&{CSRF}&act=settings&tpl=modify_mail'" value="{TXT_MEDIADIR_NEW_MAIL_TEMPLATE}" />
+</form>
+<!-- END module_mediadir_settings_mails.html -->

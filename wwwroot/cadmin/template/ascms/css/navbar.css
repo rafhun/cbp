@@ -1,0 +1,110 @@
+/*
+   Navigation Style Sheet for the CONTREXX CMS backend console.
+
+   Copyright 2004 COMVATION AG.
+   All Rights Reserved.
+
+*/
+
+table#subnavbar_level1 {
+    float: left;
+    width: 100%;
+    margin: 0 0 15px 0;
+    background: #ececec;
+    z-index: 0;
+    display: inline-table;
+}
+
+table#subnavbar_level1.no_margin {
+    margin: 0;
+}
+
+table#subnavbar_level1 #noaccess_title {
+    float: left;
+    padding: 6.5px 13px 6.5px 13px;
+    line-height: 18px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+table#subnavbar_level1 td {
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+table#subnavbar_level1 .navi a {
+    float: left;
+    width: auto;
+    height: 18px;
+    line-height: 18px;
+    padding: 7px 13px 7px 13px;
+    border-right: 1px solid #ffffff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+    color: #444444;
+    outline: 0;
+}
+
+*+html table#subnavbar_level1 .navi a {
+    position: realtive;
+    bottom: 1px;
+    height: 19px;
+    line-height: 19px;
+}
+
+table#subnavbar_level1 .navi a:hover,
+table#subnavbar_level1 .navi a:focus,
+table#subnavbar_level1 .navi a:active,
+table#subnavbar_level1 .navi a.active {
+    background: #85be0b;
+    color: #ffffff;
+}
+
+table#subnavbar_level1 form[name="userFrontendLangIdForm"] {
+    float: right;
+    width: auto;
+    margin: 0 0 0 10px !important;
+}
+
+table#subnavbar_level1 form[name="userFrontendLangIdForm"] select {
+    margin: 0;
+}
+
+#subnavbar_level2 {
+    float: left;
+    width: 100%;
+    background: #f5f5f5;
+    margin: 0 0 15px 0;
+}
+
+#subnavbar_level2 ul {
+    float: left;
+    width: auto;
+    padding: 0;
+    margin: 0;
+}
+
+#subnavbar_level2 li {
+    float: left;
+    width: auto;
+    list-style-type: none;
+}
+
+#subnavbar_level2 a {
+    float: left;
+    width: auto;
+    padding: 6.5px 10px;
+    text-decoration: none;
+    font-size: 12px;
+    color: #444444;
+    outline: 0;
+}
+
+#subnavbar_level2 a:hover,
+#subnavbar_level2 a:focus,
+#subnavbar_level2 a:active,
+#subnavbar_level2 a.active {
+    background: #df961e;
+    color: #ffffff;
+}

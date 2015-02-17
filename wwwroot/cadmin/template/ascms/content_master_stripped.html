@@ -1,0 +1,15 @@
+<!-- START content_master.html -->
+<script language="JavaScript" type="text/javascript">
+<!-- //
+function logout() {
+	Check = confirm("{TXT_LOGOUT_WARNING}")
+	if(Check == true) {
+		location.href = "index.php?cmd=logout&{CSRF_PARAM}";
+	}
+}
+// -->
+</script>
+{CONTENT_STATUS_MESSAGE}
+{ADMIN_CONTENT}<br />
+<br />
+<!-- END content_master.html -->

@@ -1,0 +1,63 @@
+{CURRENCY_JAVASCRIPT}
+<div id="formerr"></div>
+
+<div id="editcurrencys" class="Entries" style="display: block;">
+   <form name="currency" method="post" action="">
+ 	<table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+		<tr>
+			<th colspan="15">{TXT_CRM_EDIT_CURRENCY}</th>
+		</tr>
+
+     <tr class="row1">
+   <td width="13%" nowrap>{TXT_CRM_NAME}&nbsp;<font color="red">*</font></td>
+   <td width="10%"><input type="text" name="name" style="width: 300px;" id="name" value="{TXT_NAME_VALUE}"></td>
+   <td><input type="checkbox" name="activeStatus" value="active" {TXT_ACTIVATED_VALUE}>{TXT_CRM_TITLEACTIVE}</td>
+</tr>
+    <tr class="row2">
+   <td width="13%" nowrap>{TXT_CRM_SORTING_NUMBER}&nbsp;</td>
+   <td width="10%"><input type="text" name="sortingNumber" style="width: 300px;" id="sortingNumber" value="{TXT_SORTINGNUMBER}"></td>
+   <td></td>
+</tr>
+<!-- BEGIN show-rates -->
+<tr class="row1">
+                <td nowrap valign="top" style="padding-top: 6px;">{TXT_CRM_CURRENCY_RATES}&nbsp;</td>
+                <td colspan="2" style='padding-left:0'><table cellspacing="0" cellpadding="3" border="0">
+                        <tbody>
+                            <tr>
+                                <td style='border: 0;'>  {TXT_CRM_HOURLY_RATE}
+                                </td>
+                                <td style='border: 0;padding-left:30px;'>    {TXT_CRM_CURRENCY}
+                                </td>
+                            </tr>
+                            <!-- BEGIN hourlyRate -->
+                            <tr>
+                                <td style='border: 0;'>
+                                    <input type='text' name='rateValue_{CRM_CUSTOMERTYPE_ID}' value='{PM_CURRENCY_HOURLY_RATE}'  style="width: 300px; " />
+                                </td>
+                                <td style='padding-left:30px;border: 0;'>
+                                    {CRM_CUSTOMER_TYPE}
+                                    <input type="hidden" name="customerType[]" value="{CRM_CUSTOMERTYPE_ID}" />
+                                </td>
+                            </tr>
+                            <!-- END hourlyRate -->
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+<!-- END show-rates -->
+  	</table>
+	<br />
+	<table cellpadding="2" cellspacing="0" border="0">
+		<tr>
+			<td>
+
+   <input type="hidden" name="currencyid" value="{TXT_CURRENCY_ID}" />
+   <input type="button" name="back_button" value="{TXT_CRM_BACK}" onClick="window.location.replace('index.php?cmd={MODULE_NAME}&act=settings&tpl=currency&{CSRF_PARAM}');" />
+   &nbsp;&nbsp;
+   <input type="submit" name="currency_submit" value="{TXT_CRM_SAVE}" onClick="return checkValidationsEdit();" />
+			</td>
+   		</tr>
+	</table>
+   </form>
+<br />
+</div>

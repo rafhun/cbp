@@ -1,0 +1,27 @@
+<!-- START module_newsletter_user_import.html -->
+<ul id="tabmenu">
+<li><a id="zoneTab_Content1" class="active" href="javascript:{}" onclick="selectTab('Content1')" title="{TXT_ENTER_EMAIL_ADDRESS}">{TXT_ENTER_EMAIL_ADDRESS}</a></li>
+<li><a id="zoneTab_Content2" href="javascript:{}" onclick="selectTab('Content2')" title="{TXT_NEWSLETTER_IMPORT_FROM_FILE}">{TXT_NEWSLETTER_IMPORT_FROM_FILE}</a></li>
+</ul>
+<div id="Content1" class="zoneTab" style="display:block">
+  <form name="importuser" action="?cmd=newsletter&amp;act=users&amp;tpl=import" method="post">
+    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="adminlist">
+      <tr>
+        <th colspan="2">{TXT_ENTER_EMAIL_ADDRESS}</th>
+      </tr>
+      <tr class="row1">
+        <td colspan="2"><textarea name="Emails" style="width: 100%; height: 250px;"></textarea></td>
+      </tr>
+      <tr class="row2">
+        <td style="width: 200px;">{TXT_NEWSLETTER_LIST}</td>
+        <td>{NEWSLETTER_CATEGORY_MENU}</td>
+      </tr>
+    </table>
+    <br />
+    <input type="submit" name="newsletter_import_plain" value="{TXT_IMPORT}" />
+  </form>
+</div>
+<div id="Content2" class="zoneTab" style="display:none">
+  {NEWSLETTER_IMPORT_FRAME}
+</div>
+<!-- END module_newsletter_user_import.html -->

@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <title>Contrexx Control Panel</title>
+        <meta http-equiv="Content-Type" content="text/html; charset={CONTREXX_CHARSET}" />
+        <meta name="robots" content="noindex" />
+        <meta name="robots" content="nofollow" />
+        <meta name="robots" content="noarchive" />
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta http-equiv="cache-control" content="no-cache" />
+        <meta http-equiv="X-UA-Compatible" content="requiresActiveX=true" />
+        <link href="template/ascms/css/base.css" rel="stylesheet" type="text/css" />
+
+        <!-- BEGIN additional_style -->
+        <link href="{ADD_STYLE_URL}" rel="stylesheet" type="text/css" />
+        <!-- END additional_style -->
+
+        {JAVASCRIPT}
+        
+    </head>
+    <body>
+        <div id="loading" style="display: none;"><img src="../lib/javascript/jquery/jstree/themes/default/throbber.gif" alt="" /><span>Loading...</span></div>
+        
+        <div id="container" class="{CONTAINER_BACKEND_CLASS} {CONTAINER_DASHBOARD_CLASS}">
+            <div id="header">
+                <a class="logo" href="index.php"></a>
+                <!-- BEGIN backend_metanavigation -->
+                <div id="metanavigation">
+                    <!-- BEGIN upgradable -->
+                    <a class="license-upgrade first" href="index.php?cmd=license" target="_self">{TXT_UPGRADE}</a>
+                    <!-- END upgradable -->
+                    <!-- BEGIN backend_language_navigation -->
+                    <ul>
+                        <li>
+                            <a href="#">{TXT_LANGUAGE}</a>
+                            <ul>
+                                <!-- BEGIN backend_language_navigation_item -->
+                                <li><a class="{LANGUAGE_CSS}" href="{LANGUAGE_URL}">{LANGUAGE_NAME}</a></li>
+                                <!-- END backend_language_navigation_item -->
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- END backend_language_navigation -->
+                    <a class="frontend" href="../index.php" target="_blank">{TXT_FRONTEND}</a>
+                    <a class="profile" href="index.php?cmd=access&amp;act=user&amp;tpl=modify&amp;id={USER_ID}">{TXT_PROFILE}</a>
+                    <a class="logout" href="javascript:logout()">{TXT_LOGOUT}</a>
+                </div>
+                <!-- END backend_metanavigation -->
+            </div>
+            <div id="content_wrapper">{CONTENT_FILE}</div>
+            <div id="footer">
+                <a href="http://www.contrexx.com" target="_blank">&copy; COMVATION AG, Switzerland</a>
+                <div id="version">
+                    {CONTREXX_VERSION}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

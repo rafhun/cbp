@@ -1,0 +1,34 @@
+<!-- START module_blog_categories_edit.html -->
+<form name="frmEditCategory" method="post" action="{DIRECTORY_INDEX}?cmd=block&amp;act=categories">
+  <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+    <tr>
+      <th colspan="4">{TXT_BLOCK_CATEGORIES_EDIT}</th>
+    </tr>
+    <tr class="row1">
+        <td valign="top">{TXT_BLOCK_PARENT}</td>
+        <td colspan="3">
+            <select name="frmCategoryParent">
+                <option value="0">{TXT_BLOCK_NONE}</option>
+                {BLOCK_CATEGORIES_PARENT_DROPDOWN}
+            </select>
+        </td>
+    </tr>
+    <tr class="row2">
+      <td valign="top" style="width: 16%;">{TXT_BLOCK_NAME}</td>
+      <td colspan="3">
+        <input type="text" name="frmCategoryName" value="{BLOCK_CATEGORY_NAME}" maxlength="100" style="width:30%;" />
+      </td>
+    </tr>
+    <tr class="row1">
+      <td valign="top">{TXT_BLOCK_CATEGORY_SEPERATOR}</td>
+      <td colspan="3">
+        <input type="text" name="frmCategorySeperator" value="{BLOCK_CATEGORY_SEPERATOR}" maxlength="100" style="width:30%;" />
+      </td>
+    </tr>
+  </table>
+  <br />
+  <input type="hidden" value="{BLOCK_CATEGORY_ID}" name="frmCategoryId" />
+  <input type="submit" value="{TXT_BLOCK_SAVE}" name="frmCategorySubmit" />
+  <input type="button" value="{TXT_BLOCK_BACK}" name="frmCategoryBack" onclick="location.href='{DIRECTORY_INDEX}?cmd=block&amp;act=categories&{CSRF_PARAM}'" />
+</form>
+<!-- END module_blog_categories_edit.html -->

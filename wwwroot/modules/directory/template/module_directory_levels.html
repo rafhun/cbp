@@ -1,0 +1,260 @@
+<!-- START module_directory_levels.html -->
+<script language="JavaScript">
+function deleteLevel(levelid)
+{
+    if(confirm('{TXT_CONFIRM_DELETE_DATA}\n{TXT_ACTION_IS_IRREVERSIBLE}'))
+        window.location.replace("index.php?cmd=directory&{CSRF_PARAM}&act=dellevel&id="+levelid);
+}
+
+
+function statusLevel(levelid, status)
+{
+    window.location.replace("index.php?cmd=directory&{CSRF_PARAM}&act=levels&id="+levelid+"&status="+status);
+}
+
+
+function CheckForm() {
+  with( document.addForm ) {
+    if (description.value == "" || name.value == "")
+    {
+        alert ("{TXT_FIELDS_REQUIRED}");
+        return false;
+    }
+    return true;
+  }
+}
+
+function setText(){
+	with(document.addForm )
+	{
+		var txtValue = name.value;
+		if(description.value == "")
+			description.value=txtValue;
+	}
+}
+
+function levelIsChecked(fieldName){
+    var x = 0;
+    for(var i = 0; i < document.orderForm.elements.length; i++)
+    {
+        var e = document.orderForm.elements[i];
+        if(e.name == fieldName && e.checked == true)
+        {
+            x++;
+        }
+    }
+    if(x > 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
+function levelDoAction(){
+	if(levelIsChecked("formSelected[]") == true)
+    {
+
+	    if(document.orderForm.selectAction.value == "move")
+	    {
+	        obj = document.getElementById('showmove');
+    		obj.style.display = 'inline';
+	    }
+        if(document.orderForm.selectAction.value == "delete")
+	    {
+	    	obj = document.getElementById('showmove');
+	    	obj.style.display = 'none';
+	    	if(confirm('{TXT_CONFIRM_DELETE_DATA}\n{TXT_ACTION_IS_IRREVERSIBLE}')) {
+        		document.orderForm.action = "index.php?cmd=directory&act=dellevel";
+        		document.orderForm.submit();
+	    	}else{
+	    		document.displayForm.selectAction.value = "0";
+	    	}
+	    }
+	    if(document.orderForm.selectAction.value == "0")
+	    {
+	    	 obj = document.getElementById('showmove');
+	   		 obj.style.display = 'none';
+	    }
+    }
+    else
+    {
+        alert("{TXT_MAKE_SELECTION}");
+        document.orderForm.selectAction.value = "0";
+        obj = document.getElementById('showmove');
+	    obj.style.display = 'none';
+    }
+}
+
+function levelDoMove(){
+	if(levelIsChecked("formSelected[]") == true)
+    {
+    	if(confirm('Wollen Sie diese Levels wirklich verschieben?')) {
+    		document.orderForm.action = "index.php?cmd=directory&act=moveLevel";
+            document.orderForm.submit();
+    	}else{
+    		document.displayForm.selectAction.value = "0";
+    		obj = document.getElementById('showmove');
+	        obj.style.display = 'none';
+    	}
+    }
+    else
+    {
+        alert("{TXT_MAKE_SELECTION}");
+        document.orderForm.selectAction.value = "0";
+        obj = document.getElementById('showmove');
+	    obj.style.display = 'none';
+    }
+}
+
+</script>
+<table width="100%" border="0" cellspacing="0" cellpadding="3" class="adminlist">
+  <tr>
+    <th nowrap>{TXT_OPTIONS}</th>
+  </tr>
+  <tr class="row1">
+    <td nowrap>
+      <form method=post action='index.php?cmd=directory&act=files'>
+        {TXT_FILE_SEARCH}:
+        <input type="text" name="term">
+        <input type="submit" name="Submit" value="{TXT_SEARCH}">
+      </form>
+    </td>
+  </tr>
+</table>
+<br />
+
+<ul id="tabmenu">
+    <li><a id="dirTab_newlevel" href="javascript:{}" onclick="selectTab('newlevel')" title="" hidefocus>{TXT_ADD_LEVEL}</a></li>
+</ul>
+
+<div id="newlevel" class="dirTab" style="display:none;">
+<form name="addForm" method="post" action="index.php?cmd=directory&amp;act=addlevel" onSubmit="return CheckForm()">
+  <table border="0" cellpadding="3" cellspacing="0" align="center" width="100%"  class="adminlist">
+    <tr>
+      <th colspan="2">{TXT_ADD_LEVEL}</th>
+    </tr>
+    <tr class="row2">
+      <td width="150">{TXT_LEVEL}<font color="red"> *</font></td>
+      <td>
+        <select name="level" style="width:471px;">
+        <option value='0'>{TXT_NEW_LEVEL}</option>
+        {LEVELS}
+        </select>
+      </td>
+    </tr>
+    <tr class="row1">
+      <td width="150">{TXT_NAME}:<font color="red">*</font></td>
+      <td>
+        <input name="name" size="90" onchange="setText()">
+        </td>
+    </tr>
+    <tr class="row2">
+      <td width="150">{TXT_DESCRIPTION}:<font color="red">*</font></td>
+      <td>
+        <input name="description" size="90">
+        </td>
+    </tr>
+    <!--<tr class="row1">
+      <td width="150">{TXT_METADESC}:</td>
+      <td>
+        <input name="metadesc" size="90">
+        </td>
+    </tr>
+    <tr class="row2">
+      <td width="150">{TXT_METAKEYS}:</td>
+      <td>
+        <input size="90" name="metakeys">
+        </td>
+    </tr> -->
+    <tr class="row1">
+      <td width="150" valign="top">{TXT_SHOW_TYPE}:</td>
+      <td>
+        <input type="radio" name="showtype" value="1" checked>&nbsp;{TXT_KIND_LEVEL_AND_CATEGORIES}<br />
+        <input type="radio" name="showtype" value="2">&nbsp;{TXT_ONLY_KIND_LEVEL}<br />
+        <input type="radio" name="showtype" value="3">&nbsp;{TXT_ONLY_CATEGORIES}<br />
+        <input type="radio" name="showtype" value="4">&nbsp;{TXT_ONLY_ENTRIES}
+        </td>
+    </tr>
+</table>
+<br />
+<input type="submit" name="addsubmit" value="{TXT_ADD}">&nbsp;<font color="red">*</font> = {TXT_REQUIRED_FIELDS}
+</form>
+<br /><br />
+</div>
+<form name="orderForm" method="post" action="index.php?cmd=directory&amp;act=levelOrder">
+  <table border="0" cellpadding="3" cellspacing="0" align="center" width="100%" class="adminlist">
+    <tr>
+    <th colspan="5">{TXT_LIST} [ <a href="index.php?cmd=directory&amp;act=levels&amp;expand=all">{TXT_EXPAND_ALL}</a>
+      | <a href="index.php?cmd=directory&amp;act=levels&amp;collaps=all">{TXT_COLLAPS_ALL}</a> ]</th>
+  </tr>
+  <tr class="row3">
+    <td width="16">
+       <center><b>#</b></center>
+    </td>
+    <td width="25%"><b>{TXT_NAME}</b></td>
+    <td width="25%"><b>{TXT_DESCRIPTION}</b></td>
+    <td width="45%"><b>{TXT_LEVEL_CATEGORIES}</b></td>
+    <td width="5%"><div align="right"><b>{TXT_ACTION}</b></div></td>
+  </tr>
+  <!-- BEGIN levelsRow -->
+  <tr class={LEVEL_ROW}>
+    <td width="16" valign="top">
+        <center>
+        {LEVEL_CHECKBOX}
+        </center>
+    </td>
+    <td width="25%" valign="top" style="padding-left: {LEVEL_PADDING}px" nowrap>{LEVEL_ICON}&nbsp;{LEVEL_FOLDER}&nbsp;
+        <input maxlength=5 size=1 value={LEVEL_DISPLAYORDER} name=displayorder[{LEVEL_ID}]>
+        {LEVEL_NAME} ({LEVEL_COUNTENTRIES})</td>
+    <td width="25%" valign="top">{LEVEL_DESCRIPTION} </td>
+    <td width="45%" valign="top">{LEVEL_CATEGORIES}</td>
+    <td  width="5%" valign="top" nowrap><div align="right"><a href="index.php?cmd=directory&amp;act=editlevel&amp;id={LEVEL_ID}"><img src="images/icons/edit.gif" alt='{TXT_EDIT}' border="0"></a>
+      <a href="javascript:deleteLevel({LEVEL_ID})"><img src="images/icons/delete.gif" alt='{TXT_DELETE}' border="0"></a></div>
+    </td>
+  </tr>
+  <!-- END levelsRow -->
+  <!-- BEGIN nolevelsRow -->
+  <tr class={LEVEL_ROW}>
+    <td width="16" valign="top">
+        <br />
+    </td>
+  	<td width="100%" valign="top" colspan="6">
+        {NO_LEVEL_FOUND}
+    </td>
+  </tr>
+  <!-- END nolevelsRow -->
+</table>
+<br />
+<!-- BEGIN importSelectAction -->
+<input type=submit value="{TXT_SAVE_CHANGES}" name=displaysubmit style="margin-left:65px;" />
+<table cellpadding="2" cellspacing="0" border="0">
+	<tr>
+		<td>
+			<img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="{TXT_MARKED}:" />
+			<a href="#" onclick="changeCheckboxes('orderForm','formSelected[]',true); return false;">{TXT_SELECT_ALL}</a> /
+			<a href="#" onclick="changeCheckboxes('orderForm','formSelected[]',false); return false;">{TXT_DESELECT_ALL}</a>
+			<img src="images/icons/strike.gif" />
+			<select name="selectAction" onchange="levelDoAction();">
+			<option value="0" selected="selected">{TXT_SELECT_ACTION}</option>
+			<option value="move">{TXT_MOVE}</option>
+			<option value="delete">{TXT_DELETE}</option>
+		    </select>
+		    <span id="showmove" style="display:none;">
+		    <img src="images/icons/strike.gif" />
+		    <select name="selectLevel" onchange="levelDoMove();">
+		    <option value="" selected="selected">{TXT_SELECT_LEVEL}</option>
+		    <option value="0">{TXT_MAIN_LEVEL}</option>
+			{LEVELS_MOVE}
+		    </select>
+		    </span>
+		</td>
+	</tr>
+</table>
+<!-- END importSelectAction -->
+</form>
+<br />
+<!-- END module_directory_levels.html -->

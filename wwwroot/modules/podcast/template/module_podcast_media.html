@@ -1,0 +1,78 @@
+<!-- start module_podcast_media.html -->
+<script type="text/javascript">
+//<![CDATA[
+function podcast_delete_medium(id, title)
+{
+	strDeleteTitle = '{TXT_PODCAST_CONFIRM_DELETE_MEDIUM_MSG}';
+	if (confirm(strDeleteTitle.replace('%s', '\''+title+'\'')+'\n{TXT_PODCAST_OPERATION_IRREVERSIBLE}')) {
+		window.location.href = "index.php?cmd=podcast&{CSRF_PARAM}&act=deleteMedium&id="+id;
+	}
+}
+
+function podcast_media_do_action(action) {
+	if (checkboxIsChecked('podcast_media_form', 'podcast_medium_selected[]')) {
+		if (confirm('{TXT_PODCAST_CONFIRM_DELETE_MEDIA_MSG}\n{TXT_PODCAST_OPERATION_IRREVERSIBLE}')) {
+			document.getElementById('podcast_media_form').submit();
+			return true;
+		}
+	}
+	document.getElementById('podcast_select_action').value=0;
+}
+//]]>
+</script>
+<form action="index.php?cmd=podcast&amp;act=deleteMedium" name="podcast_media_form" id="podcast_media_form" method="post">
+<!-- BEGIN podcast_category_menu -->
+{PODCAST_CATEGORY_MENU}<br /><br />
+<!-- END podcast_category_menu -->
+<table border="0" cellpadding="3" cellspacing="0" class="adminlist" width="100%">
+	<tbody>
+		<tr>
+			<th colspan="6">{PODCAST_MEDIA_TITLE_TXT}</th>
+		</tr>
+		<!-- BEGIN podcast_media_data -->
+			<tr class="row3">
+				<td style="font-weight:bold;">{TXT_PODCAST_STATUS}</td>
+				<td style="font-weight:bold;">{TXT_PODCAST_DATE}</td>
+				<td style="font-weight:bold;">{TXT_PODCAST_TITLE}</td>
+				<td style="font-weight:bold;">{TXT_PODCAST_AUTHOR}</td>
+				<td style="font-weight:bold;">{TXT_PODCAST_TEMPLATE}</td>
+				<td style="font-weight:bold; text-align:right;">{TXT_PODCAST_FUNCTIONS}</td>
+			</tr>
+			<!-- BEGIN podcast_media_list -->
+				<tr class="{PODCAST_ROW_CLASS}">
+					<td><input type="checkbox" name="podcast_medium_selected[]" value="{PODCAST_MEDIUM_ID}" /><img src="images/icons/{PODCAST_MEDIUM_STATUS_IMG}" width="13" height="13" alt="{PODCAST_MEDIUM_STATUS_TXT}" /></td>
+					<td>{PODCAST_MEDIUM_DATE}</td>
+					<td><a href="index.php?cmd=podcast&amp;act=showMedium&amp;id={PODCAST_MEDIUM_ID}" title="{TXT_PODCAST_SHOW_MEDIUM}">{PODCAST_MEDIUM_TITLE}</a></td>
+					<td>{PODCAST_MEDIUM_AUTHOR}</td>
+					<td>{PODCAST_MEDIUM_TEMPLATE}</td>
+					<td style="text-align:right;">
+						<a href="index.php?cmd=podcast&amp;act=getHtml&amp;id={PODCAST_MEDIUM_ID}" title="{TXT_PODCAST_SHOW_HTML_SOURCE_CODE}"><img src="images/icons/html.gif" width="16" height="16" border="0" alt="{TXT_PODCAST_SHOW_HTML_SOURCE_CODE}" /></a>
+						<a href="index.php?cmd=podcast&amp;act=modifyMedium&amp;id={PODCAST_MEDIUM_ID}" title="{TXT_PODCAST_MODIFY_MEDIUM}"><img src="images/icons/edit.gif" width="16" height="16" border="0" alt="{TXT_PODCAST_MODIFY_MEDIUM}" /></a>
+						<a href="javascript:void(0);" onclick="podcast_delete_medium({PODCAST_MEDIUM_ID}, '{PODCAST_MEDIUM_TITLE}')" title="{TXT_PODCAST_DELETE_MEDIUM}"><img src="images/icons/delete.gif" width="17" height="17" border="0" alt="{TXT_PODCAST_DELETE_MEDIUM}" /></a>
+					</td>
+				</tr>
+			<!-- END podcast_media_list -->
+		<!-- END podcast_media_data -->
+		<!-- BEGIN podcast_media_no_data -->
+			<tr class="row1">
+				<td colspan="6">{PODCAST_EMPTY_CATEGORY_MSG_TXT}</td>
+			</tr>
+		<!-- END podcast_media_no_data -->
+	</tbody>
+</table>
+<!-- BEGIN podcast_media_multi_select_action -->
+<img src="images/icons/arrow.gif" width="38" height="22" style="margin-left:5px;" alt="arrow" />
+<a href="javascript:void(0);" onclick="changeCheckboxes('podcast_media_form','podcast_medium_selected[]',true); return false;" title="{TXT_PODCAST_CHECK_ALL}">{TXT_PODCAST_CHECK_ALL}</a> /
+<a href="javascript:void(0);" onclick="changeCheckboxes('podcast_media_form','podcast_medium_selected[]',false); return false;" title="{TXT_PODCAST_UNCHECK_ALL}">{TXT_PODCAST_UNCHECK_ALL}</a>
+<img src="images/icons/strike.gif" width="34" height="22" alt="design" />
+<select name="podcast_select_action" id="podcast_select_action" onchange="podcast_media_do_action(this.value)">
+<option value="0" selected="selected">{TXT_PODCAST_WITH_SELECTED}:</option>
+<option value="delete">{TXT_PODCAST_DELETE}</option>
+</select>
+<br />
+<!-- END podcast_media_multi_select_action -->
+</form>
+<br />
+{PODCAST_PAGING}
+<input type="button" onclick="window.location.href='index.php?cmd=podcast&{CSRF_PARAM}&amp;act=selectSource'" value="{TXT_PODCAST_ADD_MEDIUM}" />
+<!-- end module_podcast_media.html -->

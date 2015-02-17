@@ -1,0 +1,72 @@
+<script language="JavaScript" type="text/javascript">
+    $J(document).ready(function(){
+        $J("#browse").click(function(){
+           $J("#contactFormFieldId_notesType").trigger('click');
+        });
+    });
+</script>
+<style type="text/css">
+    input.contactFormField {
+        position: absolute;
+        left: -5000px;
+    }
+</style>
+{PM_SETTINGS_CURRENCY_JAVASCRIPT}
+<div id="formerr"></div>
+<br>
+<form name="notes" method="post" action="">
+    <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+        <tr>
+            <th colspan="15">{TXT_CRM_EDIT_NOTES}</th>
+        </tr>
+
+        <tr class="row1">
+            <td width="13%" nowrap>{TXT_CRM_NAME}&nbsp;<font color="red">*</font></td>
+            <td width="10%"><input type="text" name="name" id="name" style="width: 300px;" value="{TXT_NOTESNAME}"></td>
+            <td><input type="checkbox" name="status" value="1" {TXT_NOTESSTATUS}>{TXT_CRM_TITLEACTIVE}</td>
+        </tr>
+        <tr class="row2">
+            <td width="13%" nowrap>{TXT_CRM_SORTING_NUMBER}&nbsp;</td>
+            <td width="10%"><input type="text" name="sorting" style="width: 300px;" id="sortingNumber" value="{TXT_NOTESPOS}"></td>
+            <td></td>
+        </tr>
+        <tr class="row1">
+            <td width="13%" nowrap>{TXT_CRM_ICON}</td>
+            <td width="10%">
+                <div id="contactFormField_uploadWidget_notesType"></div>
+                <input type="file" class="contactFormField" id="contactFormFieldId_notesType" name="contactFormFieldId_notesType" value="" />
+                <input type="text" name="icon" id="icon" value="{TXT_NOTESICON}" style="width: 190px;"/>&nbsp;&nbsp;
+                <input type="button" id="browse" value="{TXT_BROWSE}" style="width: 100px;"/>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+    <br />
+    <table cellpadding="2" cellspacing="0" border="0">
+        <tr>
+            <td>
+
+                <input type="hidden" name="currencyid" value="{TXT_CURRENCY_ID}" />
+                <input type="button" name="back_button" value="{TXT_CRM_BACK}" onClick="window.location.replace('index.php?cmd={MODULE_NAME}&act=settings&tpl=notes&{CSRF_PARAM}');" />
+                &nbsp;&nbsp;
+                <input type="submit" name="currency_submit" value="{TXT_CRM_SAVE}" onClick="return checkValidations();" />
+            </td>
+        </tr>
+    </table>
+</form>
+{COMBO_UPLOADER_CODE_TASK_TYPE}
+<script type="text/javascript">
+	cx.ready(function() {
+		var uploader = cx.instances.get('exposed_combo_uploader_notesType','uploader');
+		uploader.dialog().bind('close', function(){
+                    $J.getJSON( '{REDIRECT_URL}', function( data ) {
+                        $J.each(data, function(key, val) {
+                            var file = val.fileName;
+                            if ($J.trim(file) != '') {
+                                $J('#icon').val(file);
+                            }
+                        });
+                    });
+		});
+	},true);
+</script>

@@ -1,0 +1,67 @@
+<!-- start mailtemplate_overview.html -->
+<table class="adminlist" border="0" cellspacing="0" cellpadding="2" width="100%" summary="">
+  <thead>
+    <tr>
+      <th colspan="{CORE_MAILTEMPLATE_COLSPAN}"> <!-- 5 + # of languages -->
+        {TXT_CORE_MAILTEMPLATES}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="row3">
+      <td width="10%">
+        <b>{CORE_MAILTEMPLATE_NAME}</b>
+      </td>
+      <td width="10%">
+        <b>{CORE_MAILTEMPLATE_KEY}</b>
+      </td>
+<!-- BEGIN core_mailtemplate_language_header -->
+      <td width="01%">
+        <b>{MAILTEMPLATE_LANGUAGE_HEADER}</b>
+      </td>
+<!-- END core_mailtemplate_language_header -->
+      <td width="02%" style="text-align: center;">
+        <b>{CORE_MAILTEMPLATE_HTML}</b>
+      </td>
+      <td width="02%" style="text-align: center;">
+        <b>{CORE_MAILTEMPLATE_PROTECTED}</b>
+      </td>
+      <td width="02%" style="text-align: right;">
+        <b>{TXT_CORE_MAILTEMPLATE_FUNCTIONS}</b>
+      </td>
+    </tr>
+<!-- BEGIN core_mailtemplate_row -->
+    <tr class="row{MAILTEMPLATE_ROWCLASS}">
+      <td valign="top">
+        {MAILTEMPLATE_NAME}
+      </td>
+      <td valign="top">
+        {MAILTEMPLATE_KEY}
+      </td>
+<!-- BEGIN core_mailtemplate_language_column -->
+      <td valign="top">
+        {MAILTEMPLATE_LANGUAGE}
+      </td>
+<!-- END core_mailtemplate_language_column -->
+      <td valign="top" style="text-align: center;">
+        {MAILTEMPLATE_HTML}
+      </td>
+      <td valign="top" style="text-align: center;">
+        {MAILTEMPLATE_PROTECTED}
+      </td>
+      <td valign="top" style="text-align: right;">
+        {MAILTEMPLATE_FUNCTIONS}
+      </td>
+    </tr>
+<!-- END core_mailtemplate_row -->
+  </tbody>
+</table>
+<br />
+{PAGING}
+<br />
+<br />
+<form name="form_mailtemplate_new" method="post" action="{URI_EDIT}&amp;key=" >
+  <input type="submit" name="badd" value="{TXT_CORE_MAILTEMPLATE_NEW}"
+      tabindex="101" />
+</form>
+<!-- end mailtemplate_overview.html -->

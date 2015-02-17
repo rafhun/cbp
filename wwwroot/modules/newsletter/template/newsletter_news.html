@@ -1,0 +1,140 @@
+<!-- START newsletter_news.html -->
+<script type="text/javascript">
+<!--
+
+var previewNewsletter = function(text){
+	var elements = document.getElementById('newsLetterNews').elements;
+	var checked = 0;
+    for(var i = 0; i < elements.length; i++) {
+		if(elements[i].checked)
+			checked++;
+	}
+	if(checked > 0){
+      document.getElementById("newsLetterNews").action = "?cmd=newsletter&act=newspreview";
+    return true;
+	}
+	else {
+		return false;
+	}
+}
+
+//adds the datetimepicker to the date fields
+cx.ready(function() {
+    var dpOptions = {
+        dateFormat: 'dd.mm.yy',
+        timeFormat: 'hh:mm',
+		onClose: function() {
+			document.forms["newsLetterNews"].submit()
+		}
+    };
+
+    $J('input[name=newsDate]').datetimepicker(dpOptions);
+    
+}, true);
+
+function CategorySelect(t) {
+	var elements = document.getElementById('newsLetterNews').elements;
+	var id = 'tr' + t.id.match(/(\d+)/)[1];
+    for(var i = 0; i < elements.length; i++) {
+		if(elements[i].id == id) {
+			elements[i].checked = t.checked;
+			if(t.checked) {
+				elements[i].parentNode.parentNode.setAttribute("class", "row1");
+				elements[i].parentNode.parentNode.style.display = "table-row";
+			}
+			else {
+				elements[i].parentNode.parentNode.style.display = "none";
+				elements[i].parentNode.parentNode.setAttribute("class", "row2");
+			}
+		}
+	}
+	if(t.checked)
+		t.parentNode.parentNode.setAttribute("class", "row1");
+	else
+		t.parentNode.parentNode.setAttribute("class", "row2");
+}
+
+function NewsSelect(t) {
+	if(t.checked)
+		t.parentNode.parentNode.setAttribute("class", "row1");
+	else
+		t.parentNode.parentNode.setAttribute("class", "row2");
+	var news = new Array();
+	var elements = document.getElementById('newsLetterNews').elements;
+	var checked = 0;
+    for(var i = 0; i < elements.length; i++) {
+		if(elements[i].id == t.id) {
+			if(elements[i].checked)
+				checked++;
+			news.push(elements[i]);
+		}
+	}
+	var id = "cat" + t.id[2];
+	var category = document.getElementById(id);
+	if(checked == 0) {
+		for(var i = 0; i < news.length; i++) {
+			news[i].parentNode.parentNode.style.display = "none";
+			news[i].parentNode.parentNode.setAttribute("class", "row2");
+		}
+		category.parentNode.parentNode.setAttribute("class", "row2");
+		category.checked = false;
+	}
+}
+
+// -->
+</script>
+
+<table width="100%" border="0" cellpadding="3" cellspacing="0" class="adminlist">
+  <tr>
+    <th>{TXT_NEWS_IMPORT}</th>
+  </tr>
+</table>
+<form id="newsLetterNews" name="form" method="post" action="?cmd=newsletter&amp;act=news">
+<table cellspacing="0" cellpadding="3" width="100%" border="0" class="adminlist">
+<tr class="row3">
+  <td width="15%" nowrap="nowrap">{TXT_DATE_SINCE}</td>
+  <td width="85%"><input type="text" name="newsDate" value="{NEWS_CREATE_DATE}" style="width:400px;" /></td>
+</tr>
+<tr>
+<td width="15%" valign="top">{TXT_SELECTED_MESSAGES}</td>
+<td width="85%">
+<div style="max-height:600px;overflow:auto;">
+<table cellspacing="0" cellpadding="3" width="100%" border="0">
+<!-- BEGIN news_list -->
+<!-- BEGIN news_category -->
+  <tr class="row1">
+    <td width="5%">
+		<input type="checkbox" id="cat{NEWS_CATEGORY_ID}" onchange="CategorySelect(this);" checked="true"/>
+	</td>
+    <td width="95%" colspan="2" style="text-align:left;">
+		<h2>{NEWS_CATEGORY_NAME}</h2>
+	</td>
+  </tr>
+<!-- END news_category -->
+<!-- BEGIN news_message -->
+  <tr class="row1">
+    <td width="5%">
+		<input type="checkbox" id="tr{NEWS_CATEGORY_ID}" onchange="NewsSelect(this);" name="SelectedNews[]" value="{NEWS_ID}" checked="true"/>
+	</td>
+    <td width="20%" style="text-align:left;">
+		<img src="{NEWS_IMAGE_PATH}" width="150" height="100"/>
+	</td>
+    <td width="75%" style="text-align:left;">
+		<h3>{NEWS_TITLE}</h3>
+		<p>{NEWS_TEASER_TEXT}</p>
+	</td>
+  </tr>
+<!-- END news_message -->
+<!-- END news_list -->
+</table>
+{NEWS_EMPTY_LIST}
+</div>
+</td>
+</tr>
+</table>
+<br/>
+<input type="submit" accesskey="c" onclick="return previewNewsletter();" name="NewsletterFromNews" value="{TXT_NEXT}"/>
+
+</form>
+
+<!-- END newsletter_news.html -->

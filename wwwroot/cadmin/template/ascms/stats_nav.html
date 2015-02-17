@@ -1,0 +1,41 @@
+<!-- START stats_nav.html -->
+<script language="JavaScript" type="text/javascript">
+<!-- // confirm delete page
+function statsDeleteCounter()
+{
+    if(confirm('{TXT_CONFIRM_DELETE_DATA}\n{TXT_ACTION_IS_IRREVERSIBLE}'))
+        window.location.replace("index.php?cmd=searchstats&{CSRF_PARAM}&action=deleteall");
+}
+
+function statsHover(sta,tab)
+{
+	 if(sta == 1)  		 tab.style.backgroundColor = "#e9e9e9";
+	 else          	     tab.style.backgroundColor = "#FFFFFF";
+}
+// -->
+</script>
+<table cellspacing="1" cellpadding="2" width="100%" border="0" class="subnavbar">
+  <tr>
+    <td nowrap="nowrap" width="33%" ><a href="?cmd=stats">{TXT_REFERER}</a></td>
+    <td nowrap="nowrap" width="33%" ><a href="?cmd=stats&amp;log=bos">{TXT_BROWSER_AND_OPERATING_SYSTEMS}</a></td>
+    <td nowrap="nowrap" width="34%" ><a href="?cmd=stats&amp;log=month">{TXT_USER_STATISTIC}</a></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap" width="33%" ><a href="?cmd=stats&amp;log=proxy">{TXT_PROXY_SERVERS}</a></td>
+    <td nowrap="nowrap" width="33%" ><a href="?cmd=stats&amp;log=host">{TXT_HOSTNAMES_AND_COUNTRIES}</a></td>
+    <td nowrap="nowrap" width="34%" ><a href="?cmd=stats&amp;log=spider">{TXT_SEARCHING_MACHINES_AND_SPIDERS}</a></td>
+  </tr>
+  <tr>
+    <td nowrap="nowrap" width="33%" ><a href="?cmd=stats&amp;log=onlineuser">{TXT_VISITORS_TODAY}</a></td>
+    <td nowrap="nowrap" width="33%" ><a href="?cmd=stats&amp;log=mvp">{TXT_MOST_VISITED_PAGES}</a></td>
+    <td nowrap="nowrap" width="34%" ><a href="?cmd=stats&amp;log=squerys">{TXT_SEARCHING_TERMS}</a></td>
+  </tr>
+  <tr>
+  	<!--<td nowrap="nowrap" width="33%" ><a href="?cmd=stats&amp;log=screeninfo">Bildschirm Informationen</a></td>
+  	<td nowrap="nowrap" width="33%" ><a href="?cmd=stats&amp;log=javascript">Javascript unterst&uuml;tzung</a></td>-->
+    <td nowrap="nowrap" width="100%" colspan="3"><div style="text-align:right;">
+      <a href="javascript:statsDeleteCounter()">{TXT_RESET_STATISTIC}</a>
+    </div></td>
+  </tr>
+</table>
+<!-- END stats_nav.html -->

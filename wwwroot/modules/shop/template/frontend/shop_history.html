@@ -1,0 +1,164 @@
+<!-- BEGIN order_list -->
+<table class="">
+  <tr>
+    <th width="02%" class="a_right f_bold">[[SHOP_HEADER_ID]]&nbsp;</th>
+    <th width="10%" class="f_bold">[[SHOP_HEADER_DATE_TIME]]&nbsp;</th>
+    <th width="03%" class="f_bold">[[SHOP_HEADER_STATUS]]&nbsp;</th>
+    <th width="22%" class="f_bold">[[SHOP_HEADER_CUSTOMER_NAME]]&nbsp;</th>
+    <!--th width="05%" class="a_center">[[SHOP_HEADER_NOTES]]&nbsp;</th-->
+    <th width="05%" class="a_right f_bold">[[SHOP_HEADER_SUM]]&nbsp;</th>
+    <th width="10%" class="a_right f_bold">[[TXT_SHOP_ACTIONS]]</th>
+  </tr><!-- BEGIN orderRow -->
+  <tr class="[[SHOP_ROWCLASS]]">
+    <td class="a_right">[[SHOP_ORDERID]]&nbsp;</td>
+    <td>[[SHOP_DATE]]&nbsp;&nbsp;</td>
+    <td>[[SHOP_ORDER_STATUS]]&nbsp;&nbsp;</td>
+    <td>[[SHOP_NAME]]</td>
+    <!--td class="a_center">[[SHOP_TIP_LINK]]&nbsp;</td-->
+    <td class="a_right">[[SHOP_ORDER_SUM]]&nbsp;[[SHOP_CURRENCY]]</td>
+    <td class="a_right">
+      <a href="[[NODE_SHOP_HISTORY]]?order_id=[[SHOP_ORDERID]]"
+          title="[[TXT_SHOP_ORDER_DETAILS_VIEW]]">
+        <img src="images/modules/shop/details.gif" border="0"
+             alt="[[TXT_SHOP_ORDER_DETAILS_VIEW]]" />
+      </a>
+      <a href="[[NODE_SHOP_CART]]?order_id=[[SHOP_ORDERID]]"
+          title="[[TXT_SHOP_ORDER_REPEAT]]">
+        <img src="images/modules/shop/copy.gif" border="0"
+             alt="[[TXT_SHOP_ORDER_REPEAT]]" />
+      </a>
+      <a href="[[NODE_SHOP_CART]]?order_id=[[SHOP_ORDERID]]&amp;editable"
+          title="[[TXT_SHOP_ORDER_RESTORE]]">
+        <img src="images/modules/shop/edit.gif" border="0"
+             alt="[[TXT_SHOP_ORDER_RESTORE]]" />
+      </a>
+    </td>
+  </tr><!-- END orderRow --><!-- BEGIN no_order -->
+  <tr class="[[SHOP_ROWCLASS]]">
+    <td colspan="8">
+      [[SHOP_ORDER_NONE_FOUND]]
+    </td>
+  </tr><!-- END no_order -->
+</table>
+<p>[[SHOP_ORDER_PAGING]]</p>
+<!-- END order_list -->
+
+<!-- BEGIN order_details -->
+<table>
+  <colgroup><col width="15%" /><col width="35%" /><col width="15%" /><col width="35%" /></colgroup>
+  <tr>
+    <th colspan="5">[[TXT_SHOP_ORDER]]</th>
+  </tr>
+  <tr class="row3">
+    <td class="a_right f_bold">[[TXT_SHOP_ORDER_ID]]</td>
+    <td class="f_bold">[[TXT_SHOP_ORDER_DATE]]</td>
+    <td class="f_bold">[[TXT_SHOP_ORDER_STATUS]]</td>
+    <td class="a_right f_bold">[[TXT_ORDER_SUM]]</td>
+    <td class="a_right f_bold">[[TXT_SHOP_ACTIONS]]</td>
+  </tr>
+  <tr class="row2">
+    <td class="a_right">[[SHOP_ORDERID]]</td>
+    <td>[[SHOP_DATE]]&nbsp;</td>
+    <td>[[SHOP_ORDER_STATUS]]</td>
+    <td class="a_right">[[SHOP_ORDER_SUM]]&nbsp;[[SHOP_CURRENCY]]</td>
+    <td class="a_right">
+      <a href="[[NODE_SHOP_CART]]?order_id=[[SHOP_ORDERID]]"
+         title="[[TXT_SHOP_ORDER_REPEAT]]">
+        <img src="images/modules/shop/copy.gif" border="0"
+             alt="[[TXT_SHOP_ORDER_REPEAT]]" />
+      </a>
+      <a href="[[NODE_SHOP_CART]]?order_id=[[SHOP_ORDERID]]&amp;editable"
+          title="[[TXT_SHOP_ORDER_RESTORE]]">
+        <img src="images/modules/shop/edit.gif" border="0"
+             alt="[[TXT_SHOP_ORDER_RESTORE]]" />
+      </a>
+    </td>
+  </tr>
+</table>
+<br />
+<table>
+  <tr>
+    <th colspan="9">[[TXT_SHOP_ORDER_DETAILS]]</th>
+  </tr>
+  <tr class="row3">
+    <td width="05%" class="f_bold">[[TXT_QUANTITY]]</td>
+    <td width="05%" class="f_bold">[[TXT_PRODUCT_ID]]</td>
+    <td width="10%" class="f_bold">[[TXT_SHOP_PRODUCT_CUSTOM_ID]]</td>
+    <td width="40%" class="f_bold">[[TXT_PRODUCT]]</td>
+    <td width="05%" class="number f_bold">[[TXT_WEIGHT]]</td>
+    <td width="10%" class="number f_bold">[[TXT_SHOP_ITEM_PRICE]]</td>
+    <td colspan="2" width="10%" class="number f_bold">[[TXT_TAX_RATE]]</td>
+    <td width="10%" class="number f_bold">[[TXT_SUM]]</td>
+  </tr>
+<!-- BEGIN order_item -->
+  <tr class="[[SHOP_ROWCLASS]]">
+    <td>[[SHOP_QUANTITY]]&nbsp;</td>
+    <td>[[SHOP_P_ID]]&nbsp;</td>
+    <td>[[SHOP_PRODUCT_CODE]]&nbsp;</td>
+    <td>[[SHOP_PRODUCT_NAME]]&nbsp;</td>
+    <td class="number">[[SHOP_PRODUCT_WEIGHT]]&nbsp;</td>
+    <td class="number">[[SHOP_PRODUCT_PRICE]]&nbsp;[[SHOP_CURRENCY]]</td>
+    <td width="05%" class="number">[[SHOP_PRODUCT_TAX_RATE]]</td>
+    <td width="05%" class="number">[[SHOP_PRODUCT_TAX_AMOUNT]]&nbsp;[[SHOP_CURRENCY]]</td>
+    <td class="number">[[SHOP_PRODUCT_SUM]]&nbsp;[[SHOP_CURRENCY]]</td>
+  </tr>
+<!-- END order_item -->
+
+<!-- BEGIN coupon_row -->
+  <tr class="[[SHOP_ROWCLASS]]">
+    <td colspan="2">&nbsp;</td>
+    <td>[[SHOP_COUPON_CODE]]&nbsp;</td>
+    <td>[[SHOP_COUPON_NAME]]&nbsp;</td>
+    <td colspan="4">&nbsp;</td>
+    <td class="number">[[SHOP_COUPON_AMOUNT]]&nbsp;[[SHOP_CURRENCY]]</td>
+  </tr>
+<!-- END coupon_row -->
+
+<!-- BEGIN shopNetPrice -->
+  <tr>
+    <td colspan="7">&nbsp;</td>
+    <td class="number f_bold">[[TXT_NET_PRICE]]</td>
+    <td class="number">[[SHOP_NET_PRICE]]&nbsp;[[SHOP_CURRENCY]]</td>
+  </tr>
+<!-- END shopNetPrice -->
+<!-- BEGIN shopTaxPrice -->
+  <tr>
+    <td colspan="7">&nbsp;</td>
+    <td class="number f_bold">[[SHOP_PART_TAX_PROCENTUAL]]</td>
+    <td class="number">[[SHOP_TAX_PRICE]]&nbsp;[[SHOP_CURRENCY]]</td>
+  </tr>
+<!-- END shopTaxPrice -->
+<!-- BEGIN shopShipmentPrice -->
+  <tr><td colspan="9">&nbsp;</td></tr>
+  <tr>
+    <td colspan="3">[[TXT_SHIPPING_METHOD]] [[SHOP_SHIPPING_TYPE]]</td>
+    <td class="number f_bold">[[TXT_TOTAL_WEIGHT]]&nbsp;</td>
+    <td class="number">[[SHOP_TOTAL_WEIGHT]]</td>
+    <td colspan="2"></td>
+    <td class="number f_bold">[[TXT_SHIPPING_PRICE]]</td>
+    <td class="number">[[SHOP_SHIPPING_PRICE]]&nbsp;[[SHOP_CURRENCY]]</td>
+  </tr>
+<!-- END shopShipmentPrice -->
+<!-- BEGIN shopPaymentPrice -->
+  <tr>
+    <td colspan="7">[[TXT_PAYMENT_TYPE]] [[SHOP_PAYMENTTYPE]] ([[SHOP_PAYMENT_HANDLER]])</td>
+    <td class="number f_bold">[[TXT_PAYMENT_COSTS]]</td>
+    <td class="number">[[SHOP_PAYMENT_PRICE]]&nbsp;[[SHOP_CURRENCY]]</td>
+  </tr>
+<!-- END shopPaymentPrice -->
+  <tr>
+    <td colspan="7">&nbsp;</td>
+    <td class="number f_bold">[[TXT_TOTAL]]</td>
+    <td class="number">[[SHOP_ORDER_SUM]]&nbsp;[[SHOP_CURRENCY]]</td>
+  </tr>
+</table>
+<br />
+<table>
+  <tr>
+    <th>[[TXT_SHOP_ORDER_REMARKS]]</th>
+  </tr>
+  <tr>
+    <td>[[SHOP_CUSTOMER_NOTE]]&nbsp;</td>
+  </tr>
+</table>
+<!-- END order_details -->

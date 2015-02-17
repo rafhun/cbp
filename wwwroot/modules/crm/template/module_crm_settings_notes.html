@@ -1,0 +1,208 @@
+<!-- START module_blog_entries.html -->
+{PM_SETTINGS_CURRENCY_JAVASCRIPT}
+<script type="text/javascript" src="../lib/javascript/jquery.js"></script>
+<script language="JavaScript" type="text/javascript">
+    $J(document).ready(function(){
+        $J("#browse").click(function(){
+           $J("#contactFormFieldId_notesType").trigger('click');
+        });
+    });
+    function confirmSubmit()
+    {
+        if (confirm("{TXT_CRM_ARE_YOU_SURE_DELETE_ENTRIES}"))
+            return true ;
+        else
+            return false ;
+    }
+    function selectTodoCategory()
+    {
+        if(document.notes.ischecked.value != "0")
+        {   
+            if(document.notes.form_select_todo.value == "sort")
+            {
+                document.notes.form_sort.value = "1";
+                document.notes.submit();
+            }
+            if(document.notes.form_select_todo.value == "activate")
+            {
+                document.notes.form_activate.value = "1";
+                document.notes.submit();
+            }
+            if(document.notes.form_select_todo.value == "deactivate")
+            {
+                document.notes.form_deactivate.value = "1";
+                document.notes.submit();
+            }
+            if(document.notes.form_select_todo.value == "delete")
+            {
+                if(confirm('{TXT_CRM_DELETE_CONFIRM}'))
+                {
+                    document.notes.form_delete.value = "1";
+                    document.notes.submit();
+                }
+            }
+        }
+        else
+        {
+            alert("{TXT_CRM_NO_OPERATION}");
+        }
+        document.notes.form_select_todo.value = "0";
+    }
+    function setCheckboxes(do_check)
+    {
+        with(document.notes)
+        {
+            var box      = elements['selected[]'];
+            var box_cnt  = (typeof(box.length) != 'undefined') ? box.length : 0;
+
+            if(box_cnt)
+            {
+                for(var i = 0; i < box_cnt; i++)
+                {
+                    box[i].checked = do_check;
+                }
+            }
+            else
+            {
+                box.checked = do_check;
+            }
+        }
+        if(do_check == true)
+        {
+            document.notes.ischecked.value = "{CALENDAR_TOTAL_RECORDS}";
+        }
+        else
+        {
+            document.notes.ischecked.value = "0";
+        }
+        return true;
+    }
+    function isChecked(isitchecked){
+        if(isitchecked == true)
+        {
+            document.notes.ischecked.value++;
+        }
+        else
+        {
+            document.notes.ischecked.value--;
+        }
+    }
+</script>
+<style type="text/css">
+    input.contactFormField {
+        position: absolute;
+        left: -5000px;
+    }
+</style>
+<div id="formerr"></div>
+<br />
+<ul id="tabmenu">
+    <li><a id="Entries_ShowNotesTypesEntries" class="active" href="javascript:{}" onclick="selectTab('ShowNotesTypesEntries')" title="{TXT_CRM_NOTES}">{TXT_CRM_NOTES}</a></li>
+    <li><a id="Entries_AddNotesTypes" class="inactive" href="javascript:{}" onclick="selectTab('AddNotesTypes')" title="{TXT_CRM_ADD_NOTES_TYPES}">{TXT_CRM_ADD_NOTES_TYPES}</a></li>
+</ul>
+<form action="index.php?cmd=crm&act=settings&tpl=notes&chg=1" method="post" name="notes">
+    <div id="ShowNotesTypesEntries" class="Entries" style="display: block">
+        <input type="hidden" name="ischecked" value="0" />
+        <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+            <tr>
+                <th colspan="15">{TXT_CRM_NOTES}</th>
+            </tr>
+
+            <tr class="row3">
+                <td width="1%" style="text-align:center;"><span style="font-weight:bold;">&nbsp;&nbsp;#</span></td>
+                <td width="5%" style="text-align:center;"><span style="font-weight:bold;">{TXT_CRM_TITLE_STATUS}</span></td>
+                <td width="8%"><span style="font-weight:bold;"><a href="index.php?cmd={MODULE_NAME}&act=settings&tpl=notes&sortf=1&sorto={TXT_ORDER}">{TXT_CRM_SORTING}</a></span></td>
+                <td width="8%">{TXT_CRM_ICON}</td>
+                <td width="68%"><span style="font-weight:bold;"><a href="index.php?cmd={MODULE_NAME}&act=settings&tpl=notes&sortf=0&sorto={TXT_ORDER}">{TXT_CRM_NAME}</a></span></td>
+                <td width="10%" colspan="2" align='right'><div style='text-align:right;font-weight:bold;'>{TXT_CRM_FUNCTIONS}</span></td>
+            </tr>
+            <!-- BEGIN users -->
+            <tr class="{TXT_ROW}">
+                <td><input type="checkbox" name="selected[]" value="{TXT_NOTES_ID}" onclick="isChecked(this.checked);"/></td>
+                <td style="text-align:center"><a href="./index.php?cmd=crm&act=noteschangestatus&ids={TXT_NOTES_ID}&stat={TXT_NOTES_STATVAL}"><img src="images/icons/led_{TXT_NOTES_STATUS}.gif" alt="" /></a></td>
+                <td><input type="hidden" name="form_id[]" value="{TXT_NOTES_ID}" /><input  style="width:25px; text-align:right; padding:2px;" type="text" name="form_pos[]" value="{TXT_NOTES_SORTING}"></td>
+                <td><img src="{TXT_NOTES_ICON}"/></td>
+                <td><a href="./index.php?cmd=crm&amp;act=settings&amp;tpl=notes&amp;fn=editnotestype&amp;id={TXT_NOTES_ID}">{TXT_NOTES_NAME}</a></td>            
+                <td style="text-align: right;">
+                        <a title="Edit" href="./index.php?cmd=crm&amp;act=settings&amp;tpl=notes&amp;fn=editnotestype&id={TXT_NOTES_ID}">
+                            <img width="16" height="16" border="0" alt='{TXT_EDIT}' src="images/icons/edit.gif">
+                        </a>
+                        <!-- BEGIN noteDeleteIcon -->
+                        <a title="Delete" onclick="return confirmSubmit();" href="./index.php?cmd=crm&act=settings&tpl=notes&idr={TXT_NOTES_ID}">
+                            <img width="17" height="17" border="0" alt='{TXT_DELETE}' src="images/icons/delete.gif">
+                        </a>
+                        <!-- END noteDeleteIcon -->
+                </td>                
+            </tr>
+            <!-- END users -->
+        </table><br>
+        <table cellpadding="2" cellspacing="0" border="0" >
+            <tr>
+                <td>
+                    <img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="{TXT_ENTRIES_MARKED}:" />
+                    <a href="javascript:{void(0)}" onclick="setCheckboxes(true); return false;">{TXT_CRM_SELECT_ALL}</a> /
+                    <a href="javascript:{void(0)}" onclick="setCheckboxes(false); return false;">{TXT_CRM_DESELECT_ALL}</a>
+                    <img src="images/icons/strike.gif" alt="" />
+                    <select name="form_select_todo" onchange="selectTodoCategory();">
+                        <option value="0" selected="selected">{TXT_CRM_SELECT_ACTION}:</option>
+                        <option value="activate">{TXT_CRM_ACTIVATESELECTED}</option>
+                        <option value="deactivate">{TXT_CRM_DEACTIVATESELECTED}</option>
+                        <option value="sort">{TXT_CRM_PROJECTSTATUS_SAVE_SORTING}</option>
+                        <option value="delete">{TXT_CRM_DELETE_SELECTED}</option>
+                    </select>
+                    <input type="hidden" name="form_sort" value="" />
+                    <input type="hidden" name="form_activate" value="" />
+                    <input type="hidden" name="form_deactivate" value="" />
+                    <input type="hidden" name="form_delete" value="" />
+                </td>
+            </tr>
+        </table><br>
+        <input type="submit" name="notes_save" value="{TXT_CRM_SAVE}" />
+    </div>
+    <div id="AddNotesTypes" class="Entries" style="display: none;">
+        <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+            <tr>
+                <th colspan="15">{TXT_CRM_ADD_NOTES_TYPES}</th>
+            </tr>
+
+            <tr class="row1">
+                <td width="13%" nowrap>{TXT_CRM_NAME}&nbsp;<font color="red">*</font></td>
+                <td width="10%"><input type="text" name="name" id="name" style="width: 300px;" value="{TXT_STATUSNAME}"></td>
+                <td><input type="checkbox" name="status" value="1" checked>{TXT_CRM_TITLEACTIVE}</td>
+            </tr>
+            <tr class="row2">
+                <td width="13%" nowrap>{TXT_CRM_SORTING_NUMBER}</td>
+                <td width="10%"><input type="text" name="sorting" id="sortingNumber" style="width: 300px;" value=""></td>
+                <td></td>
+            </tr>
+            <tr class="row1">
+                <td width="13%" nowrap>{TXT_CRM_ICON}</td>
+                <td width="10%">
+                    <div id="contactFormField_uploadWidget_notesType"></div>
+                    <input type="file" class="contactFormField" id="contactFormFieldId_notesType" name="contactFormFieldId_notesType" value="" />
+                    <input type="text" name="icon" id="icon" value="" style="width: 190px;"/>&nbsp;&nbsp;
+                    <input type="button" id="browse" value="{TXT_BROWSE}" style="width: 100px;"/>
+                </td>
+                <td></td>
+            </tr>
+        </table><br>
+        <input type="submit" name="save" value="{TXT_CRM_SAVE}" onClick="return checkValidations();" />
+    </div>
+</form>
+{COMBO_UPLOADER_CODE_TASK_TYPE}
+<script type="text/javascript">
+	cx.ready(function() {
+		var uploader = cx.instances.get('exposed_combo_uploader_notesType','uploader');
+		uploader.dialog().bind('close', function(){
+                    $J.getJSON( '{REDIRECT_URL}', function( data ) {
+                        $J.each(data, function(key, val) {
+                            var file = val.fileName;
+                            if ($J.trim(file) != '') {
+                                $J('#icon').val(file);
+                            }
+                        });
+                    });
+		});
+	},true);
+</script>
+<!-- END module_partners_entries.html -->

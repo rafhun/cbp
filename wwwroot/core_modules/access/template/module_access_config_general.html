@@ -1,0 +1,451 @@
+<!-- start module_access_config_general.html -->
+<script type="text/javascript">
+// <![CDATA[
+function accessAddGroupToList(from, dest)
+{
+    if ( from.selectedIndex < 0) {
+        if (from.options[0] != null) {
+            from.options[0].selected = true;
+        }
+        from.focus();
+        return false;
+    } else {
+        for (var i=0; i<from.length; i++) {
+            if (from.options[i].selected) {
+                dest.options[dest.length] = new Option( from.options[i].text, from.options[i].value, false, false);
+            }
+        }
+        for (var i=from.length-1; i>=0; i--) {
+            if (from.options[i].selected) {
+                from.options[i] = null;
+            }
+        }
+    }
+}
+
+function accessRemoveGroupFromList(from,dest)
+{
+    if ( dest.selectedIndex < 0) {
+        if (dest.options[0] != null) {
+            dest.options[0].selected = true;
+        }
+        dest.focus();
+        return false;
+    } else {
+        for (var i=0; i<dest.options.length; i++) {
+            if (dest.options[i].selected) {
+                from.options[from.options.length] = new Option( dest.options[i].text, dest.options[i].value, false, false);
+            }
+        }
+        for (var i=dest.options.length-1; i>=0; i--) {
+            if (dest.options[i].selected) {
+                dest.options[i] = null;
+            }
+        }
+    }
+}
+
+function accessSelectAllGroups(CONTROL)
+{
+    for(var i = 0;i < CONTROL.length;i++)
+    {
+        CONTROL.options[i].selected = true;
+    }
+}
+
+function accessDeselectAllGroups(CONTROL)
+{
+    for(var i = 0;i < CONTROL.length;i++)
+    {
+        CONTROL.options[i].selected = false;
+    }
+}
+
+function socialloginToggle(active) {
+    if (active) {
+        $J('.socialloginToggle').show();
+    } else {
+        $J('.socialloginToggle').hide();
+    }
+}
+
+cx.ready(function() {
+    $J('#access_sociallogin_activate_yes').change(function() {
+        socialloginToggle($J(this).attr('checked') == 'checked');
+    });
+    $J('#access_sociallogin_activate_no').change(function() {
+        socialloginToggle($J(this).attr('checked') != 'checked');
+    });
+    $J('.socialloginActivateProvider').change(function() {
+        $J(this).parents('tr').siblings().toggle();
+    });
+});
+// ]]>
+</script>
+<ul id="tabmenu">
+	<li><a id="generalTab_permissions" class="active" href="javascript:void(0);" onclick="selectTab('permissions')" title="{TXT_ACCESS_PERMISSIONS}">{TXT_ACCESS_PERMISSIONS}</a></li>
+	<li><a id="generalTab_block_functions" href="javascript:void(0);" onclick="selectTab('block_functions')" title="{TXT_ACCESS_FRONTEND_BLOCK_FUNCTIONS}">{TXT_ACCESS_FRONTEND_BLOCK_FUNCTIONS}</a></li>
+	<li><a id="generalTab_pictures" href="javascript:void(0);" onclick="selectTab('pictures')" title="{TXT_ACCESS_PICTURES}">{TXT_ACCESS_PICTURES}</a></li>
+    <li><a id="generalTab_session" href="javascript:void(0);" onclick="selectTab('session')" title="{TXT_ACCESS_SESSION_TITLE}">{TXT_ACCESS_SESSION_TITLE}</a></li>
+    <li><a id="generalTab_sociallogin" href="javascript:void(0);" onclick="selectTab('sociallogin')" title="{TXT_ACCESS_SOCIALLOGIN}">{TXT_ACCESS_SOCIALLOGIN}</a></li>
+</ul>
+<form action="index.php?cmd=access&amp;act=config" method="post" onsubmit="accessSelectAllGroups(document.getElementById('access_user_associated_groups'))">
+	<!-- start permissions div -->
+	<div id="permissions" class="generalTab" style="display:block">
+		<table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist" summary="permission config">
+			<thead>
+				<tr>
+					<th colspan="2">{TXT_ACCESS_PERMISSIONS}</th>
+				</tr>
+			</thead>
+			<tbody style="vertical-align:top;">
+				<tr class="row3">
+					<td colspan="2"><strong>{TXT_ACCESS_PROFILE}</strong></td>
+				</tr>
+				<tr class="row2">
+					<td>{TXT_ACCESS_ALLOW_USERS_SET_PROFILE_ACCESS}</td>
+					<td>
+						<input type="radio" name="access_permissions_profile_access" id="access_permissions_profile_access_yes" value="1" {ACCESS_ALLOW_USERS_SET_PROFILE_ACCESS} /> <label for="access_permissions_profile_access_yes">{TXT_ACCESS_YES}</label>
+						<input type="radio" name="access_permissions_profile_access" id="access_permissions_profile_access_no" value="0" {ACCESS_DONT_ALLOW_USERS_SET_PROFILE_ACCESS} /> <label for="access_permissions_profile_access_no">{TXT_ACCESS_NO}</label>
+					</td>
+				</tr>
+				<tr class="row1">
+					<td>{TXT_ACCESS_STANDARD}</td>
+					<td>
+						{ACCESS_USER_PROFILE_ACCESS}<br />
+					 	<input type="checkbox" name="access_force_selected_profile_access" id="access_force_selected_profile_access" value="1" />
+					 		<label for="access_force_selected_profile_access">{TXT_ACCESS_USE_SELECTED_ACCESS_FOR_EVERYONE}</label>
+					 </td>
+				</tr>
+				<tr class="row2">
+					<td colspan="2">&nbsp;</td>
+				</tr>
+				<tr class="row3">
+					<td colspan="2"><strong>{TXT_ACCESS_EMAIL}</strong></td>
+				</tr>
+				<tr class="row2">
+					<td>{TXT_ACCESS_ALLOW_USERS_SET_EMAIL_ACCESS}</td>
+					<td>
+						<input type="radio" name="access_permissions_email_access" id="access_permissions_email_access_yes" value="1" {ACCESS_ALLOW_USERS_SET_EMAIL_ACCESS} /> <label for="access_permissions_email_access_yes">{TXT_ACCESS_YES}</label>
+						<input type="radio" name="access_permissions_email_access" id="access_permissions_email_access_no" value="0" {ACCESS_DONT_ALLOW_USERS_SET_EMAIL_ACCESS} /> <label for="access_permissions_email_access_no">{TXT_ACCESS_NO}</label>
+					</td>
+				</tr>
+				<tr class="row1">
+					<td>{TXT_ACCESS_STANDARD}</td>
+					<td>
+						{ACCESS_USER_EMAIL_ACCESS}<br />
+					 	<input type="checkbox" name="access_force_selected_email_access" id="access_force_selected_email_access" value="1" />
+					 		<label for="access_force_selected_email_access">{TXT_ACCESS_USE_SELECTED_ACCESS_FOR_EVERYONE}</label>
+					 </td>
+				</tr>
+				<tr class="row2">
+					<td colspan="2">&nbsp;</td>
+				</tr>
+				<tr class="row3">
+					<td colspan="2"><strong>{TXT_ACCESS_MISCELLANEOUS}</strong></td>
+				</tr>
+				<tr class="row2">
+					<td width="15%">{TXT_ACCESS_ALLOW_USERS_DELETE_ACCOUNT}</td>
+					<td width="85%">
+						<input type="radio" name="access_permissions_delete_account" id="access_permissions_delete_account_yes" value="1" {ACCESS_ALLOW_USERS_DELETE_ACCOUNT} /> <label for="access_permissions_delete_account_yes">{TXT_ACCESS_YES}</label>
+						<input type="radio" name="access_permissions_delete_account" id="access_permissions_delete_account_no" value="0" {ACCESS_DONT_ALLOW_USERS_DELETE_ACCOUNT} /> <label for="access_permissions_delete_account_no">{TXT_ACCESS_NO}</label>
+					</td>
+				</tr>
+                <tr class="row1">
+                    <td width="15%">{TXT_ACCESS_USE_USERNAMES}</td>
+                    <td width="85%">
+                        <input type="radio" name="access_permissions_use_usernames" id="access_permissions_use_usernames_yes" value="1" {ACCESS_USE_USERNAMES} /> <label for="access_permissions_use_usernames_yes">{TXT_ACCESS_YES}</label>
+                        <input type="radio" name="access_permissions_use_usernames" id="access_permissions_use_usernames_no" value="0" {ACCESS_DONT_USE_USERNAMES} /> <label for="access_permissions_use_usernames_no">{TXT_ACCESS_NO}</label>
+                        <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_ACCESS_USE_USERNAMES_TOOLTIP}</span>
+                    </td>
+                </tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- end permissions div -->
+	<!-- start block_functions div -->
+	<div id="block_functions" class="generalTab" style="display:none;">
+		<table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist" summary="block function config">
+			<tbody style="vertical-align:top;">
+				<tr>
+					<th colspan="2"><strong>{TXT_ACCESS_FRONTEND_BLOCK_FUNCTIONS}</strong></th>
+				</tr>
+				<tr class="row2">
+					<td width="15%">{TXT_ACCESS_CURRENTLY_ONLINE}</td>
+					<td width="85%">
+						<input type="checkbox" name="access_blocks_currently_online_users" id="access_blocks_currently_online_users" value="1" onchange="document.getElementById('access_blocks_currently_online_users_box').style.display = this.checked ? 'block' : 'none'" {ACCESS_BLOCKS_CURRENTLY_ONLINE_USERS} /> <label for="access_blocks_currently_online_users">{TXT_ACCESS_ACTIVATE_BLOCK_FUNCTION}</label>
+						<div style="display:{ACCESS_BLOCKS_CURRENTLY_ONLINE_USERS_DISPLAY}; padding:12px 0px 0px 23px;" id="access_blocks_currently_online_users_box">
+							<div style="margin-bottom:7px;">
+								{TXT_ACCESS_MAX_USER_COUNT}: <input type="text" name="access_blocks_currently_online_users_user_count" value="{ACCESS_BLOCKS_CURRENTLY_ONLINE_USERS_USER_COUNT}" style="width:30px; text-align:right;" />
+							</div>
+							<div>
+								<input type="checkbox" name="access_blocks_currently_online_users_only_with_photo" id="access_blocks_currently_online_users_only_with_photo" value="1" {ACCESS_BLOCKS_CURRENTLY_ONLINE_USERS_ONLY_WITH_PHOTO} style="margin:0px;" /> <label for="access_blocks_currently_online_users_only_with_photo">{TXT_ACCESS_SHOW_USERS_ONLY_WITH_PHOTO}</label>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr class="row1">
+					<td>{TXT_ACCESS_LAST_ACTIVE}</td>
+					<td>
+						<input type="checkbox" name="access_blocks_last_active_users" id="access_blocks_last_active_users" value="1" onchange="document.getElementById('access_blocks_last_active_users_box').style.display = this.checked ? '' : 'none'" {ACCESS_BLOCKS_LAST_ACTIVE_USERS} /> <label for="access_blocks_last_active_users">{TXT_ACCESS_ACTIVATE_BLOCK_FUNCTION}</label>
+						<div style="display:{ACCESS_BLOCKS_LAST_ACTIVE_USERS_DISPLAY}; padding:12px 0px 0px 23px;" id="access_blocks_last_active_users_box">
+							<div style="margin-bottom:7px;">
+								{TXT_ACCESS_MAX_USER_COUNT}: <input type="text" name="access_blocks_last_active_users_user_count" value="{ACCESS_BLOCKS_LAST_ACTIVE_USERS_USER_COUNT}" style="width:30px; text-align:right;" />
+							</div>
+							<div>
+								<input type="checkbox" name="access_blocks_last_active_users_only_with_photo" id="access_blocks_last_active_users_only_with_photo" value="1" {ACCESS_BLOCKS_LAST_ACTIVE_USERS_ONLY_WITH_PHOTO} style="margin:0px;" /> <label for="access_blocks_last_active_users_only_with_photo">{TXT_ACCESS_SHOW_USERS_ONLY_WITH_PHOTO}</label>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr class="row2">
+					<td>{TXT_ACCESS_LATEST_REGISTERED_USERS}</td>
+					<td>
+						<input type="checkbox" name="access_blocks_latest_registered_users" id="access_blocks_latest_registered_users" value="1" onchange="document.getElementById('access_blocks_latest_registered_users_box').style.display = this.checked ? '' : 'none'" {ACCESS_BLOCKS_LATEST_REGISTERED_USERS} /> <label for="access_blocks_latest_registered_users">{TXT_ACCESS_ACTIVATE_BLOCK_FUNCTION}</label>
+						<div style="display:{ACCESS_BLOCKS_LATEST_REGISTERED_USERS_DISPLAY}; padding:12px 0px 0px 23px;" id="access_blocks_latest_registered_users_box">
+							<div style="margin-bottom:7px;">
+								{TXT_ACCESS_MAX_USER_COUNT}: <input type="text" name="access_blocks_latest_registered_users_user_count" value="{ACCESS_BLOCKS_LATEST_REGISTERED_USERS_USER_COUNT}" style="width:30px; text-align:right;" />
+							</div>
+							<div>
+								<input type="checkbox" name="access_blocks_latest_registered_users_only_with_photo" id="access_blocks_latest_registered_users_only_with_photo" value="1" {ACCESS_BLOCKS_LATEST_REGISTERED_USERS_ONLY_WITH_PHOTO} style="margin:0px;" /> <label for="access_blocks_latest_registered_users_only_with_photo">{TXT_ACCESS_SHOW_USERS_ONLY_WITH_PHOTO}</label>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr class="row1">
+					<td>{TXT_ACCESS_BIRTHDAYS}</td>
+					<td>
+						<input type="checkbox" name="access_blocks_birthday_users" id="access_blocks_birthday_users" value="1" onchange="document.getElementById('access_blocks_birthday_users_box').style.display = this.checked ? '' : 'none'" {ACCESS_BLOCKS_BIRTHDAY_USERS} /> <label for="access_blocks_birthday_users">{TXT_ACCESS_ACTIVATE_BLOCK_FUNCTION}</label>
+						<div style="display:{ACCESS_BLOCKS_BIRTHDAY_USERS_DISPLAY}; padding:12px 0px 0px 23px;" id="access_blocks_birthday_users_box">
+							<div style="margin-bottom:7px;">
+								{TXT_ACCESS_MAX_USER_COUNT}: <input type="text" name="access_blocks_birthday_users_user_count" value="{ACCESS_BLOCKS_BIRTHDAY_USERS_USER_COUNT}" style="width:30px; text-align:right;" />
+							</div>
+							<div>
+								<input type="checkbox" name="access_blocks_birthday_users_only_with_photo" id="access_blocks_birthday_users_only_with_photo" value="1" {ACCESS_BLOCKS_BIRTHDAY_USERS_ONLY_WITH_PHOTO} style="margin:0px;" /> <label for="access_blocks_birthday_users_only_with_photo">{TXT_ACCESS_SHOW_USERS_ONLY_WITH_PHOTO}</label>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- end block_functions div -->
+	<!-- start pictures div -->
+	<div id="pictures" class="generalTab" style="display:none;">
+		<!-- start profile pic configuration -->
+		<table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist" style="margin-bottom:1px;" summary="picture config">
+			<thead>
+				<tr>
+					<th colspan="2">{TXT_ACCESS_PICTURES}</th>
+				</tr>
+			</thead>
+			<tbody style="vertical-align:top;">
+				<tr class="row3">
+					<td colspan="2"><strong>{TXT_ACCESS_PROFILE_AVATAR_PIC}</strong></td>
+				</tr>
+				<tr class="row2">
+					<td width="15%">{TXT_ACCESS_MAX_WIDTH}</td>
+					<td width="85%"><input type="text" name="accessMaxProfilePicWidth" value="{ACCESS_MAX_PROFILE_PIC_WIDTH}" style="width:300px;" /></td>
+				</tr>
+				<tr class="row1">
+					<td>{TXT_ACCESS_MAX_HEIGHT}</td>
+					<td><input type="text" name="accessMaxProfilePicHeight" value="{ACCESS_MAX_PROFILE_PIC_HEIGHT}" style="width:300px;" /></td>
+				</tr>
+				<tr class="row2">
+					<td>{TXT_ACCESS_THUMBNAIL_WIDTH}</td>
+					<td><input type="text" name="accessProfileThumbnailPicWidth" value="{ACCESS_PROFILE_THUMBNAIL_PIC_WIDTH}" style="width:300px;" /></td>
+				</tr>
+				<tr class="row1">
+					<td>{TXT_ACCESS_THUMBNAIL_HEIGHT}</td>
+					<td><input type="text" name="accessProfileThumbnailPicHeight" value="{ACCESS_PROFILE_THUMBNAIL_PIC_HEIGHT}" style="width:300px;" /></td>
+				</tr>
+				<tr class="row2">
+					<td>{TXT_ACCESS_MAX_FILE_SIZE}</td>
+					<td><input type="text" name="accessMaxProfilePicSize" value="{ACCESS_MAX_PROFILE_PIC_SIZE}" style="width:300px;" /></td>
+				</tr>
+                <tr class="row1">
+                    <td>{TXT_ACCESS_THUMBNAIL_GENERATION}</td>
+                    <td>
+                        <select name="accessProfileThumbnailMethod" size="1" style="width:300px;" onchange="document.getElementById('accessProfileThumbnailMethodBox').style.display=this.value=='scale' ? 'inline' : 'none'">
+                            <option value="crop" {ACCESS_PROFILE_THUMBNAIL_CROP}>{TXT_ACCESS_CROP_THUMBNAIL_TXT}</option>
+                            <option value="scale" {ACCESS_PROFILE_THUMBNAIL_SCALE}>{TXT_ACCESS_SCALE_THUMBNAIL_TXT}</option>
+                        </select>
+                        <div id="accessProfileThumbnailMethodBox" style="display:{ACCESS_PROFILE_THUMBNAIL_SCALE_BOX};">
+                            {TXT_ACCESS_BACKGROUND_COLOR}: <input type="text" name="accessProfileThumbnailScaleColor" value="{ACCESS_PROFILE_THUMBNAIL_SCALE_COLOR}" />
+                        </div>
+                    </td>
+                </tr>
+				<tr class="row2">
+					<td colspan="2">&nbsp;</td>
+				</tr>
+				<tr class="row3">
+					<td colspan="2"><strong>{TXT_ACCESS_OTHER_PICTURES}</strong></td>
+				</tr>
+				<tr class="row2">
+					<td>{TXT_ACCESS_MAX_WIDTH}</td>
+					<td><input type="text" name="accessMaxPicWidth" value="{ACCESS_MAX_PIC_WIDTH}" style="width:300px;" /></td>
+				</tr>
+				<tr class="row1">
+					<td>{TXT_ACCESS_MAX_HEIGHT}</td>
+					<td><input type="text" name="accessMaxPicHeight" value="{ACCESS_MAX_PIC_HEIGHT}" style="width:300px;" /></td>
+				</tr>
+				<tr class="row2">
+					<td>{TXT_ACCESS_MAX_THUMBNAIL_WIDTH}</td>
+					<td><input type="text" name="accessMaxThumbnailPicWidth" value="{ACCESS_MAX_THUMBNAIL_PIC_WIDTH}" style="width:300px;" /></td>
+				</tr>
+				<tr class="row1">
+					<td>{TXT_ACCESS_MAX_THUMBNAIL_HEIGHT}</td>
+					<td><input type="text" name="accessMaxThumbnailPicHeight" value="{ACCESS_MAX_THUMBNAIL_PIC_HEIGHT}" style="width:300px;" /></td>
+				</tr>
+				<tr class="row2">
+					<td>{TXT_ACCESS_MAX_FILE_SIZE}</td>
+					<td><input type="text" name="accessMaxPicSize" value="{ACCESS_MAX_PIC_SIZE}" style="width:300px;" /></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- end pictures div -->
+
+	<!-- start session div-->
+	<div id="session" class="generalTab" style="display:none;">
+        <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist" style="margin-bottom:1px;" summary="user session config">
+        <thead>
+            <tr>
+                <th colspan="2">{TXT_ACCESS_SESSION_TITLE}</th>
+            </tr>
+        </thead>
+        <tbody style="vertical-align:top;">
+            <tr class="row3">
+                <td colspan="2">{TXT_ACCESS_SESSION_DESCRIPTION}</td>
+            </tr>
+            <tr class="row2">
+                <td width="15%">{TXT_ACCESS_SESSION_ON_INTERVAL}</td>
+                <td width="85%"><input type="text" name="sessioninterval" style="width:300px;" value="{ACCESS_SESSION_USER_INTERVAL}" /></td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+
+	<!-- end session div-->
+    <!-- start sociallogin div -->
+    <div id="sociallogin" class="generalTab" style="display:none;">
+        <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist" summary="social login config">
+            <thead>
+            <tr>
+                <th colspan="2">{TXT_ACCESS_SOCIALLOGIN}</th>
+            </tr>
+            </thead>
+        </table>
+        <!-- BEGIN sociallogin_need_curl -->
+        <div class="warningbox">{TXT_ACCESS_SOCIALLOGIN_WARNING}</div>
+        <!-- END sociallogin_need_curl -->
+        <!-- BEGIN access_sociallogin_settings -->
+        <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist" summary="social login config">
+            <tbody style="vertical-align:top;">
+            <tr class="row3">
+                <td colspan="2"><strong>{TXT_ACCESS_SOCIALLOGIN_INFORMATION_TITLE}</strong></td>
+            </tr>
+            <tr class="row2">
+                <td>{TXT_ACCESS_DESCRIPTION}</td>
+                <td>{TXT_ACCESS_SOCIALLOGIN_DESCRIPTION}<br />{TXT_ACCESS_SOCIALLOGIN_MANUAL}</td>
+            </tr>
+            <tr class="row3">
+                <td colspan="2"><strong>{TXT_ACCESS_GENERAL}</strong></td>
+            </tr>
+            <tr class="row2">
+                <td width="15%">{TXT_ACCESS_ENABLE_SOCIALLOGIN}</td>
+                <td width="85%">
+                    <input type="radio" name="access_sociallogin_activate" id="access_sociallogin_activate_yes" value="1" {ACCESS_SOCIALLOGIN_ENABLED} /> <label for="access_sociallogin_activate_yes">{TXT_ACCESS_YES}</label>
+                    <input type="radio" name="access_sociallogin_activate" id="access_sociallogin_activate_no" value="0" {ACCESS_SOCIALLOGIN_NOT_ENABLED} /> <label for="access_sociallogin_activate_no">{TXT_ACCESS_NO}</label>
+                </td>
+            </tr>
+            <tr class="row1 socialloginToggle" style="display: {ACCESS_SOCIALLOGIN_TOGGLE}">
+                <td>{TXT_ACCESS_SOCIALLOGIN_SHOW_SIGN_UP}</td>
+                <td>
+                    <input type="radio" name="access_sociallogin_show_signup" id="access_sociallogin_show_signup_yes" value="1" {ACCESS_SOCIALLOGIN_SHOW_SIGNUP_ENABLED} /> <label for="access_sociallogin_show_signup_yes">{TXT_ACCESS_YES}</label>
+                    <input type="radio" name="access_sociallogin_show_signup" id="access_sociallogin_show_signup_no" value="0" {ACCESS_SOCIALLOGIN_SHOW_SIGNUP_NOT_ENABLED} /> <label for="access_sociallogin_show_signup_no">{TXT_ACCESS_NO}</label>
+                    <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_ACCESS_SOCIALLOGIN_SHOW_SIGN_UP_TOOLTIP}</span>
+                </td>
+            </tr>
+            <tr class="row2 socialloginToggle" style="display: {ACCESS_SOCIALLOGIN_TOGGLE}">
+                <td>{TXT_ACCESS_SOCIALLOGIN_UNCOMPLETED_SIGN_UP}</td>
+                <td>
+                    {TXT_ACCESS_SOCIALLOGIN_ACTIVATION_TIME}<br />
+                    <input style="text-align: right; width: 60px;" type="text" value="{ACCESS_SOCIALLOGIN_ACTIVATION_TIMEOUT}" name="sociallogin_activation_timeout">
+                </td>
+            </tr>
+            <tr class="row3 socialloginToggle" style="display: {ACCESS_SOCIALLOGIN_TOGGLE}">
+                <td colspan="2"><strong>{TXT_ACCESS_SOCIALLOGIN_PROVIDERS}</strong></td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- BEGIN access_sociallogin_permission_denied -->
+        <div class="warningbox">{TXT_ACCESS_SOCIALLOGIN_PERMISSION_DENIED}</div>
+        <!-- END access_sociallogin_permission_denied -->
+        <!-- BEGIN access_sociallogin_provider -->
+        <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist socialloginToggle" style="display: {ACCESS_SOCIALLOGIN_TOGGLE}" summary="social login config">
+            <tr class="row{ACCESS_SOCIALLOGIN_PROVIDER_ROW}">
+                <td width="15%"><strong>{ACCESS_SOCIALLOGIN_PROVIDER_NAME_UPPER}</strong></td>
+                <td width="85%"><input type="checkbox" class="socialloginActivateProvider" name="sociallogin_providers[{ACCESS_SOCIALLOGIN_PROVIDER_NAME}][active]" value="1" {ACCESS_SOCIALLOGIN_PROVIDER_ENABLED_CHECKED} {ACCESS_SOCIALLOGIN_PROVIDER_DISABLED} />
+                    <span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_ACCESS_SOCIALLOGIN_MANUAL}</span></td>
+            </tr>
+            <!-- BEGIN access_sociallogin_provider_params -->
+            <tr class="row{ACCESS_SOCIALLOGIN_PROVIDER_ROW} provider{ACCESS_SOCIALLOGIN_PROVIDER_NAME_UPPER}Toggle" style="display: {ACCESS_SOCIALLOGIN_PROVIDER_TOGGLE}">
+                <td>{TXT_ACCESS_SOCIALLOGIN_PROVIDER_PARAM_TITLE}</td>
+                <td><input type="text" name="sociallogin_providers[{ACCESS_SOCIALLOGIN_PROVIDER_NAME}][settings][]" value="{ACCESS_SOCIALLOGIN_PROVIDER_PARAM_VALUE}" style="width:300px;" /></td>
+            </tr>
+            <!-- END access_sociallogin_provider_params -->
+            </tbody>
+        </table>
+        <!-- END access_sociallogin_provider -->
+        <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist socialloginToggle" summary="social login config" style="display: {ACCESS_SOCIALLOGIN_TOGGLE}">
+            <tbody>
+            <tr class="row3">
+                <td colspan="3"><strong>Gruppen</strong></td>
+            </tr>
+            <tr>
+                <td width="300">{TXT_ACCESS_AVAILABLE_GROUPS}<br />
+                    <select name="access_user_not_associated_groups[]" id="access_user_not_associated_groups" size="15" style="width:300px;" multiple="multiple">
+                        {ACCESS_USER_NOT_ASSOCIATED_GROUPS}
+                    </select>
+                    <br />
+                    <a href="javascript:void(0);" onclick="accessSelectAllGroups(document.getElementById('access_user_not_associated_groups'))" title="{TXT_ACCESS_CHECK_ALL}">{TXT_ACCESS_CHECK_ALL}</a>
+                    <br />
+                    <a href="javascript:void(0);" onclick="accessDeselectAllGroups(document.getElementById('access_user_not_associated_groups'))" title="{TXT_ACCESS_UNCHECK_ALL}">{TXT_ACCESS_UNCHECK_ALL}</a>
+                </td>
+                <td width="45" style="text-align:center;">
+                    <br />
+                    <input type="button" value="&gt;&gt;" name="adduser" onclick="accessAddGroupToList(document.getElementById('access_user_not_associated_groups'), document.getElementById('access_user_associated_groups'))" style="margin-bottom:2px;" />
+                    <br />
+                    <input type="button" value="&lt;&lt;" name="removeuser" onclick="accessRemoveGroupFromList(document.getElementById('access_user_not_associated_groups'), document.getElementById('access_user_associated_groups'))" />
+                </td>
+                <td width="100%">{TXT_ACCESS_ASSOCIATED_GROUPS}<br />
+                    <select name="access_user_associated_groups[]" id="access_user_associated_groups" size="15" style="width:300px;" multiple="multiple">
+                        {ACCESS_USER_ASSOCIATED_GROUPS}
+                    </select>
+                    <br />
+                    <a href="javascript:void(0);" onclick="accessSelectAllGroups(document.getElementById('access_user_associated_groups'))" title="{TXT_ACCESS_CHECK_ALL}">{TXT_ACCESS_CHECK_ALL}</a>
+                    <br />
+                    <a href="javascript:void(0);" onclick="accessDeselectAllGroups(document.getElementById('access_user_associated_groups'))" title="{TXT_ACCESS_UNCHECK_ALL}">{TXT_ACCESS_UNCHECK_ALL}</a>
+                </td>
+            </tr>
+            <tr class="row3">
+                <td colspan="3">{TXT_ACCESS_USER_ACCOUNT_ACTIVATION_METHOD_TEXT}</td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <input type="radio" name="sociallogin_active_automatically" value="1" {ACCESS_SOCIALLOGIN_ACTIVATED_AUTOMATICALLY_ENABLED} />{TXT_ACCESS_SOCIALLOGIN_ACTIVATED_AUTOMATICALLY}
+                    <br />
+                    <input type="radio" name="sociallogin_active_automatically" value="0" {ACCESS_SOCIALLOGIN_ACTIVATED_AUTOMATICALLY_NOT_ENABLED} />{TXT_ACCESS_SOCIALLOGIN_ACTIVATED_NOT_AUTOMATICALLY}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- END access_sociallogin_settings -->
+    </div>
+    <!-- end sociallogin div -->
+
+	<br />
+	<input type="submit" name="access_save_settings" value="{TXT_ACCESS_SAVE}" />
+</form>
+<!-- end module_access_config_general.html -->

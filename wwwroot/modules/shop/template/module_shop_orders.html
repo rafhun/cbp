@@ -1,0 +1,140 @@
+<!-- start shop_orders.html -->
+<script type="text/javascript">//<![CDATA[
+function deleteOrder(order_id) {
+  if (confirm('{TXT_CONFIRM_DELETE_ORDER}\n{TXT_ACTION_IS_IRREVERSIBLE}'))
+    window.location.replace("{SHOP_ACTION_URI}&{CSRF_PARAM}&act=delorder&order_id="+order_id);
+}
+function shopOrdersDoAction(strForm, strCheckbox, objSelect, strAct) {
+  if (checkboxIsChecked(strForm, strCheckbox) == true) {
+    switch (strAct) {
+      case 'del':
+        if (confirm('{TXT_CONFIRM_DELETE_ORDER}\n{TXT_ACTION_IS_IRREVERSIBLE}')) {
+          document.forms[strForm].action = "{SHOP_ACTION_URI}&{CSRF_PARAM}&act=delorder";
+          document.forms[strForm].submit();
+        }
+        break;
+    }
+  } else {
+    alert("{TXT_MAKE_SELECTION}");
+  }
+  objSelect.value = 0;
+}
+function sendForm(letter) {
+  document.forms.search_orders.listletter.value = letter;
+  document.forms.search_orders.searchterm.value = "";
+  document.forms.search_orders.submit();
+}
+function changeOrderStatus(order_id, status, new_status) {
+  if (confirm('{TXT_CONFIRM_CHANGE_STATUS}')) {
+    var strURI = "{SHOP_ACTION_URI}&{CSRF_PARAM}&act=orders&order_id="+order_id+"&changeOrderStatus="+new_status;
+    if (new_status == 4
+//     || new_status == 1
+//     || new_status == 5
+//     || new_status == 6
+    ) {
+      if (confirm('{SHOP_SEND_TEMPLATE_TO_CUSTOMER}')) {
+        strURI += "&sendMail=1";
+      }
+    }
+    window.location.replace(strURI);
+  } else {
+    document.getElementById("order_status-"+order_id).setAttribute("value", status);
+  }
+}
+//]]></script>
+<form name="search_orders" method="post" action="{SHOP_ACTION_URI_SEARCH_ENCODED}&amp;act=orders">
+  <table width="100%" border="0" cellspacing="0" cellpadding="2" class="adminlist">
+    <tr>
+      <th>
+        {TXT_SEARCH}
+      </th>
+    </tr>
+    <tr class="row1">
+      <td>
+        <input type="text" name="searchterm" size="40" maxlength="255"
+          value="{SHOP_SEARCH_TERM}" />
+        <select name="customer_type">
+          {SHOP_CUSTOMER_TYPE_MENUOPTIONS}
+        </select>
+        <select name="status">
+          {SHOP_ORDER_STATUS_MENUOPTIONS}
+        </select>
+        <input type="submit" name="searchOrders" value="{TXT_SEARCH}" />
+      </td>
+    </tr>
+    <tr class="row2">
+      <td>
+        <label for="show_pending_orders">{TXT_SHOP_SHOW_PENDING_ORDERS}</label>
+        <input type="checkbox"{SHOP_SHOW_PENDING_ORDERS_CHECKED}
+            id="show_pending_orders" name="show_pending_orders"
+            onchange="document.forms.search_orders.submit();" />
+      </td>
+    </tr>
+    <tr class="row1">
+      <td>
+        {SHOP_LISTLETTER_LINKS}
+      </td>
+    </tr>
+  </table>
+  <br />
+</form>
+<!-- BEGIN orderTable -->
+<p>{SHOP_ORDER_PAGING}</p>
+<form name="form_orders" method="post" action="{SHOP_ACTION_URI_ENCODED}&amp;act=orders">
+  <table class="adminlist" border="0" width="100%" cellpadding="2" cellspacing="0">
+    <tr>
+      <th width="01%" class="a_center">#</th>
+      <th width="02%" class="a_right">{SHOP_HEADER_ID}&nbsp;</th>
+      <th width="05%">{SHOP_HEADER_DATE_TIME}&nbsp;</th>
+      <th width="03%">{SHOP_HEADER_STATUS}&nbsp;</th>
+      <th width="22%">{SHOP_HEADER_CUSTOMER_NAME}&nbsp;</th>
+      <th width="05%" class="a_center">{SHOP_HEADER_NOTES}&nbsp;</th>
+      <th width="05%" class="a_right">{SHOP_HEADER_SUM}&nbsp;</th>
+      <th width="10%" class="a_right">{TXT_ACTION}</th>
+    </tr><!-- BEGIN orderRow -->
+    <tr class="{SHOP_ROWCLASS}">
+      <td class="a_center">
+        <input type="checkbox" name="selectedOrderId[]" value="{SHOP_ORDERID}" />
+      </td>
+      <td class="a_right">{SHOP_ORDERID}&nbsp;</td>
+      <td class="nowrap">{SHOP_DATE}&nbsp;&nbsp;</td>
+      <td>{SHOP_ORDER_STATUS}&nbsp;&nbsp;</td>
+      <td>
+        <a href="{SHOP_ACTION_URI_ENCODED}&amp;act=orderdetails&amp;order_id={SHOP_ORDERID}" title="{TXT_VIEW_DETAILS}">{SHOP_NAME}</a>
+      </td>
+      <td class="a_center">{SHOP_TIP_LINK}&nbsp;</td>
+      <td class="a_right">{SHOP_ORDER_SUM}&nbsp;{SHOP_CURRENCY}</td>
+      <td class="a_right">
+        <a href="{SHOP_ACTION_URI_ENCODED}&amp;act=orderdetails&amp;order_id={SHOP_ORDERID}"
+            title="{TXT_VIEW_DETAILS}">
+          <img src="images/icons/pages.gif" alt="{TXT_VIEW_DETAILS}" border="0" />
+        </a>
+        <a href="{SHOP_ACTION_URI_ENCODED}&amp;act=editorder&amp;order_id={SHOP_ORDERID}"
+            title="{TXT_EDIT}">
+          <img src="images/icons/edit.gif" alt="{TXT_EDIT}" border="0" />
+        </a>
+        <a href="javascript:deleteOrder('{SHOP_ORDERID}')" title="{TXT_DELETE}">
+          <img src="images/icons/delete.gif" alt="{TXT_DELETE}" border="0" />
+        </a>
+      </td>
+    </tr><!-- END orderRow --><!-- BEGIN no_order -->
+    <tr class="{SHOP_ROWCLASS}">
+      <td colspan="8">
+        {SHOP_ORDER_NONE_FOUND}
+      </td>
+    </tr><!-- END no_order -->
+  </table>
+  <img src="images/icons/arrow.gif" border="0" width="38" height="22"
+      title="{TXT_MARKED}:" alt="{TXT_MARKED}:" />
+  <a href="javascript:{}" onclick="changeCheckboxes('form_orders','selectedOrderId[]',true)"
+      title="{TXT_SELECT_ALL}">{TXT_SELECT_ALL}</a>&nbsp;/&nbsp;
+  <a href="javascript:{}" onclick="changeCheckboxes('form_orders','selectedOrderId[]',false)"
+      title="{TXT_REMOVE_SELECTION}">{TXT_REMOVE_SELECTION}</a>&nbsp;&nbsp;&nbsp;
+  <select name="multi_action" onchange="shopOrdersDoAction('form_orders','selectedOrderId[]',this,this.value)">
+    <option value="0" selected="selected">{TXT_SELECT_ACTION}:</option>
+    <option value="del">{TXT_DELETE}</option>
+  </select>
+</form>
+<p>{SHOP_ORDER_PAGING}</p>
+<!-- END orderTable -->
+<!-- end shop_orders.html -->

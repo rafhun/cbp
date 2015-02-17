@@ -1,0 +1,35 @@
+<!-- START module_memberdir_settings_general.html -->
+<form action="index.php?cmd=memberdir&amp;act=settings&amp;tpl=general" method="post" >
+    <table width="100%" cellspacing="0" cellpadding="3" border="0" align="top" class="adminlist">
+        <tr>
+            <th colspan="2">
+                <div align="left">{TXT_SETTINGS}</div>
+            </th>
+        </tr>
+        <tr class="row2">
+            <td nowrap="nowrap" valign="top" style="width:20%">{TXT_SETTINGS_DEFAULT_LISTING}</td>
+            <td style="width:80%">
+                <select name="default_listing" style="width: 200px;">
+                    <option value="1" {YES_SELECTED}>{TXT_YES}</option>
+                    <option value="0" {NO_SELECTED}>{TXT_NO}</option>
+                </select>
+            </td>
+        </tr>
+        <tr class="row1">
+           <td>{TXT_SETTINGS_IMAGE_MAX_WIDTH}:</td>
+           <td>
+               <input type="text" style="width: 200px;" name="max_width" value="{MAX_WIDTH}" />
+           </td>
+        </tr>
+        <tr class="row2">
+           <td>{TXT_SETTINGS_IMAGE_MAX_HEIGHT}:</td>
+           <td>
+               <input type="text" style="width: 200px;" name="max_height" value="{MAX_HEIGHT}" />
+           </td>
+        </tr>
+    </table>
+    <br /><br />
+
+    <input type="submit" value="{TXT_SAVE}" name="settings_general" />
+</form>
+<!-- END module_memberdir_settings_general.html -->

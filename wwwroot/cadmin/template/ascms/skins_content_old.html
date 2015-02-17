@@ -1,0 +1,82 @@
+<!-- START themes_content.html -->
+<script language="JavaScript" type="text/javascript">
+<!-- // confirm delete page
+function reloadThemesPage()
+{
+document.themesForm.action = 'index.php?cmd=skins';
+document.themesForm.themesDelName.value='';
+document.themesForm.themesDelFileName.value='';
+document.themesForm.submit();
+}
+// -->
+</script>
+<table summary="" width="100%" border="0" cellspacing="0" cellpadding="3"  class="adminlist">
+<tr>
+<th width="180" nowrap>{TXT_DESIGN_OVERVIEW}</th>
+<th width="100%">{TXT_FILE_EDITOR}</th>
+</tr>
+<tr valign="top"  class="row1">
+<td>
+<table summary="" width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+<td><b>{TXT_DESIGN_FOLDER}</b><br />
+<form name="themesForm" action="index.php?cmd=skins"  method="post">
+<select name="themes" size="9" onChange="reloadThemesPage()" style="WIDTH: 180px">
+<option value="">--- {TXT_CHOOSE_TEMPLATE_GROUP} ----</option>
+{THEMES_MENU}
+</select>
+<br />
+<br />
+<div align="left"> <b>{TXT_TEMPLATE_FILES}</b><br />
+<select name="themesPage" size="9" onChange="reloadThemesPage()" style="WIDTH: 180px">
+<option value="">--- {TXT_SELECT_FILE} -------------------</option>
+{THEMES_PAGES_MENU}
+</select>
+</div>
+<br />
+<br />
+<div align="left"> <b>{TXT_MANAGE_FILES}</b><br />
+<input type="input" name="themesNewFileName" size="31" maxlength="50"/>
+<input type="submit" name="Submit" value="{TXT_CREATE}" style="WIDTH: 60px"/>
+<br />
+<br />
+<select name="themesDelFileName" style="WIDTH: 180px">
+<option value="" selected>--- {TXT_SELECT_FILE} ---</option>
+{THEMES_PAGE_DEL_VALUE}
+</select>
+<input type="submit" name="Submit" value="{TXT_DELETE}" style="WIDTH: 60px"/>
+<br />
+<br />
+<select name="themesDelName" style="WIDTH: 180px">
+<option value="" selected>--- {TXT_SELECT_THEME} ---</option>
+{THEMES_MENU_DEL}
+</select>
+<input type="submit" name="Submit" value="{TXT_DELETE}" style="WIDTH: 60px"/>
+</form>
+<br />
+</td>
+</tr>
+</table>
+</td>
+<td>
+<form name="form1" method="post" action="index.php?cmd=skins&amp;act=update" onSubmit="save_in_textarea_all();">
+<b>{THEMES_FULL_PATH}</b><br />
+<!--
+<b>{TXT_MODE}</b>&nbsp;&nbsp;HTML&nbsp;
+<input type="radio" name="mode" {TXT_HTML} value="1"/>
+&nbsp;
+<input type="radio" name="mode" {TXT_EDITOR} value="0"/>
+&nbsp;Editor<br />
+-->
+<input type="hidden" name="themes" value="{THEMES_SELECTED_THEME}" />
+<input type="hidden" name="themesPage" value="{THEMES_SELECTED_PAGENAME}" />
+{CONTENT_HTML}
+<input onClick="javascript:this.form.html.focus(); this.form.html.select();" type=button value='{TXT_SELECT_ALL}' />
+<input type="reset" value='{TXT_RESET}' name="Reset" />
+<input type="submit" value='{TXT_STORE}' name="Submit" />
+</form>
+<br />
+</td>
+</table>
+<br />
+<!-- END themes_content.html -->

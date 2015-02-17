@@ -1,0 +1,23 @@
+<!-- START module_calendar_settings_payment.html -->
+<script type="text/javascript">
+{CALENDAR_SETTING_INFO_JS}
+</script>
+
+<form name="formSettingsPayment" method="post" action="index.php?cmd={CALENDAR_MODULE_NAME}&act=settings&tpl=payment">
+    <!--  BEGIN sectionList -->
+	<table style="width: 100%; border-spacing: 0px;" class="adminlist" cellspacing="0" cellpadding="3">
+	    <tr>
+	        <th colspan="2">{TXT_CALENDAR_SECTION_NAME}</th>
+	    </tr>
+		<!--  BEGIN settingsList -->
+		<tr class="{CALENDAR_SETTING_ROW}">
+            <td width="280px">{TXT_CALENDAR_SETTING_NAME}</td>
+            <td>{CALENDAR_SETTING_VALUE}{CALENDAR_SETTING_INFO}</td>
+		</tr>
+		<!-- END settingsList -->
+    </table>
+    <br />
+    <!-- END sectionList -->
+    <input type="submit" name="submitSettingsPayment" value="{TXT_CALENDAR_SAVE}" />
+</form>
+<!-- END module_calendar_settings_payment.html -->

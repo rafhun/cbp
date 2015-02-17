@@ -1,0 +1,82 @@
+<!-- START module_alias_list.html -->
+<script type="text/javascript">
+//<![CDATA[
+function alias_delete(id, title)
+{
+  strMsg = '{TXT_ALIAS_CONFIRM_DELETE_ALIAS}';
+  if (confirm(strMsg.replace('%s', title)+'\n{TXT_ALIAS_OPERATION_IRREVERSIBLE}')) {
+        window.location.href = '?cmd=alias&{CSRF_PARAM}&act=delete&id='+id;
+  }
+}
+//]]>
+</script>
+
+<!-- BEGIN htaccess_warning -->
+<div class="warningbox">{TXT_ALIAS_IIS_HTACCESS_NOT_REGISTERED}</div>
+<!-- END htaccess_warning -->
+
+<table border="0" cellpadding="3" cellspacing="0" class="adminlist" width="100%">
+    <tr>
+        <th>{TXT_SEARCH}</th>
+    </tr>
+    <tr>
+        <td>
+            <form id="search_alias" method="get" action="index.php?cmd=alias&amp;act=entries&amp;legacyPages={ALIAS_SHOW_LEGACY_PAGE_VALUE}">
+                <input type="hidden" name="cmd" value="alias" />
+                <input type="hidden" name="act" value="entries" />
+                <input type="hidden" name="legacyPages" value="{ALIAS_SHOW_LEGACY_PAGE_VALUE}" />
+                <input type="text" name="term" value="{ALIAS_SEARCH_TERM}" placeholder="" class="search" style="width: 240px;" />
+                <input type="submit" value="{TXT_SEARCH}" />
+            </form>
+        </td>
+    </tr>
+</table><br />
+
+<table border="0" cellpadding="3" cellspacing="0" class="adminlist" width="100%">
+  <tbody>
+    <tr>
+      <th>{TXT_ALIAS_ALIASES}</th>
+      <th colspan="2" style="text-align: right;">
+        <!-- BEGIN alias_show_legacy_pages -->
+        <form action="" method="GET">
+            <input type="hidden" name="cmd" value="alias" />
+            <input type="checkbox" id="aliasLegacyPages" name="legacyPages" onchange="submit();" value="1" {ALIAS_SHOW_LEGACY_PAGE_ALIASES_CHECKED} />
+            <label for="aliasLegacyPages">{TXT_ALIAS_SHOW_LEGACY_PAGE_ALIASES}</label>
+        </form>
+        <!-- END alias_show_legacy_pages -->
+      </th>
+    </tr>
+    <!-- BEGIN alias_data -->
+    <tr class="row3" style="font-weight:bold;">
+      <td width="47%">{TXT_ALIAS_ALIAS}</td>
+      <td width="47%">{TXT_ALIAS_PAGE}</td>
+      <td width="6%" style="text-align:right;">{TXT_ALIAS_FUNCTIONS}</td>
+    </tr>
+    <!-- BEGIN aliases_list -->
+    <tr class="{ALIAS_ROW_CLASS}">
+      <td>
+      <!-- BEGIN alias_source_list -->
+        <a href="{ALIAS_SOURCE_REAL_URL}" title="{TXT_ALIAS_OPEN_ALIAS_NEW_WINDOW}" target="_blank">{ALIAS_SOURCE_URL}</a>
+        <!-- BEGIN alias_source_not_set -->
+            <span class="tooltip-trigger icon-warning" style="cursor: pointer;" onclick="window.location.href='index.php?cmd=alias&{CSRF_PARAM}&amp;act=rewriteRules'"></span><span class="tooltip-message">{TXT_ALIAS_NOT_ACTIVE_ALIAS_MSG}</span>
+        <!-- END alias_source_not_set -->
+        <br />
+      <!-- END alias_source_list -->
+      </td>
+      <td>{ALIAS_TARGET_TITLE}</td>
+      <td style="text-align:right;">
+        <a href="index.php?cmd=alias&amp;act=modify&amp;id={ALIAS_TARGET_ID}" title="{TXT_ALIAS_MODIFY}"><img src="images/icons/edit.gif" width="16" height="16" border="0" alt="{TXT_ALIAS_MODIFY}" /></a>
+        <a href="javascript:void(0);" onclick="alias_delete({ALIAS_TARGET_ID},'{ALIAS_TARGET_TITLE}')" title="{TXT_ALIAS_DELETE}"><img src="images/icons/delete.gif" width="17" height="17" border="0" alt="{TXT_ALIAS_DELETE}" /></a>
+      </td>
+    </tr>
+    <!-- END aliases_list -->
+    <!-- END alias_data -->
+    <!-- BEGIN alias_no_data -->
+    <tr class="row3">
+      <td colspan="3">{TXT_ALIAS_NO_ALIASES_MSG}</td>
+    </tr>
+    <!-- END alias_no_data -->
+  </tbody>
+</table>
+{ALIAS_PAGING}
+<!-- END module_alias_list.html -->

@@ -1,0 +1,53 @@
+<!-- START themes_activate.html -->
+<script language="JavaScript" type="text/javascript">
+<!-- // confirm delete variable
+function deleteLanguage(id)
+{
+    if(confirm('{TXT_CONFIRM_DELETE_DATA}\n{TXT_ACTION_IS_IRREVERSIBLE} {TXT_ATTENTION_SYSTEM_FUNCTIONALLY_AT_RISK}'))
+        window.location.replace("index.php?cmd=language&{CSRF_PARAM}&act=dellang&languageId="+id);
+}
+
+function reloadThemesPage()
+{
+	document.themesFormActivate.action = 'index.php?cmd=skins&act=activate';
+	document.themesFormActivate.submit();
+}
+// -->
+</script>
+
+<!--<form name="themesFormExport" method="post" action="index.php?cmd=skins&amp;act=activate">-->
+  <table summary="" width="100%" cellspacing="0" cellpadding="3" border="0" align="top" class="adminlist">
+    <tr>
+      <th colspan="3">
+        <div align="left">Designs exportieren</div>
+      </th>
+      <th width="7%">
+        <div align="left"></div>
+      </th>
+    </tr>
+    <tr class="row2">
+      <td nowrap="nowrap" width="5%"><b>{TXT_ID}</b></td>
+      <td nowrap="nowrap" width="25%"><b>Designname</b></td>
+      <td nowrap="nowrap" width="5%"><b>Download</b></td>
+      <td nowrap="nowrap" width="65%"><b>&nbsp;</b></td>
+    </tr>
+    <!-- BEGIN themesRow -->
+    <tr class="{THEMES_ROWCLASS}">
+      <td nowrap="nowrap">
+        <div align="left">{THEMES_ID}</div>
+      </td>
+      <td nowrap="nowrap">{THEMES_NAME}</td>
+      <td nowrap="nowrap">
+      	<!-- <input type="hidden" name="folderName" value={THEMES_FOLDERNAME} />-->
+        <div align="center"><a href="{THEMES_DOWNLOAD_LINK}"><img src="../images/modules/media/zip.gif" border="0"></a></div>
+      </td>
+      <td>
+      	&nbsp;
+      </td>
+    </tr>
+    <!-- END themesRow -->
+  </table>
+  <br />
+<!--</form>-->
+<!-- END themes_activate.html -->
+

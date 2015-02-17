@@ -1,0 +1,181 @@
+/***************************************************/
+/* CSS DEFINITIONS FOR MEDIADIR MODULE             */
+/***************************************************/
+#mediadir div.mediadirInputfieldWysiwyg{
+	font-size: 12px;
+	font-family: Verdana;
+	border: 1px solid #d3d3d3;
+	background-color:#ffffff;
+	color:#000000;
+	padding: 4px;
+	margin: 1px 2px 3px 0px;
+	height: 80px;
+	width: 300px;
+	overflow:auto;
+	margin-left: 190px;
+	cursor:text;
+}
+
+#mediadir div.mediadirInputfieldWysiwyg, #mediadir div.mediadirInputfieldWysiwyg:hover, #mediadir div.mediadirInputfieldWysiwyg:link {
+outline-style:none;
+}
+
+#mediadir div.mediadirGroupMultilang{
+    padding-left: 190px;
+}
+
+#mediadir div.mediadirReference{
+    float: left;
+    padding-bottom: 15px;
+    width: 50%;
+}
+
+#mediadir span.mediadirReferenceTitle{
+    float: left;
+    width: 100%;
+    font-weight: bold;
+}
+
+#mediadir span.mediadirReferenceDescription{
+    float: left;
+    width: 100%;
+}
+
+#mediadir div.mediadirDownload{
+    float: left;
+    padding-bottom: 15px;
+    width: 50%;
+}
+
+#mediadir span.mediadirDownloadTitle{
+    float: left;
+    width: 100%;
+    font-weight: bold;
+}
+
+#mediadir span.mediadirDownloadDescription{
+    float: left;
+    width: 100%;
+}
+
+#mediadir span.mediadirDownloadFile{
+    padding-top: 5px;
+    float: left;
+    width: 100%;
+}
+
+
+#mediadir div.mediadirResponsible{
+    float: left;
+    padding-bottom: 15px;
+    width: 50%;
+}
+
+#mediadir span.mediadirResponsibleName{
+    float: left;
+    width: 100%;
+    font-weight: bold;
+}
+
+#mediadir span.mediadirResponsibleFunction{
+    float: left;
+    width: 100%;
+    font-style: italic;
+}
+
+#mediadir span.mediadirResponsiblePhone{
+    padding-top: 5px;
+    float: left;
+    width: 100%;
+}
+
+#mediadir span.mediadirResponsibleFax{
+    float: left;
+    width: 100%;
+}
+
+#mediadir span.mediadirResponsibleMail{
+    padding-top: 5px;
+    float: left;
+    width: 100%;
+}
+
+
+#mediadir .mediadirSelector,
+#mediadir .mediadirGoogleMap{
+    clear: both;
+    padding-left: 190px;
+    margin-top: -15px;
+    margin-bottom: 15px;
+}
+
+#mediadir .map{
+    margin-top: 10px;
+    border: 1px solid #CFCFCF;
+    width: 489px; 
+    height: 250px; 
+}
+
+#mediadir table.list{
+    padding: 0px 20px 10px 20px;
+    width: 710px !important;
+    margin-bottom: 20px;
+    margin-left: -20px;
+	background-image:url(images/list_radius_bg.gif);
+	background-repeat:repeat-x;
+	background-position:bottom left;
+}
+
+#mediadir table.list h3{
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
+
+#mediadir table.list tr td{
+    padding: 4px 0px 4px 0px;
+}
+
+#mediadir .mapLarge{
+    margin-top: 10px;
+    border: 0px solid #CFCFCF;
+    width: 698px; 
+    height: 600px; 
+}
+
+#mediadir input[type="button"].active {
+	font-weight:bold;
+	text-transform:uppercase;
+	color: #74CC00;
+}
+
+#mediadir input.mediadirInputfieldGoogleMapLarge {
+	width: 185px;
+}
+
+#mediadir input.mediadirInputfieldGoogleMapSmall {
+	width: 35px;
+}
+
+#mediadir input.mediadirVoteButton {
+       font-weight:normal;  
+       min-width:1px; 
+       width: 30px !important;
+}
+
+
+#mediadir .mediadirCommentOk,
+#mediadir .mediadirVotingOk{
+    border: 1px solid #9DCF5A;
+    background-color:#F8FFEF;
+    padding: 10px;
+    color: #9DCF5A;
+}
+
+#mediadir .mediadirCommentErr,
+#mediadir .mediadirVotingErr{
+    border: 1px solid #FF8F8F;
+    background-color:#FFEFEF;
+    padding: 10px;
+    color: #FF8F8F;
+}
+

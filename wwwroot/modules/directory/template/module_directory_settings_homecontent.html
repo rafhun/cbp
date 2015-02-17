@@ -1,0 +1,102 @@
+<!-- START module_directory_settings_headlines.html -->
+<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+	<tr>
+		<th colspan="2">{TXT_USEMENT}</th>
+	</tr>
+	<tr class="row1">
+		<td>{TXT_USEMENT_TEXT}</td>
+	</tr>
+</table>
+<br />
+<form name="settings" method="post" action="index.php?cmd=directory&amp;act=settings&amp;tpl=homecontent">
+<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+	<tr>
+		<th colspan="2">{TXT_SETTINGS}</th>
+	</tr>
+	<tr class="row1">
+		<td width="15%">{TXT_SHOW_HOME_CONTENT}</td>
+		<td width="85%"><input type="radio" name="setHomeContent" value="1" {SELECT_ACTIVATE}>&nbsp;{TXT_ACTIVATE}&nbsp;<input type="radio" name="setHomeContent" value="0" {SELECT_DEACTIVATE}>&nbsp;{TXT_DEACTIVATE}</td>
+	</tr>
+</table>
+<br />
+<input type="submit" value="{TXT_SAVE_CHANGES}" name="set_homecontent_submit">
+<br />
+<br />
+<!-- BEGIN showExample -->
+<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+	<tr>
+		<th>{TXT_EXAMPLE}</th>
+	</tr>
+	<tr class="row1">
+		<td>
+		<textarea name="content" style="height: 400px; width:100%;">
+[[DIRECTORY_SEARCH]]
+&lt;!-- BEGIN showCategories --&gt;
+&lt;br /&gt;
+&lt;table width="100%" cellspacing="5" cellpadding="0" border="0" id="directory"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;tbody&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td width="[[DIRECTORY_ROW_WIDTH]]" valign="top"&gt;[[DIRECTORY_ROW1]]&lt;/td&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td width="[[DIRECTORY_ROW_WIDTH]]" valign="top"&gt;[[DIRECTORY_ROW2]]&lt;/td&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;!-- END showCategories --&gt;
+&lt;!-- BEGIN showFeeds --&gt;
+&lt;br /&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" [[DIRECTORY_FEED_PREMIUM]]&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;table width="100%" cellspacing="5" cellpadding="0" border="0" id="directory"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;tbody&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td width="100%" valign="top"&gt;&lt;span class="title"&gt;&lt;a href="index.php?section=directory&amp;cmd=detail&amp;id=[[DIRECTORY_FEED_ID]]"&gt;[[DIRECTORY_FEED_TITLE]]&lt;/a&gt;&lt;/span&gt;&lt;br /&gt;&lt;em&gt;[[DIRECTORY_FEED_LINK]]&lt;/em&gt;&lt;/td&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td width="100%" valign="top" class="description"&gt;[[DIRECTORY_FEED_DESCRIPTION]]&lt;/td&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td width="100%" valign="top"&gt;&raquo;&nbsp;&lt;a href="[[DIRECTORY_FEED_DETAIL_LINK]]"&gt;[[DIRECTORY_FEED_DETAIL]]&lt;/a&gt;&nbsp;&nbsp;&raquo;&nbsp;&lt;a href="javascript:[[]]" onclick="[[DIRECTORY_FEED_VOTE_LINK]]"&gt;[[DIRECTORY_FEED_VOTE]]&lt;/a&gt;&nbsp;&nbsp;&raquo;&nbsp;[[DIRECTORY_FEED_AVERAGE_VOTE]]&nbsp;&lt;em&gt;[[DIRECTORY_FEED_COUNT_VOTES]]&lt;/em&gt;&lt;/td&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div style="display: none;" id="[[DIRECTORY_FEED_ID]]"&gt;
+&lt;table width="100%" cellspacing="5" cellpadding="0" border="0" id="directory"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;tbody&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td width="100%" valign="top"&gt;[[DIRECTORY_FEED_VOTE_IMG]]&lt;/td&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;!-- END showFeeds --&gt;
+&lt;!-- BEGIN noFeeds --&gt;
+&lt;br /&gt;
+&lt;table width="100%" cellspacing="5" cellpadding="0" border="0" id="directory"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;tbody&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td width="100%" valign="top"&gt;[[DIRECTORY_NO_FEEDS_FOUND]]&lt;/td&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;!-- END noFeeds --&gt;
+&lt;!-- BEGIN showInsertFeeds --&gt;
+&lt;br /&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" id="directory"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;tbody&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td width="100%" valign="top" align="center"&gt;[[DIRECTORY_INSERT_FEEDS]]&lt;/td&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;!-- END showInsertFeeds --&gt;
+		</textarea>
+		</td>
+	</tr>
+</table>
+<!-- END showExample -->
+</form>
+<!-- END module_directory_settings_headlines.html -->

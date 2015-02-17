@@ -1,0 +1,65 @@
+<!-- start mailtemplate_edit.html -->
+<form name="form_mailtemplate_edit" method="post" action="{URI_BASE}" >
+  <table class="adminlist" border="0" cellspacing="0" cellpadding="2" width="100%" summary="">
+    <colgroup><col width="25%" /><col width="75%" /></colgroup>
+    <thead>
+      <tr>
+        <th colspan="2">
+          <b>{CORE_MAILTEMPLATE_EDIT_TITLE}</b>
+          <div style="float: right;">
+            <a href="{URI_BASE}">{TXT_CORE_MAILTEMPLATE_CANCEL}</a>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+<!-- BEGIN core_mailtemplate_section -->
+<!-- BEGIN core_mailtemplate_section_row -->
+      <tr class="row3">
+        <td colspan="2">
+          {MAILTEMPLATE_SECTION}
+        </td>
+      </tr>
+<!-- END core_mailtemplate_section_row -->
+<!-- BEGIN core_mailtemplate_row -->
+      <tr class="row{MAILTEMPLATE_ROWCLASS}">
+        <td valign="top">
+          {MAILTEMPLATE_NAME}
+<!-- BEGIN core_mailtemplate_value_note -->
+          <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{MAILTEMPLATE_VALUE_NOTE}</span>
+<!-- END core_mailtemplate_value_note -->
+        </td>
+        <td valign="top">
+          {MAILTEMPLATE_VALUE}
+        </td>
+      </tr>
+<!-- END core_mailtemplate_row -->
+<!-- BEGIN core_mailtemplate_special -->
+      <tr class="row{MAILTEMPLATE_ROWCLASS}">
+        <td colspan="2" valign="top">
+          {MAILTEMPLATE_SPECIAL}
+        </td>
+      </tr>
+<!-- END core_mailtemplate_special -->
+<!-- END core_mailtemplate_section -->
+    </tbody>
+  </table>
+  <br />
+  {TXT_CORE_MAILTEMPLATE_NOTE_PLACEHOLDERS}
+<!-- BEGIN core_mailtemplate_hidden -->
+  {MAILTEMPLATE_HIDDEN}
+<!-- END core_mailtemplate_hidden -->
+  <br />
+  <br />
+  {TXT_CORE_MAILTEMPLATE_TO_TEST}
+  <input type="text" name="to_test" value="{CORE_MAILTEMPLATE_TO_TEST}"
+      tabindex="111" />
+  <br />
+  <br />
+  <input type="submit" name="bsubmit" value="{TXT_CORE_MAILTEMPLATE_STORE}"
+      tabindex="121" />
+  <input type="button" name="bcancel" value="{TXT_CORE_MAILTEMPLATE_CANCEL}"
+      onclick="location.href='{URI_BASE}&{CSRF_PARAM}';"
+      tabindex="131" />
+</form>
+<!-- end mailtemplate_edit.html -->

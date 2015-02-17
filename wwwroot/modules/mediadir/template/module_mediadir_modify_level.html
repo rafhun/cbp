@@ -1,0 +1,106 @@
+<!-- START module_mediadir_modify_level.html -->
+<script type="text/javascript">
+//<![CDATA[
+function SetUrl(url, width, height, alt) {
+    switch (fileType) {
+        case 'image':
+        case 'webpages':
+            document.getElementById(insertBox).value = url;
+            break
+        case 'link':
+            if (insertText == '') {
+                insertText = url;
+            }
+            newsInsertLink(document.getElementById(insertBox), '<a href="'+url+'">'+insertText+'</a>');
+            break;
+    }
+}
+
+function getFileBrowser(name, type)
+{
+    insertBox = name;
+    fileType = type;
+
+    openWindow('?cmd=fileBrowser&standalone=true&type=mediadir','','width=800,height=600,resizable=yes,status=no,scrollbars=yes');
+}
+
+function openWindow(theURL,winName,features){
+    browserPopup = window.open(theURL,"Browser",features);
+    browserPopup.focus();
+}
+
+//]]>
+</script>
+
+<form name="levelModfyForm" action="index.php?cmd={MODULE_NAME}&act=modify_level" method="post" >
+<input name="levelId" type="hidden" value="{MEDIADIR_LEVEL_ID}" />
+<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+    <tr>
+        <th colspan="2">{TXT_MEDIADIR_PAGE_TITLE}</th>
+    </tr>
+    <tr class="row3">
+        <td colspan="2">{TXT_MEDIADIR_BASIC_DATA}</td>
+    </tr>
+    <tr class="row1">
+        <td width="200">{TXT_MEDIADIR_LEVEL}</td>
+        <td>
+            <select name="levelPosition" style="width: 302px">
+                <option value="0">{TXT_MEDIADIR_NEW_LEVEL}</option>
+                {MEDIADIR_LEVELS_DROPDOWN_OPTIONS}
+            </select>
+        </td>
+    </tr>
+    <tr class="row2">
+        <td valign="top">{TXT_MEDIADIR_PICTURE}</td>
+        <td>{MEDIADIR_LEVEL_PICTURE_THUMB}<input type="text" name="levelImage" value="{MEDIADIR_LEVEL_PICTURE}" id="levelImage2" style="width: 300px;" />&nbsp;<input type="button" value="{TXT_MEDIADIR_BROWSE}" onClick="getFileBrowser('levelImage2', 'image')" /></td>
+    </tr>
+<!--    <tr class="row1">
+        <td valign="top">{TXT_MEDIADIR_SHOW_SUBLEVELS}</td>
+        <td><input type="radio" name="levelShowSublevels" value="1" {MEDIADIR_LEVEL_SHOW_SUBLEVELS_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="levelShowSublevels" value="0" {MEDIADIR_LEVEL_SHOW_SUBLEVELS_OFF} /> {TXT_MEDIADIR_DEACTIVATE}</td>
+    </tr> -->
+    <tr class="row2">
+        <td valign="top">{TXT_MEDIADIR_SHOW_CATEGORIES}</td>
+        <td><input type="radio" name="levelShowCategories" value="1" {MEDIADIR_LEVEL_SHOW_CATEGORIES_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="levelShowCategories" value="0" {MEDIADIR_LEVEL_SHOW_CATEGORIES_OFF} /> {TXT_MEDIADIR_DEACTIVATE}</td>
+    </tr>
+    <tr class="row1">
+        <td valign="top">{TXT_MEDIADIR_SHOW_ENTRIES}</td>
+        <td><input type="radio" name="levelShowEntries" value="1" {MEDIADIR_LEVEL_SHOW_ENTRIES_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="levelShowEntries" value="0" {MEDIADIR_LEVEL_SHOW_ENTRIES_OFF} /> {TXT_MEDIADIR_DEACTIVATE}</td>
+    </tr>
+    <tr class="row2">
+        <td valign="top">{TXT_MEDIADIR_VISIBLE}</td>
+        <td><input type="radio" name="levelActive" value="1" {MEDIADIR_LEVEL_ACTIVE_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="levelActive" value="0" {MEDIADIR_LEVEL_ACTIVE_OFF} /> {TXT_MEDIADIR_DEACTIVATE}&nbsp;&nbsp;<span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_VISIBLE_LEVEL_INFO}</span></td>
+    </tr>        
+</table>
+<br />
+<ul id="tabmenu" class="language_tab" style="{MEDIADIR_HIDE_ON_SINGLE_LANG} margin-top: 15px;">
+    <!-- BEGIN mediadirLevelLanguages -->
+    <li><a id="levelLanguage_{MEDIADIR_LEVEL_LANG_ID}_desc" class="{MEDIADIR_LEVEL_LANG_TAB_CLASS}" href="javascript:{}" onclick="selectTab('{MEDIADIR_LEVEL_LANG_ID}_desc');" title="{MEDIADIR_LEVEL_LANG_NAME}">{MEDIADIR_LEVEL_LANG_NAME}</a></li>
+    <!-- END mediadirLevelLanguages -->
+</ul>
+<!-- BEGIN mediadir_level_name_and_description -->
+<div id="{MEDIADIR_LEVEL_LANG_ID}_desc" class="levelLanguage" style="{MEDIADIR_LEVEL_BLOCK_DISPLAY}">
+    <table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+        <tr>
+            <th colspan="2">{TXT_MEDIADIR_LEVEL_DETAILS}</th>
+        </tr>
+        <tr class="row2">
+            <td valign="top" width="200">{TXT_MEDIADIR_NAME}</td>
+            <td>
+                <input name="levelName[{MEDIADIR_LEVEL_LANG_ID}]" type="text" style="width: 279px;" value="{MEDIADIR_LEVEL_NAME}" />
+                <br />
+            </td>
+        </tr>
+        <tr class="row3">
+            <td valign="top" colspan="2">
+                {TXT_MEDIADIR_DESCRIPTION}
+                <br />
+                {MEDIADIR_LEVEL_DESCRIPTION}
+            </td>
+        </tr>
+    </table>
+</div>
+<!-- END mediadir_level_name_and_description -->
+<br/>
+<input type="submit" name="submitLevelModfyForm" value="{TXT_MEDIADIR_SUBMIT}" />
+</form>
+<!-- END module_mediadir_modify_level.html -->

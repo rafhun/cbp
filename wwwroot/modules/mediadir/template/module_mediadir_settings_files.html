@@ -1,0 +1,39 @@
+<!-- START module_mediadir_settings_files.html -->
+<form id="settingsFilesForm" action="index.php?cmd={MODULE_NAME}&act=settings&tpl=files" method="post" >
+<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+    <tr>
+        <th colspan="2">{TXT_MEDIADIR_SETTINGS_PICS_AND_FILES}</th>
+    </tr>
+    <tr class="row1">
+        <td width="280">{TXT_MEDIADIR_SETTINGS_THUMB_SIZE}</td>
+        <td>
+            <input name="settingsThumbSize" type="text" style="width: 35px" value="{MEDIADIR_SETTINGS_THUMB_SIZE}" />&nbsp;
+            <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_THUMB_SIZE_INFO}</span>
+        </td>
+    </tr>
+    <tr class="row2">
+        <td>{TXT_MEDIADIR_SETTINGS_IMAGE_FILESIZE} (KB)</td>
+        <td>
+            <input name="settingsImageFilesize" type="text" style="width: 35px" value="{MEDIADIR_SETTINGS_IMAGE_FILESIZE}" />&nbsp;
+            <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_IMAGE_FILESIZE_INFO}</span>
+        </td>
+    </tr>
+    <!--  <tr class="row2">
+        <td>{TXT_MEDIADIR_SETTINGS_NUM_PICS_PER_GALLERY}</td>
+        <td>
+            <input name="settingsNumGalleryPics" type="text" style="width: 35px" value="{MEDIADIR_SETTINGS_NUM_PICS_PER_GALLERY}" />&nbsp;
+            <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_NUM_PICS_PER_GALLERY_INFO}</span>
+        </td>
+    </tr> -->
+    <tr class="row1">
+        <td>{TXT_MEDIADIR_SETTINGS_ENCRYPT_FILENAME}</td>
+        <td>
+            <input type="radio" name="settingsEncryptFilenames" value="1" {MEDIADIR_SETTINGS_ENCRYPT_FILENAMES_ON} /> {TXT_MEDIADIR_ACTIVATE} &nbsp;<input type="radio" name="settingsEncryptFilenames" value="0" {MEDIADIR_SETTINGS_ENCRYPT_FILENAMES_OFF} /> {TXT_MEDIADIR_DEACTIVATE}&nbsp;
+            <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_MEDIADIR_SETTINGS_ENCRYPT_FILENAME_INFO}</span>
+        </td>
+    </tr>
+</table>
+<br />
+<input type="submit" name="submitSettingsForm" value="{TXT_MEDIADIR_SUBMIT}" />
+</form>
+<!-- END module_mediadir_settings_files.html -->

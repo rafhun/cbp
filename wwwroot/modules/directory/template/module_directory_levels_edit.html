@@ -1,0 +1,77 @@
+<!-- START module_directory_categories_edit.html -->
+<script language="JavaScript">
+function CheckForm() {
+  with( document.addForm ) {
+    if (edit_description.value == "" || edit_name.value == "")
+    {
+        alert ("{TXT_FIELDS_REQUIRED}");
+        return false;
+    }
+    return true;
+  }
+}
+
+function setText(){
+	with(document.addForm )
+	{
+		var txtValue = edit_name.value;
+		if(edit_description.value == "")
+			edit_description.value=txtValue;
+	}
+}
+</script>
+<form name="addForm" method="post" action="index.php?cmd=directory&amp;act=editlevel" onSubmit="return CheckForm()">
+  <table border="0" cellpadding="3" cellspacing="0" align="center" width="100%"  class="adminlist">
+    <tr>
+      <th colspan="2">{TXT_EDIT_LEVEL}</th>
+    </tr>
+    <tr class="row2">
+      <td width="150">{TXT_LEVEL}<font color="red"> *</font></td>
+      <td>
+        <select name="edit_level" style="width:300px;">
+        <option value=0>{TXT_NEW_LEVEL}</option>
+        {LEVELS}
+        </select>
+        <input type="hidden" name="edit_parentid" value="{LEVEL_PARENTID}" size="10">
+        <input type="hidden" name="edit_id" value="{LEVEL_ID}" size="10">
+      </td>
+    </tr>
+    <tr class="row1">
+      <td width="150">{TXT_NAME}:<font color="red">*</font></td>
+      <td>
+        <input name="edit_name" value="{LEVEL_NAME}" style="width:300px;" onchange="setText()" />
+        </td>
+    </tr>
+    <tr class="row2">
+      <td width="150">{TXT_DESCRIPTION}:<font color="red">*</font></td>
+      <td>
+        <input name="edit_description" value="{LEVEL_DESCRIPTION}" style="width:300px;" />
+        </td>
+    </tr>
+   <!-- <tr class="row1">
+      <td width="150">{TXT_METADESC}:</td>
+      <td>
+        <input name="edit_metadesc" value="{LEVEL_METADESC}" style="width:300px;" />
+        </td>
+    </tr>
+    <tr class="row2">
+      <td width="150">{TXT_METAKEYS}:</td>
+      <td>
+        <input size="90" value="{LEVEL_METAKEYS}" style="width:300px;" name="edit_metakeys" />
+        </td>
+    </tr> -->
+    <tr class="row1">
+      <td width="150" valign="top">{TXT_SHOW_TYPE}:</td>
+      <td>
+        <input type="radio" name="edit_showtype" value="1" {LEVEL_SHOW_BOTH}>&nbsp;{TXT_KIND_LEVEL_AND_CATEGORIES}<br />
+        <input type="radio" name="edit_showtype" value="2" {LEVEL_SHOW_LEVELS}>&nbsp;{TXT_ONLY_KIND_LEVEL}<br />
+        <input type="radio" name="edit_showtype" value="3" {LEVEL_SHOW_CATEGORIES}>&nbsp;{TXT_ONLY_CATEGORIES}<br />
+        <input type="radio" name="edit_showtype" value="4" {LEVEL_SHOW_ENTRIES}>&nbsp;{TXT_ONLY_ENTRIES}
+        </td>
+    </tr>
+</table>
+<br />
+<input type="submit" name="edit_submit" value="{TXT_SAVE_CHANGES}">&nbsp;<font color="red">*</font> = {TXT_REQUIRED_FIELDS}
+</form>
+<br />
+<!-- END module_directory_categories_edit.html -->

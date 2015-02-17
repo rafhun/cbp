@@ -1,0 +1,128 @@
+<div id="shop"><!-- BEGIN core_message -->
+    <span class="[[MESSAGE_CLASS]]">[[MESSAGE_TEXT]]</span><!-- END core_message --><!-- BEGIN shopConfirm -->
+    <div class="order" id="shop_order">
+        <form action="index.php?section=shop&amp;cmd=confirm" name="shopForm" method="post">
+            <table summary="" cellspacing="2">
+                <tr style="background: #F2F2F2;">
+                    <th width="1%">[[TXT_ID]]</th>
+                    <th width="95%" align="left">[[TXT_PRODUCT]]</th>
+                    <th width="1%">[[TXT_UNIT_PRICE]]</th>
+                    <th width="1%">[[TXT_QUANTITY]]</th>
+                    <!-- <th width="1%" style="text-align: right;">[[TXT_WEIGHT]]</th> -->
+                    <th width="1%" colspan="2">[[TXT_TAX_PREFIX]]</th>
+                    <th width="1%" class="a_right">[[TXT_TOTAL]]</th>
+                </tr>
+                <!-- BEGIN shopCartRow -->
+                <tr class="row1">
+                    <td>[[SHOP_PRODUCT_ID]]</td>
+                    <td>
+                        [[SHOP_PRODUCT_TITLE]]
+                        <!-- BEGIN attributes_OPTIONAL -->
+                        <br />[[SHOP_PRODUCT_OPTIONS]]
+                        <!-- END attributes_OPTIONAL -->
+                    </td>
+                    <td>[[SHOP_PRODUCT_ITEMPRICE]] [[SHOP_UNIT]]</td>
+                    <td>[[SHOP_PRODUCT_QUANTITY]]</td>
+                    <!-- <td style="text-align: right;">[[SHOP_PRODUCT_WEIGHT]]</td> -->
+                    <td>[[SHOP_PRODUCT_TAX_RATE]]</td>
+                    <td>[[SHOP_PRODUCT_TAX_AMOUNT]]</td>
+                    <td style="text-align: right;">[[SHOP_PRODUCT_PRICE]] [[SHOP_UNIT]]</td>
+                </tr>
+                <!-- END shopCartRow -->
+                <!-- BEGIN shopCouponTotal -->
+                <tr class="row3">
+                    <td colspan="3">
+                        [[SHOP_DISCOUNT_COUPON_TOTAL]]
+                    </td>
+                    <td colspan="3">&nbsp;</td>
+                    <td class="a_right">
+                        [[SHOP_DISCOUNT_COUPON_TOTAL_AMOUNT]]&nbsp;[[SHOP_UNIT]]
+                    </td>
+                </tr>
+                <!-- END shopCouponTotal -->
+                <tr class="row3">
+                    <td colspan="2" valign="top">[[TXT_INTER_TOTAL]] [[SHOP_TAX_PRODUCTS_TXT]]</td>
+                    <td colspan="4" valign="top">[[SHOP_TOTALITEM]] [[TXT_PRODUCT_S]]</td>
+                    <td valign="top" style="text-align: right;">[[SHOP_TOTALPRICE]] [[SHOP_UNIT]]</td>
+                </tr>
+                <!-- BEGIN shiprow -->
+                <tr class="row3" valign="top">
+                    <td colspan="2">[[TXT_SHIPPING_METHOD]]</td>
+                    <td colspan="4">[[SHOP_SHIPMENT]]</td>
+                    <td style="text-align: right;">[[SHOP_SHIPMENT_PRICE]] [[SHOP_UNIT]]</td>
+                </tr>
+                <!-- END shiprow -->
+                <tr class="row3" valign="top">
+                    <td colspan="2">[[TXT_PAYMENT_TYPE]]</td>
+                    <td colspan="4">[[SHOP_PAYMENT]]</td>
+                    <td style="text-align: right;">[[SHOP_PAYMENT_PRICE]] [[SHOP_UNIT]]</td>
+                </tr>
+                <!-- BEGIN totalExclTaxRow -->
+                <tr class="row1">
+                    <td colspan="6">[[TXT_NET_PRICE]]</td>
+                    <td style="text-align: right;">
+                        [[SHOP_GRAND_TOTAL_EXCL_TAX]] [[SHOP_UNIT]]
+                    </td>
+                </tr>
+                <!-- END totalExclTaxRow -->
+                <!-- BEGIN taxrow -->
+                <tr class="row1" valign="top">
+                    <td colspan="6">[[TXT_TAX_PREFIX]]</td>
+                    <td style="text-align: right;">[[TXT_TAX_PART]] [[SHOP_TAX_PRICE]] [[SHOP_UNIT]]</td>
+                </tr>
+                <!-- END taxrow -->
+                <tr class="row3">
+                    <td colspan="6" valign="top"><strong>[[TXT_TOTAL_PRICE]]</strong></td>
+                    <td style="text-align: right;"><strong>[[SHOP_GRAND_TOTAL]] [[SHOP_UNIT]]</strong></td>
+                </tr>
+            </table>
+            <table class="order-address" summary="" cellspacing="0">
+                <tr style="background: #F2F2F2;">
+                    <th width="50%" align="left">[[TXT_ADDRESS_CUSTOMER]]</th>
+                    <th width="50%" align="left">[[TXT_SHIPPING_ADDRESS]]</th>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <span>[[SHOP_COMPANY]]</span>
+                        <span>[[SHOP_PREFIX]] [[SHOP_FIRSTNAME]] [[SHOP_LASTNAME]]</span>
+                        <span>[[SHOP_ADDRESS]]</span>
+                        <span>[[SHOP_ZIP]] [[SHOP_CITY]]</span>
+                        <span>[[SHOP_COUNTRY]]</span>
+                        <span>[[SHOP_PHONE]]</span>
+                        <span>[[SHOP_FAX]]</span>
+                        <span>[[SHOP_EMAIL]]</span>
+                    </td>
+                    <td valign="top">
+                        <!-- BEGIN shopShipmentAddress -->
+                        <span>[[SHOP_COMPANY2]]</span>
+                        <span>[[SHOP_PREFIX2]] [[SHOP_FIRSTNAME2]] [[SHOP_LASTNAME2]]</span>
+                        <span>[[SHOP_ADDRESS2]]</span>
+                        <span>[[SHOP_ZIP2]] [[SHOP_CITY2]]</span>
+                        <span>[[SHOP_COUNTRY2]]</span>
+                        <span>[[SHOP_PHONE]]</span>
+                        <span>[[SHOP_FAX2]]</span>
+                        <span>[[SHOP_EMAIL2]]</span>
+                        <!-- END shopShipmentAddress -->
+                    </td>
+                </tr>
+            </table>
+            <!-- BEGIN shopComment -->
+            <table summary="" cellspacing="0">
+                <tr class="row3" style="background:#F2F2F2 ">
+                    <td colspan="2"><strong style="font-weight:bold" />[[TXT_COMMENTS]]<strong /></td>
+                </tr>
+                <tr class="row2">
+                    <td colspan="2">[[SHOP_CUSTOMERNOTE]]</td>
+                </tr>
+            </table>
+            <!-- END shopComment -->
+            <input type="submit" value="[[TXT_ORDER_NOW]]" name="process" />
+        </form>
+    </div>
+    <!-- END shopConfirm --><!-- BEGIN shopProcess -->
+    <div class="message">
+        [[TXT_ORDER_PREPARED]]<br />
+        [[SHOP_PAYMENT_PROCESSING]]
+    </div>
+    <!-- END shopProcess -->
+</div>

@@ -1,0 +1,854 @@
+<script type="text/javascript">
+    function deleteEntry(entryId){
+        if(confirm('{TXT_CRM_CONFIRM_DELETE_ENTRY}'))
+            window.location.replace("?cmd={MODULE_NAME}&{CSRF_PARAM}&act=deleteCustomers&id="+entryId);
+    }
+    function deleteProjectEntry(entryId) {
+        if(confirm('{TXT_CRM_CONFIRM_DELETE_ENTRY}'))
+            window.location.replace("?cmd={PM_MODULE_NAME}&{CSRF_PARAM}&act=projects&delId=1&mes=Delete&custdetails=1&customerId={ENTRY_ID}&id="+entryId);
+    }
+    function deleteCommentEntry(entryId,CustId){
+        if(confirm('{TXT_CRM_CONFIRM_DELETE_ENTRY}'))
+            window.location.replace("?cmd={MODULE_NAME}&{CSRF_PARAM}&act=customers&tpl=showcustdetail&deleteComment=1&commentid="+entryId+"&id="+CustId);
+    }
+    function confirmTaskDelete() {
+        if(confirm('{TXT_CRM_CONFIRM_DELETE_ENTRY}')) {
+            return true;
+        }
+        return false;
+    }
+    var tabLinks = {
+        "notes"    : {"link" : "./index.php?cmd={MODULE_NAME}&{CSRF_PARAM}&act=notesdetail&id={ENTRY_ID}", "page": 0, "new_req" : true},
+        "tasks"    : {"link" : "./index.php?cmd={MODULE_NAME}&{CSRF_PARAM}&act=getcontacttasks&id={ENTRY_ID}", "page": 0, "new_req" : true},
+        "projects" : {"link" : "./index.php?cmd={MODULE_NAME}&{CSRF_PARAM}&act=getcontactprojects&id={ENTRY_ID}", "page": 0, "new_req" : true},
+        "deals"    : {"link" : "./index.php?cmd={MODULE_NAME}&{CSRF_PARAM}&act=getcontactdeals&id={ENTRY_ID}", "page": 0, "new_req" : true},
+        "documents" : {"link" : "./index.php?cmd={MODULE_NAME}&act=getcontactdocuments&id={ENTRY_ID}", "page": 0, "new_req" : true}
+    };
+    function getLink(obj, link) {
+        returnLink = '';
+        $J.each(obj, function(key, value) {
+            if (key == link)
+                returnLink = value.link;
+        });
+        return returnLink;
+    }
+    function getPage(obj, link) {
+        returnPage = 0;
+        $J.each(obj, function(key, value) {
+            if (key == link) {
+                obj[key].page = obj[key].page + 1;
+                returnPage = value.page;
+            }
+        });
+        return returnPage;
+    }
+    function getReq(obj, link) {
+        returnReq = 0;
+        $J.each(obj, function(key, value) {
+            if (key == link)
+                returnReq = value.new_req;
+
+        });
+        return returnReq;
+    }
+    function setReq(obj, link) {
+        $J.each(obj, function(key, value) {
+            if (key == link) {
+                obj[key].new_req = false;
+            }
+        });
+    }
+    var page = 0;
+    $J(function() {
+        $J('.primary_profile .viewAll').click(function(){
+            $elm     = $J(this);
+            $closest = $elm.closest('td');
+            $J('.primary_profile').show();
+            $J('.profile_expanded').hide();
+            $elm.closest('.primary_profile').fadeOut('slow', function(){
+                $closest.find('.profile_expanded').show();
+                $closest.find('.fixed-scroll').scrollToFixed({
+                    limit: function() {
+
+                        if ($closest.closest('tr').next().length) {
+                            elm = $closest.closest('tr').next();
+                        } else {
+                            elm = $J("#tabs");
+                        }
+
+                        return elm.offset().top
+                    }
+                });
+            });
+        });
+
+        $J('.profile_expanded .hide').click(function(){ 
+            $elm     = $J(this);
+            $closest = $elm.closest('td');
+            $elm.closest('.profile_expanded').fadeOut('slow', function(){
+                $closest.find('.primary_profile').show();
+            });
+        });
+
+        $J(".deleteEntry").live("click", function(){
+            $elm  = $J(this);
+            en_id = $J(this).attr('rel').split('_')[1]
+            if (confirm ("{TXT_CRM_CONFIRM_DELETE_ENTRY}")) {
+                $J.ajax({
+                    url     : './index.php?cmd={MODULE_NAME}&{CSRF_PARAM}&act=deals&actionType=deletedeals&ajax=1&id='+en_id,
+                    type    : 'POST',
+                    success : function(msg){
+                        $J("#dealsTab table tbody").html('');
+                        tabIndex = $J( "#tabs" ).tabs('option', 'selected');
+                        $J("#tabs").tabs('load', tabIndex);
+                        tabLinks['deals'].page = 0;
+                        tabLinks['deals'].new_req = true;
+                        $J('.crm_details_tabs').scroll();
+                        $elm.closest("tr").remove();
+                        setTableRow("dealsTab");
+                        $J("#okbox")
+                        .html("Opportunity deleted successfully")
+                        .show()
+                        .delay(3000)
+                        .fadeOut('slow');
+                    }
+                });
+            }
+        });
+        setTableRow('general-info');
+        $J(".contactDelete").click(function(){
+            if (confirm('{TXT_CRM_CONFIRM_DELETE_ENTRY}')) {
+                elm = $J(this);
+                contactId = elm.attr('rel').split("_")[1];
+                $J.get("./index.php?cmd={MODULE_NAME}&{CSRF_PARAM}&act=deleteCustomers&ajax=1&id="+contactId, function(){
+                }).success(function(){
+                    $J(elm).closest("tr").fadeOut('slow', function(){
+                        $J(elm).closest("tr").remove();
+                        setTableRow('contacts-list');
+                        $J("#okbox")
+                        .html("Contact deleted successfully")
+                        .show()
+                        .delay(3000)
+                        .fadeOut('slow');
+                    });
+                });
+            }
+        });
+
+        var page = 0;
+        $J(window).scroll ( function()
+        { 
+            tab  = $J("#tabs ul li.ui-tabs-selected a").attr("rel").split('_')[0];
+            if ($J(document).height() <= ($J(window).height() + $J(window).scrollTop()+100) && $J("#"+tab).is(":visible"))
+            {
+                new_req = getReq(tabLinks, tab);
+                if (new_req!=false)
+                { 
+                    $J('#favloader_'+tab).css('display', 'table-row');
+
+                    var $this = $J("#"+tab);
+                    if ($this.data('executing'))
+                        return;
+                    $this.data('executing', true).attr("src", "AJax in progress");
+                    url  = getLink(tabLinks, tab); 
+                    page = getPage(tabLinks, tab);
+                    
+                    var ajaxCall = function(tabSelected) { 
+                        var tab = tabSelected;                       
+                        $J.ajax({
+                            dataType: "JSON",
+                            type: "GET",
+                            url: url,
+                            data: "ajax=1&page="+page,
+                            success: function(json)
+                            {
+                                msg = $J.trim(json.msg);
+                                if (msg!=0) $J("#"+tab+" table tbody").append(json.content);
+                                $J('#favloader_'+tab).hide();
+                                if (msg==0)
+                                {
+                                    if (page==1) $J("#"+tab+" table tbody").append(json.content);
+                                    setReq(tabLinks, tab);
+                                }
+                                // Drop down functionality for the task tab
+                                if (tab == 'tasks') {
+                                    $J.dropdownToggle({
+                                        dropdownID: 'taskStatusPanel',
+                                        switcherSelector: '.taskStatusLink',
+                                        addTop: 0,
+                                        addLeft: 0
+                                    });
+                                }
+                                $this.removeData('executing');
+
+                            }
+                        });
+                    }
+                    ajaxCall(tab);                    
+                }
+
+            }
+        });
+        $J( "#tabs" ).tabs({
+            show: function() {
+                $J('.crm_details_tabs').scroll();
+            }
+        });
+        $J( "#profile-photo" ).dialog({
+            autoOpen: false,
+            width   : 450,
+            height  : 280,
+            modal   : true
+        });
+        $J( "#file-upload" ).dialog({
+            autoOpen: false,
+            width   : 450,
+            height  : 280,
+            modal   : true,
+            close: function(event, ui) {
+                $J("#documents table tbody").html('');
+                tabIndex = $J( "#tabs" ).tabs('option', 'selected');
+                $J("#tabs").tabs('load', tabIndex);
+                tabLinks['documents'].page = 0;
+                tabLinks['documents'].new_req = true;
+                $J('.crm_details_tabs').scroll();
+                $J(".qq-upload-list").html('');
+            }
+        });
+
+        $J( ".change-photo" ).click(function() {
+            $J( "#contactFormFieldId_2" ).trigger( "click" );
+        });
+    });
+    $J(".add-document").live('click', function(){
+        $J( "#contactFormFieldId_3" ).trigger( "click" );
+    });
+    $J(".delete_document").live('click', function(){
+        if(confirm('{TXT_CRM_CONFIRM_DELETE_ENTRY}')) {
+            elm = $J(this);
+            url = elm.attr('href');
+            $J.getJSON(url, function(json){
+                if (json['error']) {
+                    $J("#alertbox")
+                    .html(json['error'])
+                    .show()
+                    .delay(3000)
+                    .fadeOut('slow');
+                } else if (json['success']) {
+                    $J(elm).closest("tr").fadeOut('slow', function(){
+                        $J(elm).closest("tr").remove();
+                        $J("#okbox")
+                        .html(json['success'])
+                        .show()
+                        .delay(3000)
+                        .fadeOut('slow');
+                    });
+                }
+            });
+        }
+        return false;
+    });
+    function fadeOkbox(msg) {
+        $J('#okbox').html(msg);
+        $J('#okbox').fadeIn('slow');
+        setTimeout(function () {
+            $J('#okbox').fadeOut('slow');
+        }, 9000);
+    }
+    function fadeAlertbox(msg) {
+        $J('#alertbox').html(msg);
+        $J('#alertbox').fadeIn('slow');
+        setTimeout(function () {
+            $J('#alertbox').fadeOut('slow');
+        }, 6000);
+    }
+    function showTaskStatusPanel(switcherUI) {
+//        $J("#taskStatusPanel a.dropDownItem").unbind('click').click(function() {
+            _changeTaskStatus(switcherUI, $J(switcherUI).attr("task_status"));
+//        });
+    }
+    var _changeTaskStatus = function(Obj, task_status) {
+        var taskId = $J(Obj).attr('rel').split('_')[1];
+        $J.ajax({
+            url: './index.php?cmd={MODULE_NAME}&act=task&tpl=cstatus',
+            type: "POST",
+            dataType: "json",
+            data: {id: taskId,status: task_status},
+            success: function(json) {
+                if (json['error']) {
+                    fadeAlertbox(json['error']);
+                } else if (json['success']) {
+                    $J(Obj).attr('task_status', json['task']['taskStatus']);
+                    $J(Obj).find("img").attr('src', json['status_img']);
+                    fadeOkbox(json['status_msg']);
+                }
+            }
+        });
+
+        $J("#taskStatusPanel").hide();
+    };
+</script>
+<style type="text/css">
+    body table.adminlist thead tr.row3 th {
+        padding-left: 3px;
+    }
+    table.adminlist table tr td {border: medium none;}
+    #tabmenu li, ul.tabmenu li {
+        display: inline;
+        list-style-type: none;
+        overflow: visible;
+    }
+    .ui-tabs .ui-tabs-panel {
+        background: none repeat scroll 0 0 transparent;
+        border-width: 0;
+        display: block;
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 0;
+    }
+    #tabmenu li.ui-state-active a{
+        background: none repeat scroll 0 0 #E5E5E5;
+        border-bottom: none;
+    }
+    #tabmenu .ui-state-default {
+        background: none;
+        border: none;
+        border-bottom: none;
+    }
+    #tabs .ui-tabs-selected a {
+        background: none repeat scroll 0 0 #E5E5E5;
+        border: 1px dotted black;
+        border: 1px solid #BBB;
+        border-bottom: none;
+    }
+    #tabmenu a{
+        border-bottom: none;
+    }
+    .ajax-tabs #tabmenu {
+        padding: 0;
+    }
+    .ui-widget-content {
+        border: none;
+    }
+    #tabs .ui-widget-header {
+        background: none;
+    }
+    #tabs ul {
+        border: none;
+    }
+    .description {
+        color: #83888D;
+        font-size: 11px;
+    }
+    .default-images img {
+        cursor: pointer;
+    }
+    #profile-image {
+        min-height: 160px;
+    }
+    table.sortedTable tr.row3 th.header {
+        cursor: pointer;
+        color: #1a74bd;
+    }
+    .primary_profile {position: relative;}
+    .fixed-scroll {margin-left: 5px;}
+    .viewAll,.hide {
+        padding: 0 13px 0 0;
+    }
+    .detailsList .add-map {
+        margin-left: 130px;
+        position: absolute;
+    }
+    input.contactFormField {
+        position: absolute;
+        left: -5000px;
+    }
+    .taskTypeDiv {
+        float: left;
+        width: 100%;
+    }
+    .taskTypeImg {
+        float: left;
+        width: 5%;
+    }
+    .taskTypeTitle {
+        float: left;
+        width: 95%;
+    }
+</style>
+<div id="subnavbar_level2">
+    <ul>
+        <li><a href="index.php?cmd={MODULE_NAME}&amp;act=customers" title="Customer overview">{TXT_CRM_CUSTOMER_OVERVIEW}</a></li>
+        <li><a href="index.php?cmd={MODULE_NAME}&amp;act=customers&tpl=addnote&cust_id={ENTRY_ID}" title="Add Notes">{TXT_CRM_NOTES_ADD}</a></li>
+    </ul>
+</div>
+<div id="loading" style="display:none;" ><img width="20" height="20" src="images/ajaxBusy.gif" />&nbsp;<span>LOADING...</span></div>
+<div style="display: none;overflow:auto;margin-bottom: 5px;" id="okbox"></div>
+<div style="display: none;overflow:auto;margin-bottom: 5px;" id="alertbox"></div>
+<h1 class="containerHeader">{CRM_CONTACT_NAME}</h1>
+<br>
+<div id="taskStatusPanel" style="display: none;position: absolute;">
+    <div class="dropDownContent">
+        <a class="dropDownItem" task_status="0"><span><img src="./images/icons/led_red.gif" alt="status" />&nbsp;{TXT_CRM_TASK_OPEN}</span></a>
+        <a class="dropDownItem" task_status="1"><span><img src="./images/icons/led_green.gif" alt="status" />&nbsp;{TXT_CRM_TASK_COMPLETED}</span></a>
+    </div>
+</div>
+<ul id="tabmenu">
+    <li><a id="contact_profile" class="active" href="javascript:{}" onclick="selectTab('profile')">{TXT_CRM_PROFILE}</a></li>
+    <!-- BEGIN contactSwitchTab -->
+    <li><a id="contact_contacts" href="javascript:{}" onclick="selectTab('contacts')">{TXT_CRM_CONTACTS}</a></li>
+    <!-- END contactSwitchTab -->
+</ul>
+<div id="profile" class="contact">
+    <table id="contact-details" class="adminlist" width="100%" cellpadding="4" cellspacing="0">
+        <tr>
+            <th colspan="4">
+                {TXT_CRM_CUSTOMER_DETAILS}
+            </th>
+        </tr>
+        <tr class="row3">
+            <td><strong>{TXT_CRM_PROFILE_INFO}</strong></td>
+            <td>
+                <div align="right">
+                    <a title="{TXT_CRM_DOWNLOAD_VCARD}" target="_self" href="index.php?cmd={MODULE_NAME}&amp;act=exportvcf&amp;id={ENTRY_ID}"><img border="0" title="{TXT_IMAGE_VCARD}" alt="{TXT_IMAGE_VCARD}" src="images/icons/outlook_visitenkarte.png" /></a>
+                    <a title="{TXT_CRM_IMAGE_EDIT}" target="_self" href="{EDIT_LINK}"><img border="0" title="{TXT_CRM_IMAGE_EDIT}" alt="{TXT_CRM_IMAGE_EDIT}" src="images/icons/edit.gif" /></a>
+                    <a href="javascript:deleteEntry({ENTRY_ID});" target="_self" title="{TXT_CRM_IMAGE_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{TXT_CRM_IMAGE_DELETE}" title="{TXT_CRM_IMAGE_DELETE}" /></a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 150px;text-align:left; padding-left: 0px; padding-top: 10px;">
+                <div id="profile-image"><img src="{CRM_ACCESS_PROFILE_IMG_WEB_PATH}/{CRM_CONTACT_PROFILE_IMAGE}" alt="Profile" /></div>
+                <div ><a class="change-photo" href="javascript:void(0);">{TXT_CRM_CHANGE_PHOTO}</a></div>
+                <div id="contactFormField_uploadWidget_2"></div>
+                <input type="file" class="contactFormField" id="contactFormFieldId_2" name="contactFormFieldId_2" value="" />
+            </td>
+            <td>
+                <table class="adminlist" width="100%" cellpadding="4" cellspacing="0">
+                    <tr>
+                        <!-- BEGIN showGeneralInfo -->
+                        <td width="50%">
+                            <table id="general-info" class="adminlist innerTable" width="100%" cellpadding="3" cellspacing="0">
+                                <tbody>
+                                    <!-- BEGIN contactAddresses -->
+                                    <tr class="row2">
+                                        <td valign="top" class="td-subject"><strong>{TXT_CRM_CONTACT_ADDRESSES}</strong></td>
+                                        <td >
+                                            <div class="primary_profile"><div class="detailsList">{CRM_CONTACT_ADDRESS_PRIMARY}&nbsp;&nbsp;<a style="display: {CRM_ADDRESS_SHOW_ALL}" class="viewAll arrow-down" href="javascript:void(0);"></a></div></div>
+                                            <div class="profile_expanded" style="display:none;">
+                                                <div class="detailsList crmLeft">
+                                                    <!-- BEGIN contact_address_list -->
+                                                    {CRM_CONTACT_ADDRESS}<br/>
+                                                    <!-- END contact_address_list -->
+                                                </div>
+                                                <span class="crmLeft" style="position:relative;left:15px;"><a class="fixed-scroll hide arrow-up">&nbsp;</a></span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- END contactAddresses -->
+                                    <!-- BEGIN contactPhones -->
+                                    <tr class="row2">
+                                        <td valign="top" class="td-subject"><strong>{TXT_CRM_CONTACT_PHONE}</strong></td>
+                                        <td>
+                                            <div class="primary_profile"><div class="detailsList">{CRM_CONTACT_PHONE_PRIMARY}&nbsp;&nbsp;<a style="display: {CRM_PHONE_SHOW_ALL}" class="viewAll arrow-down" href="javascript:void(0);"></a></div></div>
+                                            <div class="profile_expanded" style="display:none;">
+                                                <div class="detailsList crmLeft">
+                                                    <!-- BEGIN contact_phones_list -->
+                                                    {CRM_CONTACT_PHONE}<br/>
+                                                    <!-- END contact_phones_list -->
+                                                </div>
+                                                <span class="crmLeft" style="position:relative;left:0;"><a class="fixed-scroll hide arrow-up">&nbsp;</a></span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- END contactPhones -->
+                                    <!-- BEGIN contactEmails -->
+                                    <tr class="row1">
+                                        <td class="td-subject" valign="top"><strong>{TXT_CRM_CONTACT_EMAIL}</strong></td>
+                                        <td>
+                                            <div class="primary_profile"><div class="detailsList">{CRM_CONTACT_EMAIL_PRIMARY}&nbsp;&nbsp;<a style="display: {CRM_EMAIL_SHOW_ALL}" class="viewAll arrow-down" href="javascript:void(0);"></a></div></div>
+                                            <div class="profile_expanded" style="display:none;">
+                                                <div class="detailsList crmLeft">
+                                                    <!-- BEGIN contact_email_list -->
+                                                    {CRM_CONTACT_EMAIL}<br>
+                                                    <!-- END contact_email_list -->
+                                                </div>
+                                                <span class="crmLeft" style="position:relative;left:0;"><a class="fixed-scroll hide arrow-up">&nbsp;</a></span>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                    <!-- END contactEmails -->
+                                    <!-- BEGIN contactWebsite -->
+                                    <tr class="row2">
+                                        <td valign="top" class="td-subject"><strong>{TXT_CRM_WEBSITE}</strong></td>
+                                        <td>
+                                            <div class="primary_profile"><div class="detailsList">{CRM_WEBSITE_URL_PRIMARY} {CRM_WEBSITE_TYPE_PRIMARY}&nbsp;&nbsp;<a style="display: {CRM_WEBSITE_SHOW_ALL}" class="viewAll arrow-down" href="javascript:void(0);"></a></div></div>
+                                            <div class="profile_expanded" style="display:none;">
+                                                <div class="detailsList crmLeft">
+                                                    <!-- BEGIN contact_website_list -->
+                                                    {CRM_WEBSITE_URL} {CRM_WEBSITE_TYPE}<br />
+                                                    <!-- END contact_website_list -->
+                                                </div>
+                                                <span class="crmLeft" style="position:relative;left:0;"><a class="fixed-scroll hide arrow-up">&nbsp;</a></span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- END contactWebsite -->
+                                    <!-- BEGIN contactSocial -->
+                                    <tr class="row2">
+                                        <td valign="top" class="td-subject"><strong>{TXT_CRM_SOCIAL_NETWORK}</strong></td>
+                                        <td>
+                                            <div class="primary_profile"><div class="detailsList">{CRM_SOCIAL_URL_PRIMARY} {CRM_SOCIAL_TYPE_PRIMARY}&nbsp;&nbsp;<a style="display: {CRM_SOCIAL_SHOW_ALL}" class="viewAll arrow-down" href="javascript:void(0);"></a></div></div>
+                                            <div class="profile_expanded" style="display:none;">
+                                                <div class="detailsList crmLeft">
+                                                    <!-- BEGIN contact_social_list -->
+                                                    {CRM_SOCIAL_URL} {CRM_SOCIAL_TYPE}<br/>
+                                                    <!-- END contact_social_list -->
+                                                </div>
+                                                <span class="crmLeft" style="position:relative;left:0;"><a class="fixed-scroll hide arrow-up">&nbsp;</a></span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- END contactSocial -->
+                                </tbody>
+                            </table>
+                        </td>
+                        <!-- END showGeneralInfo -->
+                        <!-- BEGIN customerGeneral -->
+                        <td width="50%">
+                            <table width="100%" class="innerTable" id="" cellspacing="0" cellpadding="3">
+                                <!-- BEGIN companyCustomerType -->
+                                <tr class="row1">
+                                    <td style="width: 145px;"><strong>{TXT_CRM_CUSTOMERTYPE}</strong></td>
+                                    <td style="width: 350px;">{CRM_CUSTOMER_TYPE}</td>
+                                </tr>
+                                <!-- END companyCustomerType -->
+                                <tr class="row1">
+                                    <td style="width: 145px;"><strong>{TXT_CRM_CUSTOMERID}</strong></td>
+                                    <td style="width: 350px;">{CRM_CUSTOMERID}</td>
+                                </tr>
+                                <tr class="row1">
+                                    <td style="width: 145px;"><strong>{TXT_CRM_CUSTOMER_CURRENCY}</strong></td>
+                                    <td style="width: 350px;">{CRM_CUSTOMER_CURRENCY}</td>
+                                </tr>
+                                <!-- BEGIN companyIndustryType -->
+                                <tr class="row1">
+                                    <td style="width: 145px;"><strong>{TXT_CRM_INDUSTRY_TYPE}</strong></td>
+                                    <td style="width: 350px;">{CRM_INDUSTRY_TYPE}</td>
+                                </tr>
+                                <!-- END companyIndustryType -->
+                                <!-- BEGIN companyMembership -->
+                                <tr class="row1">
+                                    <td style="width: 145px;"><strong>{TXT_CRM_MEMBERSHIP}</strong></td>
+                                    <td style="width: 350px;">{CRM_CUSTOMER_MEMBERSHIP}</td>
+                                </tr>
+                                <!-- END companyMembership -->
+                            </table>
+                        </td>
+                        <!-- END customerGeneral -->
+                        <!-- BEGIN contactGeneral -->
+                        <td width="50%">
+                            <table width="100%" class="innerTable" id="" cellspacing="0" cellpadding="3">
+                                <!-- BEGIN contactRole -->
+                                <tr class="row1">
+                                    <td width="145px;"><strong>{TXT_CRM_CONTACT_ROLE}</strong></td>
+                                    <td width="350px;">{CRM_CONTACT_ROLE}</td>
+                                </tr>
+                                <!-- END contactRole -->
+                                <!-- BEGIN contactCustomer -->
+                                <tr class="row2">
+                                    <td><strong>{TXT_CRM_COMPNAY_NAME}</strong></td>
+                                    <td>
+                                        {CRM_COMPNAY_NAME}
+                                    </td>
+                                </tr>
+                                <!-- END contactCustomer -->
+                                <!-- BEGIN contactCustomerType -->
+                                <tr class="row1">
+                                    <td width="145px;"><strong>{TXT_CRM_CUSTOMERTYPE}</strong></td>
+                                    <td width="350px;">
+                                        {CRM_CUSTOMERTYPE}
+                                    </td>
+                                </tr>
+                                <!-- END contactCustomerType -->
+                                <!-- BEGIN contactCurrency -->
+                                <tr class="row2">
+                                    <td width="145px;"><strong>{TXT_CRM_CUSTOMER_CURRENCY}</strong></td>
+                                    <td width="350px;">{CRM_CUSTOMER_CURRENCY}</td>
+                                </tr>
+                                <!-- END contactCurrency -->
+                                <!-- BEGIN contactMembership -->
+                                <tr class="row1">
+                                    <td width="145px;"><strong>{TXT_CRM_MEMBERSHIP}</strong></td>
+                                    <td width="350px;">{CRM_CUSTOMER_MEMBERSHIP}</td>
+                                </tr>
+                                <!-- END contactMembership -->
+                                <!-- BEGIN contactLang -->
+                                <tr class="row2">
+                                    <td width="145px;"><strong>{TXT_CRM_CONTACT_LANGUAGE}</strong></td>
+                                    <td width="350px;">{CRM_CONTACT_LANGUAGE}</td>
+                                </tr>
+                                <!-- END contactLang -->
+                            </table>
+                        </td>
+                        <!-- END contactGeneral -->
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+<br>
+<!-- BEGIN displayContacts -->
+<div id="contacts" class="contact" style="display: none;">
+    <table id="contacts-list" width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist" >
+        <thead>
+            <tr>
+                <th colspan="7">
+                    {TXT_CRM_CUSTOMER_CONTACT}
+                </th>
+            </tr>
+            <tr class="row3">
+                <td width="6%"><strong>{TXT_CRM_CONTACT_STATUS}</strong></td>
+                <td width="35%">
+                    <strong>{TXT_CRM_CONTACT_NAME}</strong>
+                </td>
+                <td width="15%">
+                    <strong>{TXT_CRM_CUSTOMERTYPE}</strong>
+                </td>
+                <td width="15%">
+                    <strong>{TXT_CRM_CONTACT_EMAIL}</strong>
+                </td>
+                <td width="15%">
+                    <strong>{TXT_CRM_TITLE_TELEPHONE}</strong>
+                </td>
+                <td width="10%">
+                    <strong>{TXT_CUSTOMER_ADDEDDATE}</strong>
+                </td>
+                <td style="text-align:right;" width="3%"><strong>Functions</strong></td>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- BEGIN customerContacts -->
+            <tr class="{ROW_CLASS}" style="height: 42px;">
+                <td align='center'>&nbsp;&nbsp;&nbsp;<img border="0" title="{TXT_IMAGE_TITLE}" alt="" src="{CRM_CONTACT_STATUS}" /></td>
+                <td>
+                    <div style="float: left;width: 40px;"><img alt="empty_company" width="40px" height="40px" src="{CRM_ACCESS_PROFILE_IMG_WEB_PATH}/{CRM_CONTACTS_PROFILE_IMAGE}" /></div>
+                    <table class="innerTable">
+                        <tr><td><strong>{CRM_CONTACT_NAME}</strong></td></tr>
+                        <tr><td>{CRM_CONTACT_CUSTOMER}</td></tr>
+                    </table>
+                </td>
+                <td valign="top" style="padding-top: 5px;">
+                    {CRM_CONTACT_TYPE}
+                </td>
+                <td valign="top" style="padding-top: 5px;">
+                    <a href ="mailto:{CRM_CONTACT_EMAIL}">{CRM_CONTACT_EMAIL} </a>
+                </td>
+                <td valign="top" style="padding-top: 5px;">
+                    {CRM_CONTACT_PHONE}
+                </td>
+                <td>{CRM_CONTACT_ADDED}</td>
+                <td nowrap="nowrap">
+                    <div align="right">
+                        <a title="{TXT_CRM_DOWNLOAD_VCARD}" target="_self" href="index.php?cmd={MODULE_NAME}&amp;act=exportvcf&amp;id={CRM_CONTACT_ID}"><img border="0" title="{TXT_IMAGE_VCARD}" alt="{TXT_IMAGE_VCARD}" src="images/icons/outlook_visitenkarte.png" /></a>
+                        <a title="{TXT_CRM_IMAGE_EDIT}" href="index.php?cmd={MODULE_NAME}&act=customers&tpl=managecontact&type=contact&id={CRM_CONTACT_ID}{CONTACT_REDIRECT_LINK}"><img border="0" title="{TXT_CRM_IMAGE_EDIT}" alt="{TXT_CRM_IMAGE_EDIT}" src="images/icons/edit.gif" /></a>
+                        <a href="javascript:void(0)" rel="contact_{CRM_CONTACT_ID}" class="contactDelete" target="_self" title="{TXT_CRM_IMAGE_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{TXT_CRM_IMAGE_DELETE}" title="{TXT_CRM_IMAGE_DELETE}" /></a>
+                    </div>
+                </td>
+            </tr>
+            <!-- END customerContacts -->
+        </tbody>
+    </table>
+    <br />
+    <a title="{TXT_CRM_ADD_CONTACT}" href="index.php?cmd={MODULE_NAME}&act=customers&tpl=managecontact&type=contact&custId={ENTRY_ID}{CRM_ADD_CONTACT_REDIRECT}"><input type="button" name="add" value="{TXT_CRM_ADD_CONTACT}" /></a>
+    <br />
+</div>
+<br>
+<br>
+<!-- END displayContacts -->
+<!-- show_sub_tabs -->
+<div id="tabs">
+    <ul id="tabmenu" class="crm_details_tabs">
+        <li>
+            <a href="#notes" rel="notes_notesdetail_{ENTRY_ID}" title="{TXT_CRM_HISTROY}">{TXT_CRM_HISTROY}</a>
+        </li>
+        <li>
+            <a href="#tasks" rel="tasks_getcontacttasks_{ENTRY_ID}" title="{TXT_CRM_TASKS}">{TXT_CRM_TASKS}</a>
+        </li>
+        <!-- BEGIN contactsProjectsTab -->
+        <li>
+            <a href="#projects" rel="projects_getcontactprojects_{ENTRY_ID}" title="{TXT_CRM_PROJECTS}">{TXT_CRM_PROJECTS}</a>
+        </li>
+        <!-- END contactsProjectsTab -->
+        <li>
+            <a href="#deals" rel="deals_getcontactdeals_{ENTRY_ID}" title="{TXT_CRM_DEALS}">{TXT_CRM_DEALS}</a>
+        </li>
+        <li>
+            <a href="#documents" rel="documents_getcontactdocuments_{ENTRY_ID}" title="{TXT_CRM_DOCUMENTS}">{TXT_CRM_DOCUMENTS}</a>
+        </li>
+    </ul>
+    <div id="notes">
+        <table id="notesTab" cellspacing="0" cellpadding="3" border="0" width="100%" class="adminlist">
+            <thead>
+                <tr>
+                    <th colspan="9">{TXT_CRM_SHOW_COMMENT_HISTORY}</th>
+                </tr>
+                <tr class="row3" style="height:22px;">
+                    <td width="1%">{TXT_CRM_COMMENT_TITLE}</td>
+                    <td width="25%">{TXT_CRM_NOTES_TYPE}</td>
+                    <td width="15%">{TXT_CRM_ADDED_BY}</td>
+                    <td width="15%">{TXT_CRM_LAST_UPDATED_BY}</td>
+                    <td width="15%">{TXT_CRM_DUE_DATE}</td>
+                    <td width="10%" style="text-align: right;">{TXT_CRM_TASK_FUNCTIONS}</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="row1" id="favloader_notes" style="display:none;">
+                    <td colspan="9"><img src="../lib/javascript/jquery/jstree/themes/default/throbber.gif" />{TXT_CRM_LOADING}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <input onclick="window.location='./index.php?cmd={MODULE_NAME}&act=customers&tpl=addnote&cust_id={ENTRY_ID}&csrf='+cx.variables.get('csrf', 'contrexx')" type="button" name="{TXT_CRM_ADD_NOTE}" value="{TXT_CRM_ADD_NOTE}" />
+    </div>
+    <div id="tasks" style="display: none;">
+        <table id="task_overview" class="adminlist" width="100%" cellspacing="0" cellpadding="3">
+            <thead>
+                <tr><th colspan="8">{TXT_CRM_TASK}</th></tr>
+                <tr class="row3">
+                    <td width="6%" style="text-align: center;"><strong>{TXT_CRM_TASK_STATUS}</strong></td>
+                    <td width="50%">
+                        <strong>{TXT_CRM_TASK_TITLE}</strong>
+                    </td>
+                    <td width="22%"><strong>{TXT_CRM_CUSTOMER_NAME}</strong></td>
+                    <td width="14%"><strong>{TXT_CRM_TASK_RESPONSIBLE}</strong></td>
+                    <td width="8%" style="text-align:right;padding: 4px"><strong>{TXT_CRM_FUNCTIONS}</strong></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="row1" id="favloader_tasks" style="display:none;">
+                    <td colspan="9"><img src="../lib/javascript/jquery/jstree/themes/default/throbber.gif" />{TXT_CRM_LOADING}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <input type="button" name="{TXT_CRM_ADD_TASK}" value="{TXT_CRM_ADD_TASK}" onclick="window.location='./index.php?cmd=crm&act=task&tpl=modify&customerId={ENTRY_ID}{CRM_REDIRECT_LINK}&csrf='+cx.variables.get('csrf', 'contrexx')" />
+
+    </div>
+    <!-- BEGIN contactsProjectsTabDetails -->
+    <div id="projects" style="display: none;">
+        <table id="projectsTab" cellspacing="0" cellpadding="3" border="0" width="100%" class="adminlist sortedTable">
+            <thead>
+                <tr>
+                    <th colspan="9">{TXT_CRM_PROJECTS}</th>
+                </tr>
+                <tr class="row3">
+                    <td width="2%" style="font-weight:bold;">{TXT_CRM_ACTIVE}</td>
+                    <td width="7%" class="nowrap" style="font-weight:bold;text-align:right;">{TXT_CRM_PROJECT_ID}</td>
+                    <td width="26%" class="nowrap" style="font-weight:bold;">{TXT_CRM_PROJECT_NAME}</td>
+                    <td width="11%" class="nowrap" style="font-weight:bold;text-align:right;">{TXT_CRM_PROJECT_QUOTED_PRICE}</td>
+                    <td width="20%" class="nowrap" style="padding-left: 15px;font-weight:bold;">{TXT_CRM_CUSTOMER_NAME}</td>
+                    <td width="10%" class="nowrap" style="font-weight:bold;">{TXT_CRM_PROJECT_STATUS}</td>
+                    <td width="10%" class="nowrap" style="font-weight:bold;">{TXT_CRM_PROJECT_RESPONSIBLE}</td>
+                    <td width="8%" class="nowrap" style="font-weight:bold;">{TXT_CRM_PROJECT_TARGET_DATE}</td>
+                    <td width="8%" style="text-align: right;font-weight:bold;padding-right: 2px;">{TXT_CRM_TITLE_FUNCTIONS}</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="row1" id="favloader_projects" style="display:none;">
+                    <td colspan="9"><img src="../lib/javascript/jquery/jstree/themes/default/throbber.gif" />{TXT_CRM_LOADING}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <a href="./index.php?cmd=pm&act=projects&tpl=addnewproject&{CSRF_PARAM}&customer={ENTRY_ID}{CRM_REDIRECT_LINK_PROJECT}" title="{TXT_CRM_ADD_PROJECT}"><input type="button" name="{TXT_CRM_ADD_PROJECT}" value="{TXT_CRM_ADD_PROJECT}" /></a>
+
+    </div>
+    <!-- END contactsProjectsTabDetails -->
+    <div id="deals" style="display: none;">
+        <table id="dealsTab" cellspacing="0" cellpadding="3" border="0" width="100%" class="adminlist sortedTable">
+            <thead>
+                <tr>
+                    <th colspan="9">{TXT_CRM_DEALS_OVERVIEW} {TXT_CRM_OF_CONTACTS}</th>
+                </tr>
+                <tr class="row3">
+                    <td width="25%" style="white-space: nowrap">{TXT_CRM_DEALS_TITLE}</td>
+                    <td width="20%">{TXT_CRM_DEALS_CUSTOMER_NAME}</td>
+                    <td width="20%">{TXT_CRM_DEALS_RESPONSIBLE}</td>
+                    <td width="10%">{TXT_CRM_DEALS_DUE_DATE}</td>
+                    <td width="10%" style="text-align: right;">{TXT_CRM_FUNCTIONS}</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="row1" id="favloader_deals" style="display:none;">
+                    <td colspan="9"><img src="../lib/javascript/jquery/jstree/themes/default/throbber.gif" />{TXT_CRM_LOADING}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <input type="button" name="{TXT_CRM_ADD_OPPURTUNITY}" value="{TXT_CRM_ADD_OPPURTUNITY}" onclick="window.location='./index.php?cmd=crm&act=deals&tpl=manage&{CSRF_PARAM}&customer={ENTRY_ID}{CRM_REDIRECT_LINK}&csrf='+cx.variables.get('csrf', 'contrexx')" />
+
+    </div>
+    <div id="documents" style="display: none;">
+        <table id="doc_overview" class="adminlist" width="100%" cellspacing="0" cellpadding="3">
+            <thead>
+                <tr><th colspan="8">{TXT_CRM_DOCUMENTS}</th></tr>
+                <tr class="row3">
+                    <td width="50%">
+                        <strong>{TXT_CRM_DOCUMENT_NAME}</strong>
+                    </td>
+                    <td width="25%"><strong>{TXT_CRM_ADDED_BY}</strong></td>
+                    <td width="17%"><strong>{TXT_CRM_ADDED_DATE}</strong></td>
+                    <td width="8%" style="text-align:right;padding: 4px"><strong>{TXT_CRM_FUNCTIONS}</strong></td>
+                </tr>
+                <tr class="row1" id="favloader_documents" style="display:none;">
+                    <td colspan="9"><img src="../lib/javascript/jquery/jstree/themes/default/throbber.gif" />{TXT_CRM_LOADING}</td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <br>
+        <input type="button" class="add-document" value="{TXT_CRM_ADD_DOCUMENTS}" />
+        <div id="contactFormField_uploadWidget_3"></div>
+        <input type="file" class="contactFormField" id="contactFormFieldId_3" name="contactFormFieldId_3" value="" />
+    </div>
+</div>
+<!-- show_sub_tabs -->
+
+<!-- Start Profile Photo Upload -->
+{COMBO_UPLOADER_CODE2}
+<script type="text/javascript">
+	cx.ready(function() {
+		var uploader = cx.instances.get('exposed_combo_uploader_2','uploader');
+		uploader.dialog().bind('close', function(){
+                    $J.getJSON( '{REDIRECT_URL}', function( data ) {
+                        $J.each(data, function(key, val) {
+                            var file = val.fileName;
+                            if ($J.trim(file) != '') {
+                                $J('#profile-image').html('<img src="{CRM_ACCESS_PROFILE_IMG_WEB_PATH}/'+file+'.thumb" alt="image" />');
+                            }
+                        });
+                    });
+		});
+	},true);
+</script>
+<!-- End Profile Photo Upload -->
+<!-- Start Document Upload -->
+{COMBO_UPLOADER_CODE3}
+<script type="text/javascript">
+	cx.ready(function() {
+		var uploader = cx.instances.get('exposed_combo_uploader_3','uploader');
+		uploader.dialog().bind('close',function(){
+                            $J("#documents table tbody").html('');
+                            tabIndex = $J( "#tabs" ).tabs('option', 'selected');
+                            $J("#tabs").tabs('load', tabIndex);
+                            tabLinks['documents'].page = 0;
+                            tabLinks['documents'].new_req = true;
+                            $J('.crm_details_tabs').scroll();
+		});
+	},true);
+</script>
+<!-- End Document Upload -->

@@ -1,0 +1,135 @@
+<!-- START module_crm_settings.html -->
+<style type="text/css">
+    .lang-td {float: left;width: 100px;}
+    .warningMsg {
+        background: #FEF0D0;
+        color: #DA7A0A;
+        padding: 8px !important;
+        overflow: auto;
+        border-bottom: 0px !important;
+    }
+</style>
+<script type="text/javascript">
+    $J(function(){
+        $J("#create_user_account").click(function(){
+            if ($J(this).is(":checked")) {
+                $J("tr.user_account").show();
+            } else {
+                $J("tr.user_account").hide();
+            }
+        });
+        if ($J("#create_user_account").is(":checked")) {
+            $J("tr.user_account").show();
+        } else {
+            $J("tr.user_account").hide();
+        }
+    });
+</script>
+<br />
+<div id="crm">
+    <form action="" method="post">
+        <table cellspacing="0" class="adminlist" cellpadding="5" width="100%" border="0">
+            <!-- BEGIN allowPmModule -->
+            <tr>
+                <th colspan="2">{TXT_CRM_GENERAL}</th>
+            </tr>
+            <tr>
+                <td width="20%">
+                    {TXT_CRM_ALLOW_PM}&nbsp;
+                    <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_CRM_ALLOW_PM_EXPLANATION}</span>
+                </td>
+                <td><input type="checkbox" name="allowPm" value="1" {CRM_ALLOW_PM} /> </td>
+            </tr>
+            <tr><td colspan="2">&nbsp;</td></tr>
+            <!-- END allowPmModule -->
+            <tr>
+                <th colspan="2">{TXT_CRM_CUSTOMERS}</th>
+            </tr>
+            <tr>
+                <td valign="top" width="20%">{TXT_CRM_DEFAULT_COUNTRY}</td>
+                <td>
+                    <select name="default_country_value" id="default_country_value" style="width: 250px;">
+                        <option value="">{TXT_CRM_SELECT_COUNTRY}</option>
+                        <!-- BEGIN default_country -->
+                        <option value="{CRM_DEFAULT_COUNTRY_ID}" {CRM_DEFAULT_COUNTRY_SELECTED}>{CRM_DEFAULT_COUNTRY_NAME}</option>
+                        <!-- END default_country -->
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td valign="top" width="20%">
+                    {TXT_CRM_CREATE_ACCOUNT_USER}&nbsp;
+                    <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_CRM_CREATE_ACCOUNT_USER_TIP}</span>
+                </td>
+                <td><input type="checkbox" id="create_user_account" name="create_user_account" value="1" {CRM_CREATE_ACCOUNT_USER} /></td>
+            </tr>
+            <tr class="row1 user_account">
+                <td valign="top" >{TXT_CRM_ACCOUNT_ARE_MANTATORY}</td>
+                <td><input type="checkbox" id="user_account_mantatory" name="user_account_mantatory" value="1" {CRM_ACCOUNT_MANTATORY} /></td>
+            </tr>
+            <tr class="row1 user_account">
+                <td valign="top" >{TXT_CRM_DEFAULT_USER_GROUP}</td>
+                <td>
+                    <select name="default_user_group" style="width: 250px;">
+                        <!-- BEGIN userGroup -->
+                        <option value="{CRM_GROUP_VALUE}" {CRM_USER_GROUP_SELECTED}>{CRM_GROUP_NAME}</option>
+                        <!-- END userGroup -->
+                    </select>
+
+                </td>
+            </tr>
+            <tr class="row2 user_account">
+                <td valign="top" width="20%">{TXT_CRM_DEFAULT_LANGUAGE}</td>
+                <td>
+                    <div>
+                        <span class="lang-td">{TXT_CRM_BACKEND}:</span>
+                        <span class="lang-td">
+                            <select name="default_language_backend" style="width: 150px;">
+                                <!-- BEGIN langBackend -->
+                                <option value="{CRM_LANG_VALUE}" {CRM_LANG_SELECTED}>{CRM_LANG_NAME}</option>
+                                <!-- END langBackend -->
+                            </select>
+                        </span>
+                    </div><br><br>
+
+                    <div style="clear: left;">
+                        <span class="lang-td">{TXT_CRM_FRONTEND}:</span>
+                        <span class="lang-td">
+                            <select name="default_language_frontend" style="width: 150px;">
+                                <!-- BEGIN langFrontend -->
+                                <option value="{CRM_LANG_VALUE}" {CRM_LANG_SELECTED}>{CRM_LANG_NAME}</option>
+                                <!-- END langFrontend -->
+                            </select>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">{TXT_CRM_EMPLOYEE}</th>
+            </tr>
+            <!-- BEGIN insufficient-warning -->
+            <tr>
+                <td colspan="2" class="warningMsg">{CRM_INSUFFICIENT_WARNING}</td>
+            </tr>
+            <!-- END insufficient-warning -->
+            <tr class="row1">
+                <td valign="top" >
+                    {TXT_CRM_EMP_DEFAULT_USER_GROUP}&nbsp;
+                    <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_CRM_SETTINGS_EMP_TOOLTIP}</span>
+                </td>
+                <td>
+                    <select name="emp_default_user_group" style="width: 250px;">
+                        <!-- BEGIN empUserGroup -->
+                        <option value="{CRM_GROUP_VALUE}" {CRM_USER_GROUP_SELECTED}>{CRM_GROUP_NAME}</option>
+                        <!-- END empUserGroup -->
+                    </select>
+
+                </td>
+            </tr>
+        </table>
+        <br />
+        <input type="submit" value="{TXT_CRM_SAVE}" name="save" />
+
+    </form>
+</div>
+<!-- END module_crm_settings.html -->

@@ -1,0 +1,11 @@
+[CUSTOMER_SALUTATION]
+
+Ihre Bestellung wurde ausgeführt. Sie werden in den nächsten Tagen ihre Lieferung erhalten.
+
+Herzlichen Dank für das Vertrauen.
+Wir würden uns freuen, wenn Sie uns weiterempfehlen und wünschen Ihnen noch einen schönen Tag.
+
+Mit freundlichen Grüssen
+Ihr [SHOP_COMPANY] Online Shop Team
+
+[SHOP_HOMEPAGE]

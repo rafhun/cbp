@@ -1,0 +1,32 @@
+<!-- START module_memberdir_show.html -->
+<table class="adminlist" cellspacing="0" cellpadding="3" width="100%" border="0" style="empty-cells: show;">
+  <tr>
+    <th colspan="2">
+      <div align="left">{TXT_SHOW_MEMBER}</div>
+    </th>
+  </tr>
+  <!-- BEGIN imagerow -->
+  <tr class="{MEMBERDIR_ROW}">
+    <td colspan="2">
+        <img src="{MEMBERDIR_SRC}" style="width: {MEMBERDIR_WIDTH}px; height: {MEMBERDIR_HEIGHT}px;" /><br />
+        <div style="margin-top: 8px;">
+        <a href="index.php?cmd=memberdir&amp;act=deletePic&amp;id={MEMBERDIR_ID}&amp;pic={MEMBERDIR_PIC_NUMBER}" >
+        <img src="images/icons/delete.gif" style="border: none; vertical-align: text-bottom;" /> {TXT_DELETE}</a>
+        </div><br />
+    </td>
+  </tr>
+  <!-- END imagerow -->
+  <tr class="MEMBERDIR_ROW">
+  	<td><strong>{TXT_DIRECTORY}:</strong></td>
+  	<td>{MEMBERDIR_DIRECTORY}</td>
+  </tr>
+  <!-- BEGIN row -->
+  <tr class="{MEMBERDIR_ROW}">
+  	<td width="150" style="vertical-align: top;"><strong>{MEMBERDIR_NAME}:</strong></td>
+  	<td style="vertical-align: top;">{MEMBERDIR_VALUE}</td>
+  </tr>
+  <!-- END row -->
+</table>
+<br /><br />
+<input type="button" onclick="javascript:location.href = '?cmd=memberdir&{CSRF_PARAM}&act=editMember&id={MEMBERDIR_ID}'" value="{TXT_EDIT}" />
+<!-- END module_memberdir_show.html -->

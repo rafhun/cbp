@@ -1,0 +1,53 @@
+<!-- BEGIN skipAjaxBlock -->
+<table id="task_overview" class="adminlist" width="100%" cellspacing="0" cellpadding="3">
+    <thead>
+        <tr><th colspan="8">{TXT_CRM_TASK}</th></tr>
+        <tr class="row3">
+            <td width="6%" style="text-align: center;"><strong>{TXT_CRM_TASK_STATUS}</strong></td>
+            <td width="50%">
+                <strong>{TXT_CRM_TASK_TITLE}</strong>
+            </td>
+            <td width="22%"><strong>{TXT_CRM_CUSTOMER_NAME}</strong></td>
+            <td width="14%"><strong>{TXT_CRM_TASK_RESPONSIBLE}</strong></td>
+            <td width="8%" style="text-align:right;padding: 4px"><strong>{TXT_CRM_FUNCTIONS}</strong></td>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- END skipAjaxBlock -->
+        <!-- BEGIN noRecords -->
+        <tr class="row1"><td colspan="10" style="font-style:italic;">{TXT_NO_RECORDS_FOUND}</td></tr>
+        <!-- END noRecords -->
+        <!-- BEGIN showTask -->
+        <tr class="{CRM_TASK_EXPIRED_CLASS} {TXT_ROW}" style="height:26px;">
+            <td style="text-align: center;">
+                <span style="cursor: pointer;" rel="task_{CRM_TASK_ID}" task_status="{TXT_STATUS}" onclick="showTaskStatusPanel(this);"><img src="./images/icons/{CRM_TASK_TYPE_ACTIVE}" alt="status" /></span>
+            </td>
+            <td>
+                    <div class="taskTypeDiv">
+                        <div class="taskTypeImg"><img src="{CRM_TASKICON}"/></div>
+                        <div class="taskTypeTitle">
+                            <div>{CRM_TASKTITLE}</div>
+                            <div>{CRM_DUEDATE}</div>
+                        </div>
+                    </div>
+            </td>
+            <td>
+                <a href="./index.php?cmd={MODULE_NAME}&amp;act=customers&amp;tpl=showcustdetail&id={CRM_TASK_CUSTOMER_ID}" title="{CRM_CUSTOMERNAME}">{CRM_CUSTOMERNAME}</a>
+            </td>
+            <td>{CRM_ADDEDBY}</td>
+            <td style="padding:4px;text-align: right;">
+                <!-- BEGIN task_edit_block -->
+                <a href="index.php?cmd={MODULE_NAME}&amp;act=task&amp;tpl=modify&{CSRF_PARAM}&amp;id={CRM_TASK_ID}{CRM_REDIRECT_LINK}" target="_self" title="{TXT_CRM_IMAGE_EDIT}"><img src="images/icons/edit.gif" border="0" alt="{TXT_CRM_IMAGE_EDIT}" title="{TXT_CRM_IMAGE_EDIT}" /></a>
+                <!-- END task_edit_block -->
+                <!-- BEGIN task_delete_block -->
+                <a onclick="return confirmTaskDelete();" href="./index.php?cmd={MODULE_NAME}&act=task&tpl=deleteTask&{CSRF_PARAM}&id={CRM_TASK_ID}{CRM_REDIRECT_LINK}" target="_self" title="{TXT_CRM_IMAGE_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{TXT_CRM_IMAGE_DELETE}" title="{TXT_CRM_IMAGE_DELETE}" /></a>
+                <!-- END task_delete_block -->
+            </td>
+        </tr>
+        <!-- END showTask -->
+        <!-- BEGIN skipAjaxBlock1 -->
+    </tbody>
+</table>
+<br>
+<input type="button" name="{TXT_CRM_ADD_TASK}" value="{TXT_CRM_ADD_TASK}" onclick="window.location='./index.php?cmd=crm&act=task&tpl=modify&customerId={CRM_CUSTOMER_ID}{CRM_REDIRECT_LINK}&csrf='+cx.variables.get('csrf', 'contrexx')" />
+<!-- END skipAjaxBlock1 -->

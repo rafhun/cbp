@@ -1,0 +1,122 @@
+<!-- START module_mediadir_interfaces_export.html -->
+<script type="text/javascript">
+function moveElement(from, dest, add, remove) { 
+    if (from.selectedIndex < 0) {
+        if (from.options[0] != null) from.options[0].selected = true;
+            from.focus();
+            return false;
+        } else {
+            for (i = 0; i < from.length; ++i) {
+                if (from.options[i].selected) {
+                    dest.options[dest.options.length] = new Option(from.options[i].text, from.options[i].value, false, false);
+                }
+            }
+            for (i = from.options.length-1; i >= 0; --i) {
+                if (from.options[i].selected) {
+                from.options[i] = null;
+            }
+        }
+    }    
+}       
+
+function selectAll(control){
+    for (i = 0; i < control.length; ++i) {
+        control.options[i].selected = true;
+    }
+}
+
+function deselectAll(control){
+    for (i = 0; i < control.length; ++i) {
+        control.options[i].selected = false;
+    }
+}
+</script> 
+
+
+<form name="interfacesExportForm" action="index.php?cmd={MODULE_NAME}&act=interfaces&tpl=export&amp;step=exportCSV" onsubmit="{MEDIADIR_FORM_ONSUBMIT}" method="post" >
+<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+    <tr>
+        <th colspan="2">{TXT_MEDIADIR_EXPORT}</th>
+    </tr>
+    <tr class="row1"> 
+        <td width="200">
+            {TXT_MEDIADIR_EXPORT_FORMAT}          
+        </td>                                        
+        <td>
+            <select name="step" style="width: 302px">
+                <option value="exportCSV">CSV (Comma Separated Values)</option>
+            </select>                                                                                 
+        </td>  
+    </tr>    
+    <tr class="row2"> 
+        <td width="200">
+            {TXT_MEDIADIR_FORM_TEMPLATE}           
+        </td>                                        
+        <td>
+            <select name="interfacesExportForm" style="width: 302px">
+                {MEDIADIR_INTERFACES_EXPORT_FORMS}
+            </select>                                                                                 
+        </td>  
+    </tr>                                                                                    
+    <tr class="row1"> 
+        <td width="200">
+            {TXT_MEDIADIR_EXPORT_MASK}             
+        </td>                                        
+        <td>
+            <select name="interfacesExportMask" style="width: 302px">
+                {MEDIADIR_INTERFACES_EXPORT_MASKS}    
+            </select>                                                                                 
+        </td>  
+    </tr>                                                                               
+    <tr class="row2"> 
+        <td width="200" valign="top">
+            {TXT_MEDIADIR_CATEGORIES}            
+        </td>                                        
+        <td>
+            <div class="mediadirSelector" style="float: left; height: auto !important;">
+                <div class="mediadirSelectorLeft" style="float: left; height: auto !important;">
+                    <select id="deselectedCategories" name="interfacesExportDeselectedCategories[]" size="12" multiple="multiple" style="width: 180px;">
+                        {MEDIADIR_INTERFACES_EXPORT_DESELECTED_CATEGORIES}
+                    </select>
+                </div>
+                <div class="mediadirSelectorCenter" style="float: left; height: 100px; padding: 60px 10px 0px 10px;">
+                    <input style="width: 40px; min-width: 40px;" value=" &gt;&gt; " name="addElement" onclick="moveElement(document.interfacesExportForm.elements['deselectedCategories'],document.interfacesExportForm.elements['selectedCategories'],addElement,removeElement);" type="button"><br />
+                    <input style="width: 40px; min-width: 40px;" value=" &lt;&lt; " name="removeElement" onclick="moveElement(document.interfacesExportForm.elements['selectedCategories'],document.interfacesExportForm.elements['deselectedCategories'],removeElement,addElement);" type="button">
+                </div>
+                <div class="mediadirSelectorRight" style="float: left; height: auto !important;">
+                    <select id="selectedCategories" name="interfacesExportSelectedCategories[]" size="12" multiple="multiple" style="width: 180px;">
+                    </select>
+                </div>
+            </div>                                                                              
+        </td>  
+    </tr>                               
+    <!-- BEGIN mediadirInterfacesExportSelectLevels -->                                                                                   
+    <tr class="row1"> 
+        <td width="200" valign="top">
+            {TXT_MEDIADIR_LEVELS}              
+        </td>                                        
+        <td>
+            <div class="mediadirSelector" style="float: left; height: auto !important;">
+                <div class="mediadirSelectorLeft" style="float: left; height: auto !important;">
+                    <select id="deselectedLevels" name="interfacesExportDeselectedLevels[]" size="12" multiple="multiple" style="width: 180px;">
+                        {MEDIADIR_INTERFACES_EXPORT_DESELECTED_LEVELS}
+                    </select>
+                </div>
+                <div class="mediadirSelectorCenter" style="float: left; height: 100px; padding: 60px 10px 0px 10px;">
+                    <input style="width: 40px; min-width: 40px;" value=" &gt;&gt; " name="addElement" onclick="moveElement(document.interfacesExportForm.elements['deselectedLevels'],document.interfacesExportForm.elements['selectedLevels'],addElement,removeElement);" type="button"><br />
+                    <input style="width: 40px; min-width: 40px;" value=" &lt;&lt; " name="removeElement" onclick="moveElement(document.interfacesExportForm.elements['selectedLevels'],document.interfacesExportForm.elements['deselectedLevels'],removeElement,addElement);" type="button">
+                </div>
+                <div class="mediadirSelectorRight" style="float: left; height: auto !important;">
+                    <select id="selectedLevels" name="interfacesExportSelectedLevels[]" size="12" multiple="multiple" style="width: 180px;">
+                    </select>
+                </div>
+            </div>                                                                              
+        </td>  
+    </tr>                        
+    <!-- END mediadirInterfacesExportSelectLevels -->  
+</table>        
+
+<br />             
+<input type="submit" name="submitInterfacesForm" value="{TXT_MEDIADIR_DO_EXPORT}" />
+</form>
+<!-- END module_mediadir_interfaces_export.html -->

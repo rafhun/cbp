@@ -1,0 +1,54 @@
+<!-- START admin_account.html -->
+<script type="text/javascript">
+<!--
+function checkAccount() {
+    msg = "";
+    if (document.getElementById('email').value.length == 0) {
+        msg += '{TXT_SET_EMAIL}\n';
+    } else if (document.getElementById('email').value != document.getElementById('reEmail').value) {
+        msg += '{TXT_EMAIL_NOT_VERIFIED}\n';
+    }
+    if (document.getElementById('password').value.length == 0) {
+        msg += '{TXT_SET_PASSWORD}\n';
+    } else if (document.getElementById('email').value == document.getElementById('password')) {
+        msg += '{TXT_PASSWORD_LIKE_USERNAME}';
+    } else if (document.getElementById('password').value.length < 6) {
+        msg += '{TXT_PASSWORD_LENGTH}\n';
+    } else if (document.getElementById('password').value != document.getElementById('rePassword').value) {
+        msg += '{TXT_PASSWORD_NOT_VERIFIED}\n';
+    }
+
+    if (msg.length == 0) {
+        return true;
+    } else {
+        alert(msg);
+        return false;
+    }
+}
+// -->
+</script>
+
+<input type="hidden" name="adminAccount" />
+<table class="adminlist" width="100%">
+    <!-- BEGIN errorMsg --><tr><td colspan="2"><div class="message-alert">{ERROR_MSG}</div></td></tr><!-- END errorMsg -->
+    <tr class="row1">
+        <th colspan="2">{TXT_ADMIN_ACCOUNT_DESC}</th>
+    </tr>
+    <tr class="row1">
+        <td>{TXT_EMAIL}</td>
+        <td><input tabindex="1" type="text" id="email" name="email" value="{EMAIL}" /></td>
+    </tr>
+    <tr class="row2">
+        <td>{TXT_EMAIL_VERIFICATION}</td>
+        <td><input tabindex="2" type="text" id="reEmail" name="reEmail" value="{REEMAIL}" /></td>
+    </tr>
+    <tr class="row1">
+        <td>{TXT_PASSWORD}&nbsp;{TXT_PASSWORD_LENGTH_DESC}</td>
+        <td><input tabindex="3" type="password" id="password" name="password" value="{PASSWORD}" /></td>
+    </tr>
+    <tr class="row2">
+        <td>{TXT_PASSWORD_VERIFICATION}</td>
+        <td><input tabindex="4" type="password" id="rePassword" name="rePassword" value="{REPASSWORD}" /></td>
+    </tr>
+</table>
+<!-- END admin_account.html -->

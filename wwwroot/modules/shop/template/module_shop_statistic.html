@@ -1,0 +1,75 @@
+<!-- start module_shop_statistic.html -->
+<table class="adminlist" cellspacing="0" cellpadding="2" width="100%" border="0">
+  <tr>
+    <th colspan="4">{TXT_SHOP_STATISTIC_OVERVIEW}</th>
+  </tr><!-- BEGIN no_order -->
+  <tr class="row3">
+    <td colspan="4" class="f_bold">{TXT_SHOP_STATISTIC_NO_ORDER}</td>
+  </tr><!-- END no_order --><!-- BEGIN statistic -->
+  <tr>
+    <td>{TXT_TOTAL_TURNOVER}:&nbsp;{SHOP_TOTAL_SUM}</td>
+    <td>{TXT_BEST_MONTH}:&nbsp;{SHOP_MONTH}&nbsp;{TXT_TURNOVER}:&nbsp;{SHOP_MONTH_SUM}</td>
+    <td>{TXT_TOTAL_ORDERS}:&nbsp;{SHOP_TOTAL_ORDERS}</td>
+    <td>{TXT_TOTAL_SOLD_ARITCLES}:&nbsp;{SHOP_SOLD_ARTICLES}</td>
+  </tr>
+</table>
+<br />
+<form name="frmShopStatistic" method="post" action="index.php?cmd=shop{MODULE_INDEX}&amp;act=statistics">
+  <table width="100%" border="0" cellpadding="3" cellspacing="0" class="adminlist">
+    <tr>
+      <th width="20%">{TXT_SELECT_STATISTIC}</th>
+      <th width="80%">{TXT_PERIOD}</th>
+    </tr>
+    <tr>
+      <td width="20%">
+        <select name="selectstats" size="1">
+          <option value="1" {SHOP_ORDERS_SELECTED}>{TXT_ORDERS}</option>
+          <option value="2" {SHOP_ARTICLES_SELECTED}>{TXT_COUNT_ARTICLES}</option>
+          <option value="3" {SHOP_CUSTOMERS_SELECTED}>{TXT_CUSTOMERS_PARTNERS}</option>
+        </select>
+      </td>
+      <td width="80%">
+        {TXT_FROM}
+        <select name="startmonth">
+          {SHOP_START_MONTH}
+        </select>
+        <select name="startyear">
+          {SHOP_START_YEAR}
+        </select>
+        {TXT_TO}
+        <select name="stopmonth">
+          {SHOP_END_MONTH}
+        </select>
+        <select name="stopyear">
+          {SHOP_END_YEAR}
+        </select>
+        <input type="submit" name="submitdate" value="{TXT_PERFORM}" />
+      </td>
+    </tr>
+  </table>
+</form>
+<br />
+<table class="adminlist" cellSpacing="0" cellPadding="2" width="100%" border="0">
+  <tr>
+    <th>{TXT_COLUMN_1_DESC}</th>
+    <th>{TXT_COLUMN_2_DESC}</th>
+    <th>{TXT_COLUMN_3_DESC}</th>
+    <th class="a_right">{TXT_ORDER_SUM}</th>
+  </tr><!-- BEGIN statisticRow -->
+    <tr class="{SHOP_ROWCLASS}">
+      <td>{SHOP_COLUMN_1}</td>
+      <td>{SHOP_COLUMN_2}</td>
+      <td>{SHOP_COLUMN_3}</td>
+      <td class="a_right">{SHOP_COLUMN_4}</td>
+    </tr><!-- END statisticRow -->
+  <tr class="{SHOP_ROWCLASS}">
+    <td class="f_bold">{TXT_SUM}</td>
+    <td class="f_bold">{SHOP_SUM_COLUMN_2}</td>
+    <td class="f_bold">{SHOP_SUM_COLUMN_3}</td>
+    <td class="a_right f_bold">{SHOP_SUM_COLUMN_4}</td>
+  </tr><!-- END statistic -->
+</table>
+<br />
+{SHOP_STATISTIC_PAGING}
+<br />
+<!-- end module_shop_statistic.html -->

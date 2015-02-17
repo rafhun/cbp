@@ -1,0 +1,32 @@
+<!-- START content_history_clean.html -->
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+function confirmClean() {
+	if (confirm('{TXT_HISTORY_CLEAN_JS_CONFIRM}')) {
+		var numberOfDays = document.getElementById('numberOfDays').value;
+		window.location.replace("index.php?cmd=workflow&{CSRF_PARAM}&act=cleanHistory&days="+numberOfDays);
+	}
+}
+// ]]>
+</script>
+<form method="post" action="">
+	<table border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+		<tr>
+			<th colspan="2">{TXT_HISTORY_CLEAN_TITLE}</th>
+		</tr>
+		<tr class="row2">
+			<td colspan="2">{TXT_HISTORY_CLEAN_DESCRIPTION}</td>
+		</tr>
+		<tr class="row1">
+			<td width="15%">{TXT_HISTORY_CLEAN_OCCUPIED}</td>
+			<td width="85%">{HISTORY_CLEAN_OCCUPIED}&nbsp;kB</td>
+		</tr>
+		<tr class="row2">
+			<td>{TXT_HISTORY_CLEAN_MIN_AGE}</td>
+			<td><input type="text" id="numberOfDays" name="numberOfDays" value="{HISTORY_CLEAN_DAYS}" style="width: 40px;" />&nbsp;{TXT_HISTORY_CLEAN_DAYS}</td>
+		</tr>
+	</table>
+	<br />
+	<input type="button" value="{TXT_HISTORY_CLEAN_SUBMIT}" onclick="confirmClean();" />
+</form>
+<!-- END content_history_clean.html -->

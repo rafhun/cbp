@@ -1,0 +1,47 @@
+<!-- START module_news_category_modify.html -->
+<script language="JavaScript" type="text/javascript">
+    <!--
+    function toggleCatName(link) {
+        $J(link).next('div.category_name_lang_div').toggle();
+    }
+
+    function updateLangName(input) {
+        $J(input).siblings('div.category_name_lang_div').find('input').attr('value', $J(input).attr('value'));
+    }
+    // -->
+</script>
+<form name="form2" method="post" action="index.php?cmd=news&amp;act=modifycat&amp;id={NEWS_CAT_ID}">
+    <input type="hidden" name="modCat" value="true"/>
+    <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+        <tr>
+            <th colspan="3">{TXT_EDIT_CATEGORY}</th>
+        </tr>
+        <tr class="row2">
+            <td width="12%"><label for="news_parent_category">{TXT_NEWS_PARENT_CATEGORY}</label></td>
+            <td width="88%">
+                <select id="news_parent_category" name="newsCatParentId">
+                    <option value="0">{TXT_NEWS_NEW_MAIN_CATEGORY}</option>
+                    {NEWS_CAT_CATEGORIES}
+                </select>
+            </td>
+        </tr>
+        <tr class="row1">
+            <td><label for="news_cat_name">{TXT_NAME}</label></td>
+            <td>
+                <input type="text" value="{NEWS_CAT_NAME}" size="40" maxlength="250" onchange="updateLangName(this);"/>
+                <a href="#" onclick="toggleCatName(this);" title="{TXT_NEWS_EXTENDED}">{TXT_NEWS_EXTENDED} &raquo;</a>
+
+                <div class="category_name_lang_div" style="display:none;">
+                    <!-- BEGIN category_name_list -->
+                    <input type="text" name="newsCatName[{NEWS_CAT_ID}][{NEWS_CAT_LANG_ID}]"
+                           id="newsCatName[{NEWS_CAT_ID}][{NEWS_CAT_LANG_ID}]" value="{NEWS_CAT_NAME_VALUE}" size="40"
+                           maxlength="250" style="margin-top:1px;"/> {NEWS_CAT_LANG_NAME}<br/>
+                    <!-- END category_name_list -->
+                </div>
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <input type="submit" name="submit" value="{TXT_SAVE}"/>
+</form>
+<!-- END module_news_category_modify.html -->

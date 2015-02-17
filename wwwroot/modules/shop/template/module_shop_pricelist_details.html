@@ -1,0 +1,133 @@
+<!-- START shop_pricelist_details.html -->
+
+<div id="subnavbar_level2">
+  <ul>
+    <li><a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=categories" title="{TXT_CATEGORIES}">{TXT_CATEGORIES}</a></li>
+    <li><a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=categories&amp;tpl=pricelists" title="{TXT_PDF_OVERVIEW}">{TXT_PDF_OVERVIEW}</a></li>
+  </ul>
+</div>
+<br />
+
+<form method="post" name="form_pricelist"
+    action="index.php?cmd=shop{MODULE_INDEX}&amp;act=categories&amp;tpl=pricelists">
+  <input type="hidden" name="list_id" value="{SHOP_PRICELIST_ID}" />
+  <table width="100%" cellspacing="0" cellpadding="2" border="0" class="adminlist">
+    <tr>
+      <th colspan="2">{SHOP_PRICELIST_EDIT}</th>
+    </tr>
+    <tr class="row1">
+      <td>{TXT_PDF_LINK}</td>
+      <td>{SHOP_PRICELIST_LINK_PDF}</td>
+    </tr>
+    <tr class="row2">
+      <td>{TXT_NAME}</td>
+      <td>
+        <input type="text" name="name" value="{SHOP_PRICELIST_NAME}"
+            style="width: 250px;" />
+      </td>
+    </tr>
+    <tr class="row1">
+      <td class="nowrap">{TXT_LANGUAGE}</td>
+      <td>
+        <select name="lang_id" size="1" style="width: 250px;">
+          {SHOP_PRICELIST_LANGUAGE_MENUOPTIONS}
+        </select>
+      </td>
+    </tr>
+    <tr class="row2">
+      <td>{TXT_FRAME}</td>
+      <td>
+        <label>
+          <input type="checkbox" name="border" value="1" {SHOP_PRICELIST_BORDER_CHECKED} />
+          {TXT_DISPLAY}
+        </label>
+      </td>
+    </tr>
+    <tr class="row1">
+      <td>{TXT_HEADER}</td>
+      <td>
+        <label>
+          <input type="checkbox" name="header" value="1" onchange="toggle_header();"
+              {SHOP_PRICELIST_HEADER_CHECKED} />
+          {TXT_DISPLAY}
+        </label>
+      </td>
+    </tr>
+    <tr class="row1" id="pricelist_header">
+      <td class="nowrap">&nbsp;</td>
+      <td>
+        <textarea name="header_left" rows="4"  style="width: 250px;">{SHOP_PRICELIST_HEADER_LEFT}</textarea>
+        &nbsp;
+        <textarea name="header_right" rows="4" style="width: 250px;" class="a_right">{SHOP_PRICELIST_HEADER_RIGHT}</textarea>
+      </td>
+    </tr>
+    <tr class="row2">
+      <td>{TXT_FOOTER}</td>
+      <td>
+        <label>
+          <input type="checkbox" name="footer" value="1" onchange="toggle_footer();"
+            {SHOP_PRICELIST_FOOTER_CHECKED} />
+          {TXT_DISPLAY}
+        </label>
+      </td>
+    </tr>
+    <tr class="row2" id="pricelist_footer">
+      <td>&nbsp;</td>
+      <td>
+        <textarea name="footer_left" rows="4" style="width: 250px;">{SHOP_PRICELIST_FOOTER_LEFT}</textarea>
+        &nbsp;
+        <textarea name="footer_right" rows="4" style="width: 250px;" class="a_right">{SHOP_PRICELIST_FOOTER_RIGHT}</textarea>
+        <br /><tt>[DATE]</tt>: &nbsp;{TXT_DATE}
+        <br /><tt>[PAGENUMBER]</tt>:&nbsp;{TXT_PAGENUMBER}
+      </td>
+    </tr>
+    <tr class="row1">
+      <td>{TXT_SHOP_PRICELIST_CATEGORIES}</td>
+      <td>
+        <input type="checkbox" name="category_all" id="category_all" value="1"
+            onchange="toggle_categories();" {SHOP_PRICELIST_CATEGORY_ALL_CHECKED} />
+        <label for="category_all">{TXT_SHOP_PRICELIST_CATEGORIES_ALL}</label>
+    </tr>
+<!-- BEGIN shop_category -->
+    <tr class="{SHOP_CATEGORY_ROWCLASS}">
+      <td>&nbsp;</td>
+      <td>
+        <input type="checkbox" name="category_id[]" id="category_id_{SHOP_CATEGORY_ID}"
+            value="{SHOP_CATEGORY_ID}" {SHOP_CATEGORY_CHECKED} />
+        <label for="category_id_{SHOP_CATEGORY_ID}">{SHOP_CATEGORY_NAME}</label>
+      </td>
+    </tr>
+<!-- END shop_category -->
+  </table>
+  <br />
+  <input type="submit" name="bsubmit" value="{TXT_STORE_PRODUCT_LIST}" />
+</form>
+<script type="text/javascript">
+// <![CDATA[
+function toggle_header()
+{
+  var disp = (document.form_pricelist.header.checked ? "table-row" : "none");
+  document.getElementById("pricelist_header").style.display = disp;
+}
+
+function toggle_footer()
+{
+  var disp = (document.form_pricelist.footer.checked ? "table-row" : "none");
+  document.getElementById("pricelist_footer").style.display = disp;
+}
+
+function toggle_categories()
+{
+  var check = document.form_pricelist.category_all.checked;
+  for each (var element in document.getElementsByName("category_id[]")) {
+//    element.checked = !check;
+    element.disabled = check;
+  }
+}
+
+toggle_header();
+toggle_footer();
+toggle_categories();
+// ]]>
+</script>
+<!-- END shop_pricelist_details.html -->

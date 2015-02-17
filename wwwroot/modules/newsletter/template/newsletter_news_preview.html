@@ -1,0 +1,56 @@
+<!-- START newsletter_news_preview.html -->
+<script type="text/javascript">
+<!--
+
+var createNewsletter = function(text){
+    document.getElementById("newsletter_mail_form").action = "?cmd=newsletter&act=editMail";
+    return true;
+}
+
+function refreshIframe() {
+	var email_template = document.getElementById('newsletter_mail_template').value;
+	var import_template = document.getElementById('newsletter_import_template').value;
+	$J('#emailtemplate').val(email_template);
+	$J('#importtemplate').val(import_template);
+	$J('#iframe_data_form').submit();
+}
+
+cx.jQuery(document).ready(function() {
+	refreshIframe();
+});
+
+// -->
+</script>
+
+<table width="100%" border="0" cellpadding="3" cellspacing="0" class="adminlist">
+  <tr>
+    <th>{TXT_NEWS_PREVIEW}</th>
+  </tr>
+</table>
+<form id="newsletter_mail_form" name="form" method="post" action="?cmd=newsletter&amp;act=newspreview">
+<table cellspacing="0" cellpadding="3" width="100%" border="0" class="adminlist">
+<tr class="row3">
+  <td width="15%" nowrap="nowrap">{TXT_EMAIL_LAYOUT}</td>
+  <td width="85%">{NEWSLETTER_MAIL_TEMPLATE_MENU}</td>
+</tr>
+<tr class="row3">
+  <td width="15%" nowrap="nowrap">{TXT_IMPORT_LAYOUT}</td>
+  <td width="85%">{NEWSLETTER_IMPORT_TEMPLATE_MENU}</td>
+</tr>
+<tr>
+<td width="15%" valign="top">{TXT_NEWS_PREVIEW}</td>
+<td width="85%">
+<iframe frameborder="0" id="newsPreview" name="newsPreview" src="?cmd=newsletter&amp;act=newspreview&amp;view=iframe" height="700" width="100%" scrolling="auto"></iframe>
+</td>
+</tr>
+</table>
+<br/>
+<input type="hidden" name="selected" value="{NEWSLETTER_SELECTED_NEWS}"/>
+<input type="submit" accesskey="c" onclick="return createNewsletter();" name="NewsletterFromNews" value="{TXT_CREATE_EMAIL}"/>
+</form>
+<form id="iframe_data_form" method="post" action="?cmd=newsletter&amp;act=newspreview&amp;view=iframe" target="newsPreview">
+<input type="hidden" name="selected" value="{NEWSLETTER_SELECTED_NEWS}"/>
+<input type="hidden" id="emailtemplate" name="emailtemplate" value="{NEWSLETTER_SELECTED_EMAIL_TEMPLATE}"/>
+<input type="hidden" id="importtemplate" name="importtemplate" value="{NEWSLETTER_SELECTED_IMPORT_TEMPLATE}"/>
+</form>
+<!-- END newsletter_news_preview.html -->

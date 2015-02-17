@@ -1,0 +1,144 @@
+<!-- START module_data_categories_edit.html -->
+<script language="JavaScript" type="text/javascript">
+//<![CDATA[
+
+//requires prototype.js!
+function showOrHide(strElement) {
+	if (document.getElementById(strElement).style.display == 'none') {
+		document.getElementById(strElement).style.display = 'block';
+	} else {
+		document.getElementById(strElement).style.display = 'none';
+	}
+}
+
+function copyText(strField) {
+	for (var h=0; h < document.forms.length;h++) {
+		for (var i=0; i < document.forms[h].elements.length;i++) {
+			//read out all form-elements with the loop
+			if(document.forms[h].elements[i].name.search(strField) != -1) {
+				switch (strField) {
+					case 'frmEditCategory_Name_':
+						document.forms[h].elements[i].value = document.frmEditCategory.frmEditCategory_Name.value;
+					break;
+				}
+			}
+		}
+	}	
+}
+
+var switchAction = function(obj)
+{
+    var pageSelect = $("select_display");
+    var height = $('box_height');
+    var width = $('box_width');
+    if (obj.value == "overlaybox" ) {
+        pageSelect.style.display = "none";
+        makeVisible(width, "table-row");
+        makeVisible(height, "table-row");
+    } else if (obj.value == "subcategories") {
+        pageSelect.style.display = "none";
+        width.style.display = "none";
+        height.style.display = "none";
+    } else {
+        makeVisible(pageSelect, "table-row");
+        height.style.display = "none";
+        width.style.display = "none";
+    }
+}
+
+/**
+ * IE doesn't neither know the table-row nor 
+ * table-cell properties of CSS
+ */
+var makeVisible = function(ref, property)
+{
+    try {
+        ref.style.display = property;
+    } catch(e) {
+        ref.style.display = "block";
+    }
+}
+
+//]]>
+</script>
+<form name="frmEditCategory" method="post" action="?cmd=data&amp;act=updateCategory">
+	<table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+		<tr>
+			<th colspan="4">{TXT_EDIT_TITLE}</th>
+		</tr>
+		<tr class="row1">
+			<td valign="top" style="width: 20%;">{TXT_EDIT_NAME}</td>
+			<td colspan="3">
+				<input type="text" name="frmEditCategory_Name" value="{EDIT_NAME}" maxlength="100" onchange="copyText('frmEditCategory_Name_');" style="width:350px;" />&nbsp;<a href="javascript:showOrHide('divEditCategoryLang_Name');">{TXT_EDIT_EXTENDED}</a>
+				<div id="divEditCategoryLang_Name" style="display: none;">
+					<!-- BEGIN editCategoryNameFields -->
+					<input type="text" name="frmEditCategory_Name_{EDIT_NAME_LANGID}" value="{EDIT_NAME_VALUE}" maxlength="100" style="width:350px; margin-top:1px;" />&nbsp;<label for="frmEditCategory_Name_{EDIT_NAME_LANGID}">{EDIT_NAME_LANG}</label><br />
+					<!-- END editCategoryNameFields -->
+				</div>	
+			</td>
+		</tr>
+		<tr>
+            <td>{TXT_PARENT_CAT}</td>
+            <td colspan="3">
+                <select name="frmParentcategory" style="width: 730px;">
+                        <option value="0">{TXT_TOP_LEVEL}</option>
+                    <!-- BEGIN addCategoryDropDown -->
+                        <option value="{CATEGORY_OPT_VALUE}" {CATEGORY_OPT_SELECTED}>{CATEGORY_OPT_INDENT}{CATEGORY_OPT_LABEL}</option>
+                    <!-- END addCategoryDropDown -->
+            </select>
+            </td>
+        </tr>-->
+		<tr class="row1">
+			<td>{TXT_EDIT_LANGUAGES}</td>
+			<td style="width: 10%; vertical-alignt: top;">{EDIT_LANGUAGES_1}</td>
+			<td style="width: 10%; vertical-alignt: top;">{EDIT_LANGUAGES_2}</td>
+			<td style="width: 70%; vertical-alignt: top;">{EDIT_LANGUAGES_3}</td>
+		</tr>
+		<tr>
+            <td >{TXT_PLACEHOLDER}</td>
+            <td colspan="3">[[DATA_<input type="text" name="frmPlaceholder" id="frmPlaceholder" value="{PLACEHOLDER}" style="width: 685px;" />]]</td>
+        </tr>
+    	<tr class="row1">
+            <td>{TXT_GENERAL_ACTION}</td>
+            <td colspan="3">
+                <select name="frmSettings_action" style="width: 730px;" onchange="switchAction(this)">
+                    <option value="overlaybox" {ACTION_SELECTED_BOX}>{TXT_BOX}</option>
+                    <option value="content" {ACTION_SELECTED_CONTENT}>{TXT_CONTENT_PAGE}</option>
+                    <option value="subcategories" {ACTION_SELECTED_SUBCATS}>{TXT_SUBCATEGORIES}</option>
+                </select>
+            </td>
+        </tr>
+		<tr class="row2" style="display: {PAGE_SELECT_DISPLAY};" id="select_display">
+            <td>{TXT_FRONTEND_PAGE}</td>
+            <td colspan="3">
+                <select name="frmFrontendPage" style="width: 730px;">
+                    <!-- BEGIN frontendPage -->
+                        <option value="{FRONTEND_PAGE_ID}"  {FRONTEND_PAGE_SELECTED}>{FRONTEND_PAGE}</option>
+                    <!-- END frontendPage -->
+                </select>
+            </td>
+		</tr>
+		<tr class="row2" style="display: {PAGE_BOX_WIDTH_DISPLAY};" id="box_width">
+		  <td>{TXT_BOX_WIDTH}</td>
+		  <td colspan="3">
+		      <input type="text" style="width: 730px;" value="{BOX_WIDTH}" name="frmBoxwidth"/> px
+		  </td>
+		</tr>
+		<tr class="row1" style="display: {PAGE_BOX_HEIGHT_DISPLAY};" id="box_height">
+		  <td>{TXT_BOX_HEIGHT}</td>
+		  <td colspan="3">
+		      <input type="text" style="width: 730px;" value="{BOX_HEIGHT}" name="frmBoxheight" /> px 
+		  </td>
+		</tr>
+		<tr class="row2">
+		  <td style="vertical-align: top;">{TXT_TEMPLATE}</td>
+		  <td colspan="3">
+		      <textarea rows="20" cols="100" style="width: 730px;" name="frmTemplate">{CAT_TEMPLATE}</textarea>
+		  </td>
+		</tr>
+	</table>
+	<br />
+	<input type="hidden" value="{EDIT_CATEGORY_ID}" name="frmEditCategory_Id" />
+	<input type="submit" value="{TXT_EDIT_SUBMIT}" name="frmEditCategory_Submit" />
+</form>
+<!-- END module_data_categories_edit.html -->

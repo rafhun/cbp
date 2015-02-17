@@ -1,0 +1,65 @@
+<!-- START module_news_category.html -->
+<script type="text/javascript">
+<!-- // confirm delete variable
+function deleteCategorie(id) {
+  if (confirm('{TXT_CONFIRM_DELETE_DATA}\n{TXT_ACTION_IS_IRREVERSIBLE} {TXT_ATTENTION_SYSTEM_FUNCTIONALITY_AT_RISK}'))
+    window.location.replace("index.php?cmd=docsys{MODULE_INDEX}&{CSRF_PARAM}&act=delcat&catId=" + id);
+}
+// -->
+</script>
+<form name="form1" method="post" action="index.php?cmd=docsys{MODULE_INDEX}&amp;act=cat">
+  <input type="hidden" name="addCat" value="true" />
+  <table width="100%" border="0" cellspacing="0" cellpadding="3" class="adminlist">
+    <tr>
+      <th>
+        {TXT_ADD_NEW_CATEGORY}
+      </th>
+    </tr>
+    <tr class="row1">
+      <td> {TXT_NAME}:
+        <input type="text" name="newCatName" size="40" maxlength="250" />
+        &nbsp;
+        <input type="submit" name="submit" value="{TXT_ADD}" />
+      </td>
+    </tr>
+  </table>
+  <br />
+</form>
+<form name="form2" method="post" action="index.php?cmd=docsys{MODULE_INDEX}&amp;act=cat">
+  <input type="hidden" name="modCat" value="true" />
+  <table width="100%" cellspacing="0" cellpadding="3" border="0" align="top" class="adminlist">
+    <tr>
+      <th colspan="4">
+        {TXT_CATEGORY_LIST}
+      </th>
+    </tr>
+    <tr class="row2">
+      <td width="2%" nowrap><b>{TXT_ID}</b></td>
+      <td width="20%"><b>{TXT_NAME}</b></td>
+      <td width="77%"><b>{TXT_DOCSYS_SORTTYPE}</b></td>
+      <td width="5%" nowrap>
+        <div align="right"><b>{TXT_ACTION}</b></div>
+      </td>
+    </tr>
+    <!-- BEGIN row -->
+    <tr class="{DOCSYS_ROWCLASS}">
+      <td>
+        <div align="left">{DOCSYS_CAT_ID}&nbsp;</div>
+      </td>
+      <td>
+        <input type="text" name="catName[{DOCSYS_CAT_ID}]" value="{DOCSYS_CAT_NAME}" size="40" maxlength="250" />
+      </td>
+      <td>
+        {DOCSYS_SORTING_DROPDOWN}
+      </td>
+      <td>
+        <div align="right"><a href="javascript:deleteCategorie('{DOCSYS_CAT_ID}')" title="{TXT_DELETE}"><img src="images/icons/delete.gif" alt="{TXT_DELETE}" border="0" /></a></div>
+      </td>
+    </tr>
+    <!-- END row -->
+  </table>
+  <br />
+  <input type="submit" name="submit" value="{TXT_ACCEPT_CHANGES}" />
+</form>
+<br />
+<!-- END module_docsys_category.html -->

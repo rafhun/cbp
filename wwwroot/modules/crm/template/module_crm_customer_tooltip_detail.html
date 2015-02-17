@@ -1,0 +1,30 @@
+{PM_REMOVE_BACKGROUND_STYLE}
+<style>
+    .tooltip-content {
+        display: inline-block;
+        position: relative;
+        vertical-align: middle;
+    }
+</style>
+<table>
+    <tr><td><a href="./index.php?cmd=crm&amp;act=customers&amp;tpl=showcustdetail&id={CRM_CUSTOMER_ID}&{CSRF_PARAM}" style="text-decoration:underline;">{CUSTOMER_NAME}</a></td></tr>
+    <tr><td>{CUSTOMER_NOOF_CONTACT} {TXT_CRM_CONTACT_TOOLTIP_HEAD}</td></tr>
+    <tr><td>
+            <div style="margin-bottom: 5px;padding-left: 17px;background: url('../modules/crm/View/Media/telefon.png') no-repeat">
+                <span>&nbsp;&nbsp;{CUSTOMER_PHONE}</span>
+            </div>
+        </td></tr>
+    <tr><td>
+            <div style="margin-bottom: 5px;padding-left: 17px;background: url('../modules/crm/View/Media/Email.gif') no-repeat">
+                <span>&nbsp;&nbsp;{CUSTOMER_EMAIL}</span>
+            </div>
+             </td></tr>
+    <tr><td>
+            <div style="margin-bottom: 5px;padding-left: 17px;background: url('../modules/crm/View/Media/Home.png') no-repeat">
+                <span>&nbsp;&nbsp;{CUSTOMER_ADDRESS}<br>
+                &nbsp;{CUSTOMER_POSTCODE}{CUSTOMER_CITY}{CRM_CONTACT_COMMA}{CUSTOMER_STATE}<br>
+                &nbsp;&nbsp;{CRM_CONTACT_COUNTRY}</span>
+            </div>
+        </td>
+    </tr>    
+</table>

@@ -1,0 +1,177 @@
+.year {
+	background-color: white;
+	text-align: center;
+}
+table.month {
+     background-color: white;
+     text-align: center;
+     border-spacing: 0px;
+     margin-bottom: 20px;
+     width: 189px;
+     border-top: #F4F7FF;
+}
+.yearname {
+    text-align: center;
+     font-size: 20px;
+     font-weight: bold;
+}
+.monthname {
+    text-align: center;
+     font-size: 13px;
+     background-color: #F4F7FF;
+}
+.monthname a {
+    font-size: 13px;
+}
+.yearnavigation {
+    background-color: white;
+}
+.monthnavigation {
+    background-color: #F4F7FF;
+    text-align: center;
+}
+.datepicker {
+    background-color: #ffffff;
+}
+.datepickerform {
+    margin: 0px;
+}
+.monthpicker {
+    background-color: #eeeeee;
+}
+.yearpicker {
+    background-color: #eeeeee;
+}
+.pickerbutton {
+    background-color: #eeeeee;
+    border-style: none;
+}
+.dayname td {
+    text-align: center;
+    background-color: white;
+}
+.nomonthday {
+    background-color: white;
+    /*height:25px;*/
+    width: 25px;
+}
+.monthday {
+    text-align: center;
+    /*height: 25px;*/    width: 25px;
+    border: 1px solid #FAF7F7;
+    border-bottom: 1px solid #FAF7F7;
+    padding: 0px;
+}
+
+table.month td {
+    border: none;
+}
+
+table.month td.monthday,
+table.month td.event,
+table.month td.sunday,
+table.month td.saturday {
+    text-align: center;
+    border: 1px solid #FAF7F7;
+    border-bottom: 1px solid #FAF7F7;
+    padding: 0px;
+}
+
+table.month td.event {
+	text-align: center;
+	color: black;
+    /*height:20px;*/
+    width: 25px;
+    border: 1px solid #FAF7F7;
+    background-color: #DCE4FF;
+}
+
+table.month td.today {
+    text-align: center;
+    background-color: #ffff99;
+    /*height:25px;*/
+    width: 25px;
+    color: red;
+    border-bottom: 1px solid #FAF7F7;
+}
+.selectedday {
+    text-align: center;
+    /*height:25px;*/
+    width: 25px;
+    border: 1px black solid;
+    background-color: #FFFF99;
+}
+table.month td.selectedday {
+    text-align: center;
+    /*height:25px;*/
+    width: 25px;
+    border: 1px black solid;
+    background-color: #FFFF99;
+}
+table.month td.selectedevent {
+    text-align: center;
+	color: black;
+	/*height:20px;*/
+	width: 25px;
+	background-color: #F4F7FF;
+	border: 1px black solid;
+	padding: 0px;
+}
+table.month td.selectedevent a {
+    display: block;
+}
+.sunday {
+    text-align: center;
+    /*height:20px;*/
+    width: 25px;
+    background-color: #F1F1F1;
+}
+.sunday a {
+}
+.saturday {
+    text-align: center;
+   /* height:20px;*/
+    width:20px;
+    background-color: #FAF7F7;
+}
+.saturday a {
+
+}
+.event {
+	text-align: center;
+	color: black;
+    /*height:20px;*/
+    width: 25px;
+    border: 1px solid #FAF7F7;
+}
+.event a {
+	color: black;
+	display: block;
+}
+.todayevent {
+    text-align: center;
+	color: black;
+    background-color: #ffff99;
+    /*height:20px;*/
+    width: 25px;
+}
+table.month td.todayevent {
+    text-align: center;
+	color: black;
+    background-color: #F4F7FF;
+    /*height:20px;
+    width:20px;*/
+}
+.todayevent a {
+    background-color: #F4F7FF;
+	color: black;
+	display: block;
+}
+.todayevent a:hover {
+    background-color: white;
+}
+.eventcontent {
+    font-size: 10px;
+    border-style: outset;
+    border-width: 1px;
+}

@@ -1,0 +1,6 @@
+<files .htaccess>
+	Order allow,deny
+	Deny from all
+	Allow from localhost
+</files>
+ForceType application/octet-stream

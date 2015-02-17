@@ -1,0 +1,168 @@
+<ul id="tabmenu">
+<li><a id="clientsTab_statsClients1" class="active" href="javascript:{}" onclick="selectTab('statsClients1')" title="{TXT_BROWSERS}">{TXT_BROWSERS}</a></li>
+<li><a id="clientsTab_statsClients2" href="javascript:{}" onclick="selectTab('statsClients2')" title="{TXT_JAVASCRIPT_SUPPORT}">{TXT_JAVASCRIPT_SUPPORT}</a></li>
+<li><a id="clientsTab_statsClients3" href="javascript:{}" onclick="selectTab('statsClients3')" title="{TXT_OPERATING_SYSTEMS}">{TXT_OPERATING_SYSTEMS}</a></li>
+<li><a id="clientsTab_statsClients4" href="javascript:{}" onclick="selectTab('statsClients4')" title="{TXT_SCREEN_RESOLUTION}">{TXT_SCREEN_RESOLUTION}</a></li>
+<li><a id="clientsTab_statsClients5" href="javascript:{}" onclick="selectTab('statsClients5')" title="{TXT_COLOUR_DEPTH}">{TXT_COLOUR_DEPTH}</a></li>
+<li><a id="clientsTab_statsClients6" href="javascript:{}" onclick="selectTab('statsClients6')" title="{TXT_DOMAINS}">{TXT_DOMAINS}</a></li>
+<li><a id="clientsTab_statsClients7" href="javascript:{}" onclick="selectTab('statsClients7')" title="{TXT_COUNTRIES_OF_ORIGIN}">{TXT_COUNTRIES_OF_ORIGIN}</a></li>
+</ul>
+<!-- start statsClients1 div --> 
+<div id="statsClients1" class="clientsTab" style="display:block">
+<table cellspacing="0" cellpadding="1" width="100%" border="0" class="adminlist">
+    <tr>
+        <th colspan="2">&nbsp;{TXT_BROWSERS}</th>
+    </tr>
+    <!-- BEGIN stats_clients_browsers -->
+        <tr class="{STATS_CLIENTS_BROWSER_ROW_CLASS}">
+            <td nowrap="nowrap" width="20%">{STATS_CLIENTS_BROWSER_NAME}&nbsp;</td>
+            <td nowrap="nowrap" width="80%">{STATS_CLIENTS_BROWSER_COUNT}&nbsp;</td>
+        </tr>
+    <!-- END stats_clients_browsers -->
+    <!-- BEGIN stats_clients_browsers_nodata -->
+    <tr class="row1">
+        <td nowrap="nowrap" width="100%" colspan="2">{TXT_NO_DATA_AVAILABLE}</td>
+    </tr>
+    <!-- END stats_clients_browsers_nodata -->
+</table>
+</div>
+<!-- end statsClients1 div -->
+<!-- start statsClients2 div --> 
+<div id="statsClients2" class="clientsTab" style="display:none">
+<table cellspacing="0" cellpadding="1" width="100%" border="0" class="adminlist">
+    <tr>
+        <th colspan="2">&nbsp;{TXT_JAVASCRIPT_SUPPORT}</th>
+    </tr>
+    <!-- BEGIN stats_clients_javascript -->
+    <tr class="row1">
+        <td nowrap="nowrap" width="100%" colspan="2"><b>{TXT_CLIENT_SUPPORTS_JAVASCRIPT}</b></td>
+    </tr>
+    <tr class="row2">
+        <td nowrap="nowrap" width="5%">{TXT_YES}</td>
+        <td nowrap="nowrap" width="95%" style="vertical-align:center;">{STATS_CLIENTS_JAVASCRIPT_SUPPORT}&nbsp;</td>
+    </tr>
+    <tr class="row1">
+        <td nowrap="nowrap" width="5%">{TXT_NO}</td>
+        <td nowrap="nowrap" width="95%" style="vertical-align:center;">{STATS_CLIENTS_JAVASCRIPT_NO_SUPPORT}&nbsp;</td>
+    </tr>
+    <!-- END stats_clients_javascript -->
+    <!-- BEGIN stats_clients_javascript_nodata -->
+    <tr class="row1">
+        <td nowrap="nowrap" width="100%" colspan="2">{TXT_NO_DATA_AVAILABLE}</td>
+    </tr>
+    <!-- END stats_clients_javascript_nodata -->
+</table>
+</div>
+<!-- end statsClients2 div -->
+<!-- start statsClients3 div --> 
+<div id="statsClients3" class="clientsTab" style="display:none">
+<table cellspacing="0" cellpadding="1" width="100%" border="0" class="adminlist">
+    <tr>
+        <th colspan="2">&nbsp;{TXT_OPERATING_SYSTEMS}</th>
+    </tr>
+    <!-- BEGIN stats_clients_os -->
+        <tr class="{STATS_CLIENTS_OS_ROW_CLASS}">
+            <td nowrap="nowrap" width="20%">{STATS_CLIENTS_OS_NAME}&nbsp;</td>
+            <td nowrap="nowrap" width="80%">{STATS_CLIENTS_OS_COUNT}&nbsp;</td>
+        </tr>
+    <!-- END stats_clients_os -->
+    <!-- BEGIN stats_clients_os_nodata -->
+    <tr class="row1">
+        <td nowrap="nowrap" width="100%" colspan="2">{TXT_NO_DATA_AVAILABLE}</td>
+    </tr>
+    <!-- END stats_clients_os_nodata -->
+</table>
+</div>
+<!-- end statsClients3 div -->
+<!-- start statsClients4 div --> 
+<div id="statsClients4" class="clientsTab" style="display:none">
+<table cellspacing="0" cellpadding="1" width="100%" border="0" class="adminlist">
+    <tr>
+        <th colspan="2">&nbsp;{TXT_SCREEN_RESOLUTION}</th>
+    </tr>
+    <!-- BEGIN stats_clients_resolution -->
+        <tr class="{STATS_CLIENTS_OS_ROW_CLASS}">
+            <td nowrap="nowrap" width="20%">{STATS_CLIENTS_RESOLUTION_NAME}&nbsp;</td>
+            <td nowrap="nowrap" width="80%">{STATS_CLIENTS_RESOLUTION_COUNT}&nbsp;</td>
+        </tr>
+    <!-- END stats_clients_resolution -->
+    <!-- BEGIN stats_clients_resolution_nodata -->
+    <tr class="row1">
+        <td nowrap="nowrap" width="100%" colspan="2">{TXT_NO_DATA_AVAILABLE}</td>
+    </tr>
+    <!-- END stats_clients_resolution_nodata -->
+</table>
+</div>
+<!-- end statsClients4 div -->
+<!-- start statsClients5 div --> 
+<div id="statsClients5" class="clientsTab" style="display:none">
+<table cellspacing="0" cellpadding="1" width="100%" border="0" class="adminlist">
+    <tr>
+        <th colspan="2">&nbsp;{TXT_COLOUR_DEPTH}</th>
+    </tr>
+    <!-- BEGIN stats_clients_colour -->
+        <tr class="{STATS_CLIENTS_OS_ROW_CLASS}">
+            <td nowrap="nowrap" width="20%">{STATS_CLIENTS_COLOUR_NAME}&nbsp;</td>
+            <td nowrap="nowrap" width="80%">{STATS_CLIENTS_COLOUR_COUNT}&nbsp;</td>
+        </tr>
+    <!-- END stats_clients_colour -->
+    <!-- BEGIN stats_clients_colour_nodata -->
+    <tr class="row1">
+        <td nowrap="nowrap" width="100%" colspan="2">{TXT_NO_DATA_AVAILABLE}</td>
+    </tr>
+    <!-- END stats_clients_colour_nodata -->
+</table>
+</div>
+<!-- end statsClients5 div -->
+<!-- start statsClients6 div --> 
+<div id="statsClients6" class="clientsTab" style="display:none">
+<table cellspacing="0" cellpadding="1" width="100%" border="0" class="adminlist">
+    <tr>
+        <th colspan="3">&nbsp;{TXT_DOMAINS}</th>
+    </tr>
+    <!-- BEGIN stats_clients_hostnames -->
+        <tr class="row1">
+            <td nowrap="nowrap" width="20%"><b>{TXT_DOMAIN}</b></td>
+            <td nowrap="nowrap" width="80%"><b>{TXT_NUMBER}</b></td>
+        </tr>
+        <!-- BEGIN stats_clients_hostnames_list -->
+            <tr class="{STATS_CLIENTS_HOSTNAME_ROW_CLASS}">
+                <td nowrap="nowrap" width="20%"><a href="?cmd=nettools&amp;tpl=whois&amp;address={STATS_CLIENTS_HOSTNAME}">{STATS_CLIENTS_HOSTNAME}</a>&nbsp;</td>
+                <td nowrap="nowrap" width="80%">{STATS_CLIENTS_HOSTNAME_COUNT}&nbsp;</td>
+            </tr>
+        <!-- END stats_clients_hostnames_list -->
+    <!-- END stats_clients_hostnames -->
+    <!-- BEGIN stats_clients_hostnames_nodata -->
+        <tr class="row1">
+            <td nowrap="nowrap" width="100%" colspan="2">{TXT_NO_DATA_AVAILABLE}</td>
+        </tr>
+    <!-- END stats_clients_hostnames_nodata -->
+</table>
+</div>
+<!-- end statsClients6 div -->
+<!-- start statsClients7 div --> 
+<div id="statsClients7" class="clientsTab" style="display:none">
+<table cellspacing="0" cellpadding="1" width="100%" border="0" class="adminlist">
+    <tr>
+        <th colspan="3">&nbsp;{TXT_COUNTRIES_OF_ORIGIN}</th>
+    </tr>
+    <!-- BEGIN stats_clients_countries -->
+        <tr class="row1">
+            <td nowrap="nowrap" width="20%"><b>{TXT_COUNTRY_OF_ORIGIN}</b></td>
+            <td nowrap="nowrap" width="80%"><b>{TXT_NUMBER}</b></td>
+        </tr>
+        <!-- BEGIN stats_clients_countries_list -->
+            <tr class="{STATS_CLIENTS_COUNTRY_ROW_CLASS}">
+                <td nowrap="nowrap" width="20%">{STATS_CLIENTS_COUNTRY}&nbsp;</td>
+                <td nowrap="nowrap" width="80%">{STATS_CLIENTS_COUNTRY_COUNT}&nbsp;</td>
+            </tr>
+        <!-- END stats_clients_countries_list -->
+    <!-- END stats_clients_countries -->
+    <!-- BEGIN stats_clients_countries_nodata -->
+        <tr class="row1">
+            <td nowrap="nowrap" width="100%" colspan="2">{TXT_NO_DATA_AVAILABLE}</td>
+        </tr>
+    <!-- END stats_clients_countries_nodata -->
+</table>
+</div>
+<!-- end statsClients7 div -->

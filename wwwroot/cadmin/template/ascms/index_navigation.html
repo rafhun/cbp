@@ -1,0 +1,56 @@
+<script type="text/javascript">
+// <![CDATA[
+function switchNavigation(navi_id) {
+    if ($J('.navigation_level_1 li.active').is('#navigation_level_1_' + navi_id + ' li.active')) {
+        if ($J('#navigation_level_2_' + navi_id).hasClass('active')) {
+            $J('.navigation_level_2').each(function(index, value) {
+                $J(value).removeClass('active');
+                $J(value).addClass('inactive');
+            });
+            $J('.navigation_level_1').each(function(index, value) {
+                $J(value).children('li, span').removeClass('active');
+                $J(value).children('li, span').addClass('inactive');
+            });
+        } else {
+            $J('#navigation_level_2_' + navi_id).removeClass('inactive');
+            $J('#navigation_level_2_' + navi_id).addClass('active');
+        }
+    } else {
+        $J('.navigation_level_2').each(function(index, value) {
+            $J(value).removeClass('active');
+            $J(value).addClass('inactive');
+        });
+
+        $J('.navigation_level_1').each(function(index, value) {
+            $J(value).children('li, span').removeClass('active');
+            $J(value).children('li, span').addClass('inactive');
+        });
+
+        $J('#navigation_level_1_' + navi_id).children('li, span, a').removeClass('inactive');
+        $J('#navigation_level_1_' + navi_id).children('li, span, a').addClass('active');
+        if ($J('#navigation_level_2_' + navi_id).length > 0) {
+            $J('#navigation_level_2_' + navi_id).removeClass('inactive');
+            $J('#navigation_level_2_' + navi_id).addClass('active');
+        }
+        document.cookie = 'navigation_level_2_active=' + navi_id;
+    }
+}
+// ]]>
+</script>
+
+<!-- BEGIN navigationRow -->
+<ul id="navigation_level_1_{NAVIGATION_ID}" class="navigation_level_1" onclick="switchNavigation('{NAVIGATION_ID}');">
+    <li class="{NAVIGATION_CLASS}">
+        <span class="icon_1"></span>
+        <span class="icon_2"></span>
+        <span class="name">{NAVIGATION_GROUP_NAME}</span>
+        {NAVIGATION_GROUP_UPGRADE}
+    </li>
+</ul>
+<ul id="navigation_level_2_{NAVIGATION_ID}" class="navigation_level_2 {NAVIGATION_CLASS}">{NAVIGATION_MENU}</ul>
+<!-- END navigationRow -->
+
+<form id="search" name="search" action="index.php" method="get">
+    <input type="hidden" name="cmd" value="search" />
+    <input type="text" name="term" value="" class="search" />
+</form>

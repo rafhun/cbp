@@ -1,0 +1,307 @@
+<!-- START module_knowledge_categories_overview -->
+<script type="text/javascript" src="../modules/knowledge/template/javascript/functions.js" ></script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+
+var lastDragged = 0;
+
+var editAllowed = {EDIT_ALLOWED};
+var notAllowedMsg = "{NOT_ALLOWED_MSG}";
+
+function selectMultiAction()
+{
+	with (document.frmShowEntries) {
+		switch (frmShowEntries_MultiAction.value) {
+			case 'delete':
+				if (confirm('{TXT_ENTRIES_SUBMIT_DELETE_JS}')) {
+					action='?cmd=knowledge{MODULE_INDEX}&act=multiactionEntry';
+					submit();
+				}
+			break;
+			default: //do nothing
+		}
+	}
+}
+
+/**
+ * Set the row classes
+ *
+ * Each alternating row has either a row1 or row2 class.
+ * Update these classes
+ */
+var setRows = function()
+{
+    rows =$A($('catlist').getElementsByTagName("li"));
+    nr = 1;
+    rows.each(function(row) {
+        var uls = row.getElementsByTagName("ul");
+        if (uls.length > 0 && uls[0].style.display != "none") {
+            row.style.borderBottom = "none";
+        } else {
+            row.style.borderBottom = "";
+        }
+
+        // only the visible rows
+        if (Element.visible(row.parentNode)) {
+            row.removeClassName("li_row1");
+            row.removeClassName("li_row2");
+            row.addClassName("li_row"+((nr % 2) + 1));
+            nr++;
+        }
+    });
+}
+
+/**
+ * Make a category or an entry active or inactive
+ */
+var switchActive = function(id, obj, action)
+{
+    new Ajax.Request('index.php', {
+        method: 'get',
+        parameters: {cmd : "knowledge{MODULE_INDEX}", section : "categories", act : "switchState", id : id, switchTo : action},
+        onSuccess: function(transport) {
+            if (statusMsg(transport.responseText)) {
+                var img = obj.getElementsByTagName("img")[0];
+                if (action == 0) {
+                    img.src = "images/icons/led_red.gif";
+                    obj.onclick = function() { switchActive(id, obj, 1); }
+                } else {
+                    img.src = "images/icons/led_green.gif";
+                    obj.onclick = function() { switchActive(id, obj, 0); }
+                }
+                new Effect.Highlight('category_'+id);
+            }
+        }
+    });
+}
+
+/**
+ * Delete an entry
+ *
+ * Delete a category via ajax and then remove the
+ * row
+ */
+var deleteCategory = function(entryId, amount)
+{
+    if (confirm("{TXT_CONFIRM_CATEGORY_DELETION}".replace(/%amount%/, amount))) {
+        new Ajax.Request('index.php', {
+            method: 'get',
+            parameters: {cmd : "knowledge{MODULE_INDEX}", section : "categories", act : "delete", id : entryId},
+            onSuccess: function() {
+                catTree.deleteRow(entryId);
+            }
+        });
+    }
+
+}
+
+
+/**
+ * Makes a category tree extentable
+ */
+var catTree = {
+    /**
+     * Open a category
+     */
+    openPart : function(obj)
+    {
+        obj.parentNode.cleanWhitespace();
+        var subLists = $A(obj.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes);
+        var div = null;
+        subLists.each(function(elem) {
+            if (elem.tagName == "DIV") {
+                div = elem;
+            }
+        });
+        // div is the last available div element now
+        div.cleanWhitespace();
+        div.firstChild.show();
+        obj.select('.openClosePicture')[0].src = "images/icons/minuslink.gif";
+        obj.nextSibling.src = "../images/modules/knowledge/folder-open.small.png";
+        obj.onclick = function() { catTree.closePart(obj); }
+        setRows();
+    },
+    /**
+     * Close a category
+     */
+    closePart : function(obj)
+    {
+        var subLists = $A(obj.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes);
+        var div = null;
+        subLists.each(function(elem) {
+            if (elem.tagName == "DIV") {
+                div = elem;
+            }
+        });
+        // div is the last available div element now
+        div.cleanWhitespace();
+        div.firstChild.hide();
+        obj.select('.openClosePicture')[0].src = "images/icons/pluslink.gif";
+        obj.nextSibling.src = "../images/modules/knowledge/folder.small.png";
+        obj.onclick = function() { catTree.openPart(obj); }
+        setRows();
+    },
+    /**
+     * Delete a row
+     *
+     * Highlight the row and then remove it from the DOM
+     */
+    deleteRow : function(id)
+    {
+        new Effect.Highlight('category_'+id, {
+            startcolor  : '#ff9898',
+            endcolor    : '#ffffff',
+            duration    : 1
+        });
+
+        var obj = $('category_'+id);
+        window.setTimeout(function() {
+            obj.parentNode.removeChild(obj);
+        }, 1000);
+
+        delete obj;
+    },
+    highlight : function(id)
+    {
+        new Effect.Highlight('category_'+id, {
+            startcolor  : "#ceff88",
+            endcolor    : "#ffffff",
+            duration    : 2
+        });
+        $('category_'+id).style.backgroundColor = "";
+    }
+}
+
+/**
+ * Make the lists sortable
+ */
+var init = function()
+{
+    <!-- BEGIN highlight -->
+    catTree.highlight({ID});
+    <!-- END highlight -->
+
+    // make the scrollables
+    <!-- BEGIN sortable -->
+    if (editAllowed) {
+         Sortable.create("{SORTABLE_ID}", {
+            onUpdate : function() {
+                setRows();
+                updateSort("{SORTABLE_ID}");
+            },
+            handle : "drag_handle_{SORTABLE_ID}"
+         });
+    }
+    <!-- END sortable -->
+
+    setRows();
+}
+
+/**
+ * Update the order
+ */
+var updateSort = function(id)
+{
+    new Ajax.Request("index.php?cmd=knowledge{MODULE_INDEX}&section=categories&act=sort", {
+            method : "post",
+            parameters : Sortable.serialize(id),
+            onSuccess : function(transport) {
+                if (statusMsg(transport.responseText)) {
+                    new Effect.Highlight('category_'+lastDragged, {duration: 1.5});
+                }
+            }
+        });
+}
+
+//]]>
+</script>
+
+
+<div id="knowledge_categories">
+    <table class="adminlist" cellspacing="0" cellpadding="3" border="0" style="width: 100%;">
+        <thead>
+            <tr>
+                <th colspan="5">{TXT_CATEGORIES}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="row3">
+                <td style="width: 75px;"><strong>{TXT_SORT}</strong></td>
+                <td style="width: 50px;"><strong>#</strong></td>
+                <td><strong>{TXT_NAME}</strong></td>
+                <td style="width: 100px;"><strong>{TXT_ENTRIES_AMOUNT}</strong></td>
+                <td style="width: 40px;"><strong>{TXT_ACTIONS}</strong></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="alertbox" id="error_box" style="display: none; position: absolute; top: 22px; left: 0px; z-index: 10; right: 0px; padding: 0px;">
+    <div id="error_box_content" style="padding: 4px;">
+    </div>
+
+    </div>
+    <div id="catlist">
+        <!-- BEGIN remove_area -->
+            <!-- BEGIN list -->
+                <ul id="{UL_ID}" class="overview_list" style="display: {CSS_DISPLAY};">
+                    <!-- BEGIN row -->
+                    <li id="category_{CATEGORY_ID}" style="background-color: {CSS_BGCOLOR};">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="width: 75px;   cursor: move;" class="drag_handle_{SORTABLE_ID}" onmousedown="lastDragged = {CATEGORY_ID}; handlerEvent();">
+                                    <img src="../images/modules/knowledge/sort.gif" style="boder: none;" />
+                                </td>
+                                <td style="width: 50px;">
+                                    <!--<input type="checkbox" name="selectedEntriesId[]" value="category_{CATEGORY_ID}" />-->
+                                    <a href="javascript: void(0);" onclick="switchActive({CATEGORY_ID}, this, {CATEGORY_ACTIVE_STATE})">
+                                        <img src="images/icons/led_{CATEGORY_ACTIVE_LED}.gif"  alt="switch active state" style="border: none;" />
+                                    </a>
+                                </td>
+                                <td style="padding-left: {CATEGORY_INDENT}px;">
+                                    <!-- BEGIN arrow -->
+                                    <img src="images/icons/sub_arrow.gif" class="sub_arrow" />
+                                    <!-- END arrow -->
+
+                                    <a href="javascript: void(0);" onclick="catTree.openPart(this);" style="visibility: {CATEGORY_PLUS_VISIBLITY};">
+                                        <img alt="" class="openClosePicture" src="images/icons/pluslink.gif" style="border: none;" />
+                                    </a>
+
+                                    <img src="../images/modules/knowledge/folder.small.png" style="margin-right:8px;" id="folder_{CATEGORY_ID}" />
+
+                                    <a href="?cmd=knowledge{MODULE_INDEX}&amp;section=categories&amp;act=edit&amp;id={CATEGORY_ID}">{CATEGORY_SUBJECT}</a>
+                                </td>
+                                <td style="width: 100px;">
+                                    {ENTRIES_AMOUNT}
+                                </td>
+                                <td style="width: 40px;">
+                                    <a href="?cmd=knowledge{MODULE_INDEX}&amp;section=categories&amp;act=edit&amp;id={CATEGORY_ID}" target="_self" title="{TXT_IMGALT_EDIT}"><img src="images/icons/edit.gif" border="0" alt="{TXT_IMGALT_EDIT}" title="{TXT_IMGALT_EDIT}" /></a>
+                					<a href="javascript:deleteCategory({CATEGORY_ID}, {ENTRIES_AMOUNT});" target="_self" title="{TXT_DELETE_CATEGORY}">
+                					   <img src="images/icons/delete.gif" border="0" alt="{TXT_DELETE_CATEGORY}" title="{TXT_DELETE_CATEGORY}" />
+                				    </a>
+                                </td>
+                            </tr>
+                        </table>
+
+    				    <div class="subcategories">
+    				        {SUB}
+    				    </div>
+                    </li>
+                    <!-- END row -->
+                    {ROWS}
+                </ul>
+            <!-- END list -->
+        <!-- END remove_area -->
+        {CATLIST}
+    </div>
+</div>
+
+<script type="text/javascript">
+
+/* <![CDATA[ */
+
+init();
+
+/* ]]> */
+</script>
+<!-- END module_knowledge_entries.html -->

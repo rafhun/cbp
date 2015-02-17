@@ -1,0 +1,69 @@
+<!-- START module_media_action.html -->
+<script type="text/JavaScript">
+    function mediaFormCheck() {
+        if (document.mediaEdit.renName.value == "") {
+            alert("{TXT_MEDIA_RENAME_NAME}");
+            document.mediaEdit.renName.focus();
+            return false;
+        }
+
+        if (document.mediaEdit.renExt.value != document.mediaEdit.oldExt.value) {
+            if (!confirm("{TXT_MEDIA_RENAME_EXT}")) {
+                document.mediaEdit.renExt.value = document.mediaEdit.oldExt.value
+            }
+        }
+    }
+</script>
+
+<a title="{TXT_MEDIA_BACK}"></a>
+<!-- BEGIN mediaErrorFile -->
+<table width="100%" cellspacing="0" cellpadding="5" border="0" align="middle" class="adminlist">
+  <tr>
+      <th>{TXT_MEDIA_ERROR_OCCURED}</th>
+  </tr>
+  <tr class="row1">
+      <td>
+          {TXT_MEDIA_FILE_DONT_EXISTS}
+    </td>
+  </tr>
+</table>
+<!-- END mediaErrorFile -->
+
+<!-- BEGIN mediaFile -->
+<form name="mediaEdit" action="{MEDIA_EDIT_ACTION}" method="post" onSubmit="return mediaFormCheck();">
+    <table width="100%" cellspacing="0" cellpadding="5" border="0" align="middle" class="adminlist">
+      <tr>
+          <th>
+              {TXT_MEDIA_EDIT_FILE}: {MEDIA_DIR} {MEDIA_FILE}
+         </th>
+      </tr>
+      <tr class="row1">
+          <td>
+              <img src="{MEDIA_FILE_ICON}" width="16" height="16" alt="icon" align="top">&nbsp;&nbsp;
+              <input type="text" name="renName" value="{MEDIA_ORGFILE_NAME}" size="50" style="padding-left: 3px; padding-right: 3px;" />
+              <input type="hidden" name="oldName" value="{MEDIA_ORGFILE_NAME}" />
+              <!-- BEGIN mediaFileExt -->
+                  . <input type="text" name="renExt" value="{MEDIA_ORGFILE_EXT}" size="3" style="padding-left: 3px; padding-right: 3px;" readonly />
+                  <input type="hidden" name="oldExt" value="{MEDIA_ORGFILE_EXT}" />
+              <!-- END mediaFileExt -->
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="mediaInputAsCopy" value="1" /> {TXT_MEDIA_INSERT_AS_COPY}
+        </td>
+      </tr>
+      <!-- BEGIN mediaShowImage -->
+          <tr class="row2">
+              <td>
+                    {TXT_MEDIA_EDIT_IMAGE}:
+                    &nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="editImage" value="0" onclick="javascript: document.getElementById('editimagemedia').style.display='none';" checked /> {TXT_MEDIA_NO}
+                    &nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="editImage" value="1" onclick="javascript: document.getElementById('editimagemedia').style.display='block';" /> {TXT_MEDIA_YES}
+              </td>
+          </tr>
+      <!-- END mediaShowImage -->
+    </table>
+    <br />
+    <input type="button" name="back" onclick="javascript:history.back()" value="{TXT_MEDIA_BACK}">&nbsp;&nbsp;&nbsp;<input type="submit" name="submit" value="{TXT_MEDIA_SAVE}" />
+</form>
+<!-- END mediaFile -->
+
+<!-- END module_media_action.html -->

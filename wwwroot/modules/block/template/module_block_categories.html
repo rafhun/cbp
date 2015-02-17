@@ -1,0 +1,149 @@
+<!-- START module_block_categories.html -->
+<script language="JavaScript" type="text/javascript">
+//<![CDATA[
+function deleteCategory(catId){
+    if(confirm('{TXT_BLOCK_OPERATION_IRREVERSIBLE}'))
+        window.location.replace("{DIRECORY_INDEX}?cmd=block&act=deleteCategory&id="+catId+'&{CSRF_PARAM}');
+}
+
+function selectMultiAction() {
+  with (document.frmShowCategories) {
+    switch (frmShowCategoriesMultiAction.value) {
+      case 'delete':
+        if (confirm('{TXT_BLOCK_OPERATION_IRREVERSIBLE}')) {
+          action='{DIRECORY_INDEX}?cmd=block&act=multiactionCategory&{CSRF_PARAM}';
+          submit();
+        }
+      break;
+      default: //do nothing
+    }
+  }
+}
+
+(function(){
+    var selectTab = function(){
+        var name = this.id.replace('tab', '');
+        $J('div.categories').hide();
+        $J('#div'+name).show();
+        $J(this).closest('ul').find('a').addClass('inactive').removeClass('active');
+        $J(this).addClass('active');
+    }
+
+    $J(function(){
+        $J('#tabManage,#tabAdd').click(function(){
+             selectTab.apply(this);
+             return false;
+        });
+    });
+})()
+
+//]]>
+</script>
+<ul id="tabmenu">
+  <li><a id="tabManage" class="active" href="#" title="{TXT_BLOCK_CATEGORIES_MANAGE}">{TXT_BLOCK_CATEGORIES_MANAGE}</a></li>
+  <li><a id="tabAdd" class="inactive" href="#" title="{TXT_BLOCK_CATEGORIES_ADD}">{TXT_BLOCK_CATEGORIES_ADD}</a></li>
+</ul>
+
+<div id="divManage" class="categories" style="display: block;">
+  <form name="frmShowCategories" method="post" action="">
+    <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+      <tr>
+        <th colspan="5">{TXT_BLOCK_CATEGORIES}</th>
+      </tr>
+      <tr class="row3">
+        <td nowrap="nowrap" width="2%"><span style="font-weight:bold;">&nbsp;&nbsp;#</span></td>
+        <td nowrap="nowrap" width="30%"><span style="font-weight:bold;">{TXT_BLOCK_NAME}</span></td>
+        <td nowrap="nowrap" width="20%">{TXT_BLOCK_PLACEHOLDER}</td>
+        <td nowrap="nowrap" width="47%">{TXT_BLOCK_SEPERATOR}</td>
+        <td nowrap="nowrap" width="1%"><div align="right"><span style="font-weight:bold;">{TXT_BLOCK_FUNCTIONS}</span></div></td>
+      </tr>
+      <!-- BEGIN showCategories -->
+      <tr class="{BLOCK_CATEGORY_ROWCLASS}">
+        <td>
+            <!-- BEGIN checkboxCategory -->
+            <input type="checkbox" name="selectedCategoryId[]" value="{BLOCK_CATEGORY_ID}" />
+            <!-- END checkboxCategory -->
+        </td>
+        <td><a href="{DIRECTORY_INDEX}?cmd=block&amp;act=editCategory&amp;id={BLOCK_CATEGORY_ID}" target="_self" title="{TXT_BLOCK_OVERVIEW_IMGALT_EDIT}">{BLOCK_CATEGORY_NAME}</a></td>
+        <td>[[{BLOCK_CATEGORY_PLACEHOLDER}]]</td>
+        <td>{BLOCK_CATEGORY_SEPERATOR}</td>
+        <td nowrap="nowrap">
+          <div align="right">
+            <a href="{DIRECTORY_INDEX}?cmd=block&amp;act=editCategory&amp;id={BLOCK_CATEGORY_ID}" target="_self"
+             title="{TXT_BLOCK_OVERVIEW_IMGALT_EDIT}">
+                <img src="images/icons/edit.gif" border="0" alt="{TXT_BLOCK_OVERVIEW_IMGALT_EDIT}"
+                 title="{TXT_BLOCK_OVERVIEW_IMGALT_EDIT}" />
+            </a>
+            <!-- BEGIN deleteCategory -->
+            <a href="javascript:deleteCategory({BLOCK_CATEGORY_ID});" target="_self"
+             title="{TXT_BLOCK_OVERVIEW_IMGALT_DELETE}">
+                <img src="images/icons/delete.gif" border="0" alt="{TXT_BLOCK_OVERVIEW_IMGALT_DELETE}"
+                 title="{TXT_BLOCK_OVERVIEW_IMGALT_DELETE}" />
+            </a>
+            <!-- END deleteCategory -->
+            <!-- BEGIN deleteCategoryEmpty -->
+                <img src="images/icons/pixel.gif" border="0" width="17" alt="" title="" />
+            <!-- END deleteCategoryEmpty -->
+          </div>
+        </td>
+      </tr>
+      <!-- END showCategories -->
+      <!-- BEGIN noCategories -->
+      <tr class="row2">
+        <td colspan="4"><div align="center"><br />{TXT_BLOCK_NO_CATEGORIES_FOUND}<br /><br /></div></td>
+      </tr>
+      <!-- END noCategories -->
+    </table>
+    <br />
+    <table cellpadding="2" cellspacing="0" border="0">
+      <tr>
+        <td>
+          <img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="{TXT_BLOCK_OVERVIEW_MARKED}:" />
+          <a href="#" onclick="changeCheckboxes('frmShowCategories','selectedCategoryId[]',true); return false;">{TXT_BLOCK_SELECT_ALL}</a> /
+          <a href="#" onclick="changeCheckboxes('frmShowCategories','selectedCategoryId[]',false); return false;">{TXT_BLOCK_DESELECT_ALL}</a>
+          <img src="images/icons/strike.gif" alt="" />
+          <select name="frmShowCategoriesMultiAction" onchange="selectMultiAction();">
+            <option value="0">{TXT_BLOCK_SUBMIT_SELECT}</option>
+            <option value="delete">{TXT_BLOCK_SUBMIT_DELETE}</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+  </form>
+  <br >
+</div>
+
+<div id="divAdd" class="categories" style="display: none;">
+  <form name="frmCategory" method="post" action="{DIRECTORY_INDEX}?cmd=block&amp;act=categories">
+    <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+      <tr>
+        <th colspan="4">{TXT_BLOCK_CATEGORIES_ADD}</th>
+      </tr>
+      <tr class="row1">
+        <td valign="top">{TXT_BLOCK_PARENT}</td>
+        <td colspan="3">
+            <select name="frmCategoryParent">
+                <option value="0">{TXT_BLOCK_NONE}</option>
+                {BLOCK_CATEGORIES_PARENT_DROPDOWN}
+            </select>
+        </td>
+      </tr>
+      <tr class="row2">
+        <td valign="top" style="width: 16%;">{TXT_BLOCK_NAME}</td>
+        <td colspan="3">
+          <input type="text" name="frmCategoryName" value="" maxlength="100" style="width:30%;" />
+        </td>
+      </tr>
+      <tr class="row1">
+        <td valign="top">{TXT_BLOCK_CATEGORY_SEPERATOR}</td>
+        <td colspan="3">
+          <input type="text" name="frmCategorySeperator" value="{BLOCK_CATEGORY_SEPERATOR}" maxlength="100" style="width:30%;" />
+        </td>
+      </tr>
+    </table>
+    <br />
+    <input type="submit" value="{TXT_BLOCK_CATEGORIES_ADD}" name="frmCategorySubmit" />
+  </form>
+</div>
+
+<!-- END module_block_categories.html -->

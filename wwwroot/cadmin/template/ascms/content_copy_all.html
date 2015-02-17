@@ -1,0 +1,29 @@
+<!-- START content_copy_all.html -->
+<script language="JavaScript" type="text/javascript">
+<!--
+function confirmation()
+{
+	answer = confirm("{TXT_WARNING}!\n{TXT_THIS_PROCEDURE_DELETES_ALL_EXISTING_ENTRIES_OF_THE_SELECTED_LANGUAGE} \""+document.forms["formCopyContent"].elements["langNew"].options[document.forms["formCopyContent"].elements["langNew"].selectedIndex].text+"\"!\n{TXT_DO_YOU_WANT_TO_CONTINUE}");
+	return answer;
+}
+-->
+</script>
+<span class="red">{CONTENT_STATUS}</span>
+<form name="formCopyContent" method="post" action="?cmd=content&amp;act=copyAll" onsubmit="return confirmation();">
+<input type="hidden" name="langOriginal" value="{LANG_OLD_ID}" />
+<table summary="" border="0" cellspacing="0" cellpadding="2" width=100% class="adminlist">
+<tr>
+	<th>
+		<div align="left"><b>{TXT_COPY_CONTENT}</b></div>
+	</th>
+</tr>
+<tr class="row1">
+	<td>{TXT_COPY_CONTENT_OF_TO}&nbsp;<select name="langNew" size="1"><!-- BEGIN langList --><option value="{LANG_ID}">{LANG_NAME}</option><!-- END langList --></select></td>
+</table>
+</div>
+<br />
+<input type="submit" name="Submit" value="{TXT_COPY}" />
+<input type="hidden" name="langOldName" value="{LANG_OLD_NAME}" />
+</form>
+<br >
+<!-- END content_copy_all.html -->

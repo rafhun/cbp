@@ -1,0 +1,72 @@
+.crm-companyInfoCardLink {
+    background: url("../../../../modules/crm/View/Media/CompanySmall.png") no-repeat scroll left center transparent;
+    display: inline-block;
+    padding: 0 0 0 17px;
+}
+#personPopupContainer
+{
+    position:absolute;
+    left:0;
+    top:0;
+    display:none;
+    z-index: 20000;
+}
+#personPopupContent
+{
+    background-color: #FFF;
+    min-width: 175px;
+    min-height: 50px;
+}
+
+.personPopupPopup .personPopupImage
+{
+    margin: 5px;
+    margin-right: 15px;
+}
+
+.personPopupPopup .corner
+{
+    width: 19px;
+    height: 15px;
+}
+
+.personPopupPopup .topLeft
+{
+    background: url(../../../../cadmin/images/icons/personpopup/balloon_topLeft.png) no-repeat;
+}
+
+.personPopupPopup .bottomLeft
+{
+    background: url(../../../../cadmin/images/icons/personpopup/balloon_bottomLeft.png) no-repeat;
+}
+
+.personPopupPopup .left
+{
+    background: url(../../../../cadmin/images/icons/personpopup/balloon_left.png) repeat-y;
+}
+
+.personPopupPopup .right
+{
+    background: url(../../../../cadmin/images/icons/personpopup/balloon_right.png) repeat-y;
+}
+
+.personPopupPopup .topRight
+{
+    background: url(../../../../cadmin/images/icons/personpopup/balloon_topRight.png) no-repeat;
+}
+
+.personPopupPopup .bottomRight
+{
+    background: url(../../../../cadmin/images/icons/personpopup/balloon_bottomRight.png) no-repeat;
+}
+
+.personPopupPopup .top
+{
+    background: url(../../../../cadmin/images/icons/personpopup/balloon_top.png) repeat-x;
+}
+
+.personPopupPopup .bottom
+{
+    background: url(../../../../cadmin/images/icons/personpopup/balloon_bottom.png) repeat-x;
+    text-align: center;
+}

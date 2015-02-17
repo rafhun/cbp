@@ -1,0 +1,57 @@
+<form name="frmSettings" method="post" action="?cmd=u2u&amp;act=saveSettings">
+<table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+        <tr>
+            <th colspan="2">{TXT_U2U_MAX_POSTING_SIZE_INBOX}</th>
+        </tr>
+        <tr class="row2">
+            <td width="15%">{TXT_U2U_VALUE}:</td>
+            <td width="85%">
+                <input type="text" name="frmSettings_max_inbox" value="{TXT_U2U_MAX_POSTING_SIZE}"  maxlength="50" style="width:30%;"  />&nbsp;
+                <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_U2U_MAX_POSTING_SIZE_INBOX}</span>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="2">{TXT_U2U_MAX_CHARS_PER_MSG}</th>
+        </tr>
+        <tr class="row1">
+            <td width="15%">{TXT_U2U_VALUE}:</td>
+            <td width="85%">
+                <input type="text" name="frmSettings_max_chars" value="{TXT_U2U_MAX_POSTING_CHARS}"  maxlength="50" style="width:30%;"  />&nbsp;
+                <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_U2U_MAX_CHARS_PER_MSG}</span>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="2">{TXT_U2U_NOTIFICATIION_EMAILS}</th>
+        </tr>
+        <tr class="row2">
+            <td width="15%">{TXT_U2U_SUBJECT}:</td>
+            <td width="85%">
+                <input type="text" name="frmSettings_subject" value="{TXT_U2U_SETTINGS_MAIL_SUBJECT}"   style="width:30%;"  />&nbsp;
+                <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_U2U_ENTER_THE_SUBJECT_OF_THE_MAIL}</span>
+            </td>
+        </tr>
+        <tr class="row1">
+            <td width="15%">{TXT_U2U_FROM_LINE}:</td>
+            <td width="85%">
+                <input type="text" name="frmSettings_from" value="{TXT_U2U_SETTINGS_MAIL_FROM}"   style="width:30%;"  />&nbsp;
+                <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_U2U_ENTER_THE_FROM_ADDRESS}</span>
+            </td>
+        </tr>
+        <tr class="row2">
+            <td width="15%" colspan="2">{TXT_U2U_MESSAGE}:</td>
+
+        </tr>
+        <tr class="row1 reset">
+            <td colspan="2">{TXT_U2U_EMAIL_CONTENT}</td>
+        </tr>
+        <tr class="row2">
+            <td colspan="2"><b>{TXT_U2U_NOTE}:</b><br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {TXT_U2U_SENDER_NAME_CONTENT} <br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {TXT_U2U_RECEIVER_NAME_CONTENT} <br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {TXT_U2U_DOMAIN_NAME_CONTENT}
+             </td>
+        </tr>
+
+</table>
+<input type="submit" value="{TXT_SAVE}" name="frmSettings_submit" />
+</form>

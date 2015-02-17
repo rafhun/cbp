@@ -1,0 +1,16 @@
+Cx\Core\Core\Model\Entity\SystemComponent:
+  type: entity
+  table: component
+  repositoryClass: Cx\Core\Core\Model\Repository\SystemComponentRepository
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      length: 100
+    type:
+      type: string
+      length: 12

@@ -1,0 +1,399 @@
+{PM_SHOW_CUSTOMER_JAVASCRIPT}
+{PM_REMOVE_BACKGROUND_STYLE}
+<script language="JavaScript" type="text/javascript">
+    //<![CDATA[[
+
+    function deleteEntry(entryId){
+        if(confirm('{TXT_CRM_ARE_YOU_SURE_TO_DELETE_THE_ENTRY}'))
+            window.location.replace("?cmd={MODULE_NAME}&{CSRF_PARAM}&act=deleteCustomers&id="+entryId+'{CRM_REDIRECT_LINK}');
+    }
+ 
+    function selectMultiAction() {
+        with (document.frmShowCustomersEntries) {
+            var chks = document.getElementsByName('selectedEntriesId[]');
+            var hasChecked = false;
+            // Get the checkbox array length and iterate it to see if any of them is selected
+            for (var i = 0; i < chks.length; i++){
+                if (chks[i].checked){
+                    hasChecked = true;
+                    break;
+                }
+            }
+            if (!hasChecked) {
+                alert("{TXT_CRM_NOTHING_SELECTED}");
+                document.frmShowCustomersEntries.frmShowEntries_MultiAction.value=0;
+                document.frmShowCustomersEntries.frmShowEntries_MultiAction.focus();
+                return false;
+            }
+            switch (frmShowEntries_MultiAction.value) {
+                case 'delete':
+                    if (confirm('{TXT_CRM_SURE_TO_DELETE_SELECTED_ENTRIES}')) {
+                        action='?cmd={MODULE_NAME}&act=deleteCustomers{CRM_REDIRECT_LINK}';
+                        submit();
+                    }
+                    else{
+                        frmShowEntries_MultiAction.value=0;
+                    }
+                    break;
+                default: //do nothing
+                    if(frmShowEntries_MultiAction.value == "activate"){
+                        action='index.php?cmd={MODULE_NAME}&act=customersChangeStatus&type=activate{CRM_SEARCH_LINK}';
+                        submit();
+                    }
+                    if(frmShowEntries_MultiAction.value == "deactivate"){
+                        action='index.php?cmd={MODULE_NAME}&act=customersChangeStatus&type=deactivate{CRM_SEARCH_LINK}';
+                        submit();
+                    }
+            }
+        }
+    }
+
+    $J(function()
+    {
+        $J(".activity").click(function(){           
+           $J(this).css('z-index', 110);
+           $J(this).parent().find('.activity-submenu').show();
+           return false;
+        });
+        $J(document).mouseup(function(){            
+            $J(".activity").css('z-index', 0);
+            $J(".activity-submenu").hide();
+        });
+
+        $J("#term").live('focus', function(){
+            $J(this).removeClass("crm-watermark");
+        });
+        $J("#term").live('blur', function(){
+            if ($J(this).val() == '') {
+                $J(this).addClass("crm-watermark");
+            } else {
+                $J(this).removeClass("crm-watermark");
+            }
+        });
+        $J('#term').data('holder',$J('#term').attr('placeholder'));
+
+        $J('#term').focusin(function(){
+            $J(this).attr('placeholder','');
+        });
+        $J('#term').focusout(function(){
+            $J(this).attr('placeholder',$J(this).data('holder'));
+        });
+        
+        $J(".advanced-search").click(function(){
+            if ($J("#advanceSearchContainer").is(':visible')) {
+                $J(this).removeClass("arrow-up").addClass("arrow-down");
+                $J("#advanceSearchContainer").slideUp("slow");
+            } else {
+                $J(this).removeClass("arrow-down").addClass("arrow-up");
+                $J("#advanceSearchContainer").slideDown("slow");
+            }
+        });
+        $J(".search-checkbox").click(function(){
+            $J("#searchcustomer").submit();
+        });
+        $J("#search_customer_type, #filter_membership").change(function(){
+            $J("#searchcustomer").submit();
+        });
+    });
+    //]]>
+</script>
+
+<style type="text/css">
+    table.adminlist table tr td {border: medium none;}
+    .crm-watermark {
+        color: #AAAAAA;
+    }    
+    .advanced-search {
+        padding: 0 13px 0 0;
+    }
+    .crm-icons {
+        padding: 0 0 0 20px;
+        margin-bottom: 2px;
+    }
+    .contact-phone {background: url("../modules/crm/View/Media/telefon.png") no-repeat left 2px transparent;}
+    .contact-email {background: url("../modules/crm/View/Media/Email.gif") no-repeat left 3px transparent;}
+    .crm-notes {background: url("../modules/crm/View/Media/notes.png") no-repeat left 3px transparent;}
+    .crm-tasks {background: url("../modules/crm/View/Media/tasks.png") no-repeat left 3px transparent;}
+    .crm-deals {background: url("../modules/crm/View/Media/opportunity.png") no-repeat left 3px transparent;}
+    .activity-dropdown {
+        color: #555;       
+        width: 143px;
+        position: relative;
+        height: 17px;
+        text-align:left;
+    }
+    .activity-submenu {
+        background: #fff;
+        position: absolute;
+        z-index: 100;
+        width: 190px;
+        display: none;
+        padding: 28px 0 5px;        
+        border: 1px solid #dedede;
+    }
+    .activity-dropdown li a {
+        display: block;
+        font-family: arial;
+        font-weight: bold;
+        padding: 6px 15px;
+        cursor: pointer;
+        text-decoration:none;
+    }
+
+    .activity-dropdown li a:hover {
+        background: #F2F2F2;
+        text-decoration: none;
+    }
+    a.activity {
+        font-size: 11px;
+        line-height: 16px;
+        position: absolute;
+        display: block;
+        padding: 5px 0 0 10px;
+        height: 22px;
+        width: 180px;
+        text-decoration: none;
+        cursor: pointer;
+        background: url('images/icons/crm_arrow_down.gif') no-repeat 160px 5px #fff;
+        border: 1px solid #dedede;
+    }
+    .bordered {        
+               
+    }
+    .activity-root {
+        list-style:none;
+        margin:0px;
+        padding:0px;
+        font-size: 11px;
+        padding: 11px 0 0 0px;
+        border-top:1px solid #dedede;
+    }    
+</style>
+<div id="subnavbar_level2">
+    <ul id="creation">
+        <li><a title="{TXT_CRM_ADD_NEW_CUSTOMER}"  href="index.php?cmd={MODULE_NAME}&act=customers&tpl=managecontact" title="{TXT_CRM_ADD_NEW_CUSTOMER}" class="navBar">
+                {TXT_CRM_ADD_NEW_CUSTOMER}</a></li>
+        <li><a title="{TXT_CRM_ADD_NEW_CONTACT}"  href="index.php?cmd={MODULE_NAME}&act=customers&tpl=managecontact&type=contact" title="{TXT_CRM_ADD_NEW_CONTACT}" class="navBar">
+                {TXT_CRM_ADD_NEW_CONTACT}</a></li>
+        <li>
+            <a title="{TXT_CRM_CUSTOMER_EXPORT}"  href="index.php?cmd={MODULE_NAME}&amp;act=settings&amp;tpl=interface&amp;subTpl=export" class="navBar">
+                {TXT_CRM_CUSTOMER_EXPORT}
+            </a>
+        </li>
+    </ul>
+</div>
+<br />
+<div id = 'crm'>
+    <form method='get' action='' name='searchcustomer' id='searchcustomer'>
+        <table cellspacing="0" cellpadding="5" border="0" width="100%" class="adminlist" >
+            <tr>
+                <th valign="top" colspan="2">
+                    <div align="left">{TXT_CRM_FILTERS}</div>
+                </th>
+            </tr>
+            <tr>
+                <td style="width: 550px;">
+                    <input type='hidden' name="cmd" value="{MODULE_NAME}" />
+                    <input type='hidden' name="act" value="customers" />                    
+                    <input type='text' name='term' placeholder="{TXT_CRM_ENTER_SEARCH_TERM}" class="crm-watermark" id='term'  style='width: 300px;' class='search-box' value='{CRM_SEARCH_TERM}' />
+                    &nbsp;&nbsp;
+                    <input type='submit' value='{TXT_CRM_SEARCH}'  id='searchButton'/>&nbsp;&nbsp;
+                    <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_CRM_CUSTOMER_SEARCH_HINT}</span>                    
+                    &nbsp;<a href="javascript:void(0)" class="advanced-search {CRM_ADVANCED_SEARCH_CLASS}">{TXT_CRM_ADVANCED_SEARCH}</a>
+                    <div>
+                        <input type="checkbox" class="search-checkbox" name="contactSearch[]" {CRM_CUSTOMER_CHECKED} value="1" />&nbsp;{TXT_CRM_CUSTOMERS}&nbsp;
+                               <input type="checkbox" name="contactSearch[]" value="2" {CRM_CONTACT_CHECKED} class="search-checkbox" />&nbsp;{TXT_CRM_CONTACTS}
+                    </div>
+                </td>
+                <td valign="top">
+                    <!-- BEGIN block_customer_type -->
+                    <select style="width:200px" id="search_customer_type" name="customer_type">
+                        <option value="0">-{TXT_CRM_FILTER_CUSTOMER_TYPE}-</option>
+                        <!-- BEGIN customerTypes -->
+                        <option value="{CRM_CUSTOMER_TYPE_ID}" {CRM_CUSTOMER_TYPE_SELECTED}>{CRM_CUSTOMER_TYPE}</option>
+                        <!-- END customerTypes -->
+                    </select>
+                    <!-- END block_customer_type -->
+                    <!-- BEGIN block_memberships -->
+                    <select name="filter_membership" id="filter_membership" style="width:200px">
+                        <option value="0">--{TXT_CRM_FILTER_MEMBERSHIP}--</option>
+                        <!-- BEGIN memberships -->
+                        <option value="{CRM_MEMBERSHIP_ID}" {CRM_MEMBERSHIP_SELECTED}>{CRM_MEMBERSHIP_VALUE}</option>
+                        <!-- END memberships -->
+                    </select>
+                    <!-- END block_memberships -->
+                </td>
+            </tr>
+        </table>
+        <div id="advanceSearchContainer" style="{CRM_ADVANCED_SEARCH_STYLE}">
+            <table class="adminlist" cellpadding="3" cellspacing="0" width="100%">
+                <tr class="row1">
+                    <td width="10%">{TXT_CRM_TITLE_NAME}</td>
+                    <td width="35%"> <input type="text" value="{CRM_SEARCH_NAME}" style="width: 255px;" id="s_name" name="s_name"></td>
+                    <td colspan="3">&nbsp;</td>                    
+                </tr>
+                <tr class="row2">
+                    <td width="10%">{TXT_CRM_PRIMARY_EMAIL}</td>
+                    <td width="35%"> <input type="text" value="{CRM_SEARCH_EMAIL}" style="width: 255px;" id="s_email" name="s_email"></td>
+                    <td width="10%">&nbsp;</td>
+                    <td width="10%">{TXT_CRM_ADDRESS}</td>
+                    <td width="35%"> <input type="text" value="{CRM_SEARCH_ADDRESS}" style="width: 255px;" id="s_address" name="s_address"></td>
+                </tr>
+                <tr class="row1">
+                    <td width="10%">{TXT_CRM_CITY}</td>
+                    <td width="35%"> <input type="text" value="{CRM_SEARCH_CITY}" style="width: 255px;" id="s_city" name="s_city"></td>
+                    <td width="10%">&nbsp;</td>
+                    <td width="10%" style="vertical-align:top;">{TXT_CRM_POSTAL_CODE}</td>
+                    <td width="35%" style="vertical-align:top;"> <input type="text" id="s_postal_code" name="s_postal_code" style="width: 255px;" value="{CRM_SEARCH_ZIP}"></td>
+                </tr>
+                <tr class="row2">                    
+                    <td width="10%" style="vertical-align:top;">{TXT_CRM_DESCRIPTION}</td>
+                    <td width="35%">
+                        <textarea rows="5" cols="50" style="width: 255px;" id="s_notes" name="s_notes">{CRM_SEARCH_NOTES}</textarea>
+                    </td>
+                    <td colspan="3">&nbsp;</td>
+                </tr>
+            </table>
+            <br>
+            <input type="submit" name="advanced-search" value="{TXT_CRM_SEARCH}" />
+        </div>                
+    </form>    
+    <div style="float:left;width: 100%;padding: 10px 0;">
+        <div style="float:left;width: 700px;">
+            <!-- BEGIN module_crm_letter_index_list -->
+            <a href="{ACCESS_USER_LETTER_INDEX_URI}">[ {ACCESS_USER_LETTER_INDEX_LETTER} ]</a>
+            <!-- END module_crm_letter_index_list -->
+        </div>
+        <div align="right" style="float: right;">{ENTRIES_PAGING}</div>
+    </div>    
+    <form style="clear:both;margin-top: 5px;" action="" method="post" name="frmShowCustomersEntries">
+        <table cellspacing="0" cellpadding="3" border="0" width="100%" class="adminlist" id="customerOverview" >
+            <tr>
+                <th colspan="9">
+                    {TXT_CRM_CUSTOMER_OVERVIEW}
+                    <span style="float: right;margin-top: 5px;">
+                        <a title="{TXT_CRM_CUSTOMER_EXPORT}"  href="index.php?cmd={MODULE_NAME}&amp;act=settings&amp;tpl=interface&amp;subTpl=exportcsv{CRM_SEARCH_LINK}">
+                            <img src="./images/icons/csv.gif"/>
+                        </a>
+                    </span>
+                </th>
+            </tr>
+            <tr class="row3">
+                <td width="3%"><span style="font-weight:bold;">&nbsp;&nbsp;#</span></td>
+                <td width="3%" style="font-weight: bold; white-space: nowrap;">{TXT_CRM_TITLE_ACTIVE}</td>
+                <td width="25%" style="font-weight: bold;text-align: left;"><a title="sort" href="./index.php?cmd={MODULE_NAME}&act=customer{CRM_NAME_SORT}{CRM_SEARCH_LINK}">{TXT_CRM_TITLE_NAME}</a></td>
+                <td width="20%" style="font-weight: bold;text-align: left;"><a title="sort" href="./index.php?cmd={MODULE_NAME}&act=customer{CRM_ACTIVITIES_SORT}{CRM_SEARCH_LINK}">{TXT_CRM_ACTIVITIES}</a></td>
+                <td width="15%" style="font-weight: bold;text-align: left;">{TXT_CRM_CONTACT}</td>
+                <td width="8%" style="font-weight: bold;"><a title="sort" href="./index.php?cmd={MODULE_NAME}&act=customer{CRM_DATE_SORT}{CRM_SEARCH_LINK}">{TXT_CRM_TITLE_ADDEDDATE}</a></td>
+                <td width="3%" style="text-align: right;font-weight: bold; white-space: nowrap;">{TXT_CRM_TITLE_FUNCTIONS}</td>
+            </tr>
+            <!-- BEGIN showEntries -->
+            <!-- BEGIN showCustomers -->
+            <tr class="{CRM_ROW_CLASS}" {TXT_STYLESHEET}>
+                <td ><input type="checkbox" name="selectedEntriesId[]" value="{ENTRY_ID}" style="margin-top: 0;" /></td>
+                <td align='center'><a href="index.php?cmd={MODULE_NAME}&act=customers&activeId={ENTRY_ID}&active={TXT_ACTIVE_VALUE}{CRM_SEARCH_LINK}" title="" target><img border="0" title="{TXT_IMAGE_TITLE}" alt="" src="{TXT_ACTIVE_IMAGE}" /></a></td>
+                <td>
+                    <div style="float: left;width: 40px;"><img alt="empty_company" width="40px" height="40px" src="{CRM_ACCESS_PROFILE_IMG_WEB_PATH}/{CRM_CONTACT_PROFILE_IMAGE}" /></div>
+                    <table>
+                        <tr><td><strong>{CRM_COMPANY_NAME}&nbsp;&nbsp;&nbsp;&nbsp;{CRM_CONTACT_ADDED_NEW}</strong></td></tr>
+                        <tr>
+                            <td>
+                                {TXT_CRM_CUSTOMERID} : {CRM_CUSTOMER_ID}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <div class="activity-dropdown">
+                        <a class="activity">{TXT_CRM_ACTIVITIES} ({CRM_ACTIVITIES_COUNT}) </a>
+
+                        <div class="activity-submenu">
+                            <ul class="activity-root">
+                            <li>{CRM_CONTACT_NOTES_COUNT}</li>
+                            <li>{CRM_CONTACT_TASK_COUNT}</li>
+                            <li>{CRM_CONTACT_DEALS_COUNT}</li>
+                            </ul>
+                        </div>
+                    </div>                    
+                </td>                
+                <td valign="top" style="padding-top: 2px;">
+                    <div class="contact-email crm-icons"><a href="mailto:{CRM_CONTACT_EMAIL}"> {CRM_CONTACT_EMAIL} </a></div>
+                    <div class="contact-phone crm-icons">{CRM_CONTACT_PHONE}</div>
+                </td>
+                <td >{CRM_ADDED_DATE}</td>
+                <td nowrap="nowrap">
+                    <div align="right">
+                        <a title="{TXT_CRM_DOWNLOAD_VCARD}" target="_self" href="index.php?cmd={MODULE_NAME}&amp;act=exportvcf&amp;id={ENTRY_ID}"><img border="0" title="{TXT_IMAGE_VCARD}" alt="{TXT_IMAGE_VCARD}" src="images/icons/outlook_visitenkarte.png" /></a>                        
+                        <a title="{TXT_CRM_IMAGE_EDIT}" target="_self" href="index.php?cmd={MODULE_NAME}&act=customers&tpl=managecontact&amp;id={ENTRY_ID}{CRM_REDIRECT_LINK}"><img border="0" title="{TXT_CRM_IMAGE_EDIT}" alt="{TXT_CRM_IMAGE_EDIT}" src="images/icons/edit.gif" /></a>
+                        <a href="javascript:deleteEntry({ENTRY_ID});" target="_self" title="{TXT_CRM_IMAGE_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{TXT_CRM_IMAGE_DELETE}" title="{TXT_CRM_IMAGE_DELETE}" /></a>
+                    </div>
+                </td>
+            </tr>
+            <!-- END showCustomers -->
+            <!-- BEGIN showContacts -->
+            <tr class="{CRM_ROW_CLASS}">
+                <td><input type="checkbox" name="selectedEntriesId[]" value="{ENTRY_ID}" style="margin-top: 0;" /></td>
+                <td align='center'><a href="index.php?cmd={MODULE_NAME}&act=customers&activeId={ENTRY_ID}&active={TXT_ACTIVE_VALUE}{CRM_SEARCH_LINK}" title="" target><img border="0" title="{TXT_IMAGE_TITLE}" alt="" src="{TXT_ACTIVE_IMAGE}" /></a></td>
+                <td>
+                    <div style="float: left;width: 40px;"><img alt="empty_people" width="40px" height="40px" src="{CRM_ACCESS_PROFILE_IMG_WEB_PATH}/{CRM_CONTACT_PROFILE_IMAGE}" /></div>
+                    <table>
+                        <tr><td><strong>{CRM_CONTACT_NAME}&nbsp;&nbsp;&nbsp;&nbsp;{CRM_CONTACT_ADDED_NEW}</strong></td></tr>
+                        <tr>
+                            <td>
+                                {CRM_COMPNAY_NAME}                                
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <div class="activity-dropdown">
+                        <a class="activity">{TXT_CRM_ACTIVITIES} ({CRM_ACTIVITIES_COUNT}) </a>
+
+                        <div class="activity-submenu">
+                            <ul class="activity-root">
+                            <li>{CRM_CONTACT_NOTES_COUNT}</li>
+                            <li>{CRM_CONTACT_TASK_COUNT}</li>
+                            <li>{CRM_CONTACT_DEALS_COUNT}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>                
+                <td valign="top" style="padding-top: 2px;">
+                    <div class="contact-email crm-icons"><a href="mailto:{CRM_CONTACT_EMAIL}"> {CRM_CONTACT_EMAIL} </a></div>
+                    <div class="contact-phone crm-icons">{CRM_CONTACT_PHONE}</div>
+                </td>
+                <td>{CRM_ADDED_DATE}</td>
+                <td nowrap="nowrap">
+                    <div align="right">
+                        <a title="{TXT_CRM_DOWNLOAD_VCARD}" target="_self" href="index.php?cmd={MODULE_NAME}&amp;act=exportvcf&amp;id={ENTRY_ID}"><img border="0" title="{TXT_IMAGE_VCARD}" alt="{TXT_IMAGE_VCARD}" src="images/icons/outlook_visitenkarte.png" /></a>                        
+                        <a title="{TXT_CRM_IMAGE_EDIT}" target="_self" href="index.php?cmd={MODULE_NAME}&act=customers&tpl=managecontact&type=contact&id={ENTRY_ID}{CRM_REDIRECT_LINK}"><img border="0" title="{TXT_CRM_IMAGE_EDIT}" alt="{TXT_CRM_IMAGE_EDIT}" src="images/icons/edit.gif" /></a>
+                        <a href="javascript:deleteEntry({ENTRY_ID});" target="_self" title="{TXT_CRM_IMAGE_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{TXT_CRM_IMAGE_DELETE}" title="{TXT_CRM_IMAGE_DELETE}" /></a>
+                    </div>
+                </td>
+            </tr>
+            <!-- END showContacts -->
+            <!-- END showEntries -->
+        </table>
+        <div style="clear:both;margin-top: 5px;">{TXT_NORECORDFOUND_ERROR}</div>
+        <br />
+        <table cellpadding="2" cellspacing="0" border="0">
+            <tr>
+                <td>
+                    <img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="{TXT_ENTRIES_MARKED}:" />
+                    <a href="#" onclick="changeCheckboxes('frmShowCustomersEntries','selectedEntriesId[]',true); return false;">{TXT_CRM_SELECT_ALL}</a> /
+                    <a href="#" onclick="changeCheckboxes('frmShowCustomersEntries','selectedEntriesId[]',false); return false;">{TXT_CRM_REMOVE_SELECTION}</a>
+                    <img src="images/icons/strike.gif" alt="" />
+                    <select name="frmShowEntries_MultiAction" onchange="selectMultiAction();">
+                        <option value="0">{TXT_CRM_SELECT_ACTION}</option>
+                        <option value="activate">{TXT_CRM_ACTIVATESELECTED}</option>
+                        <option value="deactivate">{TXT_CRM_DEACTIVATESELECTED}</option>
+                        <option value="delete">{TXT_CRM_DELETE_SELECTED}</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </form>        
+    <br/>
+</div>
+<!-- END customer_details -->
+<div id="fade" class="black_overlay"></div>

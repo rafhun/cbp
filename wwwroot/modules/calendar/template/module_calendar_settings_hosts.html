@@ -1,0 +1,130 @@
+<!-- START module_calendar_settings_hosts.html -->
+<script language="JavaScript" type="text/javascript">
+//<![CDATA[
+function deleteHost(hostId)
+{
+    if (confirm('{TXT_CALENDAR_CONFIRM_DELETE_DATA}\n{TXT_CALENDAR_ACTION_IS_IRREVERSIBLE}')) {
+        window.location.replace("index.php?cmd={CALENDAR_MODULE_NAME}&act=settings&tpl=hosts&delete="+hostId+"&{CALENDAR_CSRF}");
+    }
+}
+
+function elementIsChecked(fieldName)
+{
+    var x = 0;
+    for(var i = 0; i < document.formSettingsHosts.elements.length; i++) {
+        var e = document.formSettingsHosts.elements[i];
+        if(e.name == fieldName && e.checked == true) {
+            x++;
+        }
+    }
+    
+    if(x > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function selectMultiAction()
+{
+    if(elementIsChecked("selectedHostId[]") == true)
+    {
+        if(document.formSettingsHosts.formSettingsHosts_MultiAction.value == "delete") {
+            if(confirm('{TXT_CALENDAR_CONFIRM_DELETE_DATA}\n{TXT_CALENDAR_ACTION_IS_IRREVERSIBLE}')) {
+                document.formSettingsHosts.action = "index.php?cmd={CALENDAR_MODULE_NAME}&act=settings&tpl=hosts&multi=delete&{CALENDAR_CSRF}";
+                document.formSettingsHosts.submit();
+            }
+        } 
+        if(document.formSettingsHosts.formSettingsHosts_MultiAction.value == "activate") {                
+            document.formSettingsHosts.action = "index.php?cmd={CALENDAR_MODULE_NAME}&act=settings&tpl=hosts&multi=activate&{CALENDAR_CSRF}";
+            document.formSettingsHosts.submit(); 
+        } 
+        if(document.formSettingsHosts.formSettingsHosts_MultiAction.value == "deactivate") {                
+            document.formSettingsHosts.action = "index.php?cmd={CALENDAR_MODULE_NAME}&act=settings&tpl=hosts&multi=deactivate&{CALENDAR_CSRF}";
+            document.formSettingsHosts.submit(); 
+        } 
+    } else {
+        alert("{TXT_CALENDAR_MAKE_SELECTION}");
+    }
+
+    document.formSettingsHosts.formSettingsHosts_MultiAction.value = "0";
+}
+//]]>       
+                                               
+Style[0]=["","","","","",,"black","#ffffe1","","","",,,,1,"#000000",2,21,0.3,,2,"gray",1,,15,-5];
+{CALENDAR_SETTING_INFO_JS}    
+
+</script>
+
+
+<form name="formSettingsHosts" method="post" action="index.php?cmd={CALENDAR_MODULE_NAME}&act=settings&tpl=hosts">
+    <input type="button" name="newHost" onclick="location.href='index.php?cmd={CALENDAR_MODULE_NAME}&amp;act=settings&amp;tpl=modify_host&amp;{CALENDAR_CSRF}'" value="{TXT_CALENDAR_INSERT_HOST}" /><br />
+    <br />
+	<table style="width: 100%; border-spacing: 0px;" class="adminlist" cellspacing="0" cellpadding="3">
+	    <tr>
+	        <th colspan="7">{TXT_CALENDAR_ADDED_HOSTS}</th>
+	    </tr>
+	    <tr class="row3">
+	       <td style="text-align: center; font-weight: bold" width="1%">&nbsp;#&nbsp;</td>
+           <td style="text-align: center; font-weight: bold" width="1%">&nbsp;{TXT_CALENDAR_STATUS}&nbsp;</td>
+           <td style="text-align: left; font-weight: bold">{TXT_CALENDAR_TITLE}</td>
+           <td style="text-align: left; font-weight: bold">{TXT_CALENDAR_URI}</td>
+           <td style="text-align: left; font-weight: bold" >{TXT_CALENDAR_CATEGORY}</td>
+           <td style="text-align: left; font-weight: bold" >{TXT_CALENDAR_KEY}</td>
+           <td style="text-align: right; font-weight: bold" width="1%">{TXT_CALENDAR_ACTIONS}</td>
+	    </tr>
+        <!--  BEGIN hostList -->
+        <tr class="{CALENDAR_HOST_ROW}">
+           <td style="text-align: center;"><input type="checkbox" name="selectedHostId[]" id="selectedHostId" value="{CALENDAR_HOST_ID}" /></td>
+           <td style="text-align: center;"><a href="index.php?cmd={CALENDAR_MODULE_NAME}&amp;act=settings&amp;tpl=hosts&amp;switch_status={CALENDAR_HOST_ID}"><img src="images/icons/led_{CALENDAR_HOST_LED}.gif" border="0" alt="{CALENDAR_HOST_STATUS}" title="{CALENDAR_HOST_STATUS}" /></a></td>
+           <td><a href="index.php?cmd={CALENDAR_MODULE_NAME}&amp;act=settings&amp;tpl=modify_host&amp;id={CALENDAR_HOST_ID}"><b>{CALENDAR_HOST_TITLE}</b></a></td>
+           <td><a href="{CALENDAR_HOST_URI}" target="_blank" >{CALENDAR_HOST_URI}</a></td>
+           <td>{CALENDAR_HOST_CATEGORY}</td>
+           <td>{CALENDAR_HOST_KEY}</td>
+           <td style="text-align: right;">
+                <a href="index.php?cmd={CALENDAR_MODULE_NAME}&amp;act=settings&amp;tpl=modify_host&amp;id={CALENDAR_HOST_ID}" target="_self" title="{CALENDAR_HOST_TITLE} {TXT_CALENDAR_EDIT}"><img src="images/icons/edit.gif" border="0" alt="{CALENDAR_HOST_TITLE} {TXT_CALENDAR_EDIT}" title="{CALENDAR_HOST_TITLE} {TXT_CALENDAR_EDIT}" /></a>
+                <a href="javascript:deleteHost('{CALENDAR_HOST_ID}');" title="{CALENDAR_HOST_TITLE} {TXT_CALENDAR_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{CALENDAR_HOST_TITLE} {TXT_CALENDAR_DELETE}" title="{CALENDAR_HOST_TITLE} {TXT_CALENDAR_DELETE}" /></a>
+            </td>
+        </tr>
+        <!-- END hostList -->
+        
+        <!-- BEGIN emptyHostList -->
+        <tr class="row1">
+            <td colspan="7"><i>{TXT_CALENDAR_NO_HOSTS_FOUND}</i></td>
+        </tr>
+        <!-- END emptyHostList -->
+    </table>
+    <table cellpadding="2" cellspacing="0" border="0">
+        <tr>
+            <td style="border: 0px;">
+                <img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="{TXT_MARKED}:" />
+                <a href="#" onclick="changeCheckboxes('formSettingsHosts','selectedHostId',true); return false;">{TXT_SELECT_ALL}</a> /
+                <a href="#" onclick="changeCheckboxes('formSettingsHosts','selectedHostId',false); return false;">{TXT_DESELECT_ALL}</a>
+                <img src="images/icons/strike.gif" alt="space" />
+                <select name="formSettingsHosts_MultiAction" onchange="selectMultiAction();">
+                    <option value="0">{TXT_SUBMIT_SELECT}</option>
+                    <option value="activate">{TXT_SUBMIT_ACTIVATE}</option>
+                    <option value="deactivate">{TXT_SUBMIT_DEACTIVATE}</option>
+                    <option value="delete">{TXT_SUBMIT_DELETE}</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <!--  BEGIN sectionList -->
+    <table style="width: 100%; border-spacing: 0px;" class="adminlist" cellspacing="0" cellpadding="3">
+        <tr>
+            <th colspan="2">{TXT_CALENDAR_SECTION_NAME}</th>
+        </tr>
+        <!--  BEGIN settingsList -->
+        <tr class="{CALENDAR_SETTING_ROW}">
+          <td style="width: 200px">{TXT_CALENDAR_SETTING_NAME}</td>
+          <td>{CALENDAR_SETTING_VALUE}{CALENDAR_SETTING_INFO}</td>
+        </tr>
+        <!-- END settingsList -->
+    </table>
+    <br />
+    <!-- END sectionList -->
+    <input type="submit" name="submitSettingsHosts" value="{TXT_CALENDAR_SAVE}" />
+</form>
+<!-- END module_calendar_settings_hosts.html -->

@@ -1,0 +1,879 @@
+{PM_REMOVE_BACKGROUND_STYLE}
+{PM_AJAX_SAVE_FROM_SHADOWBOX_JAVASCRIPT}
+<script>
+    var contactType = '{CRM_CONTACT_TYPE}';
+    var emailCount  = {CRM_INPUT_COUNT};
+    var assignedId  = [{CRM_CONTACTS_ASSIGNED}];
+</script>
+<div class="dropDownDialog" id="WebsiteCategoriesPanel" style="position: absolute;">
+    <div class="dropDownContent">
+        <!-- BEGIN contactWebsiteOptions -->
+        <a categoryName="Website" class="dropDownItem" category="0">{TXT_CRM_HOME}</a>
+        <a categoryName="Website" class="dropDownItem" category="1">{TXT_CRM_WORK}</a>
+        <a categoryName="Website" class="dropDownItem" category="2">{TXT_CRM_OTHERS}</a>
+        <!-- END contactWebsiteOptions -->
+        <!-- BEGIN companyWebsiteOptions -->
+        <a categoryName="Website" class="dropDownItem" category="3">{TXT_CRM_BUSINESS1}</a>
+        <a categoryName="Website" class="dropDownItem" category="4">{TXT_CRM_BUSINESS2}</a>
+        <a categoryName="Website" class="dropDownItem" category="5">{TXT_CRM_BUSINESS3}</a>
+        <!-- END companyWebsiteOptions -->
+    </div>
+</div>
+<div id="SocialCategoriesPanel" class="dropDownDialog">
+    <div class="dropDownContent">
+        <a category="1" categoryName="Skype" class="dropDownItem">{TXT_CRM_SKYPE}</a>
+        <a category="2" categoryName="Twitter" class="dropDownItem">{TXT_CRM_TWITTER}</a>
+        <a category="3" categoryName="LinkedIn" class="dropDownItem">{TXT_CRM_LINKEDIN}</a>
+        <a category="4" categoryName="Facebook" class="dropDownItem">{TXT_CRM_FACEBOOK}</a>
+        <a category="5" categoryName="LiveJournal" class="dropDownItem">{TXT_CRM_LIVEJOURNAL}</a>
+        <a category="6" categoryName="MySpace" class="dropDownItem">{TXT_CRM_MYSPACE}</a>
+        <a category="7" categoryName="GMail" class="dropDownItem">{TXT_CRM_GMAIL}</a>
+        <a category="8" categoryName="Blogger" class="dropDownItem">{TXT_CRM_BLOGGER}</a>
+        <a category="9" categoryName="Yahoo" class="dropDownItem">{TXT_CRM_YAHOO}</a>
+        <a category="10" categoryName="MSN" class="dropDownItem">{TXT_CRM_MSN}</a>
+        <a category="11" categoryName="ICQ" class="dropDownItem">{TXT_CRM_ICQ}</a>
+        <a category="12" categoryName="Jabber" class="dropDownItem">{TXT_CRM_JABBER}</a>
+        <a category="13" categoryName="AIM" class="dropDownItem">{TXT_CRM_AIM}</a>
+        <a category="14" categoryName="Google+" class="dropDownItem">{TXT_CRM_GOOGLE_PLUS}</a>
+        <a category="15" categoryName="Xing" class="dropDownItem">{TXT_CRM_XING}</a>
+    </div>
+</div>
+<div class="dropDownDialog" id="EmailCategoriesPanel" style="position: absolute;">
+    <div class="dropDownContent">
+        <a class="dropDownItem" category="0">{TXT_CRM_HOME}</a>
+        <a class="dropDownItem" category="1">{TXT_CRM_WORK}</a>
+        <a class="dropDownItem" category="2">{TXT_CRM_OTHERS}</a>
+    </div>
+</div>
+<div class="dropDownDialog" id="PhoneCategoriesPanel" style="position: absolute;">
+    <div class="dropDownContent">
+        <a class="dropDownItem" category="0">{TXT_CRM_HOME}</a>
+        <a class="dropDownItem" category="1">{TXT_CRM_WORK}</a>
+        <a class="dropDownItem" category="2">{TXT_CRM_MOBILE}</a>
+        <a class="dropDownItem" category="3">{TXT_CRM_FAX}</a>
+        <a class="dropDownItem" category="4">{TXT_CRM_DIRECT}</a>
+        <a class="dropDownItem" category="5">{TXT_CRM_OTHERS}</a>
+    </div>
+</div>
+<div id='loading'></div>
+<div id="subnavbar_level2">
+    <ul id="creation">
+        <li>
+            <a title="{TXT_CRM_OVERVIEW}"  href="index.php?cmd={MODULE_NAME}&amp;act=customers" title="{TXT_CRM_OVERVIEW}" class="navBar">{TXT_CRM_OVERVIEW}</a>
+        </li>
+        <li><a class="{COMPANY_MENU_ACTIVE}" title="{TXT_CRM_ADD_NEW_CUSTOMER}"  href="index.php?cmd={MODULE_NAME}&act=customers&tpl=managecontact" title="{TXT_CRM_ADD_NEW_CUSTOMER}" class="navBar">
+                {TXT_CRM_ADD_NEW_CUSTOMER}</a></li>
+        <li><a class="{CONTACT_MENU_ACTIVE}" title="{TXT_CRM_ADD_NEW_CONTACT}"  href="index.php?cmd={MODULE_NAME}&act=customers&tpl=managecontact&type=contact" title="{TXT_CRM_ADD_NEW_CONTACT}" class="navBar">
+                {TXT_CRM_ADD_NEW_CONTACT}</a></li>
+    </ul>
+</div>
+<br>
+<div id="newContact" class="alertbox"  style="display:none;"></div>
+<form id="access" name="newContact" onsubmit="membershipSelectAll()" action="" method="post">
+    <div id="edit_contact">
+        <div id="contact_form" style="float: left;width: 100%;">
+            <div id="newContact"  style="display:none;background-color: #FFCCCC;border: 1px solid;color: #FF0000;font-size: 12px;line-height: 14px;padding: 5px;"></div>
+            <div id="profile" class="contact">
+                <!-- BEGIN contactBlock -->
+                <ul id="tabmenu">
+                    <li><a id="Entries_ShowProfile" class="active" href="javascript:{}" onclick="selectTab('ShowProfile')" title="{TXT_CRM_PROFILE}">{TXT_CRM_PROFILE}</a></li>
+                    <!-- BEGIN show-account-details -->
+                    <li><a id="Entries_ShowAccount" class="inactive" href="javascript:{}" onclick="selectTab('ShowAccount')" title="{TXT_CRM_ACCOUNT}">{TXT_CRM_ACCOUNT}</a></li>
+                    <!-- END show-account-details -->
+                </ul>
+                <div class="Entries" id="ShowProfile">
+                    <table class="adminlist" id="profile-info" cellspacing="0" cellpadding="3" width="100%" border="0">
+                        <thead>
+                            <tr><th colspan="4">{TXT_CRM_PROFILE}</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="width:127px;">{TXT_CRM_GENDER}&nbsp;<font color="red">*</font></td>
+                                <td style="width:340px;">
+                                    <select tabindex="1" id="contact_gender" name="contact_gender" style="width: 262px !important;">
+                                        <option value="" >{TXT_CRM_NOT_SPECIFIED}</option>
+                                        <option value="1" {CRM_GENDER_FEMALE_SELECTED}>{TXT_CRM_GENDER_FEMALE}</option>
+                                        <option value="2" {CRM_GENDER_MALE_SELECTED}>{TXT_CRM_GENDER_MALE}</option>
+                                    </select>
+                                </td>
+                                <td>{TXT_CRM_TITLE_LANGUAGE}&nbsp;<font color="red">*</font></td>
+                                <td>
+                                    <select tabindex="6" id="language" name="contact_language" style="width: 262px !important;">
+                                        <option value="">--{TXT_CRM_TITLE_SELECT_LANGUAGE}--</option>
+                                        <!-- BEGIN showAddtionalContactLanguages -->
+                                        <option {TXT_LANG_SELECT} value="{TXT_LANG_ID}">{TXT_LANG_NAME}</option>
+                                        <!-- END showAddtionalContactLanguages -->
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr class="row1">
+                                <td>{TXT_CRM_NAME}&nbsp;<font color="red">*</font></td>
+                                <td>
+                                    <input tabindex="2" type="text" id="companyName" name="companyName" style="width: 254px;"  value="{CRM_COMPANY_NAME}"  />
+                                </td>
+                                <td valign="top">{TXT_CRM_MEMBERSHIP}</td>
+                                <td valign="top">
+                                    <select tabindex="7" data-placeholder="{TXT_CRM_CHOOSE_MEMBERSHIPS}" name="assigned_memberships[]" id="assigned_memberships" size="1" multiple>
+                                        <!-- BEGIN contactMembership -->
+                                        <option value="{CRM_MEMBERSHIP_ID}" {CRM_MEMBERSHIP_SELECTED}>{CRM_MEMBERSHIP_VALUE}</option>
+                                        <!-- END contactMembership -->
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr class="row2">
+                                <td>{TXT_CRM_FAMILY_NAME}&nbsp;<font color="red">*</font></td>
+                                <td> <input tabindex="3" type="text" id="family_name" name="family_name" value="{TXT_CON_FAMILY}" style="width: 254px;"  /></td>
+                                <td><span class="customerTypeRow">{TXT_CRM_CUSTOMERTYPE}&nbsp;<font color="red">*</font></span></td>
+                                <td>
+                                    <select tabindex="8" class="customerTypeRow" name="customer_type" id="customer_type" style="width:262px !important;">
+                                        <option value="">--{TXT_CRM_PLEASE_SELECT}--</option>
+                                        <!-- BEGIN contactCustomerTypes -->
+                                        <option value="{CRM_CUSTOMER_TYPE_ID}" {CRM_CUSTOMER_TYPE_SELECTED}>{CRM_CUSTOMER_TYPE}</option>
+                                        <!-- END contactCustomerTypes -->
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr class="row2">
+                                <td>{TXT_COMPANY_NAME}</td>
+                                <td>
+                                    <input type="hidden" id="companyId" name="company" value="{CRM_CONTACT_COMPANY_ID}" />
+                                    <input tabindex="4" type="text" id="company" class="selectCustomer" placeholder="{TXT_CRM_FIND_COMPANY_BY_NAME}" value="{CRM_CONTACT_COMPANY}" style="width: 237px;"  />
+                                    <span class="delete-customer"></span>
+                                </td>
+                                <td><span class="customerTypeRow">{TXT_CRM_CURRENCY}&nbsp;<font color="red">*</font></span></td>
+                                <td><select tabindex="9" class="customerTypeRow" name="currency" id="currency" style="width: 262px !important;">
+                                        <option value="">--{TXT_CRM_PLEASE_SELECT}--</option>
+                                        <!-- BEGIN contactCurrency -->
+                                        <option value="{CRM_CURRENCYID}" {CRM_CURRENCY_SELECTED}>{CRM_CURRENCYNAME}</option>
+                                        <!-- END contactCurrency -->
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr class="row1">
+                                <td style="width:127px;">{TXT_CRM_ROLE}</td>
+                                <td><input tabindex="5" type="text" id="contact_role" name="contact_role" value="{TXT_CON_ROLE}" style="width: 254px;"  /></td>
+                                <td><span class="customerTypeRow">{TXT_CRM_CUSTOMERID}</span></td>
+                                <td><input class="customerTypeRow" tabindex="10" type="text" value="{CRM_CUSTOMERID}" style="width: 255px;" name="customerId" id="customerId" /></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {TXT_CRM_EMAIL}
+                                </td>
+                                <td colspan="3">
+                                    <div class="multiple_input" id="emailContainer">
+                                        <div class="email_list_container" style="display: none !important;">
+                                            <div class="email_list">
+                                                <input tabindex="11" class="mInput" type="text" name="" value="{TXT_SESSION_SECONDARYEMAIL}" />
+                                                <a onclick="showEmailCategoriesPanel(this);">{TXT_CRM_EMAIL_DEFAULT_OPTION}</a>
+                                            </div>
+                                            <div class="actions_for_item">
+                                                <a name="email" title="Delete" class="crm-deleteLink"></a>
+                                                <a name="email" title="Mark as primary" class="is_primary not_primary_field"></a>
+                                                <a name="email" title="Add email" class="crm-addNewLink"></a>
+                                            </div>
+                                        </div>
+                                        <!-- BEGIN contactEmailContainer -->
+                                        <div class="email_list_container">
+                                            <div class="email_list">
+                                                <input tabindex="11" class="mInput" type="text" name="{CRM_CONTACT_EMAIL_NAME}" value="{CRM_CONTACT_EMAIL}" />
+                                                <a onclick="showEmailCategoriesPanel(this);">{CRM_EMAIL_OPTION}</a>
+                                            </div>
+                                            <div class="actions_for_item">
+                                                <a name="email" title="Delete" class="crm-deleteLink"></a>
+                                                <a name="email" title="Mark as primary" class="is_primary {CRM_CONTACT_EMAIL_PRIMARY}"></a>
+                                                <a title="Add email" name="email" class="crm-addNewLink"></a>
+                                            </div>
+                                        </div>
+                                        <!-- END contactEmailContainer -->
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{TXT_CRM_WEBSITE}</td>
+                                <td colspan="3">
+                                    <div class="multiple_input" id="websiteContainer" style="float: left;">
+                                        <div class="website_list_container" style="display: none !important;">
+                                            <div class="website_list">
+                                                <input tabindex="12" class="mInput" type="text" name="" value="" />
+                                                <a onclick="showwebsiteProfilesPanel(this);" class="category">{TXT_CRM_PROFILE_OPTION}</a>
+                                            </div>
+                                            <div class="actions_for_item">
+                                                <a name="website" title="Delete" class="crm-deleteLink"></a>
+                                                <a name="website" title="Mark as primary" class="is_primary not_primary_field"></a>
+                                                <a name="website" title="Add website" class="crm-addNewLink"></a>
+                                            </div>
+                                        </div>
+                                        <!-- BEGIN contactwebsiteContainer -->
+                                        <div class="website_list_container">
+                                            <div class="website_list">
+                                                <input tabindex="12" class="mInput" type="text" name="{CRM_CONTACT_WEBSITE_NAME}" value="{CRM_CONTACT_WEBSITE}" />
+                                                <a onclick="showwebsiteProfilesPanel(this);" class="category">{CRM_WEBSITE_PROFILE}</a>
+                                            </div>
+                                            <div class="actions_for_item">
+                                                <a name="website" title="Delete" class="crm-deleteLink"></a>
+                                                <a name="website" title="Mark as primary" class="is_primary {CRM_CONTACT_WEBSITE_PRIMARY}"></a>
+                                                <a title="Add website" name="website" class="crm-addNewLink"></a>
+                                                <input type="hidden" name="{CRM_CONTACT_WEB_ID_NAME}" value="{CRM_CONTACT_WEB_ID}" />
+                                            </div>
+                                        </div>
+                                        <!-- END contactwebsiteContainer -->
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{TXT_CRM_SOCIAL_NETWORK}</td>
+                                <td colspan="3">
+                                    <div class="multiple_input" id="socialContainer" style="float: left;">
+                                        <div class="social_list_container" style="display: none !important;">
+                                            <div class="social_list">
+                                                <input tabindex="13" class="mInput" type="text" name="" value="" />
+                                                <a onclick="showsocialProfilesPanel(this);" class="category">{TXT_CRM_SOCIAL_PROFILE_OPTION}</a>
+                                            </div>
+                                            <div class="actions_for_item">
+                                                <a name="social" title="Delete" class="crm-deleteLink"></a>
+                                                <a name="social" title="Mark as primary" class="is_primary not_primary_field"></a>
+                                                <a name="social" title="Add website" class="crm-addNewLink"></a>
+                                            </div>
+                                        </div>
+                                        <!-- BEGIN contactSocialLinkContainer -->
+                                        <div class="social_list_container">
+                                            <div class="social_list">
+                                                <input tabindex="13" class="mInput" type="text" name="{CRM_CONTACT_SOCIAL_NAME}" value="{CRM_CONTACT_SOCIAL}" />
+                                                <a onclick="showsocialProfilesPanel(this);" class="category">{CRM_SOCIAL_PROFILE}</a>
+                                            </div>
+                                            <div class="actions_for_item">
+                                                <a name="social" title="Delete" class="crm-deleteLink"></a>
+                                                <a name="social" title="Mark as primary" class="is_primary {CRM_CONTACT_SOCIAL_PRIMARY}"></a>
+                                                <a title="Add social link" name="social" class="crm-addNewLink"></a>
+                                            </div>
+                                        </div>
+                                        <!-- END contactSocialLinkContainer -->
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {TXT_CRM_PHONE}
+                                </td>
+                                <td colspan="3">
+                                    <div class="multiple_input" id="phoneContainer">
+                                        <div class="phone_list_container" style="display: none !important;">
+                                            <div class="phone_list">
+                                                <input tabindex="14" class="mInput" type="text" name="" value="" />
+                                                <a onclick="showphoneCategoriesPanel(this);" >{TXT_CRM_OPTION}</a>
+                                            </div>
+                                            <div class="actions_for_item">
+                                                <a name="phone" title="Delete" class="crm-deleteLink"></a>
+                                                <a name="phone" title="Mark as primary" class="is_primary not_primary_field"></a>
+                                                <a name="phone" title="Add phone" class="crm-addNewLink"></a>
+                                            </div>
+                                        </div>
+                                        <!-- BEGIN contactPhoneContainer -->
+                                        <div class="phone_list_container">
+                                            <div class="phone_list">
+                                                <input tabindex="14" class="mInput" type="text" name="{CRM_CONTACT_PHONE_NAME}" value="{CRM_CONTACT_PHONE}" />
+                                                <a onclick="showphoneCategoriesPanel(this);">{CRM_PHONE_OPTION}</a>
+                                            </div>
+                                            <div class="actions_for_item">
+                                                <a name="phone" title="Delete" class="crm-deleteLink"></a>
+                                                <a name="phone" title="Mark as primary" class="is_primary {CRM_CONTACT_PHONE_PRIMARY}"></a>
+                                                <a title="Add phone" name="phone" class="crm-addNewLink"></a>
+                                            </div>
+                                        </div>
+                                        <!-- END contactPhoneContainer -->
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <table class="adminlist" id="profile-info" cellspacing="0" cellpadding="3" width="100%" border="0">
+                        <thead>
+                            <tr class="row3">
+                                <td colspan="2">
+                                    <div class="header-description {CRM_ADDRESS_HEADER_CLASS}">{TXT_CRM_ADDRESS}</div>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody style="display: {CRM_ADDRESS_BLOCK_DISPLAY};">
+                            <tr class="row2">
+                                <td>
+                                    <div class="multiple_input" id="addressContainer" style="float: left;">
+                                        <div class="address_list_container" style="display: none;">
+                                            <div class="address_list">
+                                                <table class="innerTable" cellspacing="0" cellpadding="0" class="">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td colspan="3">
+                                                                <div class="addressline-1">
+                                                                    <textarea class="contactAddress" placeholder="{TXT_CRM_ADDRESS}" rows="4" cols="0"></textarea>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="addressline-2" colspan="3">
+                                                                <span>
+                                                                    <input class="contactZip " placeholder="{TXT_CRM_ZIP_CODE}" type="text" value="" />
+                                                                </span>
+
+                                                                <span>
+                                                                    <input placeholder="{TXT_CRM_CITY}" class="contactCity" type="text" value="" />
+                                                                </span>
+
+                                                                <span>
+                                                                    <input placeholder="{TXT_CRM_STATE}" class="contactState " type="text" value=""/>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr >
+                                                            <td class="addressline-3">
+                                                                <div class="crmLeft">
+                                                                    <select class="cCountry" >
+                                                                        <option value="">{TXT_CRM_SELECT_COUNTRY}</option>
+                                                                        <!-- BEGIN additionalcrmCountry -->
+                                                                        <option value="{CRM_COUNTRY}" {CRM_COUNTRY_SELECTED}>{CRM_COUNTRY}</option>
+                                                                        <!-- END additionalcrmCountry -->
+                                                                    </select>
+                                                                </div>
+                                                                <div class="crmLeft">
+                                                                    <select class="contactType">
+                                                                        <!-- BEGIN additionaladdressType -->
+                                                                        <option value="{CRM_ADDRESS_TYPE}" {CRM_ADDRESS_TYPE_SELECTED}>{CRM_ADDRESS_TYPE_NAME}</option>
+                                                                        <!-- END additionaladdressType -->
+                                                                    </select>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="actions_for_item" >
+                                                <a title="Delete" alt="Delete" class="crm_deleteLink_address crm-AddressDelete"></a>
+                                                <a alt="Primary" title="Primary" class="is_primary_address not_primary_field_address crm-AddressPrimary"></a>
+                                                <a alt="Add new address" title="Add new address" class="crm_addNewLink_address crm-AddressAdd"></a>
+                                            </div>
+                                        </div>
+                                        <!-- BEGIN contactAddressContainer -->
+                                        <div class="address_list_container" >
+                                            <div class="address_list">
+                                                <table class="innerTable" cellspacing="0" cellpadding="0" class="">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="addressline-1">
+                                                                    <textarea class="contactAddress" name="{CRM_CONTACT_ADDRESS_NAME}" placeholder="{TXT_CRM_ADDRESS}" name="" rows="4" cols="0">{CRM_CONTACT_ADDRESS_VALUE}</textarea>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="addressline-2">
+                                                                <span>
+                                                                    <input style="width: 149px" placeholder="{TXT_CRM_ZIP_CODE}" class="contactZip" type="text" name="{CRM_CONTACT_ZIP_NAME}" value="{CRM_CONTACT_ZIP_VALUE}" />
+                                                                </span>
+
+                                                                <span>
+                                                                    <input style="width: 170px" placeholder="{TXT_CRM_CITY}" class="contactCity" type="text" name="{CRM_CONTACT_CITY_NAME}" value="{CRM_CONTACT_CITY_VALUE}" />
+                                                                </span>
+
+                                                                <span>
+                                                                    <input style="width: 170px" placeholder="{TXT_CRM_STATE}" class="contactState " type="text" name="{CRM_CONTACT_STATE_NAME}" value="{CRM_CONTACT_STATE_VALUE}"/>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr >
+                                                            <td class="addressline-3">
+                                                                <div class="crmLeft">
+                                                                    <select name="{CRM_CONTACT_COUNTRY_NAME}" class="cCountry" >
+                                                                        <option value="">{TXT_CRM_SELECT_COUNTRY}</option>
+                                                                        <!-- BEGIN crmCountry -->
+                                                                        <option value="{CRM_COUNTRY}" {CRM_COUNTRY_SELECTED}>{CRM_COUNTRY}</option>
+                                                                        <!-- END crmCountry -->
+                                                                    </select>
+                                                                </div>
+                                                                <div class="crmLeft">
+                                                                    <select name="{CRM_CONTACT_ADDR_TYPE_NAME}" class="contactType">
+                                                                        <!-- BEGIN addressType -->
+                                                                        <option value="{CRM_ADDRESS_TYPE}" {CRM_ADDRESS_TYPE_SELECTED}>{CRM_ADDRESS_TYPE_NAME}</option>
+                                                                        <!-- END addressType -->
+                                                                    </select>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="actions_for_item" >
+                                                <a title="Delete" alt="Delete" class="crm_deleteLink_address"></a>
+                                                <a alt="Primary" title="Primary" class="is_primary_address {CRM_CONTACT_ADDRESS_PRIMARY}"></a>
+                                                <a alt="Add new address" title="Add new address" class="crm_addNewLink_address crm-AddressAdd"></a>
+                                            </div>
+                                        </div>
+                                        <!-- END contactAddressContainer -->
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <table class="adminlist" id="profile-info" cellspacing="0" cellpadding="3" width="100%" border="0">
+                        <thead>
+                            <tr class="row3">
+                                <td colspan="2">
+                                    <div class="header-description {CRM_DESCRIPTION_HEADER_CLASS}">{TXT_CRM_DESCRIPTION}</div>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody style="display: {CRM_DESCRIPTION_BLOCK_DISPLAY};">
+                            <tr class="row1">
+                                <td>
+                                    <textarea class="notes" name="notes" rows="4" cols="0">{CRM_CONTACT_NOTES}</textarea>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="Entries" id="ShowAccount" style="display:none;">
+                    <table class="adminlist" id="profile-info" cellspacing="0" cellpadding="3" width="100%" border="0">
+                        <thead>
+                            <tr><th colspan="4">{TXT_CRM_ACCOUNT}</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr class="row1 contact_user_container">
+                                <!-- BEGIN contactUserName -->
+                                <td width="200">{TXT_CRM_ACCOUNT_EMAIL}&nbsp;{CRM_ACCOUNT_MANTORY}</td>
+                                <td>
+                                    <input class="live-search-user-id" id="contactId" type="hidden" name="contactId" value="{CRM_CONTACT_USER_ID}" />
+                                    <input class="live-search-user-name" id="contactEmail" type="hidden" name="contactEmail" value="{CRM_CONTACT_ACCOUNT_USERNAME}" placeholder="{TXT_CORE_SEARCH_USER}..." style="width: 277px;" />
+                                    <input type="hidden" id="contact_email" name="contact_email" value="{CRM_CONTACT_USERNAME}"/>
+                                    <!--<input type="text" name="contact_email" autocomplete="off" id="contact_email" style="width: 254px;" value="{CRM_CONTACT_USERNAME}" class="{CRM_ACCOUNT_MANTORY_CLASS}" onKeyUp="typewatch(function(){checkUserNameAvailablity('{CRM_CONTACT_ID}')}, 1000 );" />-->
+                                </td>
+                                <!-- END contactUserName -->
+                                <!-- BEGIN emptyContactUserName -->
+                                <td colspan="2">&nbsp;</td>
+                                <!-- END emptyContactUserName -->
+                            </tr>
+                            <tr class="row2 showAccountDetail" {CRM_CONTACT_SHOW_PASSWORD}>
+                                <!-- BEGIN contactPassword -->
+                                <td width="200">{TXT_CRM_ACCOUNT_PASSWORD}&nbsp;{CRM_ACCOUNT_MANTORY}</td>
+                                <td>
+                                    <input type="text" name="contact_password" autocomplete="off" id="contact_password" class="{CRM_ACCOUNT_MANTORY_CLASS}" style="width: 254px;" value="{CRM_CONTACT_RANDOM_PASSWORD}" />
+                                    <!-- BEGIN contactSendNotification -->
+                                    <br><input type="checkbox" id="send_account_notification" name="send_account_notification" value="1" />&nbsp;{TXT_CRM_SEND_LOGIN_DETAILS}
+                                    <!-- END contactSendNotification -->
+                                </td>
+                                <!-- END contactPassword -->
+                                <!-- BEGIN emptyContactPassword -->
+                                <td colspan="2">&nbsp;</td>
+                                <!-- END emptyContactPassword -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- END contactBlock -->
+                <!-- BEGIN customerBlock -->
+                <ul id="tabmenu">
+                    <li><a id="Entries_ShowCustomerProfile" class="active" href="javascript:{}" onclick="selectTab('ShowCustomerProfile')" title="{TXT_CRM_PROFILE}">{TXT_CRM_COMPANY_NAME}</a></li>
+                    <li><a id="Entries_ShowCustomerPersons" class="inactive" href="javascript:{}" onclick="selectTab('ShowCustomerPersons')" title="{TXT_CRM_ALL_PERSONS}">{TXT_CRM_EMPLOYEE}</a></li>
+                </ul>
+                <div class="Entries" id="ShowCustomerProfile">
+                    <table class="adminlist" id="profile-info" cellspacing="0" cellpadding="3" width="100%">
+                        <thead>
+                            <tr>
+                                <th colspan="4">{TXT_CRM_COMPANY_NAME}</th>
+                            </tr>
+                        </thead>
+                        <tr class="row2">
+                            <td style="width:127px;">{TXT_CRM_COMPANY_NAME}&nbsp;<font color="red">*</font></td>
+                            <td style="width:340px;"><input tabindex="1" type="text" name="companyName" id="companyName" style="width: 255px;"  value="{CRM_COMPANY_NAME}" /></td>
+                            <td>{TXT_CRM_INDUSTRY_TYPE}</td>
+                            <td>
+                                <select tabindex="6" name="industryType" id="industryType" style="width: 262px !important;">
+                                    <option value="">--{TXT_CRM_PLEASE_SELECT}--</option>
+                                    {CRM_INDUSTRY_DROPDOWN}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="row2">
+                            <td>
+                                {TXT_CRM_EMAIL}&nbsp;<font color="red">*</font>
+                            </td>
+                            <td>
+                                <div class="multiple_input" id="emailContainer">
+                                    <div class="email_list_container" style="display: none !important;">
+                                        <div class="email_list">
+                                            <input tabindex="2" class="mInput" type="text" name="" value="{TXT_SESSION_SECONDARYEMAIL}" />
+                                            <a onclick="showEmailCategoriesPanel(this);">{TXT_CRM_OPTION}</a>
+                                        </div>
+                                        <div class="actions_for_item">
+                                            <a name="email" title="Delete" class="crm-deleteLink"></a>
+                                            <a name="email" title="Mark as primary" class="is_primary not_primary_field"></a>
+                                            <a name="email" title="Add email" class="crm-addNewLink"></a>
+                                        </div>
+                                    </div>
+                                    <!-- BEGIN customerEmailContainer -->
+                                    <div class="email_list_container">
+                                        <div class="email_list">
+                                            <input tabindex="2" class="mInput" type="text" name="{CRM_CONTACT_EMAIL_NAME}" value="{CRM_CONTACT_EMAIL}" />
+                                            <a onclick="showEmailCategoriesPanel(this);">{CRM_EMAIL_OPTION}</a>
+                                        </div>
+                                        <div class="actions_for_item">
+                                            <a name="email" title="Delete" class="crm-deleteLink"></a>
+                                            <a name="email" title="Mark as primary" class="is_primary {CRM_CONTACT_EMAIL_PRIMARY}"></a>
+                                            <a title="Add email" name="email" class="crm-addNewLink"></a>
+                                        </div>
+                                    </div>
+                                    <!-- END customerEmailContainer -->
+                                </div>
+                            </td>
+                            <td valign="top">{TXT_CRM_MEMBERSHIP}</td>
+                            <td valign="top">
+                                <select tabindex="7" data-placeholder="{TXT_CRM_CHOOSE_MEMBERSHIPS}" name="assigned_memberships[]" id="assigned_memberships" size="1" multiple>
+                                    <!-- BEGIN assignedGroup -->
+                                    <option value="{CRM_MEMBERSHIP_ID}" {CRM_MEMBERSHIP_SELECTED}>{CRM_MEMBERSHIP_VALUE}</option>
+                                    <!-- END assignedGroup -->
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="row1">
+                            <td>{TXT_CRM_WEBSITE}</td>
+                            <td>
+                                <div class="multiple_input" id="websiteContainer" style="float: left;">
+                                    <div class="website_list_container" style="display: none !important;">
+                                        <div class="website_list">
+                                            <input tabindex="3" class="mInput" type="text" name="" value="" />
+                                            <a onclick="showwebsiteProfilesPanel(this);" class="category">{TXT_CRM_PROFILE_OPTION}</a>
+                                        </div>
+                                        <div class="actions_for_item">
+                                            <a name="website" title="Delete" class="crm-deleteLink"></a>
+                                            <a name="website" title="Mark as primary" class="is_primary not_primary_field"></a>
+                                            <a name="website" title="Add website" class="crm-addNewLink"></a>
+                                        </div>
+                                    </div>
+                                    <!-- BEGIN customerwebsiteContainer -->
+                                    <div class="website_list_container">
+                                        <div class="website_list">
+                                            <input tabindex="3" class="mInput" type="text" name="{CRM_CONTACT_WEBSITE_NAME}" value="{CRM_CONTACT_WEBSITE}" />
+                                            <a onclick="showwebsiteProfilesPanel(this);" class="category">{CRM_WEBSITE_PROFILE}</a>
+                                        </div>
+                                        <div class="actions_for_item">
+                                            <a name="website" title="Delete" class="crm-deleteLink"></a>
+                                            <a name="website" title="Mark as primary" class="is_primary {CRM_CONTACT_WEBSITE_PRIMARY}"></a>
+                                            <a title="Add website" name="website" class="crm-addNewLink"></a>
+                                            <input type="hidden" name="{CRM_CONTACT_WEB_ID_NAME}" value="{CRM_CONTACT_WEB_ID}" />
+                                        </div>
+                                    </div>
+                                    <!-- END customerwebsiteContainer -->
+                                </div>
+                            </td>
+                            <td>{TXT_CRM_CUSTOMERTYPE}&nbsp;<font color="red">*</font></td>
+                            <td>
+                                <select tabindex="8" name="customer_type" id="customer_type" style="width: 262px !important;">
+                                    <option value="">--{TXT_CRM_PLEASE_SELECT}--</option>
+                                    <!-- BEGIN customerTypes -->
+                                    <option value="{CRM_CUSTOMER_TYPE_ID}" {CRM_CUSTOMER_TYPE_SELECTED}>{CRM_CUSTOMER_TYPE}</option>
+                                    <!-- END customerTypes -->
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{TXT_CRM_SOCIAL_NETWORK}</td>
+                            <td>
+                                <div class="multiple_input" id="socialContainer" style="float: left;">
+                                    <div class="social_list_container" style="display: none !important;">
+                                        <div class="social_list">
+                                            <input tabindex="4" class="mInput" type="text" name="" value="" />
+                                            <a onclick="showsocialProfilesPanel(this);" class="category">{TXT_CRM_SOCIAL_PROFILE_OPTION}</a>
+                                        </div>
+                                        <div class="actions_for_item">
+                                            <a name="social" title="Delete" class="crm-deleteLink"></a>
+                                            <a name="social" title="Mark as primary" class="is_primary not_primary_field"></a>
+                                            <a name="social" title="Add website" class="crm-addNewLink"></a>
+                                        </div>
+                                    </div>
+                                    <!-- BEGIN customerSocialLinkContainer -->
+                                    <div class="social_list_container">
+                                        <div class="social_list">
+                                            <input tabindex="4" class="mInput" type="text" name="{CRM_CONTACT_SOCIAL_NAME}" value="{CRM_CONTACT_SOCIAL}" />
+                                            <a onclick="showsocialProfilesPanel(this);" class="category">{CRM_SOCIAL_PROFILE}</a>
+                                        </div>
+                                        <div class="actions_for_item">
+                                            <a name="social" title="Delete" class="crm-deleteLink"></a>
+                                            <a name="social" title="Mark as primary" class="is_primary {CRM_CONTACT_SOCIAL_PRIMARY}"></a>
+                                            <a title="Add social link" name="social" class="crm-addNewLink"></a>
+                                        </div>
+                                    </div>
+                                    <!-- END customerSocialLinkContainer -->
+                                </div>
+                            </td>
+                            <td>{TXT_CRM_CURRENCY}&nbsp;<font color="red">*</font></td>
+                            <td><select tabindex="9" name="currency" id="currency" style="width: 262px !important;">
+                                    <option value="">--{TXT_CRM_PLEASE_SELECT}--</option>
+                                    <!-- BEGIN currency -->
+                                    <option value="{CRM_CURRENCYID}" {CRM_CURRENCY_SELECTED}>{CRM_CURRENCYNAME}</option>
+                                    <!-- END currency -->
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="row1">
+                            <td>
+                                {TXT_CRM_PHONE}
+                            </td>
+                            <td>
+                                <div class="multiple_input" id="phoneContainer">
+                                    <div class="phone_list_container" style="display: none !important;">
+                                        <div class="phone_list">
+                                            <input tabindex="5" class="mInput" type="text" name="" value="" />
+                                            <a onclick="showphoneCategoriesPanel(this);" >{TXT_CRM_OPTION}</a>
+                                        </div>
+                                        <div class="actions_for_item">
+                                            <a name="phone" title="Delete" class="crm-deleteLink"></a>
+                                            <a name="phone" title="Mark as primary" class="is_primary not_primary_field"></a>
+                                            <a name="phone" title="Add phone" class="crm-addNewLink"></a>
+                                        </div>
+                                    </div>
+                                    <!-- BEGIN customerPhoneContainer -->
+                                    <div class="phone_list_container">
+                                        <div class="phone_list">
+                                            <input tabindex="5" class="mInput" type="text" name="{CRM_CONTACT_PHONE_NAME}" value="{CRM_CONTACT_PHONE}" />
+                                            <a onclick="showphoneCategoriesPanel(this);">{CRM_PHONE_OPTION}</a>
+                                        </div>
+                                        <div class="actions_for_item">
+                                            <a name="phone" title="Delete" class="crm-deleteLink"></a>
+                                            <a name="phone" title="Mark as primary" class="is_primary {CRM_CONTACT_PHONE_PRIMARY}"></a>
+                                            <a title="Add phone" name="phone" class="crm-addNewLink"></a>
+                                        </div>
+                                    </div>
+                                    <!-- END customerPhoneContainer -->
+                                </div>
+                            </td>
+                            <td style="width:127px;">{TXT_CRM_CUSTOMERID}</td>
+                            <td><input tabindex="10" type="text" value="{CRM_CUSTOMERID}" style="width: 255px;" name="customerId" id="customerId" /></td>
+                        </tr>
+                    </table>
+                    <br>
+                    <table class="adminlist" id="profile-info" cellspacing="0" cellpadding="3" width="100%" border="0">
+                        <thead>
+                            <tr class="row3">
+                                <td colspan="2">
+                                    <div class="header-description {CRM_ADDRESS_HEADER_CLASS}">{TXT_CRM_ADDRESS}</div>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody style="display: {CRM_ADDRESS_BLOCK_DISPLAY};">
+                            <tr class="row2">
+                                <td>
+                                    <div class="multiple_input" id="addressContainer" style="float: left;">
+                                        <div class="address_list_container" style="display: none;">
+                                            <div class="address_list">
+                                                <table class="innerTable" cellspacing="0" cellpadding="0" class="">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td colspan="3">
+                                                                <div class="addressline-1">
+                                                                    <textarea class="contactAddress" placeholder="{TXT_CRM_ADDRESS}" rows="4" cols="0"></textarea>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="addressline-2" colspan="3">
+                                                                <span>
+                                                                    <input class="contactZip " placeholder="{TXT_CRM_ZIP_CODE}" type="text" value="" />
+                                                                </span>
+
+                                                                <span>
+                                                                    <input placeholder="{TXT_CRM_CITY}" class="contactCity" type="text" value="" />
+                                                                </span>
+
+                                                                <span>
+                                                                    <input placeholder="{TXT_CRM_STATE}" class="contactState " type="text" value=""/>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr >
+                                                            <td class="addressline-3">
+                                                                <div class="crmLeft">
+                                                                    <select class="cCountry" >
+                                                                        <option value="">{TXT_CRM_SELECT_COUNTRY}</option>
+                                                                        <!-- BEGIN customerAdditionalcrmCountry -->
+                                                                        <option value="{CRM_COUNTRY}" {CRM_COUNTRY_SELECTED}>{CRM_COUNTRY}</option>
+                                                                        <!-- END customerAdditionalcrmCountry -->
+                                                                    </select>
+                                                                </div>
+                                                                <div class="crmLeft">
+                                                                    <select class="contactType">
+                                                                        <!-- BEGIN customerAdditionaladdressType -->
+                                                                        <option value="{CRM_ADDRESS_TYPE}" {CRM_ADDRESS_TYPE_SELECTED}>{CRM_ADDRESS_TYPE_NAME}</option>
+                                                                        <!-- END customerAdditionaladdressType -->
+                                                                    </select>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="actions_for_item" >
+                                                <a title="Delete" alt="Delete" class="crm_deleteLink_address crm-AddressDelete"></a>
+                                                <a alt="Primary" title="Primary" class="is_primary_address not_primary_field_address crm-AddressPrimary"></a>
+                                                <a alt="Add new address" title="Add new address" class="crm_addNewLink_address crm-AddressAdd"></a>
+                                            </div>
+                                        </div>
+                                        <!-- BEGIN customerAddressContainer -->
+                                        <div class="address_list_container" >
+                                            <div class="address_list">
+                                                <table class="innerTable" cellspacing="0" cellpadding="0" class="">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="addressline-1">
+                                                                    <textarea class="contactAddress" name="{CRM_CONTACT_ADDRESS_NAME}" placeholder="{TXT_CRM_ADDRESS}" name="" rows="4" cols="0">{CRM_CONTACT_ADDRESS_VALUE}</textarea>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="addressline-2">
+                                                                <span>
+                                                                    <input style="width: 149px" placeholder="{TXT_CRM_ZIP_CODE}" class="contactZip" type="text" name="{CRM_CONTACT_ZIP_NAME}" value="{CRM_CONTACT_ZIP_VALUE}" />
+                                                                </span>
+
+                                                                <span>
+                                                                    <input style="width: 170px" placeholder="{TXT_CRM_CITY}" class="contactCity" type="text" name="{CRM_CONTACT_CITY_NAME}" value="{CRM_CONTACT_CITY_VALUE}" />
+                                                                </span>
+
+                                                                <span>
+                                                                    <input style="width: 170px" placeholder="{TXT_CRM_STATE}" class="contactState " type="text" name="{CRM_CONTACT_STATE_NAME}" value="{CRM_CONTACT_STATE_VALUE}"/>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr >
+                                                            <td class="addressline-3">
+                                                                <div class="crmLeft">
+                                                                    <select name="{CRM_CONTACT_COUNTRY_NAME}" class="cCountry" >
+                                                                        <option value="">{TXT_CRM_SELECT_COUNTRY}</option>
+                                                                        <!-- BEGIN customerCrmCountry -->
+                                                                        <option value="{CRM_COUNTRY}" {CRM_COUNTRY_SELECTED}>{CRM_COUNTRY}</option>
+                                                                        <!-- END customerCrmCountry -->
+                                                                    </select>
+                                                                </div>
+                                                                <div class="crmLeft">
+                                                                    <select name="{CRM_CONTACT_ADDR_TYPE_NAME}" class="contactType">
+                                                                        <!-- BEGIN customerAddressType -->
+                                                                        <option value="{CRM_ADDRESS_TYPE}" {CRM_ADDRESS_TYPE_SELECTED}>{CRM_ADDRESS_TYPE_NAME}</option>
+                                                                        <!-- END customerAddressType -->
+                                                                    </select>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="actions_for_item" >
+                                                <a title="Delete" alt="Delete" class="crm_deleteLink_address"></a>
+                                                <a alt="Primary" title="Primary" class="is_primary_address {CRM_CONTACT_ADDRESS_PRIMARY}"></a>
+                                                <a alt="Add new address" title="Add new address" class="crm_addNewLink_address crm-AddressAdd"></a>
+                                            </div>
+                                        </div>
+                                        <!-- END customerAddressContainer -->
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <table class="adminlist" cellspacing="0" cellpadding="3" width="100%" border="0">
+                        <thead>
+                            <tr class="row3">
+                                <td colspan="2">
+                                    <div class="header-description {CRM_DESCRIPTION_HEADER_CLASS}">{TXT_CRM_DESCRIPTION}</div>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody style="display: {CRM_DESCRIPTION_BLOCK_DISPLAY};">
+                            <tr class="row1">
+                                <td>
+                                    <textarea class="notes" name="notes" rows="4" cols="0">{CRM_CONTACT_NOTES}</textarea>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- END customerBlock -->
+                <div class="Entries" id="ShowCustomerPersons" style="display: none;">
+                <!-- BEGIN customerAdditionalBlock -->
+                <div id="contactsContainer">
+                    <table id="contacts" class="adminlist" cellspacing="0" cellpadding="3" width="100%">
+                        <thead>
+                            <tr>
+                                <th colspan="5">{TXT_CRM_EMPLOYEE}</th>
+                                <!--<td colspan="2"><div id="addContact">{TXT_CRM_ADD_CONTACT}</div></td>-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- BEGIN customerContacts -->
+                            <tr class="{ROW_CLASS}">
+                                <td width="50%"><input type="hidden" id="contact_{CRM_CONTACT_ID}" name="companyContacts[]" value="{CRM_CONTACT_ID}" />{CRM_CONTACT_NAME}</td>
+                                <td width="48%">&nbsp;</td>
+                                <td width="2%"><div align="right"><a class="removeContact_{CRM_CONTACT_ID}" href="javascript:void(0)"><img border="0" src="images/icons/delete.gif" alt="Delete" title="Delete"></a></div></td>
+                            </tr>
+                            <!-- END customerContacts -->
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3">
+                                    <div id="contactContainer">
+                                        <div class="exContactSelect" style="font-size: 12px;">
+                                            <strong>{TXT_CRM_SELECT_FROM_CONTACTS}</strong><br>
+                                            <span class="searchContacts"></span><input id="selectContact" type="text" name="contact" class="crm-watermark" placeholder="{TXT_CRM_FIND_CONTACT_BY_NAME}" />
+                                        </div>
+                                        <div class="newContactSelecter" style="display: none;">
+                                            <div class="noMatch">{TXT_CRM_NO_MATCHES}</div>
+                                            <div><a class="addNewContact" href="javascript:void(0)">{TXT_CRM_ADD_NEW}</a></div>
+                                        </div>
+                                        <div class="newContactFrom" style="display: none;">
+                                            <table>
+                                                <tr><td><strong>{TXT_CRM_ADD_CONTACT}</strong></td></tr>
+                                                <tr>
+                                                    <td><input type="text" class="input-addcontact crm-watermark" id="firstname" name="firstname" placeholder="Name" /></td>
+                                                    <td><input type="text" class="input-addcontact crm-watermark" id="familyname" name="familyname" placeholder="Family name" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input type="text" class="input-addcontact crm-watermark" name="email" id="email" placeholder="Email (Work)" /></td>
+                                                    <td>
+                                                        <select style="width:163px !important;" name="language" id="language" class="input-addcontact">
+                                                            <!-- BEGIN ContactLanguages -->
+                                                            <option value="{TXT_LANG_ID}">{TXT_LANG_NAME}</option>
+                                                            <!-- END ContactLanguages -->
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2"><input type="button" id="contactSave" value="{BTN_SAVE}" />&nbsp;&nbsp;<input type="button" id="contactCancel" value="{TXT_CANCEL}" /></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <br>
+                </div>
+                <!-- END customerAdditionalBlock -->
+                </div>
+            </div>
+            <br>
+        </div>
+
+        <!--<input type="submit" name="save_contact" value="Save" onclick="return checkaddContact()"/>-->
+        <input type="hidden" name="save_contact" value="Save" />
+        <input type="hidden" class="input-addcontact" name="customer_id" id="customer_id" value="{CRM_CONTACT_ID}"/>
+        <input type="hidden" name="redirect" value="{CRM_REDIRECT_LINK}" />
+        <!--<input type="submit" name="save_contact" value="Save" />-->
+        <input type="submit" onClick="return checkaddContact()" name="save_contact" value="{TXT_CRM_SAVE_CONTACT}" />&nbsp;<input type="submit" onClick="return checkaddContact()" name="save_add_new_contact" value="{TXT_CRM_SAVE_AND_ADD_NEW_CONTACT}" />
+    </div>
+
+</form>
+<div class="clear"></div>
+<br>

@@ -1,0 +1,176 @@
+<script type="text/javascript">
+// <![CDATA[
+function showOrHide(strElement) {
+  if (document.getElementById(strElement).style.display == 'none') {
+    document.getElementById(strElement).style.display = 'block';
+  } else {
+    document.getElementById(strElement).style.display = 'none';
+  }
+}
+// ]]>
+</script>
+
+<ul id="tabmenu">
+  <li><a id="settings_Generally" class="active" href="javascript:{}" onclick="selectTab('Generally')" title="{TXT_EGOV_SETTINGS_GENERALLY}">{TXT_EGOV_SETTINGS_GENERALLY}</a></li>
+  <li><a id="settings_Layout" href="javascript:{}" onclick="selectTab('Layout')" title="{TXT_EGOV_SETTINGS_LAYOUT}">{TXT_EGOV_SETTINGS_LAYOUT}</a></li>
+  <li><a id="settings_Payment" href="javascript:{}" onclick="selectTab('Payment')" title="{TXT_EGOV_PAYMENTS}">{TXT_EGOV_PAYMENTS}</a></li>
+</ul>
+<form name="frmSettings" method="post" action="index.php?cmd=egov&amp;act=settings&amp;tpl=save">
+  <div class="settings" id="Generally" style="display: block;">
+    <table summary="" width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+      <tr>
+        <th colspan="2">{TXT_EGOV_PLACEHOLDERS}</th>
+      </tr>
+      <tr class="row1">
+        <td width="25%">[[PRODUCT_NAME]]</td>
+        <td width="75%">=> {TXT_EGOV_PRODUCTNAME_PLACEHOLDER}</td>
+      </tr>
+      <tr class="row2">
+        <td>[[ORDER_VALUE]]</td>
+        <td>=> {TXT_EGOV_ORDERDETAILS_PLACEHOLDER}</td>
+      </tr>
+    </table>
+    <br />
+    <table summary="" width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+      <tr>
+        <th colspan="2">{TXT_EGOV_EMAIL_TEMPLATE_FOR_CUSTOMER}</th>
+      </tr>
+      <tr class="row1">
+        <td width="25%">{TXT_EGOV_SENDER_NAME}</td>
+        <td width="75%"><input style="width: 670px;" type="text" name="senderName" value="{SENDER_NAME}" /></td>
+      </tr>
+      <tr class="row2">
+        <td>{TXT_EGOV_SENDER_EMAIL}</td>
+        <td><input style="width: 670px;" type="text" name="senderEmail" value="{SENDER_EMAIL}" /></td>
+      </tr>
+      <tr class="row1">
+        <td>{TXT_EGOV_SUBJECT}</td>
+        <td><input style="width: 670px;" type="text" name="stateSubject" value="{STATE_SUBJECT}" /></td>
+      </tr>
+      <tr class="row2">
+        <td valign="top">{TXT_EGOV_EMAIL_TEMPLATE}</td>
+        <td><textarea name="stateEmail" style="width: 670px; height: 150px;">{STANDARD_STATE_EMAIL}</textarea></td>
+      </tr>
+    </table>
+    <br />
+    <table summary="" width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+      <tr>
+        <th colspan="2">{TXT_EGOV_EMAIL_TEMPLATE_FOR_Admin}</th>
+      </tr>
+      <tr class="row2">
+        <td width="25%">{TXT_EGOV_SENDER_NAME}</td>
+        <td width="75%"><input style="width: 670px;" type="text" name="orderentrysenderName" value="{ORDER_ENTRY_SENDER_NAME}" /></td>
+      </tr>
+      <tr class="row1">
+        <td>{TXT_EGOV_SENDER_EMAIL}</td>
+        <td><input style="width: 670px;" type="text" name="orderentrysenderEmail" value="{ORDER_ENTRY_SENDER_EMAIL}" /></td>
+      </tr>
+      <tr class="row2">
+        <td>{TXT_EGOV_STANDARD_RECIPIENT}</td>
+        <td><input style="width: 670px;" type="text" name="orderentryrecipientEmail" value="{ORDER_ENTRY_RECIPIENT}" /></td>
+      </tr>
+      <tr class="row1">
+        <td>{TXT_EGOV_SUBJECT}</td>
+        <td><input style="width: 670px;" type="text" name="orderentrySubject" value="{ORDER_ENTRY_SUBJECT}" /></td>
+      </tr>
+      <tr class="row2">
+        <td valign="top">{TXT_EGOV_EMAIL_TEMPLATE}</td>
+        <td><textarea name="orderentryEmail" style="width: 670px; height: 150px;">{ORDER_ENTRY_EMAIL}</textarea></td>
+      </tr>
+    </table>
+  </div>
+  <div class="settings" id="Layout" style="display: none;">
+
+    <table summary="" width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+      <tr>
+        <th colspan="2">{TXT_EGOV_SETTINGS_LAYOUT}</th>
+      </tr>
+      <tr class="row1">
+        <td width="25%">{TXT_EGOV_CALENDAR_COLOR_FREE}</td>
+        <td width="75%"><input style="width: 670px;" type="text" name="calenderColor1" value="{CALENDER_COLOR_1}" /></td>
+      </tr>
+      <tr class="row2">
+        <td>{TXT_EGOV_CALENDAR_COLOR_PART}</td>
+        <td><input style="width: 670px;" type="text" name="calenderColor2" value="{CALENDER_COLOR_2}" /></td>
+      </tr>
+      <tr class="row1">
+        <td>{TXT_EGOV_CALENDAR_COLOR_OCCUPIED}</td>
+        <td><input style="width: 670px;" type="text" name="calenderColor3" value="{CALENDER_COLOR_3}" /></td>
+      </tr>
+      <tr class="row2">
+        <td>{TXT_EGOV_STTINGS_CALENDAR_LEGENDE_1}</td>
+        <td><input style="width: 670px;" type="text" name="calenderLegende1" value="{CALENDER_LEGENDE_1}" /></td>
+      </tr>
+      <tr class="row1">
+        <td>{TXT_EGOV_STTINGS_CALENDAR_LEGENDE_2}</td>
+        <td><input style="width: 670px;" type="text" name="calenderLegende2" value="{CALENDER_LEGENDE_2}" /></td>
+      </tr>
+      <tr class="row2">
+        <td>{TXT_EGOV_STTINGS_CALENDAR_LEGENDE_3}</td>
+        <td><input style="width: 670px;" type="text" name="calenderLegende3" value="{CALENDER_LEGENDE_3}" /></td>
+      </tr>
+      <tr class="row1">
+        <td>{TXT_EGOV_STTINGS_CALENDAR_BACKGROUND}</td>
+        <td><input style="width: 670px;" type="text" name="calenderBackground" value="{CALENDER_BACKGROUND}" /></td>
+      </tr>
+      <tr class="row2">
+        <td>{TXT_EGOV_STTINGS_CALENDAR_BORDERCOLOR}</td>
+        <td><input style="width: 670px;" type="text" name="calenderBorder" value="{CALENDER_BORDER}" /></td>
+      </tr>
+      <tr class="row1">
+        <td>{TXT_EGOV_STTINGS_DATE_LABEL}</td>
+        <td><input style="width: 670px;" type="text" name="calenderDateLabel" value="{CALENDER_DATUM_LABEL}" /></td>
+      </tr>
+      <tr class="row2">
+        <td>{TXT_EGOV_STTINGS_DATE_ENTRY_DESC}</td>
+        <td><input style="width: 670px;" type="text" name="calenderDateDesc" value="{CALENDER_DATUM_DESC}" /></td>
+      </tr>
+    </table>
+  </div>
+  <div class="settings" id="Payment" style="display: none;">
+    <!-- General -->
+    <table summary="" width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+      <tr>
+        <th colspan="2">{TXT_EGOV_GENERAL}</th>
+      </tr>
+      <tr class="row1">
+        <td width="25%">{TXT_EGOV_DEFAULT_CURRENCY}</td>
+        <td width="75%">
+          <select name="general_currency" style="width: 300px;">
+            {EGOV_CURRENCY_MENUOPTIONS}
+          </select>
+        </td>
+      </tr>
+    </table>
+    <!-- Postfinance, uses SettingDb -->
+    {EGOV_SETTINGS_POSTFINANCE}
+    <!-- PayPal -->
+    <table summary="" width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+      <tr>
+        <th colspan="2">{TXT_EGOV_PAYPAL}</th>
+      </tr>
+    <tr class="row2">
+      <td width="25%">{TXT_EGOV_PAYPAL_EMAIL}</td>
+      <td width="75%"><input type="text" name="PayPal_mail" value="{PAYPAL_EMAIL}" style="width: 300px;" /></td>
+    </tr>
+    <!--tr class="row1">
+      <td>{TXT_EGOV_PAYPAL_CURRENCY}</td>
+      <td>
+        <select name="PayPalcurrency">
+          <option value="CHF" {SELECTED_CHF}>(CHF) Schweizer Franken</option>
+          <option value="EUR" {SELECTED_EUR}>(EUR) Euro</option>
+          <option value="USD" {SELECTED_USD}>(USD) US Dollar</option>
+          <option value="GBP" {SELECTED_GBP}>(GBP) Britische Pfund</option>
+          <option value="JPY" {SELECTED_JPY}>(JPY) Yen</option>
+        </select>
+      </td>
+    </tr-->
+    <tr class="row1">
+      <td>{TXT_EGOV_PAYPAL_IPN}</td>
+      <td><input type="checkbox" name="PayPal_IPN" value="1" {IPN_CHECKED} /></td>
+    </tr>
+    </table>
+  </div>
+  <br />
+<input type="submit" value="{TXT_SAVE}" />
+</form>

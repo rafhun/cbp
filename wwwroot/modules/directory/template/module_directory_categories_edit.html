@@ -1,0 +1,74 @@
+<!-- START module_directory_categories_edit.html -->
+<script language="JavaScript">
+function CheckForm()
+{
+  with (document.addForm) {
+    if (edit_description.value == "" || edit_name.value == "") {
+      alert ("{TXT_EDIT_FIELDS_REQUIRED}");
+      return false;
+    }
+    return true;
+  }
+}
+
+function setText()
+{
+  with (document.addForm) {
+    var txtValue = edit_name.value;
+    if (edit_description.value == "")
+      edit_description.value=txtValue;
+  }
+}
+</script>
+<form name="addForm" method="post" action="index.php?cmd=directory&amp;act=edit" onSubmit="return CheckForm()">
+  <table border="0" cellpadding="3" cellspacing="0" align="center" width="100%"  class="adminlist">
+    <tr>
+      <th colspan="2">{TXT_EDIT_CATEGORY}</th>
+    </tr>
+    <tr class="row2">
+      <td width="150">{TXT_CATEGORY}<font color="red"> *</font></td>
+      <td>
+        <select name="edit_category" style="width:300px;">
+          <option value="0">{TXT_NEW_CATEGORY}</option>
+          {CATEGORY}
+        </select>
+        <input type="hidden" name="edit_parentid" value="{CATEGORY_PARENTID}" size="10" />
+        <input type="hidden" name="edit_id" value="{CATEGORY_ID}" size="10" />
+      </td>
+    </tr>
+    <tr class="row1">
+      <td width="150">{TXT_EDIT_NAME}:<font color="red">*</font></td>
+      <td>
+        <input name="edit_name" value="{CATEGORY_NAME}" style="width:300px;" onchange="setText()" />
+      </td>
+    </tr>
+    <tr class="row2">
+      <td width="150">{TXT_EDIT_DESCRIPTION}:<font color="red">*</font></td>
+      <td>
+        <input name="edit_description" value="{CATEGORY_DESCRIPTION}" style="width:300px;" />
+      </td>
+    </tr>
+    <!-- <tr class="row1">
+      <td width="150">{TXT_EDIT_METADESC}:</td>
+      <td>
+        <input name="edit_metadesc" value="{CATEGORY_METADESC}" style="width:300px;" />
+      </td>
+    </tr>
+    <tr class="row2">
+      <td width="150">{TXT_EDIT_METAKEYS}:</td>
+      <td>
+        <input size="90" value="{CATEGORY_METAKEYS}" style="width:300px;" name="edit_metakeys" />
+        </td>
+    </tr> -->
+    <tr class="row1">
+      <td width="150">{TXT_SHOW_ENTRIES}:</td>
+      <td>
+        <input type="radio" name="edit_showentries" value="1" {CHECKED_YES} />&nbsp;{TXT_YES}&nbsp;&nbsp;&nbsp;<input type="radio" name="edit_showentries" value="0" {CHECKED_NO} />&nbsp;{TXT_NO}
+      </td>
+    </tr>
+  </table>
+  <br />
+  <input type="submit" name="edit_submit" value="{TXT_EDIT_SAVE_CHANGES}" />&nbsp;<font color="red">*</font> = {TXT_EDIT_REQUIRED_FIELDS}
+</form>
+<br />
+<!-- END module_directory_categories_edit.html -->

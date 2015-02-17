@@ -1,0 +1,10 @@
+[CUSTOMER_SALUTATION]
+
+Hier Ihre Zugangsdaten zum Shop:[[CUSTOMER_LOGIN]
+Benutzername: [CUSTOMER_USERNAME]
+Passwort: [CUSTOMER_PASSWORD][CUSTOMER_LOGIN]]
+
+Mit freundlichen Grüssen
+Ihr [SHOP_COMPANY] Online Shop Team
+
+[SHOP_HOMEPAGE]

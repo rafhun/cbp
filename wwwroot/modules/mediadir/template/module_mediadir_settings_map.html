@@ -1,0 +1,25 @@
+<!-- START module_mediadir_settings_hits.html -->
+<form id="settingsMapForm" action="index.php?cmd={MODULE_NAME}&act=settings&tpl=map" method="post" >
+<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+    <tr>
+        <th colspan="2">{TXT_MEDIADIR_GOOGLE}</th>
+    </tr>
+    <!-- BEGIN mediadirGoogleMap -->
+    <tr class="row1">
+        <td width="280" valign="top">{TXT_MEDIADIR_SETTINGS_GOOGLE_START_POSITION}</td>
+        <td>
+            {MEDIADIR_SETTINGS_GOOGLE_START_POSITION}
+        </td>
+    </tr>
+    <tr class="row2">
+        <td width="280" valign="top">{TXT_MEDIADIR_SETTINGS_GOOGLE_MAP_TYPE}</td>
+        <td>
+            <select name="settingsGoogleMapType"  style="width: 187px"/>{MEDIADIR_SETTINGS_GOOGLE_MAP_TYPE}</select>
+        </td>
+    </tr>
+    <!-- END mediadirGoogleMap -->
+</table>
+<br />
+<input type="submit" name="submitSettingsForm" value="{TXT_MEDIADIR_SUBMIT}" />
+</form>
+<!-- END module_mediadir_settings_hits.html -->

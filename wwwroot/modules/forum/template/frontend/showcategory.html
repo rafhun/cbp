@@ -1,0 +1,36 @@
+[[FORUM_JAVASCRIPT]]
+[[FORUM_JAVASCRIPT_GOTO]]
+<div id="forum">
+<div style="text-align: right;">[[FORUM_DROPDOWN]]</div>
+<div class="div_title">
+        [[FORUM_TREE]][[FORUM_NAME]]<br />
+	<div style="float: left;">[[FORUM_MAINCATEGORY_NAME]]</div>
+	<div style="text-align: right;">
+		<a href="javascript:toggleCategory('[[FORUM_MAINCATEGORY_ID]]');" title="[[FORUM_MAINCATEGORY_NAME]]">
+			<img src="images/modules/forum/arrow_up.gif" id="maincat_[[FORUM_MAINCATEGORY_ID]]_img" border="0">
+		</a>
+	</div>
+</div>
+<div class="div_board">
+	<div id="maincat_[[FORUM_MAINCATEGORY_ID]]" style="display: block;">
+		<table cellspacing="0" cellpadding="0">
+			<tr>
+				<th width="1%">&nbsp;</td>
+				<th width="58%">[[TXT_FORUM]]</td>
+				<th width="25%" align="center">[[TXT_LASTPOST]]</td>
+				<th width="8%" align="center">[[TXT_THREADS]]</td>
+				<th width="8%" align="center">[[TXT_POSTINGS]]</td>
+			</tr>
+			<!-- BEGIN forumSubCategory -->
+			<tr class="row_[[FORUM_SUBCATEGORY_ROWCLASS]]" style="padding-left: [[FORUM_SUBCATEGORY_SPACER]]px;">
+				<td align="center"><!--[[FORUM_SUBCATEGORY_ICON]]--></td>
+				<td align="justify"><div style="padding-left: [[FORUM_SUBCATEGORY_SPACER]]px;"><b><a href="index.php?section=forum&amp;cmd=board&amp;id=[[FORUM_SUBCATEGORY_ID]]" title="[[FORUM_SUBCATEGORY_NAME]]">[[FORUM_SUBCATEGORY_NAME]]</a></b><br />[[FORUM_SUBCATEGORY_DESC]]</div></td>
+				<td align="center">[[FORUM_SUBCATEGORY_LASTPOST_TITLE]]<br />[[FORUM_SUBCATEGORY_LASTPOST_DATE]]</td>
+				<td align="center">[[FORUM_SUBCATEGORY_THREADS]]</td>
+				<td align="center">[[FORUM_SUBCATEGORY_POSTINGS]]</td>
+			</tr>
+			<!-- END forumSubCategory -->
+		</table>
+	</div>
+</div>
+</div>

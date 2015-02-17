@@ -1,0 +1,84 @@
+<!-- START module_shop_discount_groups_article.html -->
+<script type="text/javascript">
+<!-- //
+function deleteGroup(groupId)
+{
+  if (confirm('{TXT_SHOP_CONFIRM_DELETE_ARTICLE_GROUP}\n{TXT_ACTION_IS_IRREVERSIBLE}'))
+    window.location.href="index.php?{CSRF_PARAM}&cmd=shop&act=products&tpl=groups&delete=1&id="+groupId;
+}
+// -->
+</script>
+<!-- BEGIN statusBar -->
+<span class="red">{CONTENT_STATUS}</span>
+<!-- END statusBar -->
+<ul id="tabmenu">
+  <li><a id="groupTab_content1" class="{SHOP_GROUP_LIST_CLASS}"
+        href="javascript:void(0);"
+        onclick="selectTab('content1')" title="{TXT_SHOP_ARTICLE_GROUPS}">
+      {TXT_SHOP_ARTICLE_GROUPS}</a></li>
+  <li><a id="groupTab_content2" class="{SHOP_GROUP_EDIT_CLASS}"
+        href="javascript:void(0);"
+        onclick="selectTab('content2')" title="{TXT_ADD_OR_EDIT}">
+      {TXT_ADD_OR_EDIT}</a></li>
+</ul>
+<form name="groupForm" method="post"
+    action="index.php?cmd=shop&amp;act=products&amp;tpl=groups">
+<!-- start content1 div -->
+  <div id="content1" class="groupTab" style="display:{SHOP_GROUP_LIST_DISPLAY};">
+    <table border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+      <tr>
+        <th width="95%" class="f_bold">{TXT_SHOP_ARTICLE_GROUP_NAME}</th>
+        <th width="05%" class="a_right f_bold">
+          {TXT_FUNCTIONS}
+        </th>
+      </tr>
+<!-- BEGIN shopGroup -->
+      <tr class="{SHOP_ROW_STYLE}">
+        <td>
+          <a href="index.php?cmd=shop&amp;act=products&amp;tpl=groups&amp;edit=1&amp;id={SHOP_GROUP_ID}"
+              title="{TXT_EDIT}">
+            {SHOP_GROUP_NAME}
+          </a>
+        </td>
+        <td class="a_right">
+          <a href="index.php?cmd=shop&amp;act=products&amp;tpl=groups&amp;edit=1&amp;id={SHOP_GROUP_ID}"
+              title="{TXT_EDIT}">
+            <img src="images/icons/edit.gif" alt="{TXT_EDIT}" border="0" />
+          </a>
+          <a href="javascript:deleteGroup({SHOP_GROUP_ID})" title="{TXT_DELETE}">
+            <img src="images/icons/delete.gif" alt="{TXT_DELETE}" border="0" />
+          </a>
+        </td>
+      </tr>
+<!-- END shopGroup -->
+    </table>
+    <br /><div class="infobox"><b>{TXT_SHOP_ARTICLE_GROUPS}</b><br />{TXT_SHOP_DISCOUNT_GROUP_ARTICLE_INFO}</div>
+  </div>
+<!-- end content1 div -->
+
+<!-- start content2 div -->
+  <div id="content2" class="groupTab" style="display:{SHOP_GROUP_EDIT_DISPLAY}">
+    <table border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+      <tr>
+        <th colspan="2" class="f_bold">{TXT_SHOP_EDIT_ARTICLE_GROUP}</th>
+      </tr>
+<!-- BEGIN shopGroupName -->
+      <tr class="{SHOP_ROW_STYLE}">
+        <td>{TXT_SHOP_ARTICLE_GROUP_NAME}</td>
+        <td>
+          <input type="hidden" name="id" value="{SHOP_GROUP_ID_EDIT}" />
+          <input type="text" size="40" name="groupName"
+              value="{SHOP_GROUP_NAME}" />
+        </td>
+      </tr>
+<!-- END shopGroupName -->
+    </table>
+    <br />
+    <input type="submit" name="store" value="{TXT_STORE}" />
+    <input type="button" name="cancel" value="{TXT_SHOP_CANCEL}"
+        onclick="window.location.href='index.php?{CSRF_PARAM}&cmd=shop&amp;act=products&amp;tpl=groups';"
+    />
+  </div>
+<!-- end content2 div -->
+</form>
+<!-- END module_shop_discount_groups_article.html -->

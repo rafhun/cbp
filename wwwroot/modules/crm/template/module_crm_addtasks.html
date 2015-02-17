@@ -1,0 +1,227 @@
+<style type="text/css">@import url(../lib/jscalendar/skins/cupertino/theme.css);</style>
+<script language="JavaScript" type="text/javascript">
+    /* <![CDATA[ */
+    var $J = jQuery.noConflict();
+    $J(document).ready(function () {
+        $J(".delete-customer").click(function(){
+            $J(".selectCustomer").val('');
+            $J("#customerId").val('0');
+        });
+        $J("input").keyup(function () {
+            $J(this).css("border","1px solid #0A50A1");
+        });
+        $J("select, #target_date, #completedDate, #followUpDate").change(function () {
+            $J(this).css("border","1px solid #0A50A1");
+        });
+
+        var cache = {},
+        lastXhr;
+        $J( "#customer_name" ).autocomplete({
+            minLength: 1,
+            source: function( request, response ) {
+                var term = request.term;
+                if ( term in cache ) {
+                    response( cache[ term ] );
+                    return;
+                }
+
+                lastXhr = $J.getJSON( "./index.php?cmd={MODULE_NAME}&act=getcustomers", request, function( data, status, xhr ) {
+                    cache[ term ] = data;
+                    if ( xhr === lastXhr ) {
+                        response( data );
+                    }
+                });
+            },
+            select: function(event, ui) {
+                $J('#customerId').val(ui.item.id);
+            }
+        });
+    });
+    function changeCustomer(customerId, customerName) { 
+       $J('#customerId').val(customerId);
+       $J('#customer_name').val(customerName);
+
+       // trigger the change event to update the customer contact option
+       $J('#customer_name').trigger('change');
+   }    
+    /* ]]> */
+</script>
+<script language="JavaScript" type="text/javascript">
+    var logged_in_user = {CRM_LOGGED_USER_ID};
+    cx.ready(function() {
+        var dpOptions = {
+            dateFormat: 'yy-mm-dd',
+            timeFormat: 'hh:mm:ss',
+            onSelect: function(dateText, inst) {
+                // adjust start or end date to avoid an invalid date range
+                var startDate = $J('input[name=date]').datetimepicker('getDate');
+
+                if ($J(this).attr('name') == 'date') {
+                    $J('input[name=date]').datetimepicker('setDate', dateText);
+                }
+            }
+        };
+
+        $J('input[name=date]').datetimepicker(dpOptions);
+
+    }, true);
+    $J(function(){     
+        if ($J('#assigned_to').val() == 0 || $J('#assigned_to').val() == logged_in_user) {
+            $J('#notify').attr('disabled', 'disabled');
+        }
+        $J('#assigned_to').change(function(){
+            if ($J(this).val() == 0 || $J(this).val() == logged_in_user) {
+                $J('#notify').removeAttr('checked');
+                $J('#notify').attr('disabled', 'disabled');
+            } else {
+                $J('#notify').removeAttr('disabled');
+            }
+        });
+    });
+
+    function checkValidations() {
+        $J("input, select").css("border","1px solid #0A50A1"); 
+        var errors =new  Array();
+        var errChk;        
+        if(document.getElementById("taskTitle").value.trim() == "") {
+            errChk = 1;
+            document.getElementById("taskTitle").style.border = "1px solid red";            
+        }        
+        if(document.getElementById("taskType").value.trim() == "") {
+            errChk = 1;
+            document.getElementById("taskType").style.border = "1px solid red";            
+        }        
+        if(document.getElementById("customerId").value == "0") {
+            errChk = 1;
+            document.getElementById("customer_name").style.border = "1px solid red";         
+        }
+        return showErrors(errors, errChk);       
+    }
+    
+    function showErrors(errors,  errChk) {
+        if ( errors.length >= 1 || errChk == 1) {
+            if (errChk == 1 && errors.length >= 1) {
+                errString = errors.join('<br />');
+                $J('#formerr').html("{TXT_CRM_MANDATORY_FIELDS_NOT_FILLED_OUT}<br />"+errString);
+            } else if (  errors.length >= 1) {
+                errString = errors.join('<br />');
+                $J('#formerr').html(errString);
+            } else if (errChk == 2){
+                $J('#formerr').html("Task title already exists!");
+            }else {
+                $J('#formerr').html("{TXT_CRM_MANDATORY_FIELDS_NOT_FILLED_OUT}");
+            }
+            $J('#formerr').css('display','block');
+            //\$j('#formerr').html(errString);
+            return false;
+        } else {
+            $J('#formerr').html('');
+            $J('#formerr').css('display', 'none');
+            return true;
+        }
+    }
+    $J.dropdownToggle({
+        dropdownID: 'taskTypePanel',
+        switcherSelector: '#taskTypesLink',
+        addTop: 0,
+        addLeft: 0
+    });
+    function showTaskTypePanel(switcherUI) {
+        $J("#taskTypePanel a.dropDownItem").unbind('click').click(function() {
+            _changeTaskType(switcherUI, $J(this).text(), $J(this).attr("task_type"));
+        });
+    }
+    var _changeTaskType = function(Obj, text, notes_type) {
+        $J(Obj).text(text);
+        $J('#taskType').val(notes_type);
+        $J("#taskTypePanel").hide();
+    };
+</script>
+<style type="text/css">
+    .taskTypeDiv {
+        float: left;
+        width: 100%;
+    }
+    .taskTypeImg {
+        float: left;
+        width: 20%;
+        text-align: center;
+    }
+    .taskTypeTitle {
+        float: left;
+        width: 80%;
+        text-align: left;
+        margin-top: 5px;
+    }
+</style>
+<div id="subnavbar_level2">
+    <ul>
+        <li><a href="index.php?cmd={MODULE_NAME}&act=task" title="{TXT_CRM_OVERVIEW}">{TXT_CRM_OVERVIEW}</a></li>
+    </ul>
+</div>
+<div id="formerr"></div>
+<div class="CategoriesDropDownPanel" id="taskTypePanel" style="display: none;position: absolute;">
+    <div class="dropDownContent">
+        <!-- BEGIN Tasktype -->
+        <a class="dropDownItem" task_type="{TXT_TASKTYPE_ID}">
+            <div class="taskTypeDiv">
+                <div class="taskTypeImg"><img src="{TXT_TASKTYPE_IMAGE}" alt="{TXT_TASKTYPE_NAME}"/></div>
+                <div class="taskTypeTitle">{TXT_TASKTYPE_NAME}</div>
+            </div>
+        </a>
+        <!-- END Tasktype -->        
+    </div>
+</div>
+<br>
+<form action="" method="post" id="addTask" name="form1">
+    <table cellspacing="0" class="adminlist" cellpadding="3" width="100%" border="0">
+        <tr>
+            <th colspan="3">{TXT_CRM_ADD_TASK}</th>
+        </tr>
+        <tr class="row1">
+            <td width="10%">{TXT_CRM_TASK_TITLE}&nbsp;<font color="red">*</font></td>
+            <td width="90%" style="padding-left: 28px;"><input type="text" value="{CRM_TASKTITLE}" style="width: 255px;margin-top: 2px;" name="taskTitle" id="taskTitle"/></td>
+        </tr>
+        <tr class="row2">
+            <td width="10%">{TXT_CRM_TASK_TYPE}&nbsp;<font color="red">*</font></td>
+            <td width="90%" style="padding-left: 28px;">
+                <input type="hidden" name="taskType" id="taskType" value="{DEFAULT_CRM_NOTES_TYPE_ID}" />
+                <div id="taskTypesLink" class="crmLeft CategoriesDropDownLink" onclick="showTaskTypePanel(this);">
+                    {DEFAULT_CRM_NOTES_TYPE}
+                </div>
+            </td>
+        </tr>
+        <tr class="row1">
+            <td width="10%">{TXT_CRM_CUSTOMER_NAME}&nbsp;<font color="red">*</font></td>
+            <td width="90%" style="padding-left: 28px;">
+                <!-- cutomer name fetched from AJAX request -->
+                <input type="hidden" name="customerId" id="customerId" value="{CRM_CUSTOMER_ID}" />
+                <input type="text" name="customer_name" placeholder="{TXT_CRM_FIND_COMPANY_BY_NAME}" class="selectCustomer" id="customer_name" value="{CRM_CUSTOMER_NAME}" size="23" style="width: 239px;" /><span class="delete-customer"></span>&nbsp;
+            </td>
+        </tr>
+
+        <tr class="row2">
+            <td width="10%">{TXT_CRM_TASK_DUE_DATE}</td>
+            <td width="90%" style="padding-left: 28px;"><input type="text" name="date" id="mydate" size="30" readonly="readonly" value="{CRM_DUE_DATE}" style="width: 255px;"/></td
+        </tr>
+        <tr class="row1">
+            <td width="10%">{TXT_CRM_TASK_RESPONSIBLE}</td>
+            <td width="90%" style="padding-left: 28px;">
+                <select name="assignedto" id="assigned_to" style="width: 263px;">
+                    <option value="0">--{TXT_CRM_SELECT_MEMBER_NAME}--</option>
+                     <!-- BEGIN Members -->
+                    <option value="{TXT_USER_MEMBERID}" {TXT_SELECTED}>{TXT_USER_MEMBERNAME}</option>
+                    <!-- END Members -->
+                </select>&nbsp;
+                <input type="checkbox" name="notify" id="notify" value="1" />&nbsp;<label for="notify">{TXT_CRM_NOTIFY}</label>
+            </td>
+        </tr>
+        <tr class="row2">
+                    <td width="10%" colspan="2" style="padding-top: 6px;">{TXT_CRM_TASK_DESCRIPTION}<br />{CRM_TASK_DESC}</td>
+                </tr>
+
+    </table>
+    <br>
+    <input style="margin-top: 7px;" type="button" value="{TXT_CRM_BACK}" onClick="window.location='./index.php?cmd={MODULE_NAME}{CRM_BACK_LINK}&csrf='+cx.variables.get('csrf', 'contrexx')"/>
+    <input style="margin-top: 7px;" type="submit" name="addtask" value="{TXT_CRM_SAVE}" onClick="return checkValidations();"/>
+</form>

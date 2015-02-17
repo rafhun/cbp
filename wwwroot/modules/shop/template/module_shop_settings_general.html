@@ -1,0 +1,249 @@
+<!-- START module_shop_settings_general.html -->
+<!-- BEGIN statusBar -->
+<span class="red">{CONTENT_STATUS}</span>
+<!-- END statusBar -->
+<ul id="tabmenu">
+  <li><a id="generalTab_content1" class="active" href="javascript:{}" onclick="selectTab('content1')" title="{TXT_GENERAL_SETTINGS}">{TXT_GENERAL_SETTINGS}</a></li>
+  <li><a id="generalTab_content3" href="javascript:{}" onclick="selectTab('content3')" title="{TXT_SHOP_IMAGE_SETTINGS}">{TXT_SHOP_IMAGE_SETTINGS}</a></li>
+  <li><a id="generalTab_content4" href="javascript:{}" onclick="selectTab('content4')" title="{TXT_SHOP_SETTINGS_EXTENDED}">{TXT_SHOP_SETTINGS_EXTENDED}</a></li>
+</ul>
+<form name="shopForm" method="post" action="index.php?cmd=shop{MODULE_INDEX}&amp;act=settings&amp;tpl=general">
+<!-- start content1 div -->
+<div id="content1" class="generalTab" style="display:block">
+  <table border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+    <tr>
+      <th colspan="2" class="f_bold">{TXT_GENERAL_SETTINGS}</th>
+    </tr>
+    <tr class="row1">
+      <td class="nowrap">{TXT_SHOP_EMAIL}</td>
+      <td class="nowrap"><input type="text" name="email" style="width: 270px;" maxlength='255' value="{SHOP_CONTACT_EMAIL}" /></td>
+    </tr>
+    <tr class="row2">
+      <td class="nowrap" width="15%">{TXT_CONFIRMATION_EMAILS}</td>
+      <td class="nowrap" ><input type="text" name="email_confirmation" style="width: 270px;" maxlength='255' value="{SHOP_CONFIRMATION_EMAILS}" />
+      ({TXT_SEPARATED_WITH_COMMAS})</td>
+    </tr>
+
+    <tr class="row1">
+      <td class="nowrap">{TXT_CONTACT_COMPANY}</td>
+      <td class="nowrap"><input type="text" name="company" style="width: 270px;" maxlength='255' value="{SHOP_CONTACT_COMPANY}" /></td>
+    </tr>
+    <tr class="row2">
+      <td class="nowrap">{TXT_CONTACT_ADDRESS}</td>
+      <td class="nowrap"><textarea cols="36" rows="5" name="address">{SHOP_CONTACT_ADDRESS}</textarea></td>
+    </tr>
+    <tr class="row1">
+      <td class="nowrap">{TXT_PHONE_NUMBER}</td>
+      <td class="nowrap"><input type="text" name="telephone" style="width: 270px;" maxlength='255' value="{SHOP_CONTACT_TEL}" /></td>
+    </tr>
+    <tr class="row2">
+      <td class="nowrap">{TXT_FAX_NUMBER}</td>
+      <td class="nowrap"><input type="text" name="fax" style="width: 270px;" maxlength='255' value="{SHOP_CONTACT_FAX}" /></td>
+    </tr>
+    <tr class="row1">
+      <td class="nowrap">{TXT_COUNTRY}</td>
+      <td class="nowrap">
+        <select name="country_id" style="width: 270px;">
+          {SHOP_GENERAL_COUNTRY_MENUOPTIONS}
+        </select>
+      </td>
+    </tr>
+  </table>
+  <br />
+</div>
+<!-- end content1 div -->
+
+<!-- start content3 div -->
+<div id="content3" class="generalTab" style="display:none;">
+  <table border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+    <tr>
+      <th colspan="2">{TXT_SHOP_IMAGE_SETTINGS}</th>
+    </tr>
+    <tr class="row1">
+      <td class="nowrap" width='15%'>
+        {TXT_SHOP_THUMBNAIL_MAX_WIDTH}
+      </td>
+      <td width='85%'>
+        <input type="text" name="thumbnail_max_width" class="a_right"
+            style="width: 270px;"
+            value="{SHOP_THUMBNAIL_MAX_WIDTH}" style="width: 270px;" maxlength="3" />
+      </td>
+    </tr>
+    <tr class="row2">
+      <td class="nowrap" width='15%'>
+        {TXT_SHOP_THUMBNAIL_MAX_HEIGHT}
+      </td>
+      <td width='85%'>
+        <input type="text" name="thumbnail_max_height" class="a_right"
+            style="width: 270px;"
+            value="{SHOP_THUMBNAIL_MAX_HEIGHT}" style="width: 270px;" maxlength="3" />
+      </td>
+    </tr>
+    <tr class="row1">
+      <td class="nowrap" width='15%'>
+        {TXT_SHOP_THUMBNAIL_QUALITY}
+      </td>
+      <td width='85%'>
+        <input type="text" name="thumbnail_quality" class="a_right"
+            style="width: 270px;"
+            value="{SHOP_THUMBNAIL_QUALITY}" style="width: 270px;" maxlength="3" />
+      </td>
+    </tr>
+  </table>
+  <br />
+</div>
+<!-- end content3 div -->
+
+<!-- start content4 div -->
+<div id="content4" class="generalTab" style="display:none;">
+  <table border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+    <tr>
+      <th colspan="2">{TXT_SHOP_SETTINGS_EXTENDED}</th>
+    </tr>
+    <tr class="row2">
+      <td class="nowrap" width="15%">{TXT_SHOP_SETTING_WEIGHT_ENABLE}</td>
+      <td class="nowrap">
+        <input type="checkbox" name="weight_enable" value="1"
+               {SHOP_WEIGHT_ENABLE_CHECKED} />
+      </td>
+    </tr>
+    <tr class="row1">
+      <td class="nowrap">{TXT_SHOP_PRODUCT_SORTING}</td>
+      <td class="nowrap">
+        <select name="product_sorting" style="width: 270px;">
+          {SHOP_PRODUCT_SORTING_MENUOPTIONS}
+        </select>
+      </td>
+    </tr>
+    <tr class="row2">
+      <td class="nowrap">{TXT_SHOP_SHOW_PRODUCTS_ON_START_PAGE}</td>
+      <td class="nowrap">
+        <select name="show_products_default" style="width: 270px;">
+          {SHOP_SHOW_PRODUCTS_DEFAULT_OPTIONS}
+        </select>
+      </td>
+    </tr>
+    <tr class="row1">
+      <td class="nowrap">{TXT_SHOP_SETTING_CART_USE_JS}</td>
+      <td class="nowrap">
+        {SHOP_SETTING_CART_USE_JS}
+      </td>
+    </tr>
+    <tr class="row2">
+      <td class="nowrap">{TXT_SHOP_SETTING_SHOPNAVBAR_ON_ALL_PAGES}</td>
+      <td class="nowrap">
+        {SHOP_SETTING_SHOPNAVBAR_ON_ALL_PAGES}
+      </td>
+    </tr>
+    <tr class="row1">
+      <td class="nowrap">{TXT_SHOP_ORDERITEMS_AMOUNT_MIN} ({SHOP_CURRENCY_CODE})&nbsp;
+        <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_SHOP_ORDERITEMS_AMOUNT_MIN_NOTE}</span>
+      </td>
+      <td>
+        <input type="text" name="orderitems_amount_min" style="width: 270px;"
+               class="a_right" maxlength='12' value="{SHOP_ORDERITEMS_AMOUNT_MIN}" />
+      </td>
+    </tr>
+    <tr class="row2">
+      <td class="nowrap">{TXT_SHOP_ORDERITEMS_AMOUNT_MAX} ({SHOP_CURRENCY_CODE})&nbsp;
+        <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_SHOP_ORDERITEMS_AMOUNT_MAX_NOTE}</span>
+      </td>
+      <td>
+        <input type="text" name="orderitems_amount_max" style="width: 270px;"
+               class="a_right" maxlength='12' value="{SHOP_ORDERITEMS_AMOUNT_MAX}" />
+      </td>
+    </tr>
+    <tr class="row1">
+      <td class="nowrap">{TXT_SHOP_SETTING_REGISTER}</td>
+      <td class="nowrap">
+        {SHOP_SETTING_REGISTER}
+      </td>
+    </tr>
+    <tr class="row2">
+      <td class="nowrap">{TXT_SHOP_SETTING_NUMOF_PRODUCTS_PER_PAGE_BACKEND}</td>
+      <td class="nowrap">
+        <input type="text" name="numof_products_per_page_backend"
+            style="width: 270px;" class="a_right" maxlength='12'
+            value="{SHOP_SETTING_NUMOF_PRODUCTS_PER_PAGE_BACKEND}" />
+      </td>
+    </tr>
+    <tr class="row1">
+      <td class="nowrap">{TXT_SHOP_SETTING_NUMOF_ORDERS_PER_PAGE_BACKEND}</td>
+      <td class="nowrap">
+        <input type="text" name="numof_orders_per_page_backend"
+            style="width: 270px;" class="a_right" maxlength='12'
+            value="{SHOP_SETTING_NUMOF_ORDERS_PER_PAGE_BACKEND}" />
+      </td>
+    </tr>
+    <tr class="row2">
+      <td class="nowrap">{TXT_SHOP_SETTING_NUMOF_CUSTOMERS_PER_PAGE_BACKEND}</td>
+      <td class="nowrap">
+        <input type="text" name="numof_customers_per_page_backend"
+            style="width: 270px;" class="a_right" maxlength='12'
+            value="{SHOP_SETTING_NUMOF_CUSTOMERS_PER_PAGE_BACKEND}" />
+      </td>
+    </tr>
+    <tr class="row1">
+      <td class="nowrap">{TXT_SHOP_SETTING_NUMOF_MANUFACTURERS_PER_PAGE_BACKEND}</td>
+      <td class="nowrap">
+        <input type="text" name="numof_manufacturers_per_page_backend"
+            style="width: 270px;" class="a_right" maxlength='12'
+            value="{SHOP_SETTING_NUMOF_MANUFACTURERS_PER_PAGE_BACKEND}" />
+      </td>
+    </tr>
+    <tr class="row2">
+      <td class="nowrap">{TXT_SHOP_SETTING_NUMOF_MAILTEMPLATE_PER_PAGE_BACKEND}</td>
+      <td class="nowrap">
+        <input type="text" name="numof_mailtemplate_per_page_backend"
+            style="width: 270px;" class="a_right" maxlength='12'
+            value="{SHOP_SETTING_NUMOF_MAILTEMPLATE_PER_PAGE_BACKEND}" />
+      </td>
+    </tr>
+    <tr class="row1">
+      <td class="nowrap">{TXT_SHOP_SETTING_NUMOF_COUPON_PER_PAGE_BACKEND}</td>
+      <td class="nowrap">
+        <input type="text" name="numof_coupon_per_page_backend"
+            style="width: 270px;" class="a_right" maxlength='12'
+            value="{SHOP_SETTING_NUMOF_COUPON_PER_PAGE_BACKEND}" />
+      </td>
+    </tr>
+    <tr class="row2">
+      <td class="nowrap">{TXT_SHOP_SETTING_USERGROUP_ID_CUSTOMER}&nbsp;
+        <span class="tooltip-trigger icon-warning"></span><span class="tooltip-message">{TXT_SHOP_SETTING_HINT_USER}</span>
+      </td>
+      <td>
+        {SHOP_SETTING_USERGROUP_ID_CUSTOMER}
+      </td>
+    </tr>
+    <tr class="row1">
+      <td class="nowrap">{TXT_SHOP_SETTING_USERGROUP_ID_RESELLER}&nbsp;
+        <span class="tooltip-trigger icon-warning"></span><span class="tooltip-message">{TXT_SHOP_SETTING_HINT_USER}</span>
+      </td>
+      <td>
+        {SHOP_SETTING_USERGROUP_ID_RESELLER}
+      </td>
+    </tr>
+    <tr class="row2">
+      <td class="nowrap">{TXT_SHOP_SETTING_USER_PROFILE_ATTRIBUTE_CUSTOMER_GROUP_ID}&nbsp;
+        <span class="tooltip-trigger icon-warning"></span><span class="tooltip-message">{TXT_SHOP_SETTING_HINT_USER}</span>
+      </td>
+      <td>
+        {SHOP_SETTING_USER_PROFILE_ATTRIBUTE_CUSTOMER_GROUP_ID}
+      </td>
+    </tr>
+    <tr class="row1">
+      <td class="nowrap">{TXT_SHOP_SETTING_USER_PROFILE_ATTRIBUTE_NOTES}&nbsp;
+        <span class="tooltip-trigger icon-warning"></span><span class="tooltip-message">{TXT_SHOP_SETTING_HINT_USER}</span>
+      </td>
+      <td>
+        {SHOP_SETTING_USER_PROFILE_ATTRIBUTE_NOTES}
+      </td>
+    </tr>
+  </table>
+  <br />
+</div>
+<!-- end content4 div -->
+
+<input type="submit" name="general" value="{TXT_STORE}" />
+</form>
+<!-- END module_shop_settings_general.html -->

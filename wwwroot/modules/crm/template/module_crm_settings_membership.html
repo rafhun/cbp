@@ -1,0 +1,264 @@
+<style type="text/css">
+    body table.adminlist input[type=text] {
+        width: 255px;
+    }
+    #ajaxMessageDiv {
+        width: 100px;position:fixed;left: 45%;background-color: #ccc;padding: 10px;font-size: 14px;top: 0;
+    }
+    #ajaxMessageDiv:hover{
+        background-color: #D0D0A8;
+    }
+    .okBox-new {
+        color: #39950C;
+        background: #DFF0D8;
+        padding: 8px;
+        margin-bottom: 5px;
+        clear: left;
+    }
+</style>
+<script type="text/javascript">
+    var inputFileds = [0];
+    var defaultLang = '{DEFAULT_LANG_ID}';
+    function ExpandMinimize(toggle) {
+        elm1 = document.getElementById('Inputfield_' + toggle + '_Minimized');
+        elm2 = document.getElementById('Inputfield_' + toggle + '_Expanded');
+
+        activeLang = new Array({LANG_ARRAY});
+
+        elmMaster = document.getElementById('Inputfield_' + toggle + '_0');
+        elmDefault = document.getElementById('Inputfield_' + toggle + '_' + defaultLang);
+
+        for (i = 0; i < activeLang.length; i++) {
+            elmCurrent = document.getElementById('Inputfield_' + toggle + '_' + activeLang[i]);
+            if (elmCurrent.value == '') {
+                elmCurrent.value = elmMaster.value;
+            }
+        }
+
+        if (elm1.style.display == 'block') {
+            elmDefault.value = elmMaster.value;
+        } else {
+            elmMaster.value = elmDefault.value;
+        }
+
+        elm1.style.display = (elm1.style.display == 'none') ? 'block' : 'none';
+        elm2.style.display = (elm2.style.display == 'none') ? 'block' : 'none';
+    }
+    $J(function() {
+        $J("input").keyup(function() {
+            $J(this).css("border", "1px solid #0A50A1");
+        });
+        $J("#industry_types").submit(function() {
+            $J.each(inputFileds, function(i, val) {
+                if ($J("#Inputfield_" + val + "_Minimized").is(":visible")) {
+                    $J("#Inputfield_" + val + "_" + defaultLang).val($J("#Inputfield_" + val + "_0").val());
+                }
+            });
+            //alert("test");
+            $J("input, select").css("border", "1px solid #0A50A1");
+            var errors = new Array();
+            var errChk;
+            var mandErr  = "{TXT_CRM_MANDATORY_FIELDS_NOT_FILLED_OUT}";
+
+
+            if ($J.trim($J("#Inputfield_0_" + defaultLang).val()) == "") {
+                errChk = 1;
+
+                $J("input[id^=Inputfield_0_]").each(function() {
+                    if ($J.trim($J(this).val()) == "")
+                        $J(this).css('border', '1px solid red');
+                });
+            }
+            if (errChk == 1) {
+                $J('#alertbox').html(mandErr);
+                $J('#alertbox').css('display', 'block');
+                return false;
+            } else {
+                return true;
+            }
+            //return false;
+        });
+    });
+    function setTableRow(tableId) {
+        count = 0;
+        $J('table#' + tableId + ' tbody tr:visible').each(function() {
+            $J(this).removeClass("row1 row2");
+            rowClass = (count % 2 == 0) ? "row1" : "row2";
+            $J(this).addClass(rowClass);
+            count++;
+        });
+    }
+    $J(function() {
+        setTableRow("entryList");
+        $J('.changestatus').click(function(e) {
+            var $elm = $J(this);
+            url = $elm.attr("href");
+            $J.get(url, function(data) {
+                image = $elm.find('img').attr('src').split('/')[2] == 'led_green.gif' ? 'led_red.gif' : 'led_green.gif';
+                $elm.find('img').attr('src', 'images/icons/' + image);
+                fadeOkbox('{TXT_CRM_CHANGE_STATUS}');
+            });
+            e.preventDefault();
+        });
+        $J("#multiAction").change(function() {
+
+            if ($J(".entrySelection:checked").length <= 0 && $J(this).val() != 0) {
+                alert('{TXT_CRM_NOTHING_SELECTED}');
+                return
+            }
+            if ($J(this).val() == "delete") {
+                if (confirm('{TXT_CRM_ARE_YOU_SURE_DELETE_SELECTED_ENTRIES}'))
+                    $J("#entries").submit();
+                else
+                    return;
+
+            }
+            if ($J(this).val() != 0)
+                $J("#entries").submit();
+        });
+        $J(".deleteEntry").click(function() {
+            $elm = $J(this);
+            en_id = $J(this).attr('rel').split('_')[1];
+
+            if (confirm("{TXT_CRM_ARE_YOU_SURE_DELETE_ENTRIES}")) {
+                $J.ajax({
+                    url: './index.php?cmd={MODULE_NAME}&act=settings&tpl=membership&actionType=deleteMembership&ajax=1&id=' + en_id,
+                    type: 'POST',
+                    success: function(msg) {
+                        $elm.closest("tr").remove();
+                        setTableRow("entryList");
+                        fadeOkbox('{TXT_CRM_ENTRY_DELETED_SUCCESS}');
+                    }
+                });
+            }
+        });
+    });
+    $J(document).ajaxStart(function() {
+        $J('body').append(getMessageDiv('Saving'));
+    }).ajaxStop(function() {
+        $J("#ajaxMessageDiv").remove();
+    });
+    function getMessageDiv(mes) {
+        return '<div id="ajaxMessageDiv">' + mes + '..</div>';
+    }
+    function fadeOkbox(msg) {
+        $J('.okBox-new').html(msg);
+        $J('.okBox-new').fadeIn('slow');
+        setTimeout(function() {
+            $J('.okBox-new').fadeOut('slow');
+        }, 6000);
+    }
+
+    function fadeAlertbox(msg) {
+        $J('#alertbox').html(msg);
+        $J('#alertbox').fadeIn('slow');
+        setTimeout(function() {
+            $J('#alertbox').fadeOut('slow');
+        }, 6000);
+    }
+</script>
+<div class="okBox-new" style="display:none;"></div>
+<div id="alertbox" style="display:none;"></div>
+<ul id="tabmenu">
+    <li><a id="Entries_ShowEntries" class="active" href="javascript:{}" onclick="selectTab('ShowEntries')" title="{TXT_CRM_CUSTOMER_MEMBERSHIP}">{TXT_CRM_CUSTOMER_MEMBERSHIP}</a></li>
+    <li><a id="Entries_AddCustomerGroup" class="inactive" href="javascript:{}" onclick="selectTab('AddCustomerGroup')" title="{TXT_CRM_ADD_MEMBERSHIP}">{TXT_CRM_ADD_MEMBERSHIP}</a></li>
+</ul>
+<div id="success_rate">    
+    <div id="ShowEntries" class="Entries">
+        <form id="entries" name="entries" action="" method="post">
+            <table id="entryList" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+                <thead>
+                    <tr>
+                        <th colspan="5">{TXT_CRM_CUSTOMER_MEMBERSHIP}</th>
+                    </tr>
+                    <tr class="row3">
+                        <td width="3%">&nbsp;&nbsp;<strong>#</strong></td>
+                        <td width="5%"><strong>{TXT_STATUS}</strong></td>
+                        <td width="5%"><strong>{TXT_CRM_SORTING}</strong></td>
+                        <td width="87%"><strong>{TXT_CRM_LABEL}</strong></td>
+                        <td width="10%" style="text-align: right;"><strong>{TXT_CRM_FUNCTIONS}</strong></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- BEGIN noRecords -->
+                    <tr class="{ROW_CLASS}">
+                        <td colspan="5">{TXT_NO_RECORDS_FOUND}</td>
+                    </tr>
+                    <!-- END noRecords -->
+                    <!-- BEGIN membershipEntries -->
+                    <tr class="{ROW_CLASS}">
+                        <td><input type="checkbox" name="memberEntry[]" class="entrySelection" value="{ENTRY_ID}" /></td>
+                        <td>&nbsp;
+                            <a href="index.php?cmd={MODULE_NAME}&ajax=1&act=settings&tpl=membership&actionType=changestatus&id={ENTRY_ID}" class="changestatus" ><img src="{CRM_SUCCESS_STATUS}" /></a>
+                        </td>
+                        <td>&nbsp;&nbsp;<input style="width:25px; text-align:right;" type="text" name="sorting[{ENTRY_ID}]" value="{CRM_SORTING}" /></td>
+                        <td>
+                            <a href="index.php?cmd={MODULE_NAME}&act=settings&tpl=membership&subTpl=modify&id={ENTRY_ID}" title="{CRM_INDUSTRY_NAME}">{CRM_INDUSTRY_NAME} ({CRM_CUSTOMER_COUNT})</a>
+                        </td>
+                        <td style="text-align: right;">
+                            <div align="right">
+                                <a title="{TXT_CRM_IMAGE_EDIT}" target="_self" rel="entry_{ENTRY_ID}_edit" class="entry_{ENTRY_ID}_edit editEntry" href="index.php?cmd={MODULE_NAME}&act=settings&tpl=membership&subTpl=modify&id={ENTRY_ID}" ><img border="0" title="{TXT_CRM_IMAGE_EDIT}" alt="{TXT_CRM_IMAGE_EDIT}" src="images/icons/edit.gif" /></a>
+                                <a title="{TXT_IMAGE_SAVE}" target="_self" style="display: none;" rel="entry_{ENTRY_ID}_save" class="entry_{ENTRY_ID}_save saveEntry" href="javascript:void(0);" ><img border="0" title="{TXT_CRM_IMAGE_EDIT}" alt="{TXT_CRM_IMAGE_EDIT}" src="images/icons/save.png" /></a>
+                                <a rel="entry_{ENTRY_ID}_delete" class="entry_{ENTRY_ID}_delete deleteEntry" href="javascript:void(0);" target="_self" title="{TXT_CRM_IMAGE_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{TXT_CRM_IMAGE_DELETE}" title="{TXT_CRM_IMAGE_DELETE}" /></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- END membershipEntries -->
+                </tbody>
+
+            </table>
+            <br>
+            <img height="22" border="0" width="38" src="images/icons/arrow.gif" alt=":" />
+            <a href="#" onclick="changeCheckboxes('entries', 'memberEntry[]', true);
+        return false;">{TXT_CRM_SELECT_ALL}</a> / <a href="#" onclick="changeCheckboxes('entries', 'memberEntry[]', false);
+        return false;">{TXT_CRM_REMOVE_SELECTION}</a>
+            <select name="actionType" id="multiAction">
+                <option value="0">{TXT_CRM_SELECT_ACTION}</option>
+                <option value="activate">{TXT_CRM_ACTIVATESELECTED}</option>
+                <option value="deactivate">{TXT_CRM_DEACTIVATESELECTED}</option>
+                <option value="delete">{TXT_CRM_DELETE_SELECTED}</option>
+            </select>
+            <br>
+            <br>
+            <input type="submit" name="save_entries" value="{TXT_CRM_SAVE}" />
+        </form>
+    </div>
+    <div id="AddCustomerGroup" class="Entries" style="display: none;">
+        <form id="industry_types" action="" method="post">
+            <table cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+                <tbody>
+                    <tr>
+                        <th colspan="5">{TXT_CRM_ADD_MEMBERSHIP}</th>
+                    </tr>
+                    <tr class="row1">
+                        <td valign="top" width="13%">{TXT_CRM_NAME}&nbsp;<font color="red">*</font></td>
+                        <td width="87%">
+                            <div id="Inputfield_0_Minimized" style="display: block; ">
+                                <input type="text" name="Inputfield[0]" id="Inputfield_0_0" value="{CRM_SETTINGS_NAME_DEFAULT_VALUE}" style="width: 300px" onfocus="this.select();">&nbsp;<a href="javascript:ExpandMinimize('0');">{TXT_CRM_MORE}&nbsp;»</a>
+                            </div>
+                            <div id="Inputfield_0_Expanded" style="display: none; ">
+                                <!-- BEGIN settingsNames -->
+                                <input type="text" name="Inputfield[{LANG_ID}]" id="Inputfield_0_{LANG_ID}" value="{CRM_SETTINGS_VALUE}" style="width: 280px; margin-bottom: 2px; padding-left: 21px; background: #ffffff url('images/flags/flag_{LANG_SHORT_NAME}.gif') no-repeat 3px 3px;" onfocus="this.select();">&nbsp;{LANG_LONG_NAME}&nbsp;&nbsp;
+                                <!-- BEGIN minimize -->
+                                <a href="javascript:ExpandMinimize('0');">«&nbsp;{TXT_CRM_MINIMIZE}</a>
+                                <!-- END minimize -->
+                                <br>
+                                <!-- END settingsNames -->
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="row2">
+                        <td >{TXT_CRM_SORTING_NUMBER}&nbsp;</td>
+                        <td ><input type="text" name="sortingNumber" style="width: 300px;" id="sortingNumber" value="{CRM_SORTINGNUMBER}"></td>
+                    </tr>
+                    <tr class="row1">
+                        <td>{TXT_CRM_TITLEACTIVE}</td>
+                        <td><input type="checkbox" name="activeStatus" value="active" checked></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <input type="submit" name="save_entry" value="{TXT_CRM_SAVE}" />
+        </form>
+    </div>
+</div>

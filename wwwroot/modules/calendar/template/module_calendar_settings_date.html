@@ -1,0 +1,199 @@
+<!-- START module_calendar_settings_date.html -->
+<script language="JavaScript" type="text/javascript">    
+    var dateSettings = {
+        options : {            
+            dateFormat          : 'dateFormat',
+            date                : '',
+            sepDateTime         : '',
+            time                : '',
+            clock               : '',
+                        
+            list       : {
+                separatorDate       : 'separatorDateList',
+                separatorTime       : 'separatorTimeList',
+                separatorDateTime   : 'separatorDateTimeList',
+                separatorSeveralDays: 'separatorSeveralDaysList',
+                showClock           : 'showClockList',
+                showStartDate       : 'showStartDateList',
+                showEndDate         : 'showEndDateList',
+                showStartTime       : 'showStartTimeList',
+                showEndTime         : 'showEndTimeList',
+                separatorDateValues       : {CALENDAR_SEPARATOR_DATE_LIST},
+                separatorTimeValues       : {CALENDAR_SEPARATOR_TIME_LIST},
+                separatorDateTimeValues   : {CALENDAR_SEPARATOR_DATE_TIME_LIST},
+                separatorSeveralDaysValues: {CALENDAR_SEPARATOR_SEVERAL_DAYS_LIST},
+            },
+            detail       : {
+                separatorDate       : 'separatorDateDetail',
+                separatorTime       : 'separatorTimeDetail',
+                separatorDateTime   : 'separatorDateTimeDetail',
+                separatorSeveralDays: 'separatorSeveralDaysDetail',
+                showClock           : 'showClockDetail',
+                showStartDate       : 'showStartDateDetail',
+                showEndDate         : 'showEndDateDetail',
+                showStartTime       : 'showStartTimeDetail',
+                showEndTime         : 'showEndTimeDetail',
+                separatorDateValues       : {CALENDAR_SEPARATOR_DATE_LIST},
+                separatorTimeValues       : {CALENDAR_SEPARATOR_TIME_LIST},
+                separatorDateTimeValues   : {CALENDAR_SEPARATOR_DATE_TIME_LIST},
+                separatorSeveralDaysValues: {CALENDAR_SEPARATOR_SEVERAL_DAYS_LIST},
+            }
+        },
+        _formatDateTime: function(format, d) {   
+            // inspired from jquery ui datetimepicker
+            t = {year : d.getFullYear(), month: d.getMonth(), date : d.getDate(), hour : d.getHours(), minute : d.getMinutes()};
+            var tmptime = format;
+            
+            tmptime = tmptime.toString()
+                    .replace(/YYYY/g, t.year)
+                    .replace(/MM/g, ((t.month < 10) ? '0' : '') + (t.month + 1))
+                    .replace(/DD/g, ((t.date < 10) ? '0' : '') + t.date)
+                    .replace(/H/g, ((t.hour < 10) ? '0' : '') + t.hour)                   
+                    .replace(/i/g, ((t.minute < 10) ? '0' : '') + t.minute);
+            return tmptime;                        
+        },
+        _getDateFormat: function() {            
+            return $J("select[name='settings\["+ this.options.dateFormat +"\]'] option:selected").text();
+        },
+        _getSingleDate : function( date, showStartDate, showEndDate, separatorDate, showTimeType, showStartTime, showEndTime, showClock ) {
+            //date
+            if(showStartDate && showEndDate) {
+                this.options.date = this._formatDateTime(this._getDateFormat(), date.startDate) + separatorDate + this._formatDateTime(this._getDateFormat(), date.endDate);
+            } else if(showStartDate) {
+                this.options.date = this._formatDateTime(this._getDateFormat(), date.startDate);
+            } else if(showEndDate) {
+                this.options.date = this._formatDateTime(this._getDateFormat(), date.endDate);
+            } else {
+                this.options.date = '';
+            }
+            
+            this.options.sepDateTime = '';
+            //time
+            if(showTimeType == 1) {
+                //start and/or end time
+                if(showStartTime && showEndTime) {
+                    this.options.sepDateTime = separatorDateTime;
+                    this.options.time = this._formatDateTime('H:i', date.startDate) + separatorTime + this._formatDateTime('H:i', date.endDate);
+                } else if(showStartTime) {
+                    this.options.sepDateTime = separatorDateTime;
+                    this.options.time = this._formatDateTime('H:i', date.startDate);
+                } else if(showEndTime) {
+                    this.options.sepDateTime = separatorDateTime;
+                    this.options.time = this._formatDateTime('H:i', date.endDate);
+                } else {
+                    this.options.time = '';
+                }
+                //show / hide clock
+                (showClock && this.options.time != '') ? this.options.clock = '&nbsp; {TXT_CALENDAR_OCLOCK}' : this.options.clock = '';
+            } else if($showTimeType == 2) {
+                //fulltime
+                this.options.clock = '';
+                this.options.sepDateTime = separatorDateTime;
+                this.options.time = '{TXT_CALENDAR_TIME_TYPE_FULLTIME}';
+            } else {
+                //no time
+                this.options.clock = '';
+                this.options.time = '';
+            }
+        },
+        _getMultiDateBlock : function( date, separatorDateTime, separatorSeveralDays, showClock, part ) {
+            this.options.sepDateTime = separatorDateTime;
+
+            this.options.clock = '';
+            if(part == 1) {
+                // parse part 1 (start)
+                //date
+                this.options.date = this._formatDateTime(this._getDateFormat(), date.startDate);
+                //time
+                this.options.time = this._formatDateTime('H:i', date.startDate);
+                //show / hide clock
+                (showClock && this.time != '') ? this.clock = '&nbsp; {TXT_CALENDAR_OCLOCK}' : this.options.clock = '';
+                //add separator for several days
+                if(this.options.clock != '') {
+                    this.options.clock += separatorSeveralDays;
+                } else {
+                    this.options.time += separatorSeveralDays;
+                }
+            } else {
+                // parse part 2 (end)
+                //date
+                this.options.date = this._formatDateTime(this._getDateFormat(), date.endDate);
+                //time
+                this.options.time = this._formatDateTime('H:i', date.endDate);
+                //show / hide clock
+                (showClock && this.options.time != '') ? this.options.clock = '&nbsp; {TXT_CALENDAR_OCLOCK}' : this.options.clock = '';
+            }
+        },
+        _changeDatePreview : function() {
+            var preview = ['list', 'detail'];
+            var that    = this;
+            d           = new Date();
+            d1          = new Date(d.getTime() + 25*60*60*1000);
+            var date    = {startDate: d, endDate : d1};
+            
+            $J.each(preview, function(index, value){
+                output = '';
+                showStartDate       = $J("input[name='settings\["+ that.options[value].showStartDate +"\]']:checked").val() == '1' ? true : false;
+                showEndDate         = $J("input[name='settings\["+ that.options[value].showEndDate +"\]']:checked").val() == '1' ? true : false; 
+                showStartTime       = $J("input[name='settings\["+ that.options[value].showStartTime +"\]']:checked").val() == '1' ? true : false;
+                showEndTime         = $J("input[name='settings\["+ that.options[value].showEndTime +"\]']:checked").val() == '1' ? true : false;
+                showClock           = $J("input[name='settings\["+ that.options[value].showClock +"\]']:checked").val() == '1' ? true : false;
+                
+                separatorDate       = $J("select[name='settings\["+ that.options[value].separatorDate +"\]']").val();
+                separatorTime       = $J("select[name='settings\["+ that.options[value].separatorTime +"\]']").val();
+                separatorDateTime   = $J("select[name='settings\["+ that.options[value].separatorDateTime +"\]']").val();
+                separatorSeveralDays= $J("select[name='settings\["+ that.options[value].separatorSeveralDays +"\]']").val();
+                
+                separatorDate       = that.options[value].separatorDateValues[separatorDate];
+                separatorTime       = that.options[value].separatorTimeValues[separatorTime];
+                separatorDateTime   = that.options[value].separatorDateTimeValues[separatorDateTime];
+                separatorSeveralDays= that.options[value].separatorSeveralDaysValues[separatorSeveralDays];
+                            
+                if ( showStartDate && showEndDate && showStartTime && showEndTime ) { 
+                   that._getMultiDateBlock( date, separatorDateTime, separatorSeveralDays, showClock, 1);
+                   output += that.options.date + that.options.sepDateTime + that.options.time + that.options.clock;
+                   
+                   that._getMultiDateBlock( date, separatorDateTime, separatorSeveralDays, showClock, 2);
+                   output += that.options.date + that.options.sepDateTime + that.options.time + that.options.clock;
+                } else {
+                   that._getSingleDate( date, showStartDate, showEndDate, separatorDate, 1, showStartTime, showEndTime, showClock );
+                   output += that.options.date + that.options.sepDateTime + that.options.time + that.options.clock;
+                } 
+                $J("#"+value+"Preview").html(output);
+            });            
+        }
+    };
+    $J(function(){
+       $J("#formSettingsDate select").change(function(){
+           dateSettings._changeDatePreview();
+       });
+       $J("#formSettingsDate input[type='radio']").click(function(){
+           dateSettings._changeDatePreview();
+       });
+       dateSettings._changeDatePreview();
+    });
+    
+{CALENDAR_SETTING_INFO_JS}    
+</script>
+
+
+<!--   &nbsp;&nbsp;<img src="images/icons/note.gif" width="12" height="12" onmouseout="htm()" onmouseover="stm(Text[11],Style[0])" />-->
+
+<form name="formSettingsDate" id="formSettingsDate" method="post" action="index.php?cmd={CALENDAR_MODULE_NAME}&act=settings&tpl=date">
+	<!--  BEGIN sectionList -->
+	<table style="width: 100%; border-spacing: 0px;" class="adminlist" cellspacing="0" cellpadding="3">
+	    <tr>
+	        <th colspan="2">{TXT_CALENDAR_SECTION_NAME}</th>
+	    </tr>
+	    <!--  BEGIN settingsList -->
+		<tr class="{CALENDAR_SETTING_ROW}">
+		  <td style="width: 200px">{TXT_CALENDAR_SETTING_NAME}</td>
+		  <td>{CALENDAR_SETTING_VALUE}{CALENDAR_SETTING_INFO}</td>
+		</tr>
+		<!-- END settingsList -->
+    </table>
+    <br />
+    <!-- END sectionList -->
+    <input type="submit" name="submitSettingsDate" value="{TXT_CALENDAR_SAVE}" />
+</form>
+<!-- END module_calendar_settings_date.html -->

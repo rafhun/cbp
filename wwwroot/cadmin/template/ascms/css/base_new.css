@@ -1,0 +1,322 @@
+/*
+   Base Style Sheet for the CONTREXX CMS backend console.
+
+   Copyright 2004 COMVATION AG.
+   All Rights Reserved.
+
+*/
+
+@import url(navbar.css);  /* CSS for navigation menu. */
+
+
+html, body {
+  color:           black;
+  background:      white;
+  font-weight:     normal;
+  font-family:     Arial, Helvetica, sans-serif;
+  font-style:      normal;
+  font-size: 11px;
+  text-decoration: none;
+  padding: 0;
+  border:  0;
+  margin: 0;
+}
+
+
+
+body {
+	SCROLLBAR-FACE-COLOR: #dadada;
+	SCROLLBAR-HIGHLIGHT-COLOR: #dadada;
+	SCROLLBAR-SHADOW-COLOR: #dadada;
+	SCROLLBAR-3DLIGHT-COLOR: #dadada;
+	SCROLLBAR-ARROW-COLOR: #000000;
+	SCROLLBAR-TRACK-COLOR: #dadada;
+	SCROLLBAR-DARKSHADOW-COLOR: #2f4f4f;
+	SCROLLBAR-BASE-COLOR: #dadada
+}
+
+
+.ms-toolbar {
+    text-decoration: none;
+    color: #003399;
+    width: 100%;
+    height: 22px;
+}
+
+table.ms-toolbar {
+   background-image: url("../../../images/toolgrad.gif");
+   background-repeat: repeat-x;
+   border: 1px solid #95b7f3;
+   background-repeat: repeat-x;
+   background-color: #9ebff6;
+}
+
+
+
+
+td {
+	font-size: 11px;
+	text-align: left;
+}
+
+form {
+	margin: 0px;
+}
+
+textarea,
+input,
+object,
+select {
+	BORDER-RIGHT: 1px solid;
+	MARGIN-BOTTOM: 2px;
+	BORDER-TOP: 1px solid;
+	FONT-SIZE: 11px;
+	BORDER-LEFT: 1px solid;
+	COLOR: black;
+	BORDER-BOTTOM: 1px solid;
+	BACKGROUND-COLOR: white
+}
+
+h1 {
+	PADDING-RIGHT: 0px;
+	PADDING-LEFT: 0px;
+	FONT-SIZE: 12px;
+	PADDING-BOTTOM: 0px;
+	MARGIN: 0px;
+	PADDING-TOP: 0px
+}
+A {
+	FONT-SIZE: 11px;
+	COLOR: #000099;
+	TEXT-DECORATION: none
+}
+A:link {
+	COLOR: #000099;
+	TEXT-DECORATION: none
+}
+A:visited {
+	COLOR: #000099;
+	TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #000099;
+	BACKGROUND-COLOR: #ffffcc;
+	TEXT-DECORATION: none
+}
+A:active {
+	COLOR: #000099;
+	TEXT-DECORATION: none
+}
+
+
+
+/* inline instruction */
+.status_message {
+	background: #faf0e6
+}
+
+div#footer {-SIZE: 11px;
+  margin-left: 20px;
+}
+
+
+table.navbar {
+	BORDER-RIGHT: 0px;
+	PADDING-RIGHT: 0px;
+	BORDER-TOP: 0px;
+	PADDING-LEFT: 0px;
+	PADDING-BOTTOM: 0px;
+	MARGIN: 0px;
+	BORDER-LEFT: 0px;
+	WIDTH: 100%;
+	PADDING-TOP: 0px;
+	BORDER-BOTTOM: 0px
+}
+
+table.navbar th {
+	PADDING-RIGHT: 0px;
+	PADDING-LEFT: 0px;
+	FONT-WEIGHT: bold;
+	FONT-SIZE: 11px;
+	PADDING-BOTTOM: 0px;
+	MARGIN: 0px;
+	COLOR: white;
+	PADDING-TOP: 0px;
+	BORDER-BOTTOM: white 1px solid;
+	BACKGROUND-COLOR: #3366cc
+}
+
+table.navbar td{
+	PADDING-RIGHT: 0px;
+	PADDING-LEFT: 0px;
+	PADDING-BOTTOM: 0px;
+	COLOR: #3a6aa9;
+	PADDING-TOP: 0px;
+	BACKGROUND-COLOR: white;
+	vertical-align: top;
+}
+
+
+.navigation {
+	PADDING-RIGHT: 0px;
+	PADDING-LEFT: 0px;
+	PADDING-BOTTOM: 0px;
+	MARGIN: 0px;
+	WIDTH: 100%;
+	PADDING-TOP: 0px;
+	LIST-STYLE-TYPE: none
+}
+.navigation li {
+	BORDER-RIGHT: 0px;
+	PADDING-RIGHT: 0px;
+	BORDER-TOP: 0px;
+	PADDING-LEFT: 0px;
+	PADDING-BOTTOM: 0px;
+	MARGIN: 0px;
+	BORDER-LEFT: 0px;
+	PADDING-TOP: 0px;
+	BORDER-BOTTOM: #c8d7ee 1px solid;
+	BACKGROUND-COLOR: white
+}
+.navigation li a {
+	DISPLAY: block;
+	PADDING-LEFT: 8px;
+	FONT-SIZE: 11px;
+	PADDING-BOTTOM: 2px;
+	COLOR: black;
+	PADDING-TOP: 2px;
+	BACKGROUND-COLOR: white
+}
+.navigation li a:active {
+	COLOR: black
+}
+.navigation li a:link {
+	COLOR: black
+}
+.navigation li a:visited {
+	COLOR: black
+}
+.navigation li a:hover {
+	COLOR: black;
+	BACKGROUND-COLOR: #ecf1f9
+}
+
+
+table.adminlist {
+	FONT-SIZE: 11px;
+	BACKGROUND-COLOR: #ffffff
+}
+
+table.adminlist th {
+    text-align: left
+    color: #003399;
+    width: 100%;
+    height: 24px;
+   background-image: url("../../../images/toolgrad.gif");
+   background-repeat: repeat-x;
+   background-color: #9ebff6;
+}
+
+table.adminlist th A {
+	COLOR: white;
+	TEXT-DECORATION: underline
+}
+table.adminlist th A:active {
+	COLOR: white;
+	TEXT-DECORATION: underline
+}
+table.adminlist th A:visited {
+	COLOR: white;
+	TEXT-DECORATION: underline
+}
+table.adminlist TH A:hover {
+	COLOR: #3366cc;
+	BACKGROUND-COLOR: #f4f8fd;
+	TEXT-DECORATION: none
+}
+table.adminlist TH.title {
+	COLOR: #333333;
+	TEXT-ALIGN: left
+}
+table.adminlist tr.row1 {
+	BACKGROUND-COLOR: #ecf1f9
+}
+table.adminlist tr.row2 {
+	BACKGROUND-COLOR: #ffffff
+}
+table.adminlist tr.row3 {
+	BACKGROUND-COLOR: #c8d7ee
+}
+table.adminlist tr.rowWarn {
+	BACKGROUND-COLOR: #ffe7e7
+}
+table.adminlist td {
+	BORDER-BOTTOM: #c8d7ee 1px solid
+}
+table.adminlist tr.row1:hover {
+	BACKGROUND-COLOR: #f1f1f1
+}
+table.adminlist tr.row2:hover {
+	BACKGROUND-COLOR: #f1f1f1
+}
+table.adminlist td.options {
+	FONT-SIZE: 10px;
+	BACKGROUND-COLOR: #ffffff
+}
+
+table.title {
+	FONT-SIZE: 12px;
+	BORDER-BOTTOM: #000099 1px solid;
+	FONT-FAMILY: Arial, Helvetica, sans-serif;
+	BACKGROUND-COLOR: white
+}
+
+table.subnavbar {
+	FONT-SIZE: 11px;
+	BORDER-BOTTOM: #000099 0px solid;
+	FONT-FAMILY: Arial, Helvetica, sans-serif;
+	BACKGROUND-COLOR: #c8d7ee
+}
+
+#tabmenu {
+	color: black;
+	margin: 0;
+	padding: 2px;
+	z-index: 1;
+	padding-left: 0px
+}
+
+#tabmenu li {
+	display: inline;
+	overflow: hidden;
+	list-style-type: none;
+}
+
+#tabmenu a, a.active {
+	color: black;
+	background: white;
+	FONT-WEIGHT: normal;
+	border: 1px solid #3366cc;
+	padding: 2px 5px 2px 5px;
+	margin: 0px;
+	text-decoration: none;
+}
+
+#tabmenu a.active {
+	background: #ecf1f9;
+	border-bottom: 1px solid #3366cc;
+}
+
+#tabmenu a:hover {
+	color: black;
+	background: #ecf1f9;
+}
+
+#tabmenu a:visited {
+	color: black;
+}
+
+#tabmenu a.active:hover {
+	background: #ecf1f9;
+	color: black;
+}

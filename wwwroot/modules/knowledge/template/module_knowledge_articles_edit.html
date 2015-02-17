@@ -1,0 +1,147 @@
+<!-- START module_knowledge_articles_edit.html -->
+
+<script type="text/javascript" src="../modules/knowledge/template/javascript/Tags.js"></script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+
+var checkCategory = function()
+{
+    if ($('category').value == 0) {
+        $('alertbox').show();
+        return false;
+    } else {
+        return true;
+    }
+}
+
+knowledgeCurrentAnswerLanguage = {KNOWLEDGE_ANSWER_LANG};
+
+function knowledgeSwitchAnswer(langId)
+{
+    answerPreview = CKEDITOR.instances.answer_preview;
+    document.getElementById('answer_'+knowledgeCurrentAnswerLanguage).value = answerPreview.getData();
+    if (typeof(langId) != 'undefined') {
+        answerPreview.setData(document.getElementById('answer_'+langId).value);
+        knowledgeCurrentAnswerLanguage = langId;
+    }
+
+    return true;
+}
+
+/* ]]> */
+</script>
+
+<div id="alertbox" style="display: none; margin-bottom: 2em;" >
+{TXT_PLEASE_CHOOSE_CATEGORY}
+</div>
+
+
+<form action="index.php?cmd=knowledge{MODULE_INDEX}&section=articles&act={ACTION}" method="post" onsubmit="knowledgeSwitchAnswer();return checkCategory();">
+<table  cellspacing="0" cellpadding="3" border="0" class="adminlist" style="width: 100%;">
+    <thead>
+        <tr>
+            <th colspan="3">
+            {TITLE}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="row1">
+            <td style="width: 200px;">{TXT_CATEGORY}:</td>
+            <td colspan="2">
+                <select name="category" id="category">
+                    <option value="0">{TXT_CHOOSE_CATEGORY}</option>
+                    {CATEGORIES}
+                </select>
+            </td>
+        </tr>
+        <tr class="row2">
+            <td style="vertical-align: top;">{TXT_STATUS}:</td>
+            <td colspan="2">
+                <input type="radio" name="state" value="1" id="active_1" {ACTIVE_CHECKED} /> <label for="active_1">{TXT_ACTIVE}</label>
+                <input type="radio" name="state" value="0" id="active_0" {INACTIVE_CHECKED}  /> <label for="active_0">{TXT_INACTIVE}</label>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<br /> <br />
+<ul id="tabmenu">
+	<!-- BEGIN showLanguageTabs -->
+	<li><a id="editArticle_{TABS_LINK_ID}" class="{TABS_CLASS}" href="javascript:void(0);" onclick="selectTab('{TABS_DIV_ID}');knowledgeSwitchAnswer({TABS_LANG_ID})" title="{TABS_NAME}" style="{TABS_DISPLAY_STYLE}">{TABS_NAME}</a></li>
+	<!-- END showLanguageTabs -->
+</ul>
+
+<!-- BEGIN langDiv -->
+<div id="{ID}" style="display: {DISPLAY}" class="editArticle">
+<textarea name="answer_{LANG_ID}" id="answer_{LANG_ID}" cols="1" rows="1" style="display:none;">{ANSWER}</textarea>
+<table  cellspacing="0" cellpadding="3" border="0" class="adminlist" style="width: 100%;">
+    <thead>
+        <tr>
+            <th colspan="3">{LANG}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="row1">
+            <td style="vertical-align: top; width: 200px;">{TXT_QUESTION}:</td>
+            <td colspan="2">
+                <textarea name="question_{LANG_ID}" style="width: 97%; height: 35px; padding: 3px;">{QUESTION}</textarea>
+            </td>
+        </tr>
+        <tr class="row2">
+            <td style="vertical-align: top;">{TXT_TAGS}:</td>
+            <td colspan="2">
+                <input type="text" name="tags_{LANG_ID}" value="{TAGS}" style="width: 50%" id="tags_{LANG_ID}" /> {TXT_COMMA_SEPARATED}
+            </td>
+        </tr>
+        <tr class="row1">
+            <td style="vertical-align: top;">{TXT_AVAILABLE_TAGS}:</td>
+            <td style="vertical-align: top;">
+                <div class="knowledge_taglist" id="taglist_{LANG_ID}">
+
+                </div>
+            </td>
+            <td style="width: 200px;">
+                {TXT_SORT_BY}:
+                    <a href="javascript: void(0);" onclick="Tags_{LANG_ID}.getTags('popularity')">{TXT_POPULARITY}</a>
+                    <a href="javascript: void(0);" onclick="Tags_{LANG_ID}.getTags('alphabetical')">{TXT_ALPHABETICAL}</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+
+var Tags_{LANG_ID} = new Tags('tags_{LANG_ID}', '{LANG_ID}');
+
+/* ]]> */
+</script>
+<!-- END langDiv -->
+
+<table  cellspacing="0" cellpadding="3" border="0" class="adminlist" style="width: 100%;">
+    <thead>
+        <tr>
+            <th colspan="3">{TXT_ANSWER}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="row2 reset">
+            <td colspan="3">
+                {ANSWER_PREVIEW}
+           </td>
+         </tr>
+    </tbody>
+</table>
+
+<br /><br />
+<!-- BEGIN edit_id -->
+<input type="hidden" value="{ID}" name="id" />
+<!-- END edit_id -->
+
+<input type="submit" value="{TXT_SUBMIT}" />
+</form>
+
+
+
+<!-- END module_knowledge_articles_edit.html -->

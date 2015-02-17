@@ -1,0 +1,203 @@
+<!-- START index_home.html -->
+<link href="template/ascms/css/dashboard.css" rel="stylesheet" type="text/css" />
+<!--[if lt IE 9]><script type="text/javascript" src="../lib/javascript/jquery/plugins/jqplot/excanvas.min.js"></script><![endif]-->
+<script type="text/javascript">
+$J(document).ready(function() {
+    $J('.box').each(function() {
+        if ($J(this).find('ul li').length == 0) {
+            $J(this).hide();
+            $J(this).next().addClass('spacer');
+        }
+    });
+    
+    $J('#news_delete, #stats_delete').click(function(event) {
+        event.preventDefault();
+        
+        var elementId = $J(this).attr('id');
+        if (elementId == 'news_delete') {
+            var id = 85;
+        } else {
+            var id = 86;
+        }
+        $J.ajax({
+            url: 'index.php?act=deactivateSetting',
+            data: {id: id},
+            success: function(data) {
+                if (data == 'success') {
+                    if (elementId == 'news_delete') {
+                        $J('#news_message').hide();
+                        $J('#alert_news_wrapper').fadeIn(500).delay(5000).fadeOut(500);
+                    } else {
+                        $J('#stats_wrapper').hide();
+                        $J('#alert_stats').fadeIn(500).delay(5000).fadeOut(500);
+                    }
+                }
+            }
+        });
+    });
+});
+</script>
+<!-- BEGIN stats_javascript -->
+<script type="text/javascript">
+$J(document).ready(function() {
+    $J('#visitors_box').click(function() {
+        location.href = 'index.php?cmd=stats&stat=visitors&{CSRF}';
+    });
+    $J('#requests_box').click(function() {
+        location.href = 'index.php?cmd=stats&stat=requests&tpl=mvp&{CSRF}';
+    });
+    $J('#last_session_box').click(function() {
+        location.href = 'index.php?cmd=log&{CSRF}';
+    });
+    
+    var ticks      = {STATS_TICKS};
+    var dates      = {STATS_DATES};
+    var visitors   = {STATS_VISITORS};
+    var requests   = {STATS_REQUESTS};
+    var labels     = ['{TXT_VISITORS}', '{TXT_REQUESTS}'];
+    var data       = new Array();
+    data['dates']  = dates;
+    data['labels'] = labels;
+    
+    var plot = $J.jqplot('chart', [visitors, requests], {
+        seriesColors: ['#4EAA09', '#0C90D0'],
+        seriesDefaults: {
+            lineWidth: 2,
+            markerOptions: {
+                size: 6
+            }
+        },
+        grid: {
+            gridLineColor: '#EFEFEF',
+            background: '#FFFFFF',
+            borderColor: '#EFEFEF',
+            shadow: false
+        },
+        legend: {
+            show: true,
+            labels: labels,
+            placement: 'insideGrid'
+        },
+        axes: {
+            xaxis: {
+                renderer: $J.jqplot.CategoryAxisRenderer,
+                tickRenderer: $J.jqplot.CanvasAxisTickRenderer,
+                ticks: ticks,
+                tickOptions: {
+                  angle: -90,
+                  fontSize: '10px',
+                  showGridline: false
+                }
+            }
+        },
+        highlighter: {
+            data: data,
+            show: true,
+            showMarker: false,
+            tooltipAxes: 'data',
+            tooltipLocation:  'n'
+        }
+    });
+});
+</script>
+<!-- END stats_javascript -->
+
+<div id="dashboard">
+    <!-- BEGIN message -->
+    <div id="license_message" class="upgrade {MESSAGE_TYPE}">
+        <a href="{MESSAGE_LINK}" target="{MESSAGE_LINK_TARGET}">
+            {MESSAGE_TITLE}
+        </a>
+    </div>
+    <!-- END message -->
+    
+    <!-- BEGIN news -->
+    <div id="news_message" class="news infobox">
+        <a href="{NEWS_LINK}" target="_blank">
+            {NEWS_TITLE}
+        </a>
+        <!-- BEGIN news_delete -->
+        <span id="news_delete" class="close">&times;</span>
+        <!-- END news_delete -->
+    </div>
+    <!-- END news -->
+    
+    <div id="alert_news_wrapper">
+        <div id="alert_news" class="alert alert-info">{TXT_DASHBOARD_NEWS_ALERT}</div>
+    </div>
+    
+    <div class="left">
+        <div id="box_1" class="box">
+            <h2>{TXT_CREATING_AND_PUBLISHING}</h2>
+            <ul>
+                <!-- BEGIN check_access_5 --><li><a href="index.php?cmd=content&amp;act=new">{TXT_NEW_SITE}</a></li><!-- END check_access_5 -->
+                <!-- BEGIN check_access_10 --><li><a href="index.php?cmd=news&amp;act=add">{TXT_ADD_NEWS}</a></li><!-- END check_access_10 -->
+                <!-- BEGIN check_access_76 --><li><a href="index.php?cmd=block&amp;act=modify">{TXT_ADD_BLOCK}</a></li><!-- END check_access_76 -->
+                <!-- BEGIN check_access_84_1 --><li><a href="index.php?cmd=contact&amp;act=forms&amp;tpl=edit">{TXT_ADD_FORM}</a></li><!-- END check_access_84_1 -->
+            </ul>
+            <div class="icon"></div>
+        </div>
+    </div>
+    <div class="middle">
+        <div id="box_2" class="box">
+            <h2>{TXT_EVALUATE_AND_VIEW}</h2>
+            <ul>
+                <li><a href="../index.php?caching=0">{TXT_FRONTEND}</a></li>
+                <!-- BEGIN check_access_6 --><li><a href="index.php?cmd=content">{TXT_CONTENT_MANAGER}</a></li><!-- END check_access_6 -->
+                <!-- BEGIN check_access_19 --><li><a href="index.php?cmd=stats">{TXT_STATS}</a></li><!-- END check_access_19 -->
+                <!-- BEGIN check_access_75 --><li><a href="index.php?cmd=workflow">{TXT_WORKFLOW}</a></li><!-- END check_access_75 -->
+                <!-- BEGIN check_access_84_2 --><li><a href="index.php?cmd=contact">{TXT_FORMS}</a></li><!-- END check_access_84_2 -->
+            </ul>
+            <div class="icon"></div>
+        </div>
+    </div>
+    <div class="right">
+        <div id="box_3" class="box">
+            <h2>{TXT_MANAGE}</h2>
+            <ul>
+                <!-- BEGIN check_access_17 --><li><a href="index.php?cmd=settings">{TXT_SYSTEM_SETTINGS}</a></li><!-- END check_access_17 -->
+                <!-- BEGIN check_access_18 --><li><a href="index.php?cmd=access">{TXT_USER_MANAGER}</a></li><!-- END check_access_18 -->
+                <!-- BEGIN check_access_7 --><li><a href="index.php?cmd=media&amp;archive=archive1">{TXT_MEDIA_MANAGER}</a></li><!-- END check_access_7 -->
+                <!-- BEGIN check_access_32 --><li><a href="index.php?cmd=media&amp;archive=content">{TXT_IMAGE_ADMINISTRATION}</a></li><!-- END check_access_32 -->
+                <!-- BEGIN check_access_21 --><li><a href="index.php?cmd=skins">{TXT_SKINS}</a></li><!-- END check_access_21 -->
+            </ul>
+            <div class="icon"></div>
+        </div>
+    </div>
+    
+    <!-- BEGIN stats -->
+    <div id="stats_wrapper">
+        <h1 class="stats_title">
+            {STATS_TITLE}
+            <!-- BEGIN stats_delete -->
+            <a href="#" id="stats_delete" class="close">&times;</a>
+            <!-- END stats_delete -->
+        </h1>
+        
+        <!-- Inline style definitions (width & height) are necessary for the jqplot plugin -->
+        <div id="chart" style="width: 671px; height: 250px;"></div>
+        
+        <div id="visitors_box" class="stat_box">
+            <h2>{TXT_VISITORS}</h2>
+            <span>{STATS_TOTAL_VISITORS}</span>
+        </div>
+        
+        <div id="requests_box" class="stat_box">
+            <h2>{TXT_REQUESTS}</h2>
+            <span>{STATS_TOTAL_REQUESTS}</span>
+        </div>
+        
+        <div id="last_session_box" class="stat_box">
+            <!-- BEGIN last_login -->
+            <h2>{TXT_LAST_LOGIN}</h2>
+            <img src="template/ascms/images/dashboard_administrator_icon.png" alt="User Icon" />&nbsp;{LAST_LOGIN_USERNAME}<span> / {LAST_LOGIN_TIME}</span>
+            <!-- END last_login -->
+        </div>
+    </div>
+    <!-- END stats -->
+    
+    <div id="alert_stats" class="alert alert-info">
+        {TXT_DASHBOARD_STATS_ALERT}
+    </div>
+</div>
+<!-- END index_home.html -->

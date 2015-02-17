@@ -1,0 +1,78 @@
+<!-- START module_contact_forms_overview.html -->
+<script type="text/javascript">
+<!--
+function confirmDeleteForm(id, content)
+{
+  if (confirm('{TXT_CONTACT_CONFIRM_DELETE_FORM}\n{TXT_CONTACT_FORM_ENTRIES_WILL_BE_DELETED}\n{TXT_CONTACT_ACTION_IS_IRREVERSIBLE}')) {
+    url = 'index.php?cmd=contact&{CSRF_PARAM}&act=forms&tpl=deleteForm&formId='+id;
+    if (content) {
+      if (confirm('{TXT_CONTACT_CONFIRM_DELETE_CONTENT_SITE}\n{TXT_CONTACT_ACTION_IS_IRREVERSIBLE}')) {
+        url = 'index.php?cmd=contact&{CSRF_PARAM}&act=forms&tpl=deleteForm&deleteContent=true&formId='+id;
+      }
+    }
+    document.location.href = url
+  }
+}
+
+//-->
+</script>
+<style type="text/css">
+    .view {
+        position: relative;
+        top: 4px;
+        margin: 0 0 0 3px;
+    }
+    .view img {
+        border: 0;
+    }
+    .lang {
+        float: left;
+        margin: 0 12px 0 0;
+    }
+</style>
+
+<form action="index.php?cmd=contact&amp;act=forms&amp;tpl=edit&amp;formId=0" method="post">
+  <table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+    <tbody>
+      <tr>
+        <th colspan="6">{TXT_CONTACT_CONTACT_FORMS}</th>
+      </tr>
+      <tr class="row3" style="white-space:nowrap;">
+        <td width="1%"><b>{TXT_CONTACT_ID}</b></td>
+        <td width="30%"><b>{TXT_CONTACT_NAME}</b></td>
+        <td width="20%"><b>{TXT_CONTACT_LANGUAGE}</b></td>        
+        <td width="15%"><b>{TXT_CONTACT_LATEST_ENTRY}</b></td>
+        <td width="15%"><b>{TXT_CONTACT_NUMBER_OF_ENTRIES}</b></td>
+        <td width="4%" style="text-align:right;"><b>{TXT_CONTACT_FUNCTIONS}</b></td>
+      </tr>
+      <!-- BEGIN contact_contact_forms -->
+        <tr class="{CONTACT_FORM_ROW_CLASS}">
+          <td>{CONTACT_FORM_ID}</td>
+          <td>{CONTACT_FORM_NAME} {CONTACT_CRM_IMG}</td>
+          <td>{CONTACT_FORM_LANGUAGES}</td>          
+          <td>{CONTACT_FORM_LAST_ENTRY}</td>
+          <td>{CONTACT_FORM_NUMBER_OF_ENTRIES}</td>
+          <td style="text-align:right; white-space:nowrap;">
+            <!-- BEGIN contact_export -->
+            <a href="index.php?cmd=contact&amp;act=forms&amp;tpl=csv&amp;formId={CONTACT_FORM_ID}" class="tooltip-wrapper">
+                <span class="tooltip-trigger icon-16x16" style="background: url('images/icons/csv.gif')"></span>
+                <span class="tooltip-message">{TXT_CONTACT_CSV_TOOLTIP}</span>
+            </a>
+            <a href="index.php?cmd=contact&amp;act=forms&amp;tpl=csv&amp;format=excel&amp;formId={CONTACT_FORM_ID}" class="tooltip-wrapper">
+                <span class="tooltip-trigger icon-16x16" style="background: url('images/icons/xls.gif')"></span>
+                <span class="tooltip-message">{TXT_CONTACT_XLS_TOOLTIP}</span>
+            </a>
+            <!-- END contact_export -->
+            <a href="index.php?cmd=contact&amp;act=forms&amp;tpl=code&amp;formId={CONTACT_FORM_ID}" title="{TXT_CONTACT_SHOW_SOURCECODE}"><img src="images/icons/html.gif" width="16" height="16" border="0" alt="{TXT_CONTACT_SHOW_SOURCECODE}" /></a>
+            <a href="index.php?cmd=contact&amp;act=forms&amp;tpl=copy&amp;selectLang=true&amp;formId={CONTACT_FORM_ID}" title="{TXT_CONTACT_USE_AS_TEMPLATE}"><img src="images/icons/copy.gif" alt="{TXT_CONTACT_USE_AS_TEMPLATE}" width="16" height="16" border="0" /></a>
+            <a href="index.php?cmd=contact&amp;act=forms&amp;tpl=edit&amp;formId={CONTACT_FORM_ID}" title="{TXT_CONTACT_MODIFY}"><img src="images/icons/edit.gif" alt="{TXT_CONTACT_MODIFY}" width="16" height="16" border="0" /></a>
+            <a href="javascript:confirmDeleteForm({CONTACT_FORM_ID},{CONTACT_DELETE_CONTENT})" title="{TXT_CONTACT_DELETE}"><img src="images/icons/delete.gif" alt="{TXT_CONTACT_DELETE}" width="17" height="17" border="0" /></a>
+          </td>
+        </tr>
+      <!-- END contact_contact_forms -->
+    </tbody>
+  </table>
+  <br />
+  <input type="submit" value="{TXT_CONTACT_ADD_NEW_CONTACT_FORM}" />
+</form>
+<!-- END module_contact_forms_overview.html -->

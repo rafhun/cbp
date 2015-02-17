@@ -1,0 +1,92 @@
+<!-- START newsletter_config_confirmmail.html -->
+<div id="subnavbar_level2">
+<ul>
+<li><a href="index.php?cmd=newsletter&amp;act=dispatch" title="{TXT_DISPATCH_SETINGS}">{TXT_DISPATCH_SETINGS}</a></li>
+<li><a href="index.php?cmd=newsletter&amp;act=templates" title="{TXT_NEWSLETTER_TEMPLATES}">{TXT_NEWSLETTER_TEMPLATES}</a></li>
+<li><a href="index.php?cmd=newsletter&amp;act=interface" title="{TXT_NEWSLETTER_INTERFACE}">{TXT_NEWSLETTER_INTERFACE}</a></li>
+<li><a href="index.php?cmd=newsletter&amp;act=confightml" title="{TXT_GENERATE_HTML}">{TXT_GENERATE_HTML}</a></li>
+<li><a href="index.php?cmd=newsletter&amp;act=activatemail" title="{TXT_CONFIRM_MAIL}">{TXT_ACTIVATE_MAIL}</a></li>
+<li><a href="index.php?cmd=newsletter&amp;act=confirmmail" title="{TXT_CONFIRM_MAIL}">{TXT_CONFIRM_MAIL}</a></li>
+<li><a href="index.php?cmd=newsletter&amp;act=notificationmail" title="{TXT_NOTIFICATION_MAIL}">{TXT_NOTIFICATION_MAIL}</a></li>
+<li><a href="index.php?cmd=newsletter&amp;act=system" title="{TXT_DISPATCH_SETINGS}">{TXT_SYSTEM_SETINGS}</a></li>
+</ul>
+</div>
+<br />
+<form name="adduser" action="index.php?cmd=newsletter&amp;act=notificationmail" method="post">
+<input type="hidden" name="update" value="1" />
+  <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+    <tr>
+      <th colspan=2>{TXT_NOTIFICATION_MAIL}</th>
+    </tr>
+    <tr class="row3">
+      <td colspan="2" valign="top"><b>{TXT_NOTIFICATION_SETTINGS}</b></td>
+    </tr>
+    <tr class="row1">
+      <td  valign="top">{TXT_SEND_BY_SUBSCRIBE}</td>
+      <td ><input type="radio" name="mailSendSubscribe" value="1" {SEND_BY_SUBSCRIBE_ON} /> {TXT_NOTIFICATION_ACTIVATE} &nbsp;
+      <input type="radio" name="mailSendSubscribe" value="0" {SEND_BY_SUBSCRIBE_OFF} /> {TXT_NOTIFICATION_DEACTIVATE}</td>
+    </tr>
+     <tr class="row2">
+      <td valign="top">{TXT_SEND_BY_UNSUBSCRIBE}</td>
+      <td ><input type="radio" name="mailSendUnsubscribe" value="1" {SEND_BY_UNSUBSCRIBE_ON} /> {TXT_NOTIFICATION_ACTIVATE} &nbsp;
+      <input type="radio" name="mailSendUnsubscribe" value="0" {SEND_BY_UNSUBSCRIBE_OFF} /> {TXT_NOTIFICATION_DEACTIVATE}</td>
+    </tr>
+        <tr class="row1">
+      <td width="210" valign="top">{TXT_RECIPIENTS}</td>
+      <td ><input type="text" name="mailRecipients" value="{MAIL_RECIPIENTS}" style="width:468px;" maxlength="255" /></td>
+    </tr>
+    <tr class="row3">
+      <td colspan="2" valign="top"><b>{TXT_WILDCART_INFOS}</b></td>
+    </tr>
+    <tr class="row1">
+      <td valign="top">{TXT_ACTION}</td>
+      <td >[[action]]</td>
+    </tr>
+    <tr class="row2">
+      <td valign="top">{TXT_SEX}</td>
+      <td >[[sex]]</td>
+    </tr>
+    <tr class="row1">
+      <td valign="top">{TXT_TITLE}</td>
+      <td >[[title]]</td>
+    </tr>
+    <tr class="row2">
+      <td valign="top">{TXT_FIRSTNAME}</td>
+      <td >[[firstname]]</td>
+    </tr>
+    <tr class="row1">
+      <td valign="top">{TXT_LASTNAME}</td>
+      <td >[[lastname]]</td>
+    </tr>
+    <tr class="row2">
+      <td valign="top">{TXT_E-MAIL}</td>
+      <td >[[e-mail]]</td>
+    </tr>
+    <tr class="row1">
+      <td valign="top">{TXT_URL}</td>
+      <td >[[url]]</td>
+    </tr>
+    <tr class="row2">
+      <td valign="top">{TXT_DATE}</td>
+      <td >[[date]]</td>
+    </tr>
+    <tr class="row1">
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <th colspan="2" valign="top"><b>{TXT_CONTENT}</b></th>
+    </tr>
+    <tr class="row1">
+      <td valign="top">{TXT_SUBJECT}</td>
+      <td ><input type="text" name="mailSubject" value="{MAIL_SUBJECT}" style="width:468px;" maxlength="255" /></td>
+    </tr>
+    <tr class="row2">
+      <td  valign="top">{TXT_TEXT}</td>
+      <td ><textarea name="mailContent" style="width:468px; overflow: auto;" rows='15'>{MAIL_CONTENT}</textarea></td>
+    </tr>
+    </table>
+<br />
+<input type="submit" value="{TXT_SAVE}" name="submit" />
+</form>
+<br />
+<!-- END newsletter_config_confirmmail.html -->

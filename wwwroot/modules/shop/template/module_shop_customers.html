@@ -1,0 +1,152 @@
+<!-- START shop_customers.html -->
+<script type="text/javascript">//<![CDATA[
+function deleteCustomer(customer_id) {
+  if (confirm('{TXT_CONFIRM_DELETE_CUSTOMER}\n {TXT_ALL_ORDERS_WILL_BE_DELETED}\n {TXT_ACTION_IS_IRREVERSIBLE}'))
+    window.location.replace("index.php?cmd=shop{MODULE_INDEX}&{CSRF_PARAM}&act=delcustomer&customer_id="+customer_id);
+}
+function toggleCustomer(id) {
+  window.location.replace("index.php?{CSRF_PARAM}&cmd=shop{MODULE_INDEX}&act=customers&toggle_customer_id="+id);
+}
+function sendForm(letter) {
+    document.shop_filter.listletter.value = letter;
+    document.shop_filter.searchterm.value = "";
+    document.shop_filter.submit();
+}
+function customersDoAction(strForm, strCheckbox, objSelect) {
+  if (checkboxIsChecked(strForm, strCheckbox) == true) {
+    switch (objSelect.value) {
+      case 'activate':
+        document.forms[strForm].action = "index.php?cmd=shop{MODULE_INDEX}&act=customer_activate";
+        break;
+      case 'deactivate':
+        document.forms[strForm].action = "index.php?cmd=shop{MODULE_INDEX}&act=customer_deactivate";
+        break;
+      case 'delete':
+        if (confirm('{TXT_CONFIRM_DELETE_CUSTOMER}\n {TXT_ALL_ORDERS_WILL_BE_DELETED}\n {TXT_ACTION_IS_IRREVERSIBLE}')) {
+          document.forms[strForm].action = "index.php?cmd=shop{MODULE_INDEX}&act=delcustomer";
+        }
+        break;
+    }
+    document.forms[strForm].submit();
+    return true;
+  }
+  alert("{TXT_MAKE_SELECTION}");
+  objSelect.value = "";
+}
+//]]></script>
+<div id="subnavbar_level2">
+  <ul>
+    <li><a href="index.php?cmd=shop&amp;act=customers&amp;tpl=catalog" title="{TXT_OVERVIEW}">{TXT_OVERVIEW}</a></li>
+    <li><a href="index.php?cmd=shop&amp;act=customers&amp;tpl=discounts" title="{TXT_SHOP_DISCOUNTS_CUSTOMER}">{TXT_SHOP_DISCOUNTS_CUSTOMER}</a></li>
+    <li><a href="index.php?cmd=shop&amp;act=customers&amp;tpl=groups" title="{TXT_SHOP_CUSTOMER_GROUPS}">{TXT_SHOP_CUSTOMER_GROUPS}</a></li>
+  </ul>
+</div>
+<br />
+<form name="shop_filter" method="get" action="index.php">
+  <input type="hidden" name="cmd" value="shop{MODULE_INDEX}" />
+  <input type="hidden" name="act" value="customers" />
+  <table width="100%" border="0" cellspacing="0" cellpadding="2" class="adminlist">
+    <tr>
+      <th>{TXT_SEARCH}</th>
+    </tr>
+    <tr class="row1">
+      <td>
+        <input type="text" name="searchterm" value="{SHOP_CUSTOMER_TERM}"
+            size="40" maxlength="255" />
+        <select name="customer_type" size="1">
+          {SHOP_CUSTOMER_TYPE_MENUOPTIONS}
+        </select>
+        <select name="active" size="1">
+          {SHOP_CUSTOMER_STATUS_MENUOPTIONS}
+        </select>
+        <input type="submit" name="bsubmit" value="{TXT_SEARCH}" />
+      </td>
+    </tr>
+    <tr class="row2">
+      <td>
+        {SHOP_LISTLETTER_LINKS}
+      </td>
+    </tr>
+  </table>
+</form>
+<br />
+<!-- BEGIN shop_customers -->
+<form name="shop_customers" method="post" action="index.php?cmd=shop{MODULE_INDEX}&amp;act=customers">
+  <table class="adminlist" border="0" width="100%" cellpadding="2" cellspacing="0">
+    <tr>
+      <th width="01%" class="a_center">#</th>
+      <th width="01%" class="a_center">
+        {SHOP_HEADING_CUSTOMER_ACTIVE}
+      </th>
+      <th width="02%">{SHOP_HEADING_CUSTOMER_ID}</th>
+      <th width="05%">{SHOP_HEADING_CUSTOMER_COMPANY}</th>
+      <th width="04%">{SHOP_HEADING_CUSTOMER_FIRSTNAME}</th>
+      <th width="04%">{SHOP_HEADING_CUSTOMER_LASTNAME}</th>
+      <th width="06%">{SHOP_HEADING_CUSTOMER_ADDRESS}</th>
+      <th width="03%">{SHOP_HEADING_CUSTOMER_ZIP}</th>
+      <th width="05%">{SHOP_HEADING_CUSTOMER_CITY}</th>
+      <th width="05%">{SHOP_HEADING_CUSTOMER_PHONE}</th>
+      <th width="10%">{SHOP_HEADING_CUSTOMER_EMAIL}</th>
+      <th width="01%" class="a_right">{TXT_ACTION}</th>
+    </tr>
+<!-- BEGIN shop_customer -->
+      <tr class="{SHOP_ROWCLASS}">
+        <td class="a_center">
+          <input type="checkbox" name="selected_customer_id[]" value="{SHOP_CUSTOMERID}" />
+        </td>
+        <td class="a_center">
+          <span style="cursor: pointer;"
+                onclick="toggleCustomer({SHOP_CUSTOMERID});">
+            <img src="images/icons/{SHOP_CUSTOMER_STATUS_IMAGE}"
+                 alt="{SHOP_CUSTOMER_ACTIVE}"
+                 title="{SHOP_CUSTOMER_ACTIVE}" />
+          </span>
+        </td>
+        <td>{SHOP_CUSTOMERID}</td>
+        <td>{SHOP_COMPANY}</td>
+        <td>{SHOP_FIRSTNAME}</td>
+        <td>{SHOP_LASTNAME}</td>
+        <td>{SHOP_ADDRESS}</td>
+        <td>{SHOP_ZIP}</td>
+        <td>{SHOP_CITY}</td>
+        <td>{SHOP_PHONE}</td>
+        <td>
+          <a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=settings&amp;tpl=mail&amp;strTab=shopMailSend&amp;shopMailTo={SHOP_EMAIL}"
+             title="{TXT_SEND_MAIL_TO_ADDRESS}">
+            {SHOP_EMAIL}
+          </a>
+        </td>
+        <td class="a_right">
+          <a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=customerdetails&amp;customer_id={SHOP_CUSTOMERID}"
+             title="{TXT_VIEW_DETAILS}">
+            <img src="images/icons/pages.gif" alt="{TXT_VIEW_DETAILS}" border="0" />
+          </a>
+          <a href="index.php?cmd=shop{MODULE_INDEX}&amp;act=neweditcustomer&amp;customer_id={SHOP_CUSTOMERID}"
+             title="{TXT_EDIT}">
+            <img src="images/icons/edit.gif" alt="{TXT_EDIT}" border="0" />
+          </a>
+          <a href="javascript:deleteCustomer('{SHOP_CUSTOMERID}')" title="{TXT_DELETE}">
+            <img src="images/icons/delete.gif" alt="{TXT_DELETE}" border="0" />
+          </a>
+        </td>
+    </tr>
+<!-- END shop_customer -->
+  </table>
+  <img src="images/icons/arrow.gif" border="0" width="38" height="22" title="{TXT_MARKED}:" alt="{TXT_MARKED}:" />
+  <a href="javascript:{}" onclick="changeCheckboxes('shop_customers','selected_customer_id[]',true)" title="{TXT_SELECT_ALL}">{TXT_SELECT_ALL}</a>&nbsp;/&nbsp;
+  <a href="javascript:{}" onclick="changeCheckboxes('shop_customers','selected_customer_id[]',false)" title="{TXT_REMOVE_SELECTION}">{TXT_REMOVE_SELECTION}</a>&nbsp;&nbsp;&nbsp;
+  <select name="multi_action" onchange="customersDoAction('shop_customers','selected_customer_id[]',this);">
+    <option value="" selected="selected">{TXT_SELECT_ACTION}:</option>
+    <option value="activate">{TXT_SHOP_CUSTOMER_ACTIVATE}</option>
+    <option value="deactivate">{TXT_SHOP_CUSTOMER_DEACTIVATE}</option>
+    <option value="delete">{TXT_DELETE}</option>
+  </select>
+</form>
+<!-- END shop_customers -->
+<br />
+<p>{SHOP_CUSTOMER_PAGING}&nbsp;</p>
+<br />
+<form name="formNewCustomer" method="post" action="index.php?cmd=shop{MODULE_INDEX}&amp;act=neweditcustomer">
+  <input type="submit" name="addNewCustomer" value="{TXT_ADD_NEW_CUSTOMER}" />
+</form>
+<!-- END shop_customers.html -->

@@ -1,0 +1,242 @@
+<!-- START module_shop_discount_coupon.html -->
+<ul id="tabmenu">
+  <li>
+    <a id="couponTab_view" class="{SHOP_DISCOUNT_COUPON_VIEW_ACTIVE}"
+        href="javascript:{}" onclick="selectTab('view')"
+        title="{TXT_SHOP_DISCOUNT_COUPON_VIEW}">{TXT_SHOP_DISCOUNT_COUPON_VIEW}</a>
+  </li>
+  <li><a id="couponTab_edit" class="{SHOP_DISCOUNT_COUPON_EDIT_ACTIVE}"
+        href="javascript:{}" onclick="selectTab('edit')"
+        title="{TXT_SHOP_DISCOUNT_COUPON_EDIT}">{TXT_SHOP_DISCOUNT_COUPON_ADD_OR_EDIT}</a>
+  </li>
+</ul>
+
+<div id="view" class="couponTab" style="display:{SHOP_DISCOUNT_COUPON_VIEW_DISPLAY}">
+  <table border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+    <tr>
+      <th colspan="14" class="f_bold">{TXT_SHOP_DISCOUNT_COUPON_CODES}</th>
+    </tr>
+    <tr class="row3">
+      <td width="08%" class="f_bold">
+        {HEADER_SHOP_DISCOUNT_COUPON_CODE}
+      </td>
+      <td width="08%" class="f_bold">
+        {HEADER_SHOP_DISCOUNT_COUPON_START_TIME}
+      </td>
+      <td width="08%" class="f_bold">
+        {HEADER_SHOP_DISCOUNT_COUPON_END_TIME}
+      </td>
+      <td width="10%" class="a_right f_bold">
+        {HEADER_SHOP_DISCOUNT_COUPON_MINIMUM_AMOUNT_CURRENCY}
+      </td>
+      <td width="08%" class="a_right f_bold">
+        {HEADER_SHOP_DISCOUNT_COUPON_RATE}
+      </td>
+      <td width="08%" class="a_right f_bold">
+        {HEADER_SHOP_DISCOUNT_COUPON_AMOUNT_CURRENCY}
+      </td>
+      <td width="10%" class="a_right f_bold">
+        {HEADER_SHOP_DISCOUNT_COUPON_USES}
+      </td>
+      <td width="05%" class="f_bold">
+        {HEADER_SHOP_DISCOUNT_COUPON_SCOPE}
+      </td>
+      <td width="08%" class="f_bold">
+        {HEADER_SHOP_DISCOUNT_COUPON_CUSTOMER}
+      </td>
+      <td width="08%" class="f_bold">
+        {HEADER_SHOP_DISCOUNT_COUPON_PRODUCT}
+      </td>
+      <td width="08%" class="f_bold">
+        {HEADER_SHOP_DISCOUNT_COUPON_PAYMENT}
+      </td>
+      <td width="10%">
+        {TXT_SHOP_DISCOUNT_COUPON_URI}&nbsp;
+        <span class="tooltip-trigger icon-info"></span><span class="tooltip-message">{TXT_SHOP_DISCOUNT_COUPON_URI_HINT_TEXT}</span>
+      </td>
+      <td width="01%" class="f_bold">{TXT_FUNCTIONS}</td>
+    </tr>
+<!-- BEGIN shopDiscountCouponView -->
+    <tr class="{SHOP_ROWCLASS}">
+      <td>{SHOP_DISCOUNT_COUPON_CODE}</td>
+      <td>{SHOP_DISCOUNT_COUPON_START_TIME}</td>
+      <td>{SHOP_DISCOUNT_COUPON_END_TIME}</td>
+      <td class="a_right">
+        {SHOP_DISCOUNT_COUPON_MINIMUM_AMOUNT}
+      </td>
+      <td class="a_right">
+        {SHOP_DISCOUNT_COUPON_RATE}
+      </td>
+      <td class="a_right">
+        {SHOP_DISCOUNT_COUPON_AMOUNT}
+      </td>
+      <td class="a_right">
+        {SHOP_DISCOUNT_COUPON_USES}
+      </td>
+      <td>{SHOP_DISCOUNT_COUPON_SCOPE}</td>
+      <td>{SHOP_DISCOUNT_COUPON_CUSTOMER}</td>
+      <td>{SHOP_DISCOUNT_COUPON_PRODUCT}</td>
+      <td>{SHOP_DISCOUNT_COUPON_PAYMENT}</td>
+      <td>
+        {SHOP_DISCOUNT_COUPON_URI_ICON}
+        {SHOP_DISCOUNT_COUPON_URI_INPUT}
+      </td>
+      <td>{SHOP_DISCOUNT_COUPON_FUNCTIONS}</td>
+    </tr>
+<!-- END shopDiscountCouponView -->
+  </table>
+  <br />
+  <br />
+  {SHOP_PAGING}
+</div>
+<div id="edit" class="couponTab" style="display:{SHOP_DISCOUNT_COUPON_EDIT_DISPLAY}">
+  <form name="couponForm" method="post"
+      action="index.php?{CSFR_PARAM}&amp;cmd=shop&amp;act=settings&amp;tpl=coupon">
+    <input type="hidden" name="edit" value="{SHOP_DISCOUNT_COUPON_INDEX}" />
+<!-- BEGIN shopDiscountCouponEdit -->
+    <table border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+      <tr>
+        <th colspan="2" class="f_bold">{TXT_SHOP_DISCOUNT_COUPON_ADD_OR_EDIT}</th>
+      </tr>
+      <tr class="row2">
+        <td width="25%">{TXT_SHOP_DISCOUNT_COUPON_CODE}</td>
+        <td width="75%">
+          {SHOP_DISCOUNT_COUPON_CODE}
+          {SHOP_DISCOUNT_COUPON_CODE_CREATE}
+        </td>
+      </tr>
+      <tr class="row1">
+        <td>{TXT_SHOP_DISCOUNT_COUPON_START_TIME}</td>
+        <td>{SHOP_DISCOUNT_COUPON_START_TIME}</td>
+      </tr>
+      <tr class="row2">
+        <td>{TXT_SHOP_DISCOUNT_COUPON_END_TIME}</td>
+        <td>
+          {SHOP_DISCOUNT_COUPON_END_TIME}
+          {SHOP_DISCOUNT_COUPON_END_TIME_UNLIMITED}
+        </td>
+      </tr>
+      <tr class="row1">
+        <td>{TXT_SHOP_DISCOUNT_COUPON_MINIMUM_AMOUNT_CURRENCY}</td>
+        <td>{SHOP_DISCOUNT_COUPON_MINIMUM_AMOUNT}</td>
+      </tr>
+      <tr class="row2">
+        <td>{TXT_SHOP_DISCOUNT_COUPON_TYPE}</td>
+        <td>{SHOP_DISCOUNT_COUPON_TYPE}</td>
+      </tr>
+      <tr class="row1" id="coupon_type_rate_row" style="display: none;">
+        <td>{TXT_SHOP_DISCOUNT_COUPON_RATE}</td>
+        <td>{SHOP_DISCOUNT_COUPON_RATE}</td>
+      </tr>
+      <tr class="row1" id="coupon_type_amount_row" style="display: none;">
+        <td>{TXT_SHOP_DISCOUNT_COUPON_AMOUNT_CURRENCY}</td>
+        <td>{SHOP_DISCOUNT_COUPON_AMOUNT}</td>
+      </tr>
+      <tr class="row2">
+        <td>{TXT_SHOP_DISCOUNT_COUPON_USES}</td>
+        <td>
+          {SHOP_DISCOUNT_COUPON_USES}
+          {SHOP_DISCOUNT_COUPON_USES_UNLIMITED}
+        </td>
+      </tr>
+      <tr class="row1">
+        <td>{TXT_SHOP_DISCOUNT_COUPON_SCOPE}</td>
+        <td>
+          {SHOP_DISCOUNT_COUPON_GLOBALLY}<br />
+          {SHOP_DISCOUNT_COUPON_PER_CUSTOMER}
+          <div id="customer_widget"
+               style="display: {SHOP_DISCOUNT_COUPON_CUSTOMER_WIDGET_DISPLAY}">
+            <input class="live-search-user-id" name="customer_id" id="customer_id"
+                   value="{SHOP_DISCOUNT_COUPON_CUSTOMER_ID}" />
+            <input class="live-search-user-name" name="customer_name" id="customer_name"
+                   value="{SHOP_DISCOUNT_COUPON_CUSTOMER_NAME}" />
+          </div>
+        </td>
+      </tr>
+      <tr class="row2">
+        <td>{TXT_SHOP_DISCOUNT_COUPON_PRODUCT}</td>
+        <td>{SHOP_DISCOUNT_COUPON_PRODUCT}</td>
+      </tr>
+      <tr class="row1">
+        <td>{TXT_SHOP_DISCOUNT_COUPON_PAYMENT}</td>
+        <td>{SHOP_DISCOUNT_COUPON_PAYMENT}</td>
+      </tr>
+    </table>
+<!-- END shopDiscountCouponEdit -->
+    <br />
+    <br />
+    <input type="submit" name="bsubmit" value="{TXT_STORE}" tabindex="1001" />
+    <input type="button" name="bcancel" value="{TXT_SHOP_CANCEL}"
+        onclick="location.href='index.php?cmd=shop&amp;act=settings&amp;tpl=coupon&amp;{CSRF_PARAM}';"
+        tabindex="1002" />
+  </form>
+</div>
+<script type="text/javascript">// <[CDATA[
+
+cx.jQuery(function($) {
+  $("#end_time_unlimited").change(function() {
+    if ($("#end_time_unlimited").is(":checked")) {
+      $("#end_date").attr("disabled", true);
+      $("#end_date").val("");
+    } else {
+      $("#end_date").attr("disabled", false);
+      $("#end_date").datepicker({
+// TODO: Maybe have to set the default again here?
+//        defaultDate: "'.
+//            ($objCouponEdit->end_time()
+//              ? date(ASCMS_DATE_FORMAT_DATE, $objCouponEdit->end_time())
+//              : date(ASCMS_DATE_FORMAT_DATE)).'"
+      });
+    }
+  }).change();
+  $("#unlimited").change(function() {
+    if ($("#unlimited").is(":checked")) {
+      $("#uses").attr("disabled", true).val("");
+    } else {
+      $("#uses").attr("disabled", false).val("1");
+    }
+  }).change();
+  var customer_id = "{SHOP_DISCOUNT_COUPON_CUSTOMER_ID}";
+  $("[name=global_or_customer]").change(function() {
+    var element = $("#customer_widget").find("input[name=customer_id]");
+    if ($("#global").is(":checked")) {
+      customer_id = element.val();
+      element.val("0");
+      $("#customer_widget").hide();
+    } else {
+      element.val(customer_id);
+      $("#customer_widget").show();
+    }
+  }).change();
+  $(".icon_url").bind("click", function() {
+    $(this).parents("tr").first().find(".layer_url").
+      css("display", "block").find("input").focus();
+  });
+  $("#coupon_type-1").click(function() {
+    change_type("rate")
+  });
+  $("#coupon_type-2").click(function() {
+    change_type("amount")
+  });
+  function change_type(selected) {
+    var display_rate = "table-row";
+    var display_amount = "none";
+    switch (selected) {
+      case "amount":
+        display_rate = "none";
+        display_amount = "table-row";
+    }
+    $("#coupon_type_rate_row").css("display", display_rate);
+    $("#coupon_type_amount_row").css("display", display_amount);
+  };
+  change_type("{SHOP_DISCOUNT_COUPON_TYPE_SELECTED}");
+});
+function delete_coupon(index) {
+  if (confirm("{TXT_SHOP_DISCOUNT_COUPON_DELETE_CONFIRM}\n\n{TXT_ACTION_IS_IRREVERSIBLE}")) {
+    window.location.replace(
+      "index.php?{CSRF_PARAM}&cmd=shop&act=settings&tpl=coupon&delete="+index);
+  }
+}
+// ]]>
+</script>
+<!-- END module_shop_discount_coupon.html -->

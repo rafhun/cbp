@@ -1,0 +1,74 @@
+<!-- START module_feed_newsml_overview.html -->
+<script type="text/javascript">
+<!--
+function deleteNewsMLCategory() {
+  if (confirm('{TXT_FEED_CONFIRM_DELETE_CATEGORY}\n{TXT_FEED_ACTION_COULD_NOT_BE_UNDONE}')) {
+    return true;
+  } else {
+    return false;
+  }
+}
+function deleteNewsMLCategories() {
+  if (confirm('{TXT_FEED_CONFIRM_DELETE_CATEGORIES}\n{TXT_FEED_ACTION_COULD_NOT_BE_UNDONE}')) {
+    return true;
+  } else {
+    return false;
+  }
+}
+// -->
+</script>
+<ul id="tabmenu">
+<li><a id="feed_newsml1" class="active" href="javascript:{}" onclick="selectTab('newsml1')" title="{TXT_FEED_NEWSML_CATEGORIES}">{TXT_FEED_NEWSML_CATEGORIES}</a></li>
+<li><a id="feed_newsml2" href="javascript:{}" onclick="selectTab('newsml2')" title="{TXT_FEED_INFO}">{TXT_FEED_INFO}</a></li>
+</ul>
+<!-- start newsml1 -->
+<div id="newsml1" class="feed" style="display:block">
+<form action="?cmd=feed&amp;act=newsML" method="post" name="form_newsml">
+  <table cellspacing="0" cellpadding="0" width="100%" border="0" class="adminlist">
+    <tbody>
+      <tr>
+        <th colspan="5">{TXT_FEED_NEWSML_CATEGORIES}</th>
+      </tr>
+      <tr class="row3">
+        <td height="20" style="text-align:center;" width="1%"><b>#</b></td>
+        <td height="20" width="30%"><b>{TXT_FEED_CATEGORY}</b></td>
+        <td height="20" width="30%"><b>{TXT_FEED_TEMPLATE_PLACEHOLDER}</b></td>
+        <td height="20" width="30%"><b>{TXT_FEED_NEWSML_PROVIDER}</b></td>
+        <td height="20" width="9%" style="text-align:right;"><b>{TXT_FEED_FUNCTIONS}</b></td>
+      </tr>
+      <!-- BEGIN feed_newsml_list -->
+        <tr class="{FEED_NEWSML_LIST_ROW_CLASS}">
+          <td height="20" style="text-align:center;"><input type="checkbox" name="selectedNewsMLCatId[]" id="selectedNewsMLCatId" value="{FEED_NEWSML_CATEGORY_ID}" /></td>
+          <td height="20"><a href="index.php?cmd=feed&amp;act=newsML&amp;tpl=details&amp;providerId={FEED_NEWSML_CATEGORY_ID}" title="{TXT_FEED_SHOW_DETAILS}">{FEED_NEWSML_NAME}</a></td>
+          <td height="20">{FEED_NEWSML_PLACEHOLDER}</td>
+          <td height="20">{FEED_NEWSML_PROVIDER}</td>
+          <td height="20" style="text-align:right;"><a href="index.php?cmd=feed&amp;act=newsML&amp;tpl=details&amp;providerId={FEED_NEWSML_CATEGORY_ID}" title="{TXT_FEED_SHOW_DETAILS}"><img src="images/icons/details.gif" alt="{TXT_FEED_SHOW_DETAILS}" width="14" height="16" border="0" /></a> <a href="index.php?cmd=feed&amp;act=newsML&amp;tpl=editCategory&amp;categoryId={FEED_NEWSML_CATEGORY_ID}" title="{TXT_FEED_EDIT_CATEGORY}"><img src="images/icons/edit.gif" width="16" height="16" alt="{TXT_FEED_EDIT_CATEGORY}" border="0" /></a> <a href="index.php?cmd=feed&amp;act=newsML&amp;tpl=deleteCategory&amp;categoryId={FEED_NEWSML_CATEGORY_ID}" title="{TXT_FEED_DELETE_CATEGORY}" onclick="return deleteNewsMLCategory()"><img src="images/icons/delete.gif" width="17" height="17" border="0" alt="{TXT_FEED_DELETE_CATEGORY}" /></a></td>
+        </tr>
+      <!-- END feed_newsml_list -->
+    </tbody>
+  </table>
+  <img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="{TXT_FEED_MARKED}:" />
+  <a href="#" onclick="changeCheckboxes('form_newsml','selectedNewsMLCatId[]',true); return false;">{TXT_FEED_MARK_ALL}</a>&nbsp;/&nbsp;
+  <a href="#" onclick="changeCheckboxes('form_newsml','selectedNewsMLCatId[]',false); return false;">{TXT_FEED_REMOVE_CHOICE}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <input type="submit" name="newsMLDeleteCategories" value="{TXT_FEED_DELETE_MARKED}" onclick="return deleteNewsMLCategories()" />
+  <br />
+  <br />
+  <input type="submit" name="newsMLAddCategory" value="{TXT_FEED_INSERT_CATEGORY}">
+</form>
+</div>
+<!-- end newsml1 -->
+<!-- start newsml2 -->
+<div id="newsml2" class="feed" style="display:none;">
+  <table cellspacing="0" cellpadding="0" width="100%" border="0" class="adminlist">
+    <tbody>
+      <tr>
+        <th colspan="1">{TXT_FEED_WHAT_IS_NEWSML}</th>
+      </tr>
+      <tr class="row1">
+        <td>{TXT_FEED_NEWSML_DESCRIPTION}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- end newsml2 -->
+<!-- END module_feed_newsml_overview.html -->

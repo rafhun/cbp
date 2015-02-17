@@ -1,0 +1,168 @@
+<div id="shop"><!-- BEGIN core_message -->
+  <span class="[[MESSAGE_CLASS]]">[[MESSAGE_TEXT]]</span><!-- END core_message -->
+  <div id="shop_acc_data">
+    <form name="account" action="[[SHOP_ACCOUNT_ACTION]]" method="post"
+          onsubmit="copy_address()" onreset="return shopReset()">
+      <div class="customer_address">
+        <h2>[[TXT_CUSTOMER_ADDRESS]]</h2>
+        <div class="shop_text">
+          <p><label>[[TXT_COMPANY]]</label>
+            <input type="text" tabindex="1" name="company" value="[[SHOP_ACCOUNT_COMPANY]]" />
+          </p>
+          <p><label>[[TXT_GREETING]]<font color="#ff0000">&nbsp;*</font></label>
+            <select tabindex="2" name="gender">[[SHOP_ACCOUNT_PREFIX]]</select>
+          </p>
+          <p><label>[[TXT_SURNAME]]<font color="#ff0000">&nbsp;*</font></label>
+            <input type="text" tabindex="3" name="lastname" value="[[SHOP_ACCOUNT_LASTNAME]]" />
+          </p>
+          <p><label>[[TXT_FIRSTNAME]]<font color="#ff0000">&nbsp;*</font></label>
+            <input type="text" tabindex="4" name="firstname" value="[[SHOP_ACCOUNT_FIRSTNAME]]" />
+          </p>
+          <p><label>[[TXT_ADDRESS]]<font color="#ff0000">&nbsp;*</font></label>
+            <input type="text" tabindex="5" name="address" value="[[SHOP_ACCOUNT_ADDRESS]]" />
+          </p>
+          <p><label>[[TXT_POSTALE_CODE]]<font color="#ff0000">&nbsp;*</font></label>
+            <input type="text" tabindex="6" name="zip" value="[[SHOP_ACCOUNT_ZIP]]" />
+          </p>
+          <p><label>[[TXT_CITY]]<font color="#ff0000">&nbsp;*</font></label>
+            <input type="text" tabindex="7" name="city" value="[[SHOP_ACCOUNT_CITY]]" />
+          </p>
+          <p><label>[[TXT_COUNTRY]]</label>
+            <select name="countryId" id="countryId" tabindex="8">
+            [[SHOP_ACCOUNT_COUNTRY_MENUOPTIONS]]
+            </select>
+          </p>
+          <p><label>[[TXT_PHONE_NUMBER]]<font color="#ff0000">&nbsp;*</font></label>
+            <input type="text" tabindex="9" name="phone" value="[[SHOP_ACCOUNT_PHONE]]" />
+          </p>
+          <p><label>[[TXT_FAX_NUMBER]]</label>
+            <input type="text" tabindex="10" name="fax" value="[[SHOP_ACCOUNT_FAX]]" />
+          </p>
+        </div>
+      </div><!-- BEGIN shipping_address -->
+      <div class="shipping_address">
+        <h2>[[TXT_SHIPPING_ADDRESS]]</h2>
+        <p><input type="checkbox" tabindex="21" value="1" onclick="copy_address();"
+          id="equal_address" name="equal_address" [[SHOP_EQUAL_ADDRESS_CHECKED]] />
+          <label class="description" for="equal_address">[[TXT_SAME_BILLING_ADDRESS]]</label>
+        </p>
+      </div>
+      <div id="shipping_address" style="display: [[SHOP_EQUAL_ADDRESS_DISPLAY]];">
+        <div class="shop_text">
+          <p><label>[[TXT_COMPANY]]</label>
+            <input type="text" tabindex="31" name="company2" value="[[SHOP_ACCOUNT_COMPANY2]]" />
+          </p>
+          <p><label>[[TXT_GREETING]]<font color="#ff0000">&nbsp;*</font></label>
+            <select tabindex="32" name="gender2">[[SHOP_ACCOUNT_PREFIX2]]</select>
+          </p>
+          <p><label>[[TXT_SURNAME]]<font color="#ff0000">&nbsp;*</font></label>
+            <input type="text" tabindex="33" name="lastname2" value="[[SHOP_ACCOUNT_LASTNAME2]]" />
+          </p>
+          <p><label>[[TXT_FIRSTNAME]]<font color="#ff0000">&nbsp;*</font></label>
+            <input type="text" tabindex="34" name="firstname2" value="[[SHOP_ACCOUNT_FIRSTNAME2]]" />
+          </p>
+          <p><label>[[TXT_ADDRESS]]<font color="#ff0000">&nbsp;*</font></label>
+            <input type="text" tabindex="35" name="address2" value="[[SHOP_ACCOUNT_ADDRESS2]]" />
+          </p>
+          <p><label>[[TXT_POSTALE_CODE]]<font color="#ff0000">&nbsp;*</font></label>
+            <input type="text" tabindex="36" name="zip2" value="[[SHOP_ACCOUNT_ZIP2]]" size="6" />
+          </p>
+          <p><label>[[TXT_CITY]]<font color="#ff0000">&nbsp;*</font></label>
+            <input type="text" tabindex="37" name="city2" value="[[SHOP_ACCOUNT_CITY2]]" />
+          </p>
+          <p><label>[[TXT_COUNTRY]]</label>
+            <input type="hidden" name="countryId2" id="countryId2" value="[[SHOP_ACCOUNT_COUNTRY2_ID]]" />[[SHOP_ACCOUNT_COUNTRY2]]
+          </p>
+          <p><label>[[TXT_PHONE_NUMBER]]<font color="#ff0000">&nbsp;*</font></label>
+            <input type="text" tabindex="38" name="phone2" value="[[SHOP_ACCOUNT_PHONE2]]" />
+          </p>
+        </div>
+      </div><!-- END shipping_address --><!-- BEGIN account_details -->
+      <div class="account_details">
+        <h2>[[TXT_YOUR_ACCOUNT_DETAILS]]</h2><!-- BEGIN dont_register -->
+        <p>
+          <input type="checkbox" tabindex="61" value="1" id="dont_register"
+                 name="dont_register" [[SHOP_DONT_REGISTER_CHECKED]]
+                 onClick="toggle_registering();" />
+          <label class="description" for="dont_register">[[TXT_SHOP_ACCOUNT_DONT_REGISTER]]</label>
+          <br />
+          [[TXT_SHOP_ACCOUNT_DONT_REGISTER_NOTE]]
+        </p><!-- END dont_register -->
+        <div class="shop_text">
+          <p>
+            <label>[[TXT_EMAIL]]<font color="#ff0000">&nbsp;*</font></label>
+            <input type="text" tabindex="51" name="email" value="[[SHOP_ACCOUNT_EMAIL]]" />
+          </p>
+          <p id="account_password" style="[[SHOP_ACCOUNT_PASSWORD_DISPLAY]];">
+            <label>[[TXT_PASSWORD]]<font color="#ff0000">&nbsp;*</font></label>
+            <input type="password" tabindex="52" name="password" value="" />
+          </p>
+          <p id="account_password_hint" style="[[SHOP_ACCOUNT_PASSWORD_DISPLAY]];">
+            [[TXT_SHOP_ACCOUNT_PASSWORD_HINT]]
+          </p>
+        </div>
+      </div><!-- END account_details -->
+      <p>
+        <input type="reset" value="[[TXT_RESET]]" name="reset" tabindex="72" />
+        <input type="submit" value="[[TXT_SHOP_CONTINUE_ARROW]]" name="bsubmit" tabindex="71" />
+      </p>
+    </form>
+  </div>
+</div>
+<script type="text/javascript">//<![CDATA[
+function copy_address() {
+  if (cx.jQuery("#equal_address").is(":checked")) {
+    var selector = "#shop_acc_data form ";
+    cx.jQuery(selector+"[name=gender2]").val(cx.jQuery(selector+"[name=gender]").val());
+    cx.jQuery(selector+"[name=company2]").val(cx.jQuery(selector+"[name=company]").val());
+    cx.jQuery(selector+"[name=lastname2]").val(cx.jQuery(selector+"[name=lastname]").val());
+    cx.jQuery(selector+"[name=firstname2]").val(cx.jQuery(selector+"[name=firstname]").val());
+    cx.jQuery(selector+"[name=address2]").val(cx.jQuery(selector+"[name=address]").val());
+    cx.jQuery(selector+"[name=zip2]").val(cx.jQuery(selector+"[name=zip]").val());
+    cx.jQuery(selector+"[name=city2]").val(cx.jQuery(selector+"[name=city]").val());
+    cx.jQuery(selector+"[name=phone2]").val(cx.jQuery(selector+"[name=phone]").val());
+    cx.jQuery(selector+"[name=countryId2]").val(cx.jQuery(selector+"[name=countryId]").val());
+    cx.jQuery(selector+"[name=2]").val(cx.jQuery(selector+"[name=]").val());
+    cx.jQuery(selector+"[name=2]").val(cx.jQuery(selector+"[name=]").val());
+    cx.jQuery("#shipping_address").hide();
+  } else {
+    cx.jQuery("#shipping_address").show();
+/* Optionally clear the shipment address
+    gender2.value = "";
+    company2.value = "";
+    lastname2.value = "";
+    firstname2.value = "";
+    address2.value = "";
+    zip2.value = "";
+    city2.value = "";
+    phone2.value = "";*/
+  }
+}
+cx.jQuery(function () {
+  cx.jQuery(".customer_address").delegate("input,select", "blur", function() {
+    if (cx.jQuery("#equal_address:checked").length) {
+      copy_address();
+    }
+  });
+});
+function toggle_registering() {
+  var checked = cx.jQuery("#dont_register").is(":checked");
+  if (checked) {
+    cx.jQuery('#account_password').hide();
+    cx.jQuery('#account_password_hint').hide();
+  } else {
+    cx.jQuery('#account_password').show();
+    cx.jQuery('#account_password_hint').show();
+  }
+}
+// Redisplay the shipping address after the reset button has been clicked
+function shopReset()
+{
+  if (!confirm("[[TXT_SHOP_FORM_RESET_CONFIRM]]")) {
+    return false;
+  }
+  cx.jQuery("#shipping_address").show();
+  return true;
+}
+copy_address();
+//]]></script>

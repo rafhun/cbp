@@ -1,0 +1,55 @@
+<!-- BEGIN skipAjaxBlock -->
+<table cellspacing="0" cellpadding="3" border="0" width="100%" class="adminlist">
+    <tr>
+        <th colspan="9">{TXT_CRM_PROJECTS}</th>
+    </tr>
+</table>
+<table id="projectsTab" cellspacing="0" cellpadding="3" border="0" width="100%" class="adminlist sortedTable">
+    <thead>
+        <tr class="row3">
+            <td width="2%" style="font-weight:bold;">{TXT_CRM_ACTIVE}</td>
+            <td width="7%" class="nowrap" style="font-weight:bold;text-align:right;">{TXT_CRM_PROJECT_ID}</td>
+            <td width="26%" class="nowrap" style="font-weight:bold;">{TXT_CRM_PROJECT_NAME}</td>
+            <td width="11%" class="nowrap" style="font-weight:bold;text-align:right;">{TXT_CRM_PROJECT_QUOTED_PRICE}</td>
+            <td width="20%" class="nowrap" style="padding-left: 15px;font-weight:bold;">{TXT_CRM_CUSTOMER_NAME}</td>
+            <td width="10%" class="nowrap" style="font-weight:bold;">{TXT_CRM_PROJECT_STATUS}</td>
+            <td width="10%" class="nowrap" style="font-weight:bold;">{TXT_CRM_PROJECT_RESPONSIBLE}</td>
+            <td width="8%" class="nowrap" style="font-weight:bold;">{TXT_CRM_PROJECT_TARGET_DATE}</td>
+            <td width="8%" style="text-align: right;font-weight:bold;padding-right: 2px;">{TXT_CRM_TITLE_FUNCTIONS}</td>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- END skipAjaxBlock -->
+        <!-- BEGIN noProjectEntries -->
+        <tr class="row1">
+            <td colspan="9"><i>{TXT_CRM_NO_RECORDS_FOUND}</i></td>
+        </tr>
+        <!-- END noProjectEntries -->
+        <!-- BEGIN showProjects -->
+        <tr class="{ENTRY_ROWCLASS}">
+            <td align='center' style="text-align:center;">{CRM_PROJECT_ACTIVE}</td>
+            <td style="text-align:right;">{CRM_PROJECT_ID}</td>
+            <td>{CRM_PROJECT_NAME}</td>
+            <td class="nowrap" style="text-align:right;">{CRM_PROJECT_QUOTED_PRICE}</td>
+            <td style="padding-left: 15px;">{TXT_COMPANY_NAME}</td>
+            <td>{CRM_PROJECT_STATUS}</td>
+            <td>{CRM_PROJECT_RESPONSIBLE}</td>
+            <td>{CRM_PROJECT_TARGET_DATE}</td>
+            <td>
+                <div align="right">
+                    <a title="{TXT_CRM_IMAGE_EDIT}" target="_self" href="index.php?cmd={PM_MODULE_NAME}&amp;act=projects&amp;tpl=editproject&amp;redirect=custdetails&amp;id={CRM_PROJECT_ID}&{CSRF_PARAM}">
+                        <img border="0" title="{TXT_CRM_IMAGE_EDIT}" alt="{TXT_CRM_IMAGE_EDIT}" src="images/icons/edit.gif" />
+                    </a>
+                    <a title="{TXT_CRM_IMAGE_DELETE}" target="_self" href="javascript:deleteProjectEntry({CRM_PROJECT_ID});">
+                        <img border="0" title="{TXT_CRM_IMAGE_DELETE}" alt="{TXT_CRM_IMAGE_DELETE}" src="images/icons/delete.gif" />
+                    </a>
+                </div>
+            </td>
+        </tr>
+        <!-- END showProjects -->
+        <!-- BEGIN skipAjaxBlock1 -->
+    </tbody>
+</table>
+<br>
+<a href="./index.php?cmd=pm&act=projects&tpl=addnewproject&{CSRF_PARAM}&customer={CRM_CUSTOMER_ID}{CRM_REDIRECT_LINK}" title="{TXT_CRM_ADD_PROJECT}"><input type="button" name="{TXT_CRM_ADD_PROJECT}" value="{TXT_CRM_ADD_PROJECT}" /></a>
+<!-- END skipAjaxBlock1 -->

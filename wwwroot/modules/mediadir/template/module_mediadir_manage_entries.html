@@ -1,0 +1,193 @@
+<!-- START module_mediadir_modify_category.html -->
+<script type="text/javascript">
+// <![CDATA[
+function deleteEntry(entryId)
+{
+    if (confirm('{TXT_MEDIADIR_CONFIRM_DELETE_DATA}\n{TXT_MEDIADIR_ACTION_IS_IRREVERSIBLE}')) {
+        window.location.replace("index.php?cmd={MODULE_NAME}&{CSRF}&act=delete_entry&id="+entryId+"{MEDIADIR_SEARCH_TERM_PARAMETER}");
+    }
+}
+
+function entriesAreChecked(fieldName, objForm)
+{
+    x = 0;
+    for (i = 0; i < objForm.elements.length; ++i) {
+        e = objForm.elements[i];
+        if (e.name == fieldName && e.checked == true) return true;
+    }
+    return false;
+}
+
+function entriesDoAction(formId, objSelect)
+{
+    objForm = document.getElementById(formId);
+
+    if (entriesAreChecked("entriesFormSelected[]", objForm) == true) {
+        switch (objSelect.value) {
+            case "delete_entry":
+                if (confirm('{TXT_MEDIADIR_CONFIRM_DELETE_DATA}\n{TXT_MEDIADIR_ACTION_IS_IRREVERSIBLE}')) {
+                    actionValue = "index.php?cmd={MODULE_NAME}&{CSRF}&act=delete_entry";
+            	}
+                break
+            case "move_entry":
+                actionValue = "index.php?cmd={MODULE_NAME}&{CSRF}&act=move_entry";
+                break
+            case "restore_voting":
+                if (confirm('{TXT_MEDIADIR_CONFIRM_DELETE_DATA}\n{TXT_MEDIADIR_ACTION_IS_IRREVERSIBLE}')) {
+                    actionValue = "index.php?cmd={MODULE_NAME}&{CSRF}&act=restore_voting";
+            	}
+                break
+            case "restore_comments":
+                if (confirm('{TXT_MEDIADIR_CONFIRM_DELETE_DATA}\n{TXT_MEDIADIR_ACTION_IS_IRREVERSIBLE}')) {
+                    actionValue = "index.php?cmd={MODULE_NAME}&{CSRF}&act=restore_comments";
+            	}
+                break
+        }
+
+        if (actionValue != '') {
+            objForm.action = actionValue;
+            objForm.submit();
+        }
+    } else {
+        alert("{TXT_MEDIADIR_MAKE_SELECTION}");
+    }
+
+    objSelect.value = "0";
+}
+
+var switchState = function(id, obj, action, type)
+{
+    cx.jQuery.get('index.php', {cmd : '{MODULE_NAME}', act : 'switchState', id : id, state : action, type : type}).success(function() {
+        if (action) {
+            path = 'images/icons/status_green.gif';
+            action = 0;
+        } else {
+            path = 'images/icons/status_red.gif';
+            action = 1;
+        }
+        cx.jQuery(obj).children('img:first').attr('src', path);
+        cx.jQuery(obj).attr('onclick', 'switchState('+id+', this, '+action+', \''+type+'\')');
+    });
+}
+
+cx.jQuery(document).ready(function(){
+	cx.jQuery('#submit-search').click(function(e){
+	searchEntries(e);
+	});
+});
+
+var searchEntries = function (event) {
+	event.preventDefault();
+	formId = '';
+	levelId = '';
+	catId = '';
+	if(cx.jQuery('select[name="form_id"]').length>0){
+		formId = '&form_id='+cx.jQuery('select[name="form_id"]').val();
+	}
+	if(cx.jQuery('select[name="level_id"]').length>0){
+		levelId = '&level_id='+cx.jQuery('select[name="level_id"]').val();
+	}
+	if(cx.jQuery('select[name="cat_id"]').length>0){
+		catId = '&cat_id='+cx.jQuery('select[name="cat_id"]').val();
+	}
+	cx.jQuery('#search_mediadir').attr('action', cx.jQuery('#search_mediadir').attr('action') + catId+formId+levelId).submit();
+}
+// ]]>
+</script>
+
+<style type="text/css">
+    #search_mediadir {
+        padding: 0;
+        width: auto;
+    }
+</style>
+
+<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+    <tr>
+        <th>{TXT_FUNCTIONS}</th>
+    </tr>
+    <tr>
+        <td>
+            <form id="search_mediadir" method="post" action="index.php?cmd={MODULE_NAME}&amp;act=entries">
+                <input type="text" name="term" value="{MEDIADIR_SEARCH_TERM}" onfocus="if(this.value=='{TXT_MEDIADIR_ID_OR_SEARCH_TERM}'){this.value=''}" onblur="if(this.value==''){this.value='{TXT_MEDIADIR_ID_OR_SEARCH_TERM}'}" class="search" style="width: 240px;" />
+                <!-- BEGIN mediadirFormDropdown --><select name="form_id" style="width: 172px;"><option value="0">{TXT_MEDIADIR_ALL_FORMS}</option>{MEDIADIR_FORMS_DROPDOWN_OPTIONS}</select><!-- END mediadirFormDropdown -->
+                <!-- BEGIN mediadirLevelDropdown --><select name="level_id" style="width: 172px;"><option value="0">{TXT_MEDIADIR_ALL_LEVELS}</option>{MEDIADIR_LEVELS_DROPDOWN_OPTIONS}</select><!-- END mediadirLevelDropdown -->
+                <select name="cat_id" style="width: 172px;"><option value="0">{TXT_MEDIADIR_ALL_CATEGORIES}</option>{MEDIADIR_CATEGORIES_DROPDOWN_OPTIONS}</select>&nbsp;<input type="submit" name="Submit" id="submit-search" value="{TXT_SEARCH}" />
+            </form>
+        </td>
+    </tr>
+</table>
+<br />
+<form id="manageEntriesForm" action="index.php?cmd={MODULE_NAME}&act=entries" method="post">
+<table border="0" cellpadding="3" cellspacing="0" width="100%" class="adminlist">
+    <tr>
+        <th colspan="10">{TXT_MEDIADIR_PAGE_TITLE}</th>
+    </tr>
+    <tr class="row3">
+        <td width="1%" style="text-align: center;"><strong>#</strong></td>
+        <td width="1%"><strong>{TXT_MEDIADIR_STATUS}</strong></td>
+        <td width="19%"><strong>{TXT_MEDIADIR_NAME}</strong></td>
+        <td width="15%"><strong>{TXT_MEDIADIR_FORM}</strong></td>
+        <td width="15%"><strong>{TXT_MEDIADIR_DATE}</strong></td>
+        <td width="10%"><strong>{TXT_MEDIADIR_AUTHOR}</strong></td>
+        <!-- BEGIN mediadirTableHeaderVotes -->
+        <td width="10%"><strong>{TXT_MEDIADIR_VOTING}</strong></td>
+        <!-- END mediadirTableHeaderVotes -->
+        <!-- BEGIN mediadirTableHeaderComments -->
+        <td width="10%"><strong>{TXT_MEDIADIR_COMMENTS}</strong></td>
+        <!-- END mediadirTableHeaderComments -->
+        <td width="5%"><strong>{TXT_MEDIADIR_HITS}</strong></td>
+        <td width="1%" ><strong>{TXT_MEDIADIR_ACTION}</strong></td>
+    </tr>
+    <!-- BEGIN mediadirEntryList -->
+        <tr class="{MEDIADIR_ROW_CLASS}">
+            <td valign="top"><input type="checkbox" name="entriesFormSelected[]" value="{MEDIADIR_ENTRY_ID}" />
+            <td valign="middle" style="text-align: center;"><a href="javascript: void(0);" onclick="switchState({MEDIADIR_ENTRY_ID}, this, {MEDIADIR_ENTRY_SWITCH_STATUS}, 'entry')"><img src="{MEDIADIR_ENTRY_STATUS}" border="0" alt="" title="" /></td>
+            <td valign="top">{MEDIADIR_ENTRY_ORDER}<b><a href="index.php?cmd={MODULE_NAME}&amp;act=modify_entry&amp;id={MEDIADIR_ENTRY_ID}" target="_self" title="{MEDIADIR_ENTRY_NAME} {TXT_EDIT}">{MEDIADIR_ENTRY_FIELD_1_POS}</a></b></td>
+            <td valign="top">{MEDIADIR_ENTRY_FORM}</td>
+            <td valign="top">{MEDIADIR_ENTRY_VALIDATE_DATE}</td>
+            <td valign="top">{MEDIADIR_ENTRY_AUTHOR}</td>
+            <!-- BEGIN mediadirEntryVotes -->
+            <td valign="top">{MEDIADIR_ENTRY_VOTES}</td>
+            <!-- END mediadirEntryVotes -->
+            <!-- BEGIN mediadirEntryComments -->
+            <td valign="top"><a href="index.php?cmd={MODULE_NAME}&act=comments&id={MEDIADIR_ENTRY_ID}">{MEDIADIR_ENTRY_COMMENTS}</a></td>
+            <!-- END mediadirEntryComments -->
+            <td valign="top">{MEDIADIR_ENTRY_HITS}</td>
+            <td valign="top" style="text-align: right;" nowrap="nowrap">
+                <a href="index.php?cmd={MODULE_NAME}&amp;act=modify_entry&amp;id={MEDIADIR_ENTRY_ID}" target="_self" title="{MEDIADIR_ENTRY_NAME} {TXT_EDIT}"><img src="images/icons/edit.gif" border="0" alt="{MEDIADIR_ENTRY_NAME} {TXT_EDIT}" title="{MEDIADIR_ENTRY_NAME} {TXT_EDIT}" /></a>
+                <a href="javascript:deleteEntry('{MEDIADIR_ENTRY_ID}');" title="{MEDIADIR_ENTRY_NAME} {TXT_DELETE}"><img src="images/icons/delete.gif" border="0" alt="{MEDIADIR_ENTRY_NAME} {TXT_DELETE}" title="{MEDIADIR_ENTRY_NAME} {TXT_DELETE}" /></a>
+            </td>
+        </tr>
+    <!-- END mediadirEntryList -->
+    <!-- BEGIN noEntriesFound -->
+        <tr class="row1">
+            <td colspan="9"><em>{TXT_MEDIADIR_NO_ENTRIES_FOUND}</em></td>
+        </tr>
+    <!-- END noEntriesFound -->
+</table>
+<!-- BEGIN mediadirEntriesSaveOrder -->
+<input style="margin-left: 74px; margin-top: 5px;" type="submit" name="submitEntriesOrderForm" value="{TXT_MEDIADIR_SUBMIT}" />
+<!-- END mediadirEntriesSaveOrder -->
+<!-- BEGIN mediadirEntriesSelectAction -->
+<table border="0" cellpadding="3" cellspacing="0" width="100%">
+    <tr>
+        <td valign="top" style="vertical-align: middle;">
+        <img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="" />
+        <a href="javascript:{void(0)};" onclick="changeCheckboxes('manageEntriesForm','entriesFormSelected[]',true); return false;">{TXT_SELECT_ALL}</a> / <a href="javascript:{void(0)};" onclick="changeCheckboxes('manageEntriesForm','entriesFormSelected[]',false); return false;">{TXT_DESELECT_ALL}</a>
+        <img src="images/icons/strike.gif" width="34" height="22" alt="strike" />
+        <select name="selectAction" onchange="entriesDoAction('manageEntriesForm', this);">
+            <option value="0" selected="selected">{TXT_SELECT_ACTION}</option>
+            <option value="delete_entry">{TXT_DELETE_ALL}</option>
+            <option value="move_entry">{TXT_MEDIADIR_MOVE_ALL}</option>
+            <option value="restore_voting">{TXT_MEDIADIR_RESTORE_VOTING_ALL}</option>
+            <option value="restore_comments">{TXT_MEDIADIR_RESTORE_COMMENTS_ALL}</option>
+        </select>
+        </td>
+    </tr>
+</table>
+<!-- END mediadirEntriesSelectAction -->
+<br />
+{MEDIADIR_PAGING}
+</form>
+<!-- END module_mediadir_modify_category.html -->

@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>{TXT_CSRF_TITLE}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="robots" content="noindex" />
+        <meta name="robots" content="nofollow" />
+        <meta name="robots" content="noarchive" />
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta http-equiv="cache-control" content="no-cache" />
+        <link href="template/ascms/css/csrf.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div id="container">
+            <h1 id="title">{TXT_CSRF_TITLE}</h1>
+            <div id="message">{TXT_CSRF_DESCR}</div>
+            <a id="abort" class="button" href="{CSRF_ABORT}">{TXT_CSRF_ABORT}</a>
+            <a id="continue" class="button" href="{CSRF_CONTINUE}">{TXT_CSRF_CONTINUE}</a>
+            <form method="{REQUEST_METHOD}" action="{ACTION}" id="theForm">{FORM_ELEMENTS}</form>
+        </div>
+
+        <script type="text/javascript">
+            /* <![CDATA[ */
+            function sendData() {
+                document.forms['theForm'].submit();
+            }
+
+            // patch to submit anchors too
+            var url = document.forms['theForm'].attributes.action.value;
+            url = url + self.document.location.hash;
+            document.forms['theForm'].attributes.action.value = url;
+
+            document.onkeydown = function (e) {
+                var evtobj = window.event ? event : e;
+                //on Ctrl + K click on "save changes"-button
+                if (evtobj.ctrlKey) {
+                    if (evtobj.preventDefault) {
+                        evtobj.preventDefault();
+                    } else {
+                        evtobj.returnValue = false;
+                    }
+                    switch (evtobj.keyCode) {
+                        case 75: //k
+                            e.preventDefault();
+                            document.getElementById('continue').click();
+                            break;
+                    }
+                } else if (evtobj.keyCode == 27) { // ESC
+                    e.preventDefault();
+                    document.getElementById('abort').click();
+                }
+            };
+            /* ]]> */
+        </script>
+  </body>
+</html>
+

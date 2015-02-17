@@ -1,0 +1,81 @@
+<script type="text/javascript">
+    cx.ready(function () {
+        var dpOptions = {
+            dateFormat:'dd.mm.yy',
+            timeFormat:'hh:mm'
+        };
+
+        $J('input[name=expirationDate]').datetimepicker(dpOptions);
+
+        $J('input.expiration').change(function() {
+            checkForExpirationDate();
+        });
+        checkForExpirationDate();
+
+        function checkForExpirationDate() {
+            if ($J('input.expiration').attr('checked')) {
+                $J('.expirationDate').hide();
+            } else {
+                $J('.expirationDate').show();
+            }
+        }
+    }, true);
+</script>
+
+<table cellpadding="0" cellspacing="0" class="adminlist" width="100%">
+    <tr>
+        <th colspan="2">{FILESHARING_INFO}</th>
+    </tr>
+    <!-- BEGIN shared -->
+    <tr class="row1">
+        <td nowrap="nowrap" width="106"><b>{FILESHARING_DOWNLOAD_LINK}</b></td>
+        <td nowrap="nowrap"><a target="_blank" href="{FILE_DOWNLOAD_LINK_HREF}">{FILE_DOWNLOAD_LINK_HREF}</a></td>
+    </tr>
+    <tr class="row2">
+        <td nowrap="nowrap"><b>{FILESHARING_DELETE_LINK}</b></td>
+        <td nowrap="nowrap"><a target="_blank" href="{FILE_DELETE_LINK_HREF}">{FILE_DELETE_LINK_HREF}</a></td>
+    </tr>
+    <!-- END shared -->
+    <tr class="row1">
+        <td nowrap="nowrap" width="106"><b>{FILESHARING_STATUS}</b></td>
+        <td nowrap="nowrap">{FILE_STATUS} (<a href="{FILE_STATUS_SWITCH_HREF}">{FILE_STATUS_SWITCH}</a>)</td>
+    </tr>
+</table><br/><br/>
+<form action="{FORM_ACTION}" method="{FORM_METHOD}">
+    <table cellpadding="0" cellspacing="0" class="adminlist" width="100%">
+        <tr>
+            <th colspan="2">{FILESHARING_EXPIRATION}</th>
+        </tr>
+        <tr class="row1">
+            <td nowrap="nowrap" width="160"><b>{FILESHARING_EXPIRATION}</b></td>
+            <td nowrap="nowrap">{FILESHARING_NEVER} <input type="checkbox" class="expiration" name="expiration" value="1" {FILESHARING_EXPIRATION_CHECKED}><input type="text" class="expirationDate" name="expirationDate" value="{FILESHARING_EXPIRATION_DATE}"></td>
+        </tr>
+    </table><br />
+	<input type="submit" name="saveExpiration" value="{FILESHARING_SAVE}"/>
+    <br/><br/>
+</form>
+<form action="{FORM_ACTION}" method="{FORM_METHOD}">
+    <table cellpadding="0" cellspacing="0" class="adminlist" width="100%">
+        <tr>
+            <th colspan="2">{FILESHARING_SEND_MAIL}</th>
+        </tr>
+        <tr class="row1">
+            <td nowrap="nowrap" width="100"><b>{FILESHARING_EMAIL}</b>&nbsp;<span class="icon-info tooltip-trigger"></span><span class="tooltip-message">{TXT_CORE_MAILTEMPLATE_NOTE_TO}</span></td>
+            <td nowrap="nowrap"><input style="width: 300px;" type="text" name="email"
+                                       placeholder="{FILESHARING_EMAIL_INFO}"/></td>
+        </tr>
+        <tr class="row2">
+            <td nowrap="nowrap" width="100"><b>{FILESHARING_SUBJECT}</b></td>
+            <td nowrap="nowrap"><input style="width: 300px;" type="text" name="subject"
+                                       placeholder="{FILESHARING_SUBJECT_INFO}"/></td>
+        </tr>
+        <tr class="row1">
+            <td nowrap="nowrap" width="100"><b>{FILESHARING_MESSAGE}</b></td>
+            <td nowrap="nowrap"><textarea style="width: 300px; height: 100px;" name="message"
+                                          placeholder="{FILESHARING_MESSAGE_INFO}"></textarea></td>
+        </tr>
+    </table><br />
+	<input type="submit" name="shareFiles" value="{FILESHARING_SEND}"/>
+</form>
+<br />
+<a class="button" href="{FILESHARING_LINK_BACK_HREF}">{FILESHARING_LINK_BACK}</a>

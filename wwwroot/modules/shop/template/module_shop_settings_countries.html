@@ -1,0 +1,134 @@
+<!-- START module_shop_settings_countries.html -->
+<script type="text/javascript">
+// <![CDATA[
+cx.ready(function() {
+    cx.jQuery("form.countries").submit(function(e) {
+        for (var i = document.shopForm.elements['list1[]'].length-1; i >= 0; --i) {
+            document.shopForm.elements['list1[]'].options[i].selected = true;
+        }
+        for (var i=document.shopForm.elements['list2[]'].length-1; i >= 0; --i) {
+            document.shopForm.elements['list2[]'].options[i].selected = true;
+        }
+        return true;
+    });
+});
+
+function sortSelect(obj)
+{
+  var o = new Array();
+  if (obj.options == null) return;
+  for (var i = 0; i < obj.options.length; ++i) {
+    o[o.length] = new Option(obj.options[i].text, obj.options[i].value, obj.options[i].defaultSelected, obj.options[i].selected);
+  }
+  if (o.length == 0) return;
+  o = o.sort(
+    function(a,b) {
+      if ((a.text+"") < (b.text+"")) return -1;
+      if ((a.text+"") > (b.text+"")) return 1;
+      return 0;
+    }
+  );
+
+  for (var i = 0; i < o.length; ++i) {
+    obj.options[i] = new Option(o[i].text, o[i].value, o[i].defaultSelected, o[i].selected);
+  }
+}
+
+function moveSelectedOptions(from, to)
+{
+  // Move them over
+  for (var i = 0; i < from.options.length; ++i) {
+    var o = from.options[i];
+    if (o.selected) {
+      to.options[to.options.length] = new Option(o.text, o.value, false, false);
+    }
+  }
+  // Delete them from original
+  for (var i = from.options.length-1; i >= 0; --i) {
+    var o = from.options[i];
+    if (o.selected) {
+      from.options[i] = null;
+    }
+  }
+  if (arguments.length < 3 || arguments[2] == true) {
+    sortSelect(from);
+    sortSelect(to);
+  }
+  from.selectedIndex = -1;
+  to.selectedIndex = -1;
+}
+
+function moveAllOptions(from, to)
+{
+  // Move them over
+  for (var i = 0; i < from.options.length; ++i) {
+    var o = from.options[i];
+    to.options[to.options.length] = new Option(o.text, o.value, false, false);
+  }
+  // Delete them from original
+  for (var i = from.options.length-1; i >= 0; --i) {
+    var o = from.options[i];
+    from.options[i] = null;
+  }
+  if (arguments.length < 3 || arguments[2] == true) {
+    sortSelect(from);
+    sortSelect(to);
+  }
+  from.selectedIndex = -1;
+  to.selectedIndex = -1;
+}
+// ]]>
+</script>
+<!-- BEGIN statusBar -->
+<span class="red">{CONTENT_STATUS}</span>
+<!-- END statusBar -->
+<ul id="tabmenu">
+  <li><a id="countriesTab_content1" class="active" href="#" onclick="selectTab('content1')" title="{TXT_DELIVERY_COUNTRIES}">{TXT_DELIVERY_COUNTRIES}</a></li>
+</ul>
+<form name="shopForm" class="countries" method="post" action="index.php?cmd=shop{MODULE_INDEX}&amp;act=settings&amp;tpl=countries">
+<!-- start content1 div -->
+  <div id="content1" class="countriesTab" style="display:block">
+    <table border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+      <tr>
+        <th colspan="3">{TXT_COUNTRY_LIST}</th>
+      </tr>
+      <tr class="row1">
+        <td width="15%" class="f_bold"><font color="#009900">{TXT_DISPLAY_IT_IN_THE_SHOP}:</font></td>
+        <td width="5%">&nbsp;</td>
+        <td class="f_bold"><font color="#FF0000">{TXT_DONT_DISPLAY_IT_IN_THE_SHOP}:</font></td>
+      </tr>
+      <tr class="row2">
+        <td>
+          <select name="list1[]" multiple="multiple" size="15" style="width: 300px;"
+              ondblclick="moveSelectedOptions(this.form['list1[]'],this.form['list2[]'])">
+            {SHOP_COUNTRY_SELECTED_OPTIONS}
+          </select>
+        </td>
+        <td class="a_center" style="vertical-align: middle;">
+          <input type="button" title="{TXT_ADD_ALL}" name="add_all"
+                 value="&gt;&gt;" onclick="moveAllOptions(this.form['list1[]'],this.form['list2[]'])" /><br /><br />
+          <input type="button" title="{TXT_ADD_SELECTION}" name="add"
+                 value="&gt;" onclick="moveSelectedOptions(this.form['list1[]'],this.form['list2[]'])" /><br /><br />
+          <input type="button" title="{TXT_REMOVE_SELECTION}" name="remove"
+                 value="&lt;" onclick="moveSelectedOptions(this.form['list2[]'],this.form['list1[]'])" /><br /><br />
+          <input type="button" title="{TXT_REMOVE_ALL}" name="remove_all"
+                 value="&lt;&lt;" onclick="moveAllOptions(this.form['list2[]'],this.form['list1[]'])" />
+        </td>
+        <td>
+          <select name="list2[]" multiple="multiple" size="15" style="width: 300px;"
+              ondblclick="moveSelectedOptions(this.form['list2[]'],this.form['list1[]'])">
+            {SHOP_COUNTRY_NOTSELECTED_OPTIONS}
+          </select>
+        </td>
+      </tr>
+      <tr class="row1">
+        <td colspan="3">{TXT_SELECT_COUNTRIES}<br />{TXT_SELECT_SEVERAL_COUNTRIES}</td>
+      </tr>
+    </table>
+  </div>
+<!-- end content1 div -->
+  <br />
+  <input type="submit" name="countries" value="{TXT_STORE}" />
+  <br />
+</form>
+<!-- END module_shop_settings_countries.html -->

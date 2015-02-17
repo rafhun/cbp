@@ -1,0 +1,64 @@
+<!-- START module_ecard_overview.html -->
+<script language="JavaScript" type="text/javascript">
+/* <![CDATA[ */
+path = "";
+function ecardGetFileBrowser(motive_id) {
+  path = motive_id;
+  openWindow(
+    "index.php?cmd=fileBrowser&{CSRF_PARAM}&amp;standalone=true", 
+    "", 
+    "width=800,height=600,resizable=yes,status=no,scrollbars=yes"
+  );
+}
+
+function ecardClearImage(motive_id) {
+  document.getElementById("motive_id_"+motive_id).value = "";
+  document.getElementById("motive_img_"+motive_id).src = "";
+  document.getElementById("motive_img_"+motive_id).alt = "";
+}
+
+function SetUrl(url, width, height, alt) {
+  document.getElementById("motive_id_"+path).value = url;
+//  document.getElementById("motive_img_"+path).src = url;
+//  document.getElementById("motive_img_"+path).alt = url;
+}  
+
+function openWindow(theURL, features) {
+  dataPopup = window.open(theURL, features);
+  dataPopup.focus();
+}
+/* ]]> */
+</script>
+
+<form id="ecardForm" method="post" action="index.php?cmd=ecard&amp;act=save">
+  <table width="100%" cellspacing="0" cellpadding="3" border="0" class="adminlist">
+    <tr>
+      <th colspan="3">{TXT_ECARD_IMAGES}</th>
+    </tr>
+    <tr class="row3">
+      <td nowrap="nowrap" width="33%">{TXT_PICTURE}</td>
+      <td nowrap="nowrap" width="33%">{TXT_PATH}</td>
+      <td nowrap="nowrap" width="34%">{TXT_CHOOSE}</td>
+    </tr>
+    <!-- BEGIN motiveBlock -->
+    <tr>
+      <td align="left" valign="top" nowrap="nowrap">
+        <a rel="shadowbox" href="{MOTIVE_PATH}">
+          <img id="motive_img_{MOTIVE_ID}" style="border:1px solid #0A50A1;" src="{MOTIVE_THUMB_PATH}" alt="{MOTIVE_PATH}" title="{MOTIVE_PATH}" />
+        </a>
+      </td>
+      <td nowrap="nowrap" valign="top">
+        <input type="text" id="motive_id_{MOTIVE_ID}" readonly="readonly" 
+            name="motiveInputArray[]" value="{MOTIVE_PATH}" style="width:250px;" /></td>
+      <td valign="top" nowrap="nowrap">
+        <input type="button" onclick="ecardGetFileBrowser({MOTIVE_ID})" 
+            value="{TXT_BROWSE}" />
+        <input type="button" onclick="ecardClearImage({MOTIVE_ID});" 
+            value="{TXT_DELETE}" />
+      </td>
+    </tr>
+    <!-- END motiveBlock -->
+  </table>
+  <input type="submit" name="saveMotives" value="{TXT_SAVE}" />
+</form>
+<!-- END module_ecard_overview.html -->

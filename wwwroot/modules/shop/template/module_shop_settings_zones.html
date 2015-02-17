@@ -1,0 +1,261 @@
+<!-- START module_shop_settings_zones.html -->
+<script type="text/javascript">
+//<![CDATA[
+function submit_form()
+{
+  for (var zoneId = 0; zoneId < document.shopForm.elements['zone_list[]'].length; ++zoneId) {
+    for (var i = document.shopForm.elements['selected_countries['+document.forms["shopForm"].elements["zone_list[]"].options[zoneId].value+'][]'].length-1; i >= 0; --i) {
+      document.shopForm.elements['selected_countries['+document.forms["shopForm"].elements["zone_list[]"].options[zoneId].value+'][]'].options[i].selected=true;
+    }
+    for (var i = document.shopForm.elements['country_list['+document.forms["shopForm"].elements["zone_list[]"].options[zoneId].value+'][]'].length-1; i >= 0; --i) {
+      document.shopForm.elements['country_list['+document.forms["shopForm"].elements["zone_list[]"].options[zoneId].value+'][]'].options[i].selected=true;
+    }
+    document.shopForm.elements['zone_list[]'].options[zoneId].selected = true;
+  }
+  document.shopForm.submit();
+}
+
+function sortSelect(obj)
+{
+  var o = new Array();
+  if (obj.options == null) return;
+  for (var i = 0; i < obj.options.length; ++i) {
+    o[o.length] = new Option( obj.options[i].text, obj.options[i].value, obj.options[i].defaultSelected, obj.options[i].selected);
+  }
+  if (o.length == 0) return;
+  o = o.sort(
+    function(a,b) {
+      if ((a.text+"") < (b.text+"")) return -1;
+      if ((a.text+"") > (b.text+"")) return 1;
+      return 0;
+    }
+  );
+  for (var i = 0; i < o.length; ++i) {
+    obj.options[i] = new Option(o[i].text, o[i].value, o[i].defaultSelected, o[i].selected);
+  }
+}
+
+function moveSelectedOptions(from, to)
+{
+  // Move them over
+  for (var i = 0; i < from.options.length; ++i) {
+    var o = from.options[i];
+    if (o.selected) {
+      to.options[to.options.length] = new Option( o.text, o.value, false, false);
+    }
+  }
+  // Delete the original
+  for (var i = from.options.length-1; i >= 0; --i) {
+    var o = from.options[i];
+    if (o.selected) {
+      from.options[i] = null;
+    }
+  }
+  if (arguments.length < 3 || arguments[2] == true) {
+    sortSelect(from);
+    sortSelect(to);
+  }
+  from.selectedIndex = -1;
+  to.selectedIndex = -1;
+}
+
+function moveAllOptions(from, to)
+{
+  // Move them over
+  for (var i = 0; i < from.options.length; ++i) {
+    var o = from.options[i];
+    to.options[to.options.length] = new Option( o.text, o.value, false, false);
+  }
+  // Delete them from original
+  for (var i = from.options.length-1; i >= 0; --i) {
+    var o = from.options[i];
+    from.options[i] = null;
+  }
+  if (arguments.length < 3 || arguments[2] == true) {
+    sortSelect(from);
+    sortSelect(to);
+  }
+  from.selectedIndex = -1;
+  to.selectedIndex = -1;
+}
+
+function selectZone()
+{
+  var anz = 0;
+  for (var i = 0; i < document.shopForm.elements['zone_list[]'].length; ++i) {
+    if (document.shopForm.elements['zone_list[]'].options[i].selected == true) {
+      ++anz;
+    }
+  }
+  if (anz == 1) {
+    for (var i = 0; i < document.shopForm.elements['zone_list[]'].length; ++i) {
+      if (document.shopForm.elements['zone_list[]'].options[i].selected == true) {
+        swapBlockStatus(document.forms['shopForm'].elements['zone_list[]'].options[i].value,1);
+      } else {
+        swapBlockStatus(document.forms['shopForm'].elements['zone_list[]'].options[i].value,0);
+      }
+    }
+  }
+}
+
+function deleteZone(zId)
+{
+  if (confirm('{TXT_CONFIRM_DELETE_ZONE}\n{TXT_ACTION_IS_IRREVERSIBLE}'))
+    window.location.replace("index.php?cmd=shop{MODULE_INDEX}&{CSRF_PARAM}&act=settings&tpl=zones&delete_zone_id="+zId);
+}
+
+function add_zone()
+{
+  for (var i = document.shopForm.elements['selected_countries[]'].length-1; i >= 0; --i) {
+    document.shopForm.elements['selected_countries[]'].options[i].selected = true;
+  }
+  document.shopForm.submit();
+}
+//]]>
+</script>
+<ul id="tabmenu">
+  <li><a id="zoneTab_content1" class="active" href="javascript:{}" onclick="selectTab('content1')" title="{TXT_ZONES}">{TXT_ZONES}</a></li>
+  <li><a id="zoneTab_content2" href="javascript:{}" onclick="selectTab('content2')" title="{TXT_ADD}">{TXT_ADD}</a></li>
+</ul>
+<form name="shopForm" method="post" action="index.php?cmd=shop{MODULE_INDEX}&amp;act=settings&amp;tpl=zones">
+<!-- start content1 div -->
+  <div id="content1" class="zoneTab" style="display:block">
+    <table border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+      <tr>
+        <th colspan="2">{TXT_ZONE_LIST}</th>
+      </tr>
+      <tr class="row1">
+        <td width="15%">{TXT_ZONES}</td>
+        <td width="85%">
+          <select name="zone_list[]" multiple="multiple" size="5"
+              style="width: 300px;" onchange="selectZone();">
+            {SHOP_ZONES_OPTIONS}
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2">{TXT_SETTINGS}</th>
+      </tr>
+    </table>
+<!-- BEGIN shopZones -->
+    <div id="{SHOP_ZONE_ID}" name="{SHOP_ZONE_ID}" class="switchzone" style="{SHOP_ZONE_DISPLAY_STYLE}">
+      <table border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+        <tr class="row1">
+          <td width="15%">{TXT_ZONE_NAME}</td>
+          <td width="85%">
+            <div style="width: 300px">
+              <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                <tr>
+                  <td><div style="border: 0px">
+                    <input type="text" name="zone_name[{SHOP_ZONE_ID}]" value="{SHOP_ZONE_NAME}" />
+                    &nbsp;&nbsp;{TXT_ACTIVE}
+                    <input type="checkbox" name="zone_active[{SHOP_ZONE_ID}]" value="1" {ZONE_ACTIVE_STATUS} />
+                  </div></td>
+                  <td class="a_right" style="border: 0px;">
+                    <a href="javascript:deleteZone('{SHOP_ZONE_ID}')" title="{TXT_DELETE}">
+                      <img src="images/icons/delete.gif" alt="{TXT_DELETE}" border="0" />
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr class="row2">
+          <td width="15%">{TXT_SELECTED_COUNTRIES}</td>
+          <td width="85%">
+            <select name="selected_countries[{SHOP_ZONE_ID}][]" multiple="multiple"
+                size="10" style="width: 300px;"
+                ondblclick="moveSelectedOptions(this.form['selected_countries[{SHOP_ZONE_ID}][]'],this.form['country_list[{SHOP_ZONE_ID}][]'])">
+              {SHOP_ZONE_SELECTED_COUNTRIES_OPTIONS}
+            </select>
+          </td>
+        </tr>
+        <tr class="row1">
+          <td width="15%">&nbsp;</td>
+          <td width="85%">
+            <div style="width: 300px">
+              <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                <tr>
+                  <td class="a_center" style="border: 0px;">
+                    <input type="button" title="{TXT_ADD_ALL}" name="add_all" value="&uarr;&uarr;" onclick="moveAllOptions(this.form['country_list[{SHOP_ZONE_ID}][]'],this.form['selected_countries[{SHOP_ZONE_ID}][]'])" />&nbsp;
+                    <input type="button" title="{TXT_ADD_SELECTION}" name="add" value="&uarr;" onclick="moveSelectedOptions(this.form['country_list[{SHOP_ZONE_ID}][]'],this.form['selected_countries[{SHOP_ZONE_ID}][]'])" />&nbsp;
+                    <input type="button" title="{TXT_REMOVE_SELECTION}" name="remove" value="&darr;" onclick="moveSelectedOptions(this.form['selected_countries[{SHOP_ZONE_ID}][]'],this.form['country_list[{SHOP_ZONE_ID}][]'])" />&nbsp;
+                    <input type="button" title="{TXT_REMOVE_ALL}" name="remove_all" value="&darr;&darr;" onclick="moveAllOptions(this.form['selected_countries[{SHOP_ZONE_ID}][]'],this.form['country_list[{SHOP_ZONE_ID}][]'])" />
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr class="row2">
+          <td width="15%">{TXT_AVAILABLE_COUNTRIES}</td>
+          <td width="85%">
+            <select name="country_list[{SHOP_ZONE_ID}][]" multiple="multiple"
+                size="10" style="width: 300px;"
+                ondblclick="moveSelectedOptions(this.form['country_list[{SHOP_ZONE_ID}][]'],this.form['selected_countries[{SHOP_ZONE_ID}][]'])">
+              {SHOP_COUNTRY_LIST_OPTIONS}
+            </select>
+          </td>
+        </tr>
+      </table>
+    </div>
+<!-- END shopZones -->
+    <br />
+    <input type="submit" name="bzones" value="{TXT_STORE}" onclick="submit_form();" />
+  </div>
+<!-- end content1 div -->
+
+<!-- start content2 div -->
+  <div id="content2" class="zoneTab" style="display:none">
+    <table border="0" cellspacing="0" cellpadding="2" width="100%" class="adminlist">
+      <tr>
+        <th colspan="2">{TXT_ADD}</th>
+      </tr>
+      <tr class="row1">
+        <td width="15%">{TXT_ZONE_NAME}</td>
+        <td width="85%"><input type="text" name="zone_name_new" value="" />&nbsp;&nbsp;{TXT_ACTIVE}<input type="checkbox" name="zone_active_new" value="1" checked="checked" /></td>
+      </tr>
+      <tr class="row2">
+        <td width="15%">{TXT_SELECTED_COUNTRIES}</td>
+        <td width="85%" >
+          <select name="selected_countries[]" multiple="multiple" size="10"
+              style="width: 300px;"
+              ondblclick="moveSelectedOptions(this.form['selected_countries[]'],this.form['country_list[]'])">
+          </select>
+        </td>
+      </tr>
+      <tr class="row1">
+        <td width="15%">&nbsp;</td>
+        <td width="85%">
+          <div style="width: 300px">
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+              <tr>
+                <td class="a_center" style="border: 0px;">
+                  <input type="button" title="{TXT_ADD_ALL}" name="add_all" value="&uarr;&uarr;" onclick="moveAllOptions(this.form['country_list[]'],this.form['selected_countries[]'])" />&nbsp;
+                  <input type="button" title="{TXT_ADD_SELECTION}" name="add" value="&uarr;" onclick="moveSelectedOptions(this.form['country_list[]'],this.form['selected_countries[]'])" />&nbsp;
+                  <input type="button" title="{TXT_REMOVE_SELECTION}" name="remove" value="&darr;" onclick="moveSelectedOptions(this.form['selected_countries[]'],this.form['country_list[]'])" />&nbsp;
+                  <input type="button" title="{TXT_REMOVE_ALL}" name="remove_all" value="&darr;&darr;" onclick="moveAllOptions(this.form['selected_countries[]'],this.form['country_list[]'])" />
+                </td>
+              </tr>
+            </table>
+          </div>
+        </td>
+      </tr>
+      <tr class="row2">
+        <td width="15%">{TXT_AVAILABLE_COUNTRIES}</td>
+        <td width="85%">
+          <select name="country_list[]" multiple="multiple" size="10"
+              style="width: 300px;"
+              ondblclick="moveSelectedOptions(this.form['country_list[]'],this.form['selected_countries[]'])">
+            {SHOP_ZONE_COUNTRY_LIST}
+          </select>
+        </td>
+      </tr>
+    </table>
+    <br />
+    <input type="submit" name="zones_new" value="{TXT_ADD}" onclick="add_zone();" />
+  </div>
+<!-- end content2 div -->
+</form>
+<!-- END module_shop_settings_zones.html -->

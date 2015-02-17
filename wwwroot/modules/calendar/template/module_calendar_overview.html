@@ -1,0 +1,195 @@
+<!-- START module_calendar_overview.html -->
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+function deleteNote(noteId)
+{
+    if (confirm('{TXT_CALENDAR_CONFIRM_DELETE_DATA}\n{TXT_CALENDAR_ACTION_IS_IRREVERSIBLE}')) {
+        window.location.replace("index.php?cmd={CALENDAR_MODULE_NAME}&delete="+noteId+"&{CALENDAR_CSRF}");
+    }
+}
+
+function elementIsChecked(fieldName)
+{
+    var x = 0;
+    for(var i = 0; i < document.formEventList.elements.length; i++) {
+        var e = document.formEventList.elements[i];
+        if(e.name == fieldName && e.checked == true) {
+            x++;
+        }
+    }
+    
+    if(x > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function selectMultiAction()
+{
+    if(elementIsChecked("selectedEventId[]") == true)
+    {
+        if(document.formEventList.formEventList_MultiAction.value == "delete") {
+            if(confirm('{TXT_CALENDAR_CONFIRM_DELETE_DATA}\n{TXT_CALENDAR_ACTION_IS_IRREVERSIBLE}')) {
+                document.formEventList.action = "index.php?cmd={CALENDAR_MODULE_NAME}&multi=delete&{CALENDAR_CSRF}";
+                document.formEventList.submit();
+            }
+        } 
+        if(document.formEventList.formEventList_MultiAction.value == "activate") {                
+            document.formEventList.action = "index.php?cmd={CALENDAR_MODULE_NAME}&multi=activate&{CALENDAR_CSRF}";
+            document.formEventList.submit(); 
+        } 
+        if(document.formEventList.formEventList_MultiAction.value == "deactivate") {                
+            document.formEventList.action = "index.php?cmd={CALENDAR_MODULE_NAME}&multi=deactivate&{CALENDAR_CSRF}";
+            document.formEventList.submit(); 
+        }
+        if(document.formEventList.formEventList_MultiAction.value == "export") {                
+            document.formEventList.action = "index.php?cmd={CALENDAR_MODULE_NAME}&multi=export&{CALENDAR_CSRF}";
+            document.formEventList.submit(); 
+        }  
+    } else {
+        alert("{TXT_CALENDAR_MAKE_SELECTION}");
+    }
+
+    document.formEventList.formEventList_MultiAction.value = "0";
+}
+
+                    
+// ]]>
+</script>
+
+<table style="width: 100%; border-spacing: 0px;"  cellspacing="0" cellpadding="0">
+    <tr>
+        <!-- <td width="200" valign="top">
+            <table style="width: 100%; border-spacing: 0px;" class="adminlist" cellspacing="0" cellpadding="3">
+                <tr>
+                    <th>{TXT_CALENDAR_OVERVIEW}</th>
+                </tr>
+                <tr>
+                    <td>[[{CALENDAR_MODULE_NAME}]]</td>
+                </tr>
+            </table>
+        </td>
+        <td width="18"><br /></td>  -->
+        <td valign="top">
+            <table style="width: 100%; border-spacing: 0px;" class="adminlist" cellspacing="0" cellpadding="3">
+                <tr>
+                    <th>{TXT_CALENDAR_FILTER}</th>
+                </tr>
+                <tr class="row1">                    
+                    <td>
+                        <form action="index.php?cmd={CALENDAR_MODULE_NAME}" method="post" name="formEventSearch">
+                            <input type="text" name="term" value="{TXT_CALENDAR_KEYWORD}"  style="width: 200px;"  onclick="this.value=''" />&nbsp;<select style="width: 200px;" name="categoryId" >{CALENDAR_CATEGORIES}</select>&nbsp;<input type="submit" value="{TXT_SEARCH}" name="search" />
+                        </form>
+                    </td>
+                </tr>
+            </table>
+            <br />
+            
+            <!-- BEGIN showConfirmList -->  
+            <form name="formEventConfirmList" method="post" action="">  
+                <table style="width: 100%; border-spacing: 0px;" class="adminlist" cellspacing="0" cellpadding="3">
+                    <tr>
+                        <th colspan="5">{TXT_CALENDAR_CONFIRMLIST}</th>
+                    </tr>
+                    <tr class="row3">                                                    
+                        <td style="width: 80px"><b>{TXT_CALENDAR_DATE}</b></td>
+                        <td><b>{TXT_CALENDAR_TITLE}</b></td>
+                        <td>
+                            <!-- BEGIN txt_languages_block_confirm_list -->
+                            <b>{TXT_CALENDAR_LANGUAGES}</b>
+                            <!-- END txt_languages_block_confirm_list -->
+                            &nbsp;
+                        </td>
+                        <td><b>{TXT_CALENDAR_CATEGORY}</b></td>            
+                        <td style="width: 60px; text-align: right;"><b>{TXT_CALENDAR_ACTION}</b></td>
+                    </tr>
+                    <!-- BEGIN eventConfirmList -->
+                    <tr class="{CALENDAR_EVENT_ROW}">
+                        <td>{CALENDAR_EVENT_DATE}</td>
+                        <td><a href="{CALENDAR_EVENT_EDIT_LINK}">{CALENDAR_EVENT_TITLE}</a></td>
+                        <td>{CALENDAR_EVENT_LANGUAGES}</td>
+                        <td>{CALENDAR_EVENT_CATEGORY}</td>       
+                        <td style="text-align: right;">      
+                        <a href="index.php?cmd={CALENDAR_MODULE_NAME}&amp;confirm={CALENDAR_EVENT_ID}" title="{TXT_CALENDAR_CONFIRM}"><img src="images/icons/check.gif" width="16" height="16" border="0" alt="{TXT_CALENDAR_CONFIRM}" /></a>
+                         <a href="javascript:deleteNote('{CALENDAR_EVENT_ID}');" title="{TXT_CALENADR_DELETE}"><img src="images/icons/delete.gif" width="17" height="17" border="0" alt="{TXT_CALENADR_DELETE}" /></a>
+                        </td>
+                    </tr>
+                    <!-- END eventConfirmList -->    
+                </table>  
+            </form>
+            <br />    
+            <!-- END showConfirmList -->    
+              
+            <form name="formEventList" method="post" action="">
+	            <table style="width: 100%; border-spacing: 0px;" class="adminlist" cellspacing="0" cellpadding="3">
+	                <tr>
+	                    <th colspan="2">{TXT_CALENDAR_EVENTS}</th>
+                        <th colspan="8">[ <a href="index.php?cmd={CALENDAR_MODULE_NAME}&amp;list=actual" style="text-decoration: {CALENDAR_LINKSTYLE_LIST_ACTUAL};">{TXT_CALENDAR_UPCOMING_EVENTS}</a> | <a href="index.php?cmd={CALENDAR_MODULE_NAME}&amp;list=all" style="text-decoration: {CALENDAR_LINKSTYLE_LIST_ALL};">{TXT_CALENDAR_ALL_EVENTS}</a> ]</th>
+	                </tr>
+	                <tr class="row3">
+						<td style="width: 20px; text-align: center;"><b>#</b></td>
+                        <td style="width: 40px;"><b>{TXT_CALENDAR_STATUS}</b></td>
+						<td style="width: 80px"><b>{TXT_CALENDAR_DATE}</b></td>
+						<td><b>{TXT_CALENDAR_TITLE}</b></td>
+                        <td>
+                            <!-- BEGIN txt_languages_block -->
+                            <b>{TXT_CALENDAR_LANGUAGES}</b>
+                            <!-- END txt_languages_block -->
+                            &nbsp;
+                        </td>
+						<td><b>{TXT_CALENDAR_CATEGORY}</b></td>
+						<td><b>{TXT_CALENDAR_SERIES}</b></td>
+						<td><b>{TXT_CALENDAR_RE_DEREGISTRATIONS}</b></td>
+                        <td><b>{TXT_CALENDAR_WAITLIST}</b></td>
+						<td style="width: 75px; text-align: right;"><b>{TXT_CALENDAR_ACTION}</b></td>
+					</tr>
+                                        <!-- BEGIN eventList -->
+					<tr class="{CALENDAR_EVENT_ROW}">
+					    <td><input type="checkbox" name="selectedEventId[]" id="selectedEventId" value="{CALENDAR_EVENT_ID}" /></td>
+					    <td style="text-align: center;"><a href="index.php?cmd={CALENDAR_MODULE_NAME}&amp;switch_status={CALENDAR_EVENT_ID}"><img src="images/icons/led_{CALENDAR_EVENT_LED}.gif" border="0" alt="{CALENDAR_EVENT_STATUS}" title="{CALENDAR_EVENT_STATUS}" /></a></td>
+					    <td>{CALENDAR_EVENT_DATE}</td>
+					    <td><a href="index.php?cmd={CALENDAR_MODULE_NAME}&amp;act=modify_event&amp;id={CALENDAR_EVENT_ID}">{CALENDAR_EVENT_TITLE}</a></td>
+					    <td>{CALENDAR_EVENT_LANGUAGES}</td>
+					    <td>{CALENDAR_EVENT_CATEGORY}</td>
+					    <td>{CALENDAR_EVENT_SERIES}</td>
+					    <td><a href="index.php?cmd={CALENDAR_MODULE_NAME}&amp;act=event_registrations&amp;tpl=r&amp;id={CALENDAR_EVENT_ID}">{CALENDAR_EVENT_COUNT_REG}</a> / <a href="index.php?cmd={CALENDAR_MODULE_NAME}&amp;act=event_registrations&amp;tpl=d&amp;id={CALENDAR_EVENT_ID}">{CALENDAR_EVENT_COUNT_DEREG}</a> / <a href="index.php?cmd={CALENDAR_MODULE_NAME}&amp;act=modify_registration&amp;event_id={CALENDAR_EVENT_ID}">+</a></td>
+                                            <td><a href="index.php?cmd={CALENDAR_MODULE_NAME}&amp;act=event_registrations&amp;tpl=w&amp;id={CALENDAR_EVENT_ID}">{CALENDAR_EVENT_COUNT_WAITLIST}</a></td>
+                                            <td style="text-align: right;">
+                                                <a href="index.php?cmd={CALENDAR_MODULE_NAME}&amp;export={CALENDAR_EVENT_ID}" title="{TXT_CALENDAR_EXPORT_ICAL_FORMAT}"><img src="images/icons/EventExport.png" border="0" alt="{TXT_CALENDAR_EXPORT_ICAL_FORMAT}" /></a>
+						<a href="{CALENDAR_EVENT_COPY_LINK}" title="{TXT_CALENDAR_COPY}"><img src="images/icons/copy.gif" width="16" height="16" border="0" alt="{TXT_CALENDAR_COPY}" /></a>
+						<a href="{CALENDAR_EVENT_EDIT_LINK}" title="{TXT_CALENDAR_EDIT}"><img src="images/icons/edit.gif" width="16" height="16" border="0" alt="{TXT_CALENDAR_EDIT}" /></a>
+						<a href="javascript:deleteNote('{CALENDAR_EVENT_ID}');" title="{TXT_CALENDAR_DELETE}"><img src="images/icons/delete.gif" width="16" height="16" border="0" alt="{TXT_CALENADR_DELETE}" /></a>
+                                            </td>
+					</tr>
+					<!-- END eventList -->
+                    <!-- BEGIN emptyEventList -->
+                    <tr class="row1">
+                        <td colspan="10"><i>{TXT_CALENDAR_NO_EVENTS}</i></td>
+                    </tr>
+                    <!-- END emptyEventList -->
+	            </table>          
+	            <table cellpadding="2" cellspacing="0" border="0">
+					<tr>
+					    <td style="border: 0px;">
+					        <img src="images/icons/arrow.gif" border="0" width="38" height="22" alt="{TXT_MARKED}:" />
+					        <a href="#" onclick="changeCheckboxes('formEventList','selectedEventId',true); return false;">{TXT_SELECT_ALL}</a> /
+					        <a href="#" onclick="changeCheckboxes('formEventList','selectedEventId',false); return false;">{TXT_DESELECT_ALL}</a>
+					        <img src="images/icons/strike.gif" alt="space" />
+					        <select name="formEventList_MultiAction" onchange="selectMultiAction();">
+					            <option value="0">{TXT_SUBMIT_SELECT}</option>
+					            <option value="activate">{TXT_SUBMIT_ACTIVATE}</option>
+					            <option value="deactivate">{TXT_SUBMIT_DEACTIVATE}</option>
+	                            <option value="delete">{TXT_SUBMIT_DELETE}</option>
+	                            <!-- <option value="export">{TXT_SUBMIT_EXPORT}</option>  -->
+					        </select>
+					    </td>
+					</tr>
+	            </table>
+                <br />    
+                {CALENDAR_PAGING}
+            </form>   
+        </td>
+    </tr>
+</table>
+<!-- END module_calendar_overview.html -->
