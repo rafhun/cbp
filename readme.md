@@ -28,7 +28,7 @@ Takes all your configuration data from the `secrets.json` file in your root and 
 
 ### Clean
 This task is responsible for wiping out the whole build folder before a new build starts. To keep the filesystem clean while in development several subtasks have been defined which are called by the watch task:
-* Immediately after installing Contrexx you have the opportunity to run `grunt clean:contrexx` which will remove all content Contrexx puts into the `images/` folder, while keeping its folder structure intact since it is needed this way by Contrexx. Still this allows you to upload a clean folder containing only files you put there yourself (in the best case only minified/compressed images).
+* Immediately after installing Contrexx you have the opportunity to run `grunt clean:contrexx` which will remove all content Contrexx puts into the `images/` folder, while keeping its folder structure intact since it is needed this way by Contrexx, as well as the standard skeleton theme which will not be needed. Still this allows you to upload a clean folder containing only files you put there yourself (in the best case only minified/compressed images).
 * `grunt clean:hashes` is used to delete the previously hashed script and stylesheet files. Since hashres always hashes both files they can both be deleted.
 * `grunt clean:html` deletes all `.html` files in the build folder. This task can be used to completely rebuild your jade templates. It is not integrated to another grunt task and as such can only be run on its own.
 * `grunt clean:images` cleans only the `images` folder in the theme folder. Use it to clean up previously compressed images (i.e. if you get an error or wrong minification). As such this task is not part of any defined grunt tasks.
