@@ -1,5 +1,6 @@
 default:
  - 'clean:dest'
+ - 'copy:fonts'
  - 'jshint:grunt'
  - 'jshint:src'
  - 'replace:local'
@@ -23,6 +24,7 @@ local:
   - 'jshint:src'
   - 'replace:local'
   - 'clean:dest'
+  - 'copy:fonts'
   - 'concat'
   - 'uglify'
   - 'imagemin'
@@ -37,30 +39,23 @@ local:
   - 'hologram'
 
 ship:
-  - 'replace:server'
   - 'jshint:grunt'
   - 'jshint:shipping'
+  - 'replace:server'
+  - 'clean:dest'
+  - 'copy:fonts'
   - 'concat'
   - 'uglify'
+  - 'imagemin'
+  - 'svgstore'
   - 'sass'
   - 'autoprefixer'
   - 'cssmin'
-
-build:
- - 'clean'
- - 'jshint'
- - 'concat'
- - 'uglify'
- - 'sass'
- - 'imagemin'
- - 'svgstore'
- - 'autoprefixer'
- - 'cssmin'
- - 'favicons'
- - 'htmlmin'
- - 'jade'
- - 'hashres'
- - 'hologram'
+  - 'favicons'
+  - 'htmlmin'
+  - 'jade'
+  - 'hashres'
+  - 'hologram'
 
 setup:
  - 'shell:bundler'
@@ -74,17 +69,6 @@ setupUpdate:
   - 'concat'
   - 'uglify'
   - 'hashres'
-
-scss:
-  - 'sass'
-  - 'autoprefixer'
-  - 'cssmin'
-
-js:
-  - 'jshint:grunt'
-  - 'jshint:src'
-  - 'concat'
-  - 'uglify'
 
 bsWatch:
   - 'browserSync'
