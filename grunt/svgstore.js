@@ -8,7 +8,7 @@ module.exports = {
   },
   default: {
     files: {
-      '<%= pkg.src-folders.images %>shapes.svg' : ['<%= pkg.src-folders.svg %>*.svg']
+      '<%= pkg.srcFolders.images %>shapes.svg' : ['<%= pkg.srcFolders.svg %>*.svg']
     }
   }
 }

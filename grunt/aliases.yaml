@@ -10,7 +10,7 @@ default:
  - 'svgstore'
  - 'autoprefixer'
  - 'cssmin'
- - 'favicons'
+ # - 'favicons'
  - 'htmlmin'
  - 'jade'
  - 'hashres'
@@ -67,7 +67,7 @@ setup:
  - 'bower_concat'
 
 setupUpdate:
-  - 'shell:bunderUpdate'
+  - 'shell:bundlerUpdate'
   - 'shell:bowerUpdate'
   - 'bower_concat'
   - 'concat'
