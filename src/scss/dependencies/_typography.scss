@@ -2,3 +2,29 @@
 // flags to enable styling as well
 // 
 $font-stack: 'DIN Next W01', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+$base-font-size: 16px;
+
+/**
+ * Mixin rem
+ *
+ * Converts pixel values to rem, and provides pixel fallback for older browsers
+ * Takes two arguments:
+ * $target: pixel value to be converted including px
+ * $base-font-size: what to base the calculation on, in pixels, takes global
+ * $base-font-size variable as default value
+ *
+ * usage: @include rem(16px)
+ * result:
+ *  font-size: 16px;
+ *  font-size: 1rem;
+ *
+ * This is actually only needed for IE8 and Opera Mini -> do we really need it?
+ */
+
+@mixin rem($target, $base-font-size: $base-font-size) {
+  $px: $target;
+  font-size: $px;
+  $rem: ($target / $base-font-size) + 0rem;
+  font-size: $rem;
+}

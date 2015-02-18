@@ -1,4 +1,34 @@
 // h1, h2, p, blockquote, ...
+// 
+/*doc
+---
+title: Block Text Elements
+category: Base - Typography
+---
+
+All text block elements such as `h1`, `p` or `blockquote` are styled as shown here.
+
+```html_example
+<h1>Herzlich willkommen bei christenortho!</h1>
+<p>Es freut mich sehr, Sie auf meiner Webseite begrüssen zu dürfen. Mit der
+vorliegenden Plattform möchte ich Ihnen einen umfassenden Einblick auf das
+faszinierende Fachgebiet der Orthopädie und Traumatologie am Bewegungsapparat
+sowie in meine eigene Tätigkeit vermitteln.</p>
+<h2>Fragen zur geplanten Operation</h2>
+<p>Deutschland, Österreich und der Zentral- und Ostteil der Schweiz kennen aus
+historischen Gründen den Titel des Traumatologen, der sich zwar ausschliesslich
+mit Verletzungen und deren Folgen beschäftigt, sich fachlich aber sonst nicht
+einschränkt. So wird er den Riss des vorderen Kreuzbandes, aber auch den
+Schädelbruch oder Leberriss behandeln.</p>
+<h3>Riss / Verletzung / Läsion / Ruptur der Rotatorenmanschette</h3>
+<p>Ja, wenn ich die Behandlung übernehme, werde ich Sie persönlich operieren.
+Zu Ausbildungszwecken werde ich allenfalls einige Schritte meinem Assistenten
+in Ausbildung assistieren, trage aber immer die ausschliessliche Verantwortung.</p>
+<h4>Bei mir sind noch Fragen aufgetaucht, wann kann ich sie stellen?</h4>
+<p>Medizinische Praxisassistentin (MPA) und Arztsekretärin. Seit dem 1.11.2002
+in der Praxis tätig und mit verantwortlich für den bisherigen Erfolg.</p>
+```
+ */
 
 /**
  * Address variable `h1` font-size and margin within `section` and `article`
@@ -6,6 +36,32 @@
  */
 
 h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
+  @include rem(30px);
+  line-height: 1.133333333;
+
+  color: $color-primary;
+}
+
+h2 {
+  @include rem(22px);
+  line-height: 1.1818181818;
+
+  color: $color-primary;
+}
+
+h3 {
+  @include rem(20px);
+  line-height: 1.2;
+
+  color: $color-primary;
+}
+
+h4 {
+  @include rem(18px);
+  line-height: 1.2222222222;
+}
+
+p {
+  @include rem(18px);
+  line-height: 1.44444444444;
 }

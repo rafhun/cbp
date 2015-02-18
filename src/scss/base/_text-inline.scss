@@ -1,3 +1,24 @@
+/*doc
+---
+title: Inline Text Elements
+category: Base - Typography
+---
+
+We have the following styles for our inline text elements:
+
+```html_example
+<p>Es freut mich sehr, Sie auf meiner <a href="#">Webseite</a> begrüssen zu dürfen.
+Mit der <strong>vorliegenden Plattform</strong> möchte ich Ihnen einen umfassenden
+Einblick auf das faszinierende Fachgebiet der <a href="#">Orthopädie und Traumatologie</a>
+am Bewegungsapparat sowie in meine eigene Tätigkeit vermitteln. <strong>Patienten und Interessierte</strong>
+sollen auf der <strong><a href="#">christenortho-Seite</a></strong> ausführliche Informationen
+zu Krankheitsbildern am Bewegungsapparat und deren Behandlung in Erfahrung bringen können.
+Dies ist ein Typoblindtext. An ihm kann man sehen, ob alle Buchstaben da sind
+und wie sie aussehen. Manchmal benutzt man Worte wie etwa Hamburgerfonts,
+Rafgenduks oder Handgloves, um Schriften zu testen. </p>
+```
+ */
+
 // a, b, strong, abbr, ...
 /* Links
    ========================================================================== */
@@ -8,6 +29,9 @@
 
 a {
   background-color: transparent;
+
+  color: $color-primary;
+  text-decoration: none;
 }
 
 /**
@@ -15,8 +39,11 @@ a {
  */
 
 a:active,
-a:hover {
+a:hover,
+a:focus {
   outline: 0;
+
+  text-decoration: underline;
 }
 
 /* Text-level semantics

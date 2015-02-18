@@ -1,3 +1,13 @@
+/*do
+---
+title: Site
+category: Base - Typography
+---
+This partial sets sitewide styles on the html and body tags and the selection. Examples here
+probably are not of much use and are therefore missing. If they would ever be needed they will be provided.
+ */
+
+
 // html, body, selection
 /**
  * 1. Set default font family to sans-serif.
@@ -17,6 +27,11 @@ html {
 
 body {
   margin: 0;
+
+  font-size: $base-font-size;
+  line-height: 1.2222222222;
+
+  color: $color-text;
 }
 
 /* HTML5 display definitions
