@@ -33,6 +33,7 @@
     "grunt-favicons": "^0.6.4",
     "grunt-hashres": "^0.4.1",
     "grunt-hologram": "0.0.6",
+    "grunt-mysql-dump": "^1.0.0",
     "grunt-newer": "^1.1.0",
     "grunt-replace": "^0.8.0",
     "grunt-shell": "^1.1.1",
@@ -65,5 +66,6 @@
     "contentImg": "src/images/content-images/",
     "fonts": "src/fonts/",
     "secrets": "src/secrets/"
-  }
+  },
+  "dbDump": "db/"
 }
