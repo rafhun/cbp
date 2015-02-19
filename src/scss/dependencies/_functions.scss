@@ -1,0 +1,62 @@
+// _functions.scss
+// This file contains sass functions that are needed globally. Only put functions
+// in here, that cannot be put to one specific component/partial.
+// 
+// on top variables needed througout the functions will be defined
+$rem-base: 16px;
+
+/* function strip-unit()
+This function removes units from values given to i. e. a mixin. This helps makes
+mixins easier to use, as values can be given to them with or without units.
+
+The logic behind it is easy: to strip the unit you have to divide the given value
+by 1 of the same unit, i. e. 42px / ((42px * 0) + 1) equals 42px / 1px = 42.
+
+Credit to Hugo Giraudel: http://hugogiraudel.com/2013/08/12/sass-functions/
+ */
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+// CONVERT TO REM
+// inspired/mostly copied from foundation:
+// https://github.com/zurb/foundation/blob/master/scss/foundation/_functions.scss
+// 
+@function convert-to-rem($value, $base-value: $rem-base) {
+  $value: strip-unit($value) / strip-unit($base-value) * 1rem;
+  @if ($value == 0rem) { $value: 0; } // Turn 0rem into 0
+  @return $value;
+}
+
+$heading-lg-font-size: convert-to-rem(24px);
+
+// REM CALC / by foundation
+
+// New Syntax, allows to optionally calculate on a different base value to counter compounding effect of rem's.
+// Call with 1, 2, 3 or 4 parameters, 'px' is not required but supported:
+//
+//   rem-calc(10 20 30px 40);
+//
+// Space delimited, if you want to delimit using comma's, wrap it in another pair of brackets
+//
+//   rem-calc((10, 20, 30, 40px));
+//
+// Optionally call with a different base (eg: 8px) to calculate rem.
+//
+//   rem-calc(16px 32px 48px, 8px);
+//
+// If you require to comma separate your list
+//
+//   rem-calc((16px, 32px, 48), 8px);
+
+@function rem-calc($values, $base-value: $rem-base) {
+  $max: length($values);
+
+  @if $max == 1 { @return convert-to-rem(nth($values, 1), $base-value); }
+
+  $remValues: ();
+  @for $i from 1 through $max {
+    $remValues: append($remValues, convert-to-rem(nth($values, $i), $base-value));
+  }
+  @return $remValues;
+}

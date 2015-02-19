@@ -1,6 +1,7 @@
 @import 'susy';
 
 // import variables, mixins, functions (nothing compiles here)
+@import 'dependencies/functions';
 @import 'dependencies/color';
 @import 'dependencies/typography';
 @import 'dependencies/layout';
@@ -19,6 +20,7 @@
 @import 'components/buttons';
 @import 'components/news-teaser';
 @import 'components/shortlinks';
+@import 'components/navigation';
 @import 'components/subnav';
 
 // page sections & regions
