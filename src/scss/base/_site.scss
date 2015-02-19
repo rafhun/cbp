@@ -13,13 +13,24 @@ probably are not of much use and are therefore missing. If they would ever be ne
  * 1. Set default font family to sans-serif.
  * 2. Prevent iOS text size adjust after orientation change, without disabling
  *    user zoom.
+ * 3. Box Sizing (as proposed by Paul Irish)
  */
 
 html {
   font-family: $font-stack; /* 1 */
   -ms-text-size-adjust: 100%; /* 2 */
   -webkit-text-size-adjust: 100%; /* 2 */
+  box-sizing: border-box; /* 3 */
 }
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit; /* 3 */
+}
+
+// box sizing border box
+
 
 /**
  * Remove default margin.

@@ -30,8 +30,8 @@ Rafgenduks oder Handgloves, um Schriften zu testen. </p>
 a {
   background-color: transparent;
 
-  color: $color-primary;
-  text-decoration: none;
+  color: $anchor-font-color;
+  text-decoration: $anchor-text-decoration;
 }
 
 /**
@@ -43,7 +43,7 @@ a:hover,
 a:focus {
   outline: 0;
 
-  text-decoration: underline;
+  text-decoration: $anchor-text-decoration-hover;
 }
 
 /* Text-level semantics
