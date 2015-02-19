@@ -1,0 +1,22 @@
+.news-teaser {
+  position: relative; // for positioning of the date
+  padding: $news-teaser-padding;
+
+  background: $news-teaser-background;
+}
+
+.news-teaser-title {
+  margin-top: 0; // remove standard h3 margin-top -> headline is always on top of box
+}
+
+.news-teaser-date {
+  position: absolute;
+  top: $news-teaser-date-offset-top;
+  right: $news-teaser-date-offset-right;
+
+  font-size: $news-teaser-date-font-size;
+}
+
+.news-teaser-text {
+
+}

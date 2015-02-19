@@ -1,0 +1,11 @@
+// this is the button to show all news.
+.news-teaser-button {
+  float: $news-teaser-button-position;
+
+  background: $news-teaser-button-background;
+
+  padding: $news-teaser-button-padding;
+
+  border: $news-teaser-button-border;
+  border-radius: $news-teaser-button-border-radius;
+}
