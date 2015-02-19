@@ -18,21 +18,28 @@ The gradient is applied to the `:after` pseudo-class of the `.shadow` container.
 </div>
 ```
   */
+ 
+ /* shadow config */
+ $shadow-config: rem-calc(0 13 7 -7) !default;
+ $shadow-color: rgba(0,0,0,.3) !default;
+
+ $shadow-height: rem-calc(20) !default;
+ $shadow-offset-top: rem-calc(-5) !default;
+ $shadow-gradient: linear-gradient(to left, rgba(255,255,255,0) 0%,rgba(255,255,255,0.8) 25%,rgba(255,255,255,1) 50%,rgba(255,255,255,0.8) 75%,rgba(255,255,255,0) 100%) !default;
+
 .shadow {
 	& > * {
-		box-shadow:  0 13px 7px -7px rgba(0,0,0,0.3);
+		box-shadow: $shadow-config $shadow-color;
 	}
 
 	&:after {
 		content: '';
-		height: 20px;
+		height: $shadow-height;
 
 		width: 100%;
 		display:block;
-		position:relative;
-		left:0%;
-		margin-top:-5px;
+		margin-top:$shadow-offset-top;
 
-		background: linear-gradient(to left, rgba(255,255,255,0) 0%,rgba(255,255,255,0.8) 25%,rgba(255,255,255,1) 50%,rgba(255,255,255,0.8) 75%,rgba(255,255,255,0) 100%);
+		background: $shadow-gradient;
 	}
 }
