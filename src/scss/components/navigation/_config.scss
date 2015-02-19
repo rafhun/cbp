@@ -1,0 +1,17 @@
+// this file defines all configuration options for the navigation component
+$navigation-border-width: rem-calc(4) !default;
+$navigation-border-color: $color-lines !default;
+
+$navigation-font-size: rem-calc(20) !default;
+
+$navigation-font-color: $color-text !default;
+$navigation-font-color-active: $color-primary !default;
+$navigation-font-weight-active: bold !default;
+$navigation-text-decoration-active: none !default;
+
+$navigation-background-color: $color-background !default;
+
+$navigation-list-item-height: rem-calc(72) !default;
+
+$navigation-link-padding: rem-calc(24 12) !default;
+$navigation-link-align: center !default;

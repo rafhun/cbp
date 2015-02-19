@@ -1,0 +1,79 @@
+/*doc
+---
+title: Main Navigation
+category: Components - Navigation
+---
+This ist the main navigation used on top of the page. It will collapse for
+mobile screens and span the whole width as a navigation bar on larger screens.
+
+Eventually the navigation will be built by Contrexx, so take care to apply the
+correct placeholders where needed.
+
+```html_example
+<nav class="navigation" role="navigation">
+  <ul class="navigation-nav">
+    <li class="navigation-list-item">
+      <a class="navigation-link" href="#">Über uns</a>
+    </li>
+    <li class="navigation-list-item">
+      <a class="navigation-link" href="#">Behandlungen</a>
+    </li>
+    <li class="navigation-list-item">
+      <a class="navigation-link active" href="#">Patienten</a>
+    </li>
+    <li class="navigation-list-item">
+      <a class="navigation-link" href="#">Medien</a>
+    </li>
+    <li class="navigation-list-item">
+      <a class="navigation-link" href="#">Kontakt</a>
+    </li>
+  </ul>
+</nav>
+```
+
+*/
+
+.navigation {
+  background: $navigation-background-color;
+
+  border-top: $navigation-border-width solid $navigation-border-color;
+}
+
+.navigation-nav {
+  list-style: none;
+
+  text-align: center;
+}
+
+.navigation-list-item {
+  width: 100%;
+  height: $navigation-list-item-height;
+
+  border-bottom: $navigation-border-width solid $navigation-border-color;
+
+  @include susy-media(sm) {
+    display: inline-block;
+    width: auto;
+
+    border-bottom: 0;
+  }
+}
+
+.navigation-link {
+  display: block;
+  width: 100%; // fill out whole width of li with link
+
+  color: $navigation-font-color;
+  font-size: $navigation-font-size;
+
+  padding: $navigation-link-padding;
+
+  &.active,
+  &:hover,
+  &:active,
+  &:focus {
+    color: $navigation-font-color-active;
+    font-weight: $navigation-font-weight-active;
+    text-decoration: $navigation-text-decoration-active;
+  }
+}
