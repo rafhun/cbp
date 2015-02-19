@@ -1,52 +1,6 @@
-/*doc
----
-title: Shortlinks
-category: Components - Shortlinks
----
-
-## Style Shortlinks which appear on the landing page
-The shortlinks are formed by an `<ul>` with class `.shortlinks`.
-
-@TODO: check whether shadows have to be adjusted
-
-```html_example
-<ul class="shortlinks">
-	<li class="shortlinks-list-item shadow">
-		<a class="shortlinks-link" href="#">Anmeldung/Termin</a>
-	</li>
-	<li class="shortlinks-list-item shadow">
-		<a class="shortlinks-link" href="#">SOS (Notfall) 24h</a>
-	</li>
-	<li class="shortlinks-list-item shadow">
-		<a class="shortlinks-link" href="#">Fragen &amp; Antworten</a>
-	</li>
-	<li class="shortlinks-list-item shadow">
-		<a class="shortlinks-link" href="#">Medizin Lexikon</a>
-	</li>
-</ul>
-```
- */
-.shortlinks {
-	font-size: 22px;
-}
-
-.shortlinks-list-item {
-	display: inline-block;
-	width: 100%;
-}
-
-.shortlinks-link {
-	display: block;
-	width: 100%;
-
-	padding: 12px 16px;
-
-	&:after {
-		content: '>';
-		float: right;
-	}
-
-	&:hover {
-		font-weight: bold;
-	}
-}
+// this file imports the config for the shortlinks which contains variables
+// with a default flag set, so the component can be easily restyled and the
+// actual style file.
+// 
+@import 'shortlinks/config';
+@import 'shortlinks/shortlinks';

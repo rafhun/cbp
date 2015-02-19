@@ -1,0 +1,53 @@
+/*doc
+---
+title: Shortlinks
+category: Components
+---
+These shortlinks appear on the landing page but might also be reapplied
+to other regions of the website.
+The shortlinks are formed by an `<ul>` with class `.shortlinks`.
+
+The shadows are applied through a helper class (see relevant part of style guide).
+
+```html_example
+<ul class="shortlinks">
+  <li class="shortlinks-list-item shadow">
+    <a class="shortlinks-link" href="#">Anmeldung/Termin</a>
+  </li>
+  <li class="shortlinks-list-item shadow">
+    <a class="shortlinks-link" href="#">SOS (Notfall) 24h</a>
+  </li>
+  <li class="shortlinks-list-item shadow">
+    <a class="shortlinks-link" href="#">Fragen &amp; Antworten</a>
+  </li>
+  <li class="shortlinks-list-item shadow">
+    <a class="shortlinks-link" href="#">Medizin Lexikon</a>
+  </li>
+</ul>
+```
+ */
+.shortlinks {
+  font-size: $shortlinks-font-size;
+}
+
+.shortlinks-list-item {
+  display: inline-block;
+  width: 100%;
+}
+
+.shortlinks-link {
+  display: block;
+  width: 100%;
+
+  padding: $shortlinks-padding-link;
+
+  &:after {
+    content: $shortlinks-after-content;
+    float: right;
+  }
+
+  &:hover {
+    font-weight: $shortlinks-font-weight-hover;
+    text-decoration: $shortlinks-text-decoration-hover;
+  }
+}
