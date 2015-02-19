@@ -1,0 +1,11 @@
+$subnav-font-size: rem-calc(20) !default;
+$subnav-font-weight-active: bold !default;
+
+$subnav-color-border: $color-lines !default;
+$subnav-color-background-hover: $color-background !default;
+
+$subnav-link-padding: rem-calc(24 12) !default;
+
+$subnav-triangle-height: rem-calc(18) !default; // in essence defines how sharp the triangle is
+
+$subnav-list-item-height: rem-calc(72) !default; // sets the li height and with this also one side of the triangle

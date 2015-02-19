@@ -1,0 +1,107 @@
+/*doc
+---
+title: Subnavigation
+category: Components - Navigation
+---
+Add `.active` class to li item to indicate it is the currently active page.
+Careful the correct height of the triangle (for the active state) depends on the height of the block!
+Might be a good idea to put it in a variable and set a fixed height for the block.
+Also Contrexx will fill out this subnav through a loop. Take care to set the proper
+placeholders.
+
+```html_example
+<nav class="subnav" role="navigation">
+  <ul class="subnav-nav">
+    <li class="subnav-list-item">
+      <a class="subnav-link" href="#">
+        Terminvereinbarung
+      </a>
+    </li>
+    <li class="subnav-list-item">
+      <a class="subnav-link" href="#">
+        Vorgehen
+      </a>
+    </li>
+    <li class="subnav-list-item">
+      <a class="subnav-link" href="#">
+        Allgemeine Informationen
+      </a>
+    </li>
+    <li class="subnav-list-item active">
+      <a class="subnav-link" href="#">
+        Fragen &amp; Antworten
+      </a>
+    </li>
+    <li class="subnav-list-item">
+      <a class="subnav-link" href="#">
+        Medizin Lexikon
+      </a>
+    </li>
+    <li class="subnav-list-item">
+      <a class="subnav-link" href="#">
+        Prothetik
+      </a>
+    </li>
+    <li class="subnav-list-item">
+      <a class="subnav-link" href="#">
+        Patientenfeedback
+      </a>
+    </li>
+  </ul>
+</nav>
+```
+ */
+.subnav {
+  font-size: $subnav-font-size;
+}
+
+.subnav-list-item {
+  display: inline-block;
+  width: 100%;
+  height: $subnav-list-item-height;
+
+  position: relative; // needed for triangle
+
+  border-top: 1px solid $subnav-color-border;
+
+  &:last-of-type {
+    border-bottom: 1px solid $subnav-color-border; // add a border bottom to the last li item
+  }
+
+  &.active,
+  &:hover,
+  &:active,
+  &:focus {
+    background: $subnav-color-background-hover;
+
+    font-weight: $subnav-font-weight-active;
+
+    &:after {
+      width: 0;
+      height: 0;
+      content: '';
+      display: block;
+
+      position: absolute;
+      right: -$subnav-triangle-height; // equal to size of border left
+      top: 0;
+
+      border-top: $subnav-list-item-height / 2 solid transparent; // size == half the height of the li
+      border-bottom: $subnav-list-item-height / 2 solid transparent; // size == half the height of the li
+      border-left: $subnav-triangle-height solid $subnav-color-background-hover;
+    }
+  }
+}
+
+.subnav-link {
+  display: block;
+  width: 100%; // make whole li clickable resp. fill out li with a
+
+  padding: $subnav-link-padding;
+
+  &:hover,
+  &:active,
+  &:focus {
+    text-decoration: none; // no underline for active and hover states of a
+  }
+}
