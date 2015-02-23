@@ -9,9 +9,47 @@ mobile screens and span the whole width as a navigation bar on larger screens.
 Eventually the navigation will be built by Contrexx, so take care to apply the
 correct placeholders where needed.
 
+This first example shows the navigation in its mobile closed state meaning that
+for the mobile view the normal list items are collapsed out of view and instead
+replaced by a single navigation toggle button.
+
+Following below is the example of a opened navigation.
+
 ```html_example
 <nav class="navigation" role="navigation">
   <ul class="navigation-nav">
+    <li class="navigation-list-item nav-toggle">
+      <a class="navigation-link nav-toggle-button" href="#">Navigation</a>
+    </li>
+    <li class="navigation-list-item">
+      <a class="navigation-link" href="#">Über uns</a>
+    </li>
+    <li class="navigation-list-item">
+      <a class="navigation-link" href="#">Behandlungen</a>
+    </li>
+    <li class="navigation-list-item">
+      <a class="navigation-link active" href="#">Patienten</a>
+    </li>
+    <li class="navigation-list-item">
+      <a class="navigation-link" href="#">Medien</a>
+    </li>
+    <li class="navigation-list-item">
+      <a class="navigation-link" href="#">Kontakt</a>
+    </li>
+  </ul>
+</nav>
+```
+
+The mobile navigation is toggled open by adding the class `in` to the `.navigation-nav`.
+The class is added to the `ul` so it cascades down easily and is being applied
+with minimal effort.
+
+```html_example
+<nav class="navigation" role="navigation">
+  <ul class="navigation-nav in">
+    <li class="navigation-list-item nav-toggle">
+      <a class="navigation-link nav-toggle-button" href="#">Navigation</a>
+    </li>
     <li class="navigation-list-item">
       <a class="navigation-link" href="#">Über uns</a>
     </li>
@@ -46,10 +84,18 @@ correct placeholders where needed.
 }
 
 .navigation-list-item {
+  display: none;
+
   width: 100%;
   height: $navigation-list-item-height;
 
   border-bottom: $navigation-border-width solid $navigation-border-color;
+
+  .in & { // show the navigation in mobile view when toggled open
+    @include susy-media(to-sm) {
+      display: block;
+    }
+  }
 
   @include susy-media(sm) {
     display: inline-block;
@@ -75,5 +121,13 @@ correct placeholders where needed.
     color: $navigation-font-color-active;
     font-weight: $navigation-font-weight-active;
     text-decoration: $navigation-text-decoration-active;
+  }
+}
+
+.nav-toggle {
+  display: block;
+
+  @include susy-media(sm) {
+    display: none;
   }
 }

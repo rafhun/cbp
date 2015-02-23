@@ -24,12 +24,13 @@ $susy: (
 
 // breakpoints
 $susy-media: (
-  xs: 20em,
-  sm: 40em,
-  md: 60em,
-  lg: 80em,
-  max-xs: max-width 20em,
-  xs-sm: 20em 40em,
-  sm-md: 40em 60em,
-  md-lg: 60em 80em
+  xs: 20rem,
+  sm: 40rem,
+  md: 60rem,
+  lg: 80rem,
+  max-xs: max-width 20rem,
+  xs-sm: 20rem 40rem,
+  sm-md: 40rem 60rem,
+  md-lg: 60rem 80rem,
+  to-sm: max-width 39.9375rem
 );
