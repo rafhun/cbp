@@ -1,0 +1,95 @@
+/*doc
+---
+title: Meta Navigation
+category: Components - Navigation
+---
+The meta navigation contains a several useful links that should be accessible
+from every page of the website. Most importantly it features the language
+navbar and the search field.
+
+Its lesser importance is shown by a smaller font size as well as the links
+being colored in the plain text color.
+
+Inside Contrexx you would probably put the meta navigation into a block so the
+placeholder and link texts can be localized easily.
+
+There are three languages in the language navbar as a proof of concept on the
+site itself there will only be two languages. However this way a test for the
+separating pipe is provided (is it set properly and automatically between all
+languages displayed?).
+
+```html_example
+<div class="metanav">
+  <ul class="metanav-list">
+    <li class="metanav-list-item language-navbar">
+      <a href="#" class="active metanav-link">DE</a>
+      <a href="#" class="metanav-link">FR</a>
+      <a href="#" class="metanav-link">EN</a>
+    </li>
+    <li class="metanav-list-item">
+      <a href="#" class="metanav-link">Downloads</a>
+    </li>
+    <li class="metanav-list-item">
+      <a href="#" class="metanav-link">Links</a>
+    </li>
+    <li class="metanav-list-item">
+      <a href="#" class="metanav-link">Sitemap</a>
+    </li>
+  </ul>
+
+  <form class="metanav-search">
+    <input class="metanav-search-input" type="search" placeholder="Suchen / Search" id="search-input" name="term">
+  </form>
+```
+
+ */
+
+.metanav {
+  font-size: $metanav-font-size;
+}
+
+.metanav-list {
+  margin-bottom: gutter();
+
+  display: none; // do not display the metanav list in the mobile view
+
+  @include susy-media(sm) {
+    display: block;
+  }
+}
+
+.metanav-list-item {
+  display: inline-block;
+  padding-right: $metanav-link-padding;
+}
+
+.metanav-link {
+  color: $metanav-link-color;
+
+  &.active,
+  &:hover,
+  &:focus,
+  &:active {
+    color: $metanav-link-color-active;
+  }
+}
+
+.language-navbar {
+  .metanav-link::after {
+    content: "|";
+    color: $metanav-link-color;
+    padding-left: $metanav-link-padding / 2;
+  }
+
+  .metanav-link:last-of-type::after {
+    content: "";
+  }
+}
+
+.metanav-search-input {
+  width: 100%; // stretch search field over whole width in mobile view
+
+  @include susy-media(sm) {
+    width: auto;
+  }
+}
