@@ -1,4 +1,17 @@
+$input-border-color: $color-lines !default;
+$input-padding: rem-calc(6) !default;
+
+input {
+  border: 1px solid $input-border-color;
+  padding: $input-padding;
+
+  &:focus {
+    // remove outline from input field on focus
+    outline: none;
+  }
+}
 /**
+ * -----Reset below-----
  * Known limitation: by default, Chrome and Safari on OS X allow very limited
  * styling of `select`, unless a `border` property is set.
  */
