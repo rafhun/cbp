@@ -1,6 +1,24 @@
 // this file contains the main definitions for the layout, here managed by susy.
 // all susy settings including the breakpoints are defined here
 
+
+// micro clearfix is provided by mike-henderson based on nicolasgallagher.com/micro-clearfix-hack
+@mixin clearfix() {
+  & {
+    *zoom: 1;
+  }
+
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
 $susy: (
   gutter-position: after,
   columns: 12,
@@ -17,7 +35,7 @@ $susy: (
     background-image: true,
     background-options: false,
     box-sizing: true,
-    clearfix: false,
+    clearfix: true,
     rem: true,
   )
 );
