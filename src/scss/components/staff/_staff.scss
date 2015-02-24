@@ -1,0 +1,26 @@
+/*doc
+---
+title: Staff
+category: Components - Staff
+---
+This component is used to display the staff including their picture and a short
+description.
+
+```html_example
+<div class="staff">
+  <img src="http://fakeimg.pl/640x450" alt="Vorname Nachname">
+  <h3 class="staff-name">Verena von Allmen</h3>
+  <p>
+    Medizinische Praxisassistentin (MPA) und Arztsekret&auml;rin seit dem 21. Mai
+    2013. Verantwortlich f&uuml;r alle administrativen, organisatorischen und
+    koordinativen Praxisbelange. Sie treffen Frau von Allmen w&auml;hrend den
+    &Ouml;ffnungszeiten t&auml;glich in unserer Praxis an.
+  </p>
+</div>
+```
+
+ */
+
+.staff-name {
+  margin-top: $staff-name-margin-top;
+}
