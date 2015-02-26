@@ -51,6 +51,7 @@ src/js/bower.js
 cache
 tmp
 !wwwroot/tmp
+!wwwroot/core_modules/cache
 
 # bundler components
 bundler_components
