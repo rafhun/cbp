@@ -48,7 +48,7 @@ bower_components
 src/js/bower.js
 
 # tmp folders
-cache
+wwwroot/tmp/cache
 tmp
 !wwwroot/tmp
 
