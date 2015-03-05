@@ -11,7 +11,7 @@ default:
  - 'svgstore'
  - 'autoprefixer'
  - 'cssmin'
- # - 'favicons'
+ - 'favicons'
  - 'htmlmin'
  - 'jade'
  - 'hashres'
