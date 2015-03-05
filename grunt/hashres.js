@@ -1,6 +1,6 @@
 module.exports = {
   options: {
-    renameFiles: false,
+    renameFiles: true,
     fileNameFormat: '${name}.${hash}.${ext}'
   },
   prod: {
