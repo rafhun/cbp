@@ -1,3 +1,31 @@
 // all typography variables (and only variables) are assigned here, use !default
 // flags to enable styling as well
-$font-stack: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-stack: 'TheSans', Helvetica, Arial, sans- !default;
+
+$base-font-size: 16px;
+
+// headings
+$headings-font-color:  !default;
+$headings-font-color-secondary:  !default;
+$headings-top-margin: .2rem !default;
+$headings-bottom-margin: .5rem !default;
+$headings-text-rendering: optimizeLegibility !default;
+
+$h1-font-size:  !default;
+$h1-line-height:  !default;
+
+$h2-font-size:  !default;
+$h2-line-height:   !default;
+
+$h3-font-size:  !default;
+$h3-line-height:  !default;
+
+// paragraphs
+$paragraph-font-size:  !default;
+$paragraph-line-height:   !default;
+$paragraph-bottom-margin: rem-calc(20) !default;
+
+// anchors
+$anchor-text-decoration:  !default;
+$anchor-text-decoration-hover:  !default;
+$anchor-font-color:  !default;
