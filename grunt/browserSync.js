@@ -5,7 +5,8 @@ module.exports = {
     },
     options: {
       watchTask: true,
-      proxy: '<%= pkg.devUrl %>'
+      proxy: '<%= pkg.devUrl %>',
+      startPath: '/styleguide/index.html'
     }
   }
 }
