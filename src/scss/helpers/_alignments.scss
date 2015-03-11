@@ -1,0 +1,38 @@
+/*doc
+---
+title: Alignment Helpers
+category: Helpers
+---
+
+These classes are used to align various elements on the page, especially
+images. We are adding floats and the respective margins to ensure nice styling.
+
+```html_example
+<p>Example</p>
+```
+*/
+
+// Alignment Config
+$align-margin-horizontal: rem-calc(12) !default;
+$align-margin-vertical: rem-calc(12) !default;
+
+
+.alignleft {
+    display: inline;
+    float: left;
+    margin-right: $align-margin-horizontal;
+    margin-bottom: $align-margin-vertical;
+}
+
+.alignright {
+    display: inline;
+    float: right;
+    margin-bottom: $align-margin-vertical;
+    margin-left: $align-margin-horizontal;
+}
+
+.aligncenter {
+    display: block;
+    margin: 0 auto $align-margin-vertical;
+    clear: both;
+}
