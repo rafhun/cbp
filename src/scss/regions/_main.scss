@@ -1,0 +1,19 @@
+.content-container {
+  @include container(1200px);
+}
+
+.header-img {
+  @include span(full);
+}
+
+.quicklinks {
+  @include span(full);
+}
+
+.home-content {
+  @include span(8);
+}
+
+.home-sidebar {
+  @include span(4);
+}

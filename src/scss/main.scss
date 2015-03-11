@@ -26,10 +26,10 @@
 @import 'components/staff';
 
 // page sections & regions
-@import 'regions/footer';
 @import 'regions/header';
-@import 'regions/main';
 @import 'regions/nav';
+@import 'regions/main';
+@import 'regions/footer';
 
 // non-semantic layout helper classes & placeholders
 @import 'helpers/visibility';
