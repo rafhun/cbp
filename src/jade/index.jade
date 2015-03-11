@@ -9,7 +9,7 @@ html(lang="{ACTIVE_LANGUAGE_NAME}")
         //- include favicons.html
 
         //- add dns prefetch link when using google webfonts
-        link(rel='dns-prefetch', href='//fonts.googleapis.com')
+        //- link(rel='dns-prefetch', href='//fonts.googleapis.com')
         link(rel='stylesheet', href='/themes/rafhun/style.min.css')
 
         //- grunticon loader
@@ -17,10 +17,29 @@ html(lang="{ACTIVE_LANGUAGE_NAME}")
     body(class='{CSS_NAME}')
         //- include ../images/shapes.svg
         <!--[if lt IE 8]><p class="browserupgrade">Sie benutzen einen <strong>veralteten</strong> Browser. Bitte <a href="http://browsehappy.com/">aktualisieren Sie Ihren Browser</a> um eine bessere Web Erfahrung geniessen zu k&ouml;nnen.</p><![endif]-->
-
-        //- content goes here
-        
-        div {CONTENT_FILE}
+        header.page-header
+            .logo
+                img.logo-img(src='//fakeimg.pl/535x123')
+            .metanav
+                ul.metanav-list
+                    li.metanav-list-item.language-navbar
+                        | {LANGUAGE_NAVBAR_SHORT}
+                    li.metanav-list-item
+                        a.metanav-link(href='#') Downloads
+                    li.metanav-list-item
+                        a.metanav-link(href='#') Links
+                    li.metanav-list-item
+                        a.metanav-link(href='#') Sitemap
+                form.metanav-search
+                    input.metanav-search-input#search-input(type='search', placeholder='Suchen', name='term')
+        nav.navigation(role='navigation')
+            | {NAVBAR_FILE}
+        .shadow
+            .content-container
+                .header-img
+                    img(src='//fakeimg.pl/1920x1080')
+                //- content goes here
+                | {CONTENT_FILE}
         
         script(src='http://fast.fonts.net/jsapi/5d4b0b0b-3738-4d30-a729-255608ae8b41.js' async)
         script(src='/themes/rafhun/script.min.js')

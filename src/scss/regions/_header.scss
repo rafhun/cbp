@@ -1,0 +1,11 @@
+.page-header {
+  @include container(1200px);
+}
+
+.logo {
+  @include span(9)
+}
+
+.metanav {
+  @include span(3);
+}
