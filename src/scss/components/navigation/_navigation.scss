@@ -87,7 +87,6 @@ with minimal effort.
   display: none;
 
   width: 100%;
-  height: $navigation-list-item-height;
 
   border-bottom: $navigation-border-width solid $navigation-border-color;
 
@@ -108,9 +107,11 @@ with minimal effort.
 .navigation-link {
   display: block;
   width: 100%; // fill out whole width of li with link
+  height: $navigation-height;
 
   color: $navigation-font-color;
   font-size: $navigation-font-size;
+  line-height: $navigation-height;
 
   padding: $navigation-link-padding;
 
