@@ -30,13 +30,15 @@
     "grunt-contrib-sass": "^0.9.2",
     "grunt-contrib-uglify": "^0.8.0",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-favicons": "^0.6.4",
+    "grunt-favicons": "git://github.com/marten-seemann/grunt-favicons#master",
+    "grunt-grunticon": "^2.1.6",
     "grunt-hashres": "^0.4.1",
     "grunt-hologram": "0.0.6",
     "grunt-mysql-dump": "^1.0.0",
     "grunt-newer": "^1.1.0",
     "grunt-replace": "^0.8.0",
     "grunt-shell": "^1.1.1",
+    "grunt-svgmin": "^2.0.1",
     "grunt-svgstore": "^0.5.0",
     "load-grunt-config": "^0.16.0",
     "load-grunt-tasks": "^3.1.0",
@@ -48,6 +50,7 @@
   "buildFolders": {
     "config": "wwwroot/config/",
     "theme": "wwwroot/themes/",
+    "icons": "icons/",
     "img": "images/",
     "contentImg": "wwwroot/images/",
     "fonts": "fonts/"
@@ -63,6 +66,8 @@
     "images": "src/images/",
     "themeImg": "src/images/theme/",
     "svg": "src/images/svg/",
+    "icons": "src/images/svg/icons/",
+    "iconsMin": "src/images/svg/icons-min/",
     "contentImg": "src/images/content-images/",
     "fonts": "src/fonts/",
     "secrets": "src/secrets/"
