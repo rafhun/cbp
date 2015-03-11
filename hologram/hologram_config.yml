@@ -17,6 +17,7 @@ index: readme
 # List all css to include for the styleguide render examples (path from styleguide directory)
 css_include:
   - /themes/rafhun/style.css
+  - /themes/rafhun/icons/icons.data.svg.css
 
 # List all js to include for the styleguide render examples (path from styleguide directory)
 js_include:

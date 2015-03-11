@@ -11,7 +11,9 @@ default:
  - 'svgstore'
  - 'autoprefixer'
  - 'cssmin'
- - 'favicons'
+ # - 'favicons'
+ - 'svgmin'
+ - 'grunticon'
  - 'htmlmin'
  - 'jade'
  - 'hashres'
@@ -73,3 +75,7 @@ setupUpdate:
 bsWatch:
   - 'browserSync'
   - 'watch'
+
+icons:
+  - 'svgmin'
+  - 'grunticon'
