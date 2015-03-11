@@ -1,12 +1,9 @@
 <!-- BEGIN navigation_dropdown -->
-ul.collapse.navbar-collapse.navbar-right#navigation
+ul.navigation-nav
+  li.navigation-list-item.nav-toggle
+    a.navigation-link.nav-toggle-button(href='#') Navigation
   <!-- BEGIN level_1 -->
-  li(class='level-1 {CSS_NAME}', data-navi='{CSS_NAME}') 
-    a(class='{STYLE} {CSS_NAME}', href='{URL}', target='{TARGET}', title='{NAME}') {NAME}
-    | {SUB_MENU}
-  <!-- END level_1 --><!-- BEGIN level_2 -->
-  li(class='level-2 hidden-md hidden-lg {CSS_NAME}', data-navi='{CSS_NAME}') 
-    a(class='{STYLE} {CSS_NAME}', href='{URL}', target='{TARGET}', title='{NAME}') {NAME}
-    | {SUB_MENU}
-  <!-- END level_2 -->
+  li.navigation-list-item 
+    a(class='{STYLE} {CSS_NAME} navigation-link', href='{URL}', target='{TARGET}', title='{NAME}') {NAME}
+  <!-- END level_1 -->
 <!-- END navigation_dropdown -->
