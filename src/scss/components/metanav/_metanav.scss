@@ -22,9 +22,9 @@ languages displayed?).
 <div class="metanav">
   <ul class="metanav-list">
     <li class="metanav-list-item language-navbar">
-      <a href="#" class="active metanav-link">DE</a>
-      <a href="#" class="metanav-link">FR</a>
-      <a href="#" class="metanav-link">EN</a>
+      <a href="#" class="active">DE</a>
+      <a href="#">FR</a>
+      <a href="#">EN</a>
     </li>
     <li class="metanav-list-item">
       <a href="#" class="metanav-link">Downloads</a>
@@ -75,14 +75,28 @@ languages displayed?).
 }
 
 .language-navbar {
-  .metanav-link::after {
-    content: "|";
+  & > a {
+    display: inline-block;
     color: $metanav-link-color;
-    padding-left: $metanav-link-padding / 2;
-  }
+    margin-left: $metanav-link-padding / 2;
 
-  .metanav-link:last-of-type::after {
-    content: "";
+    &:first-of-type {
+      margin-left: 0;
+    }
+
+    &::after {
+      content: "|";
+      color: $metanav-link-color;
+      padding-left: $metanav-link-padding / 2;
+    }
+
+    &:last-of-type::after {
+      content: "";
+    }
+
+    &.active {
+      color: $metanav-link-color-active;
+    }
   }
 }
 
