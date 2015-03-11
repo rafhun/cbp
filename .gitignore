@@ -84,3 +84,6 @@ favicons.html
 # secrets (config files, db passwords, etc)
 secrets.json
 wwwroot/config/configuration.php
+
+# contrexx generated sitemaps
+sitemap*.xml
