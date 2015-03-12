@@ -1,4 +1,5 @@
-$footer-color-background: $color-background !default;
+$footer-color-background: $grey-very-light !default;
+$footer-color-font: $color-primary !default;
 
 $footer-meta-color-background: $color-primary !default;
 $footer-meta-color-font: $white-smoke !default;
@@ -23,8 +24,49 @@ since the background colors have to span the full width of the page.
 ```html_example
 <footer class="page-footer">
   <div class="footer-container">
-    <div class="footer-navigation">
-      Footer Navigation follows here
+    <nav class="footer-navigation" role="navigation">
+      <ul class="footer-navigation-list">
+        <li class="footer-navigation-list-item">
+          <a class="footer-navigation-link" href="#">Home</a>
+        </li>
+        <li class="footer-navigation-list-item">
+          <a class="footer-navigation-link" href="#">&Uuml;ber uns</a>
+        </li>
+        <li class="footer-navigation-list-item">
+          <a class="footer-navigation-link" href="#">Behandlungen</a>
+        </li>
+        <li class="footer-navigation-list-item">
+          <a class="footer-navigation-link" href="#">Patienten</a>
+        </li>
+        <li class="footer-navigation-list-item">
+          <a class="footer-navigation-link" href="#">Medien</a>
+        </li>
+        <li class="footer-navigation-list-item">
+          <a class="footer-navigation-link" href="#">Kontakt</a>
+        </li>
+      </ul>
+    </nav>
+    <address class="footer-address">
+      <p>  
+        CHRISTENORTHO AG<br>
+        Dr. med., M. H. A. Bernhard Christen<br>
+        Orthop&auml;dische Klinik Bern<br>
+        Sch&auml;nzlistrasse 39<br>
+        CH-3000 Bern 25
+      </p>
+      <p>
+        Telefon +41 31 337 89 24<br>
+        Telefax +41 31 337 89 54<br>
+        <a href="mailto:info@christenortho.ch">info@christenortho.ch</a>
+      </p>
+    </address>
+    <div class="footer-award">
+      <figure>
+        <img class="footer-award-logo" src="//fakeimg.pl/240/fff000">
+        <figcaption class="footer-award-caption">
+          Ausgezeichnet im Facharzt Verzeichnis Leading Medicine Guide als Facharzt f&uuml;r Orthop&auml;die
+        </figcaption>
+      </figure>
     </div>
   </div>
 </footer>
@@ -51,10 +93,24 @@ since the background colors have to span the full width of the page.
 
 .page-footer {
   background: $footer-color-background;
+  color: $footer-color-font;
 }
 
 .footer-navigation {
-  @include span(full)
+  @include span(4);
+}
+
+.footer-address {
+  @include span(4);
+}
+
+.footer-award {
+  @include span(4);
+
+  img {
+    max-width: rem-calc(120);
+    height: auto;
+  }
 }
 
 .footer-aside {
@@ -67,7 +123,6 @@ since the background colors have to span the full width of the page.
 
 .footer-meta-list {
   list-style: none;
-  text-align: right;
 }
 
 .footer-meta-list-item {
