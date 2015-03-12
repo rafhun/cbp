@@ -11,7 +11,9 @@
 }
 
 .home-content {
-  @include span(8);
+  @include susy-media(md) {
+    @include span(8);
+  }
 }
 
 .home-sidebar {
