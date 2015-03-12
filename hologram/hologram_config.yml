@@ -22,7 +22,7 @@ css_include:
 # List all js to include for the styleguide render examples (path from styleguide directory)
 js_include:
   - /themes/rafhun/script.js
-  - http://fast.fonts.net/jsapi/5d4b0b0b-3738-4d30-a729-255608ae8b41.js"
+  - http://fast.fonts.net/jsapi/5d4b0b0b-3738-4d30-a729-255608ae8b41.js
 
 # String used to split the category name and create category wrapper
 name_scope: ' - '
