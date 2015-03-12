@@ -1,0 +1,41 @@
+// Here we define mixins we use throughout the styles
+// Take care to document them extensively inline
+
+/*
+Auto-Separator Mixin
+
+We use this mixin to automatically add freely definable separators
+to some elements (typically list items or links in metanavigations)
+
+@mixin separator($margins, $separator-color, $separator)
+
+The mixin takes the following arguments:
+* $margins: sets the margin from the text to the separator -> will be applied
+*   as margin-left to each element but the first and padding-left to each ::after
+*   pseudo class where the separator is defined. If not set it defaults to rem-calc(6)
+* $separator-color: can be used to explicitly set the color of the separator.
+*   Defaults to inherit.
+* $separator: defines the separator used itself, defaults to "|"
+
+The mixin works as follows: The separator is added as content to the ::after pseudo
+element of each element but the last and set off the text with margin-left on the
+text and padding-left on the pseudo element. 
+ */
+
+@mixin separator($margins: rem-calc(6), $separator-color: inherit, $separator: "|") {
+  margin-left: $margins;
+
+  &:first-of-type {
+    margin-left: 0;
+  }
+
+  &::after {
+    content: $separator;
+    color: $separator-color;
+    padding-left: $margins;
+  }
+
+  &:last-of-type::after {
+    content: "";
+  }
+}
