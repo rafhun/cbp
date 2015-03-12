@@ -1,0 +1,85 @@
+$footer-color-background: $color-background !default;
+
+$footer-meta-color-background: $color-primary !default;
+$footer-meta-color-font: $white-smoke !default;
+$footer-meta-font-size: rem-calc(16) !default;
+$footer-meta-height: $navigation-height !default;
+$footer-meta-link-padding: rem-calc(6) !default;
+
+/*doc
+---
+title: Footer
+category: Regions
+---
+
+The footer consists of two full width parts with different color
+schemes. On top is the footer navigation with dark text on a light
+background and below is the footer meta navigation with dark background
+on light text.
+
+The susy containers must be put into the outer footer containers
+since the background colors have to span the full width of the page.
+
+```html_example
+<footer class="page-footer">
+  <div class="footer-container">
+    <div class="footer-navigation">
+      Footer Navigation follows here
+    </div>
+  </div>
+</footer>
+<aside class="footer-aside">
+  <div class="footer-container">
+    <div class="footer-meta">
+      <ul class="footer-meta-list">
+        <li class="footer-meta-list-item">
+          <a class="footer-meta-link" href="#">Impressum</a>
+        </li>
+        <li class="footer-meta-list-item">
+          <a class="footer-meta-link" href="#">Disclaimer</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</aside>
+```
+*/
+
+.footer-container {
+  @include container($container-width);
+}
+
+.page-footer {
+  background: $footer-color-background;
+}
+
+.footer-navigation {
+  @include span(full)
+}
+
+.footer-aside {
+  background: $footer-meta-color-background;
+}
+
+.footer-meta {
+  @include span(full)
+}
+
+.footer-meta-list {
+  list-style: none;
+  text-align: right;
+}
+
+.footer-meta-list-item {
+  display: inline-block;
+
+  @include separator($footer-meta-link-padding, $footer-meta-color-font);
+}
+
+.footer-meta-link {
+  height: $footer-meta-height;
+  
+  font-size: $footer-meta-font-size;
+  color: $footer-meta-color-font;
+  line-height: $footer-meta-height;
+}
