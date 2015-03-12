@@ -78,21 +78,8 @@ languages displayed?).
   & > a {
     display: inline-block;
     color: $metanav-link-color;
-    margin-left: $metanav-link-padding / 2;
-
-    &:first-of-type {
-      margin-left: 0;
-    }
-
-    &::after {
-      content: "|";
-      color: $metanav-link-color;
-      padding-left: $metanav-link-padding / 2;
-    }
-
-    &:last-of-type::after {
-      content: "";
-    }
+    
+    @include separator($metanav-link-padding / 2, $metanav-link-color);
 
     &.active {
       color: $metanav-link-color-active;
