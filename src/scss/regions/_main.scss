@@ -1,5 +1,5 @@
 .content-container {
-  @include container(1200px);
+  @include container($container-width);
 }
 
 .header-img {
