@@ -1,0 +1,50 @@
+/*doc
+---
+title: Footer Navigation
+category: Components - Navigation
+---
+
+This navigation only appears in the footer of our page. Maybe think about a less
+semantic way of expressing this name which would make the component reusable on
+a larger scale. Maybe something like 'Vertical Navigation List'?
+
+```html_example
+<nav class="footer-navigation" role="navigation">
+  <ul class="footer-navigation-list">
+    <li class="footer-navigation-list-item">
+      <a class="footer-navigation-link" href="#">Home</a>
+    </li>
+    <li class="footer-navigation-list-item">
+      <a class="footer-navigation-link" href="#">&Uuml;ber uns</a>
+    </li>
+    <li class="footer-navigation-list-item">
+      <a class="footer-navigation-link" href="#">Behandlungen</a>
+    </li>
+    <li class="footer-navigation-list-item">
+      <a class="footer-navigation-link" href="#">Patienten</a>
+    </li>
+    <li class="footer-navigation-list-item">
+      <a class="footer-navigation-link" href="#">Medien</a>
+    </li>
+    <li class="footer-navigation-list-item">
+      <a class="footer-navigation-link" href="#">Kontakt</a>
+    </li>
+  </ul>
+</nav>
+```
+*/
+.footer-navigation-list {
+  list-style: none;
+}
+
+.footer-navigation-link {
+  font-size: $footernav-font-size;
+  line-height: $footernav-line-height;
+  color: $footernav-font-color;
+
+  &:hover,
+  &:active,
+  &:focus {
+    text-decoration: $footernav-text-decoration-hover;
+  }
+}
