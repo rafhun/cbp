@@ -52,3 +52,6 @@ $susy-media: (
   md-lg: 60rem 80rem,
   to-sm: max-width 39.9375rem
 );
+
+// standard container max-width
+$container-width: rem-calc(1200) !default;
