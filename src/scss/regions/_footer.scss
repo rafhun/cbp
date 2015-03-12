@@ -1,5 +1,12 @@
+$page-footer-padding-top: rem-calc(36) !default;
+
 $footer-color-background: $grey-very-light !default;
 $footer-color-font: $color-primary !default;
+
+$footer-address-font-size: rem-calc(16) !default;
+$footer-address-font-style: normal !default;
+
+$footer-award-caption-font-size: rem-calc(16) !default;
 
 $footer-meta-color-background: $color-primary !default;
 $footer-meta-color-font: $white-smoke !default;
@@ -94,6 +101,8 @@ since the background colors have to span the full width of the page.
 .page-footer {
   background: $footer-color-background;
   color: $footer-color-font;
+
+  padding-top: $page-footer-padding-top;
 }
 
 .footer-navigation {
@@ -102,6 +111,11 @@ since the background colors have to span the full width of the page.
 
 .footer-address {
   @include span(4);
+
+  p {
+    font-size: $footer-address-font-size;
+    font-style: $footer-address-font-style;
+  }
 }
 
 .footer-award {
@@ -110,6 +124,10 @@ since the background colors have to span the full width of the page.
   img {
     max-width: rem-calc(120);
     height: auto;
+  }
+
+  figcaption {
+    font-size: $footer-award-caption-font-size;
   }
 }
 
@@ -137,4 +155,10 @@ since the background colors have to span the full width of the page.
   font-size: $footer-meta-font-size;
   color: $footer-meta-color-font;
   line-height: $footer-meta-height;
+
+  &:hover,
+  &:active,
+  &:focus {
+    text-decoration: none;
+  }
 }
