@@ -37,12 +37,8 @@ html(lang="{ACTIVE_LANGUAGE_NAME}")
                     span.icon-search
         nav.navigation(role='navigation')
             | {NAVBAR_FILE}
-        .shadow
-            .content-container
-                .header-img
-                    img(src='//fakeimg.pl/1920x1080')
-                //- content goes here
-                | {CONTENT_FILE}
+        //- content goes here
+        | {CONTENT_FILE}
         footer.page-footer
             .footer-container {NAVBAR2_FILE}
                 address.footer-address
