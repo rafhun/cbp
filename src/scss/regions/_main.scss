@@ -1,7 +1,10 @@
+$content-title-margin-top: $subnav-list-item-margin !default;
+
 .content-container {
   @include container($container-width);
 }
 
+// styles for the home page
 .header-img {
   @include span(full);
 }
@@ -19,3 +22,32 @@
 .home-sidebar {
   @include span(4);
 }
+
+// ------------------------------------------------
+// styles for the content pages
+.content-title {
+  // set content title off navigation or header-img
+  margin-top: $content-title-margin-top;
+}
+.content-sidebar {
+  @include susy-media(sm) {
+    @include span(4);
+  }
+}
+
+.content-content {
+  @include susy-media(sm) {
+    @include span(8 nest);
+  }
+}
+
+@include nested(8) {
+  .content-header {
+    @include span(full);
+  }
+
+  .content-main {
+    @include span(full);
+  }
+}
+

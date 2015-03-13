@@ -1,5 +1,8 @@
-section.content
-  article
-    header.site-header
-      h1.page-title {CONTENT_TITLE}
-    main.main-content {CONTENT_TEXT}
+.content-container
+  section.content-sidebar {SUBNAVBAR_FILE}
+  section.content-content.shadow
+    article
+      header.content-header
+        | {BLOCK_CAT_5}
+        h1.content-title {CONTENT_TITLE}
+      main.content-main {CONTENT_TEXT}
