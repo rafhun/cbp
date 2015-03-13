@@ -39,6 +39,7 @@ languages displayed?).
 
   <form class="metanav-search">
     <input class="metanav-search-input" type="search" placeholder="Suchen / Search" id="search-input" name="term">
+    <span class="icon-search"></span>
   </form>
 ```
 
@@ -87,10 +88,22 @@ languages displayed?).
   }
 }
 
+.metanav-search {
+  position: relative;
+
+  .icon-search {
+    @include absolute($metanav-search-icon-position);
+    width: $metanav-search-icon-size;
+    height: $metanav-search-icon-size;
+    background-size: $metanav-search-icon-size;
+  }
+}
+
 .metanav-search-input {
   width: 100%; // stretch search field over whole width in mobile view
+  padding-right: $metanav-search-icon-offset;
 
   @include susy-media(sm) {
-    width: auto;
+    // width: auto;
   }
 }

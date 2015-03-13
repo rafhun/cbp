@@ -2,3 +2,14 @@ $metanav-font-size: rem-calc(16) !default;
 $metanav-link-color: $color-text !default;
 $metanav-link-color-active: $color-primary !default;
 $metanav-link-padding: rem-calc(12) !default;
+
+// smells fishy -> magical number, find nicer positioning
+$metanav-search-icon-position: top .5rem right $input-padding !default;
+$metanav-search-icon-size: 1rem !default;
+
+// add this as padding right to the input field to make space
+// for the icon. Computes as the width of the icon plus the
+// initial padding of the input field * 2 (icon is set off
+// by the padding and there should always be some space between
+// the input and the icon)
+$metanav-search-icon-offset: $metanav-search-icon-size + 2 * $input-padding !default;
