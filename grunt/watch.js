@@ -11,14 +11,14 @@ module.exports = {
   },
   scripts: {
     files: ['<%= pkg.srcFolders.js %>**/*.js'],
-    tasks: ['clean:hashes', 'concat', 'uglify', 'jade', 'hashres'],
+    tasks: ['clean:hashedJs', 'concat', 'uglify', 'jade', 'hashres'],
     options: {
       spawn: false,
     }
   },
   styles: {
     files: ['<%= pkg.srcFolders.scss %>**/*.scss'],
-    tasks: ['clean:hashes', 'sass', 'autoprefixer', 'cssmin', 'jade', 'hashres', 'hologram'],
+    tasks: ['clean:hashedCss', 'sass', 'autoprefixer', 'cssmin', 'jade', 'hashres', 'hologram'],
     options: {
       spawn: false,
     }
@@ -46,7 +46,7 @@ module.exports = {
   },
   jade: {
     files: ['<%= pkg.srcFolders.jade %>*.{jade,html}'],
-    tasks: ['clean:hashes', 'jade', 'hashres'],
+    tasks: ['clean:hashes', 'jade', 'cssmin', 'uglify','hashres'],
     options: {
       spawn: false,
     }
