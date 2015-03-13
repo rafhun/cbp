@@ -11,14 +11,14 @@ module.exports = {
   },
   scripts: {
     files: ['<%= pkg.srcFolders.js %>**/*.js'],
-    tasks: ['clean:hashes', 'concat', 'uglify', 'hashres'],
+    tasks: ['clean:hashes', 'concat', 'uglify', 'jade', 'hashres'],
     options: {
       spawn: false,
     }
   },
   styles: {
     files: ['<%= pkg.srcFolders.scss %>**/*.scss'],
-    tasks: ['clean:hashes', 'sass', 'autoprefixer', 'cssmin', 'hashres', 'hologram'],
+    tasks: ['clean:hashes', 'sass', 'autoprefixer', 'cssmin', 'jade', 'hashres', 'hologram'],
     options: {
       spawn: false,
     }
