@@ -1,0 +1,10 @@
+// how the component is usually laid out on the page
+.team {
+  // since the staff elements within this container are floated
+  // we need a clearfix for the shadow element to appear correctly.
+  @include clearfix();
+}
+
+.staff {
+  @include span(4 of 8);
+}
