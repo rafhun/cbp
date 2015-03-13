@@ -1,0 +1,88 @@
+/*doc
+---
+title: Accordions
+category: Components
+---
+
+The accordions are collapsable UI elements. They are used heavily for the FAQ
+section of the page and rely on some Javascript to work correctly. So make sure
+to include the component's script in your concatenated script file.
+
+```html_example
+<h3 class="accordion-title in">
+  <a href="#" class="accordion-link">Arthrose des Kniegelenks (Gonarthrose)</a>
+</h3>
+<div class="accordion-container">
+  <p>
+    Verschleiss der Knorpelflächen und Meniski im Kniegelenk. Die Arthrose kann sich isoliert innen oder aussen respektive im Kniescheibengelenk abspielen oder das ganze Gelenk betreffen.
+  </p>
+  <h4 class="accordion-subheading">Symptome und Diagnostik</h4>
+  <ul class="pdf-list">
+    <li>
+      <a href="#" class="icon-pdf link-icon">Arthrose und Behandlungsm&ouml;glichkeiten</a>
+    </li>
+  </ul>
+  <h4 class="accordion-subheading">Anatomie</h4>
+  <ul class="pdf-list">
+    <li>
+      <a href="#" class="icon-pdf link-icon">Anatomie des Kniegelenkes</a>
+    </li>
+    <li>
+      <a href="#" class="icon-pdf link-icon">Anatomische Grundbegriffe</a>
+    </li>
+  </ul>
+</div>
+<h3 class="accordion-title">
+  <a href="#" class="accordion-link">Meniskusschaden / Meniskusl&auml;sion / Meniskusriss</a>
+</h3>
+<div class="accordion-container">
+  <p>
+    Unfall- oder verschleissbedingter Riss im Innen- oder Aussenmeniskus mit Schmerzen bei belasteten Drehbewegungen, eventuell verbunden mit Einklemmungsgefühl und Schwellung des Knies.
+  </p>
+  <h4 class="accordion-subheading">Symptome und Diagnostik</h4>
+  <ul class="pdf-list">
+    <li>
+      <a href="#" class="icon-pdf link-icon">Der Meniskusriss</a>
+    </li>
+  </ul>
+  <h4 class="accordion-subheading">Anatomie</h4>
+  <ul class="pdf-list">
+    <li>
+      <a href="#" class="icon-pdf link-icon">Anatomie des Kniegelenkes</a>
+    </li>
+    <li>
+      <a href="#" class="icon-pdf link-icon">Anatomische Grundbegriffe</a>
+    </li>
+  </ul>
+</div>
+```
+*/
+
+.accordion-link {
+  display: block;
+  height: $accordion-heading-height;
+
+  color: $accordion-heading-color;
+  line-height: $accordion-heading-height;
+
+  border-top: 1px solid $accordion-heading-border-color;
+  border-bottom: 1px solid $accordion-heading-border-color;
+
+  .in & {
+    color: $accordion-heading-color-in;
+
+    border-bottom: 0;
+  }
+}
+
+.accordion-container {
+  display: none;
+
+  .in + & {
+    display: block;
+  }
+}
+
+.accordion-subheading {
+  color: $accordion-subheading-color;
+}
