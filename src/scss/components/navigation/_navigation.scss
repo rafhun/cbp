@@ -7,7 +7,10 @@ This ist the main navigation used on top of the page. It will collapse for
 mobile screens and span the whole width as a navigation bar on larger screens.
 
 Eventually the navigation will be built by Contrexx, so take care to apply the
-correct placeholders where needed.
+correct placeholders where needed. Unfortunately standard Contrexx installations
+set the `.starter-active` class for active navigation items on the first level.
+Since customizing this would take more time than adjusting the class here we do it
+in the CSS.
 
 This first example shows the navigation in its mobile closed state meaning that
 for the mobile view the normal list items are collapsed out of view and instead
@@ -28,7 +31,7 @@ Following below is the example of a opened navigation.
       <a class="navigation-link" href="#">Behandlungen</a>
     </li>
     <li class="navigation-list-item">
-      <a class="navigation-link active" href="#">Patienten</a>
+      <a class="navigation-link starter_active" href="#">Patienten</a>
     </li>
     <li class="navigation-list-item">
       <a class="navigation-link" href="#">Medien</a>
@@ -57,7 +60,7 @@ with minimal effort.
       <a class="navigation-link" href="#">Behandlungen</a>
     </li>
     <li class="navigation-list-item">
-      <a class="navigation-link active" href="#">Patienten</a>
+      <a class="navigation-link starter_active" href="#">Patienten</a>
     </li>
     <li class="navigation-list-item">
       <a class="navigation-link" href="#">Medien</a>
@@ -115,7 +118,7 @@ with minimal effort.
 
   padding: $navigation-link-padding;
 
-  &.active,
+  &.starter_active,
   &:hover,
   &:active,
   &:focus {
