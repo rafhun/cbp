@@ -1,1 +1,12 @@
 // basic list styling
+ul {
+  list-style: none;
+}
+
+ul + h4 {
+  // set the h4 the same off a ul as a p
+  // for christenortho this is needed within the accordions
+  // add more selectors should the situation occur in other
+  // places as well
+  margin-top: $paragraph-bottom-margin;
+}
