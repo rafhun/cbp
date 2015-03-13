@@ -18,6 +18,7 @@
 @import 'base/code';
 
 // modular, reusable UI components
+@import 'components/accordion';
 @import 'components/buttons';
 @import 'components/news-teaser';
 @import 'components/shortlinks';
@@ -34,6 +35,6 @@
 @import 'regions/footer';
 
 // non-semantic layout helper classes & placeholders
-@import 'helpers/visibility';
-@import 'helpers/shadows';
 @import 'helpers/alignments';
+@import 'helpers/shadows';
+@import 'helpers/visibility';
