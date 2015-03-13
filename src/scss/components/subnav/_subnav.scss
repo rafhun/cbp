@@ -53,12 +53,17 @@ placeholders.
  */
 .subnav {
   font-size: $subnav-font-size;
+
+  // make space for the triangle to the right
+  padding-right: $subnav-triangle-height;
+
+  // set off the main navbar
+  margin-top: $subnav-list-item-height / 2;
 }
 
 .subnav-list-item {
   display: inline-block;
   width: 100%;
-  height: $subnav-list-item-height;
 
   position: relative; // needed for triangle
 
@@ -96,6 +101,9 @@ placeholders.
 .subnav-link {
   display: block;
   width: 100%; // make whole li clickable resp. fill out li with a
+  height: $subnav-list-item-height;
+
+  line-height: $subnav-list-item-height;
 
   padding: $subnav-link-padding;
 
