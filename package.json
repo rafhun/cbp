@@ -61,6 +61,7 @@
     "css": "src/css/",
     "scss": "src/scss/",
     "js": "src/js/",
+    "componentsJs": "src/js/components",
     "jsBuild": "src/js/build/",
     "jade": "src/jade/",
     "images": "src/images/",
