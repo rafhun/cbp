@@ -94,7 +94,11 @@ to include the component's script in your concatenated script file.
 }
 
 .accordion-container {
-  display: none;
+  @if $EDITOR-STYLES {
+    display: block;
+  } @else {
+    display: none;
+  }
   padding-bottom: $accordion-container-padding-bottom;
 
   .in + & {
