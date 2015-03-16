@@ -1,9 +1,14 @@
+$header-padding: gutter() 0;
+
 .page-header {
   @include container($container-width);
+  padding: $header-padding;
 }
 
 .logo {
-  @include span(9)
+  @include span(9);
+
+  line-height: 0;
 }
 
 .metanav {
