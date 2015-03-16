@@ -80,3 +80,7 @@ icons:
   - 'svgmin'
   - 'grunticon'
   
+ckstyles:
+  - 'clean:ckstyles'
+  - 'sass:ckstyles'
+  - 'autoprefixer:ckstyles'

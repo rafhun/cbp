@@ -5,5 +5,9 @@ module.exports = {
   single_files: {
     src: '<%= sass.dist.dest %>',
     dest: '<%= destFolder %>style.css'
+  },
+  ckstyles: {
+    src: '<%=sass.ckstyles.dest %>',
+    dest: '<%= destFolder %>styles-ck.css'
   }
 }

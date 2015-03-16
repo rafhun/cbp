@@ -6,5 +6,6 @@ module.exports = {
   images: ['<%= destFolder %><%= pkg.buildFolders.img %>'],
   dest: ['<%= destFolder %>'],
   unhashed: ['<%= destFolder %>{style.min.css,script.min.js}'],
-  contrexx: ['wwwroot/images/**/*.{jpg,jpeg,gif,png,thumb,pdf,ico,db,html}', 'wwwroot/themes/skeleton_3_0']
+  contrexx: ['wwwroot/images/**/*.{jpg,jpeg,gif,png,thumb,pdf,ico,db,html}', 'wwwroot/themes/skeleton_3_0'],
+  ckstyles: ['<%= destFolder %>style-ck.css']
 }
