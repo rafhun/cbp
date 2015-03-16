@@ -8,5 +8,11 @@ module.exports = {
         filter: 'isFile'
       }
     ]
+  },
+  editorConfig: {
+    files: [{
+      src: '<%= pkg.srcFolders.config %>ckeditor.config.js.php',
+      dest: '<%= pkg.buildFolders.editorConfig %>ckeditor.config.js.php'
+    }]
   }
 }

@@ -49,6 +49,7 @@
   "devUrl": "http://christenortho.dev",
   "buildFolders": {
     "config": "wwwroot/config/",
+    "editorConfig": "wwwroot/core/Wysiwyg/",
     "theme": "wwwroot/themes/",
     "icons": "icons/",
     "img": "images/",

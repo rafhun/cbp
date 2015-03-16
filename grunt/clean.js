@@ -7,5 +7,6 @@ module.exports = {
   dest: ['<%= destFolder %>'],
   unhashed: ['<%= destFolder %>{style.min.css,script.min.js}'],
   contrexx: ['wwwroot/images/**/*.{jpg,jpeg,gif,png,thumb,pdf,ico,db,html}', 'wwwroot/themes/skeleton_3_0'],
-  ckstyles: ['<%= destFolder %>style-ck.css']
+  editorStyles: ['<%= destFolder %>style-ck.css'],
+  editorConfig: ['wwwroot/core/Wysiwyg/ckeditor.config.js.php']
 }

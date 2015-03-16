@@ -61,18 +61,21 @@ CKEDITOR.editorConfig = function( config )
     config.height = 307;
     config.uiColor = '#ececec';
 
-    config.forcePasteAsPlainText = false;
-    config.enterMode = CKEDITOR.ENTER_BR;
-    config.shiftEnterMode = CKEDITOR.ENTER_P;
-    config.startupOutlineBlocks = true;
+    config.forcePasteAsPlainText = true;
+    config.enterMode = CKEDITOR.ENTER_P;
+    config.shiftEnterMode = CKEDITOR.ENTER_BR;
+    config.startupOutlineBlocks = true; // if true blocks get shown by a border and their type
     config.allowedContent = true;
+
+    config.contentsCss = '/themes/rafhun/styles-ck.css'; // apply custom stylesheet
+    config.templates_replaceContent = false;
     
-    config.ignoreEmptyParagraph = false;
+    config.ignoreEmptyParagraph = true;
     config.protectedSource.push(/<i[^>]*><\/i>/g);
     config.protectedSource.push(/<span[^>]*><\/span>/g);
     config.protectedSource.push(/<a[^>]*><\/a>/g);
 
-    config.tabSpaces = 4;
+    config.tabSpaces = 2;
 
     config.filebrowserBrowseUrl      = CKEDITOR.getUrl('<?php echo $linkBrowser; ?>');
     config.filebrowserImageBrowseUrl = CKEDITOR.getUrl('<?php echo $defaultBrowser; ?>');

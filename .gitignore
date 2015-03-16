@@ -84,6 +84,8 @@ favicons.html
 # secrets (config files, db passwords, etc)
 secrets.json
 wwwroot/config/configuration.php
+# editor config -> copied from src/config folder
+wwwroot/core/Wysiwyg/ckeditor.config.js.php
 
 # contrexx generated sitemaps
 sitemap*.xml
