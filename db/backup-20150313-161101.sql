@@ -1,4 +1,3 @@
-Warning: Using a password on the command line interface can be insecure.
 -- MySQL dump 10.13  Distrib 5.6.23, for osx10.10 (x86_64)
 --
 -- Host: localhost    Database: christen_ortho
