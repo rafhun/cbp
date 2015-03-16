@@ -93,7 +93,7 @@ CKEDITOR.editorConfig = function( config )
         ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
         ['Link','Unlink','Anchor'],
         ['Image','Flash','Table','HorizontalRule','SpecialChar'],
-        ['Format'],
+        ['Format', 'Styles'],
         ['TextColor','BGColor'],
         ['ShowBlocks'],
         ['Maximize'],
@@ -116,7 +116,7 @@ CKEDITOR.editorConfig = function( config )
         ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
         ['Link','Unlink','Anchor'],
         ['Image','Flash','Table','HorizontalRule','SpecialChar'],
-        ['Format'],
+        ['Format', 'Styles'],
         ['TextColor','BGColor'],
         ['ShowBlocks']
     ];

@@ -14,5 +14,13 @@ module.exports = {
       src: '<%= pkg.srcFolders.config %>ckeditor.config.js.php',
       dest: '<%= pkg.buildFolders.editorConfig %>ckeditor.config.js.php'
     }]
+  },
+  customizing: {
+    files: [{
+      expand: true,
+      cwd: '<%= pkg.srcFolders.customizing %>',
+      src: ['**'],
+      dest: '<%= pkg.buildFolders.customizing %>'
+    }]
   }
 }

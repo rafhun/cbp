@@ -1,6 +1,8 @@
 default:
-  - 'clean:ckstyles'
+  - 'clean:editorConfig'
+  - 'clean:customizing'
   - 'clean:dest'
+  - 'copy:customizing'
   - 'copy:editorConfig'
   - 'copy:fonts'
   - 'jshint:grunt'
