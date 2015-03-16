@@ -91,7 +91,7 @@ languages displayed?).
 .metanav-search {
   position: relative;
 
-  .icon-search {
+  .icon {
     @include absolute($metanav-search-icon-position);
     width: $metanav-search-icon-size;
     height: $metanav-search-icon-size;
