@@ -4,6 +4,9 @@
  * Since this is so poorly programmed by Comvation that automatic
  * paragraph elements are put around the title when FE is activated
  * the functionality has to be removed completely.
+ *
+ * The solution would be to load the editor around the h1 tags not just
+ * inside of them, should not be too difficult.
  */
 
 
