@@ -1,4 +1,5 @@
 $content-title-margin-top: $subnav-list-item-margin !default;
+$content-main-padding: 3 * gutter() !default;
 
 .content-container {
   @include container($container-width);
@@ -39,6 +40,10 @@ $content-title-margin-top: $subnav-list-item-margin !default;
   @include susy-media(sm) {
     @include span(8 nest);
   }
+
+  article {
+    @include clearfix();
+  }
 }
 
 @include nested(8) {
@@ -48,6 +53,8 @@ $content-title-margin-top: $subnav-list-item-margin !default;
 
   .content-main {
     @include span(full);
+
+    padding-bottom: $content-main-padding;
   }
 }
 
