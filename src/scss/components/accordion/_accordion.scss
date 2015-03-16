@@ -57,6 +57,19 @@ to include the component's script in your concatenated script file.
 </div>
 ```
 */
+.accordion-title {
+  // setting margins to 0 for nice alignment
+  margin-bottom: 0;
+  margin-top: 0;
+
+  &:last-of-type {
+    border-bottom: 1px solid $accordion-heading-border-color;
+
+    &.in {
+      border-bottom: 0;
+    }
+  }
+}
 
 .accordion-link {
   display: block;
@@ -66,17 +79,23 @@ to include the component's script in your concatenated script file.
   line-height: $accordion-heading-height;
 
   border-top: 1px solid $accordion-heading-border-color;
-  border-bottom: 1px solid $accordion-heading-border-color;
 
   .in & {
     color: $accordion-heading-color-in;
 
     border-bottom: 0;
   }
+
+  &:hover,
+  &:active,
+  &:focus {
+    text-decoration: none;
+  }
 }
 
 .accordion-container {
   display: none;
+  padding-bottom: $accordion-container-padding-bottom;
 
   .in + & {
     display: block;
