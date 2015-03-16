@@ -8,7 +8,10 @@ module.exports = {
     }],
     options: {
       'compressPNG': true,
-
+      'colors': {
+        lines: '#CACACA',
+      },
+      dynamicColorOnly: true
     }
   }
 }

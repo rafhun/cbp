@@ -37,6 +37,13 @@ module.exports = {
       spawn: false,
     }
   },
+  grunticon: {
+    files: ['<%= pkg.srcFolders.icons %>*.svg'],
+    tasks: ['grunticon'],
+    options: {
+      spawn: false,
+    }
+  },
   favicons: {
     files: ['<%= pkg.srcFolders.images %>favicon.png'],
     tasks: ['clean:hashes','favicons', 'htmlmin', 'jade', 'hashres'],
