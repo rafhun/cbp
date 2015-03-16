@@ -38,3 +38,9 @@
 @import 'helpers/alignments';
 @import 'helpers/shadows';
 @import 'helpers/visibility';
+
+// set the following variable to true if you want to output the
+// editor stylesheet. After running the task grunt ckstyles you
+// should immediately reset this variable to false or you might
+// get unexpected results when compiling your code the next time.
+$EDITOR-STYLES: false;
