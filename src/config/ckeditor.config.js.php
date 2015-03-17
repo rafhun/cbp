@@ -67,7 +67,7 @@ CKEDITOR.editorConfig = function( config )
     config.startupOutlineBlocks = true; // if true blocks get shown by a border and their type
     config.allowedContent = true;
 
-    config.contentsCss = '/themes/rafhun/styles-ck.css'; // apply custom stylesheet
+    config.contentsCss = '/themes/rafhun/editor-styles.css'; // apply custom stylesheet
     config.templates_replaceContent = false;
     
     config.ignoreEmptyParagraph = true;

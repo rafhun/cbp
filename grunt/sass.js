@@ -8,13 +8,13 @@ module.exports = {
     src: '<%= pkg.srcFolders.scss %>main.scss',
     dest: '<%= pkg.srcFolders.css %>style.css',
   },
-  ckstyles: {
+  editorStyles: {
     options: {
       style: 'expanded',
       bundleExec: true,
       require: 'susy'
     },
     src: '<%= pkg.srcFolders.scss %>main.scss',
-    dest: '<%= pkg.srcFolders.css %>styles-ck.css'
+    dest: '<%= pkg.srcFolders.css %>editor-styles.css'
   }
 }

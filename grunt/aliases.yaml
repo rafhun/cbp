@@ -84,7 +84,7 @@ icons:
   - 'svgmin'
   - 'grunticon'
   
-ckstyles:
-  - 'clean:ckstyles'
-  - 'sass:ckstyles'
-  - 'autoprefixer:ckstyles'
+editorStyles:
+  - 'clean:editorStyles'
+  - 'sass:editorStyles'
+  - 'autoprefixer:editorStyles'

@@ -6,8 +6,8 @@ module.exports = {
     src: '<%= sass.dist.dest %>',
     dest: '<%= destFolder %>style.css'
   },
-  ckstyles: {
+  editorStyles: {
     src: '<%=sass.ckstyles.dest %>',
-    dest: '<%= destFolder %>styles-ck.css'
+    dest: '<%= destFolder %>editor-styles.css'
   }
 }
