@@ -22,6 +22,10 @@ $EDITOR-STYLES: false;
 @import 'base/media';
 @import 'base/code';
 
+// not whole components but also not base stuff, components are built by combining
+// parts with base elements (i. e. link icons, search fields, ...)
+@import 'parts/link-icons';
+
 // modular, reusable UI components
 @import 'components/buttons';
 
