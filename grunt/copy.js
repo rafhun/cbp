@@ -15,6 +15,12 @@ module.exports = {
       dest: '<%= pkg.buildFolders.editorConfig %>ckeditor.config.js.php'
     }]
   },
+  editorStyles: {
+    files: [{
+      src: '<%= pkg.srcFolders.css %>editor-styles.css',
+      dest: '<%= destFolder %>editor-styles.css'
+    }]
+  },
   customizing: {
     files: [{
       expand: true,

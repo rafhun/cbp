@@ -4,6 +4,7 @@ default:
   - 'clean:dest'
   - 'copy:customizing'
   - 'copy:editorConfig'
+  - 'copy:editorStyles'
   - 'copy:fonts'
   - 'jshint:grunt'
   - 'jshint:src'
