@@ -54,3 +54,19 @@ body {
 ```
 
 The mixin is very easy to use. Just reference the variable from the map you have created. It is also possible to put in concrete values should you need a breakpoint or rather tweakpoint for certain components. Also with the mixin it is currently not possible to automatically create a min-width, max-width pairing by just referencing to variables. Some extra stuff has to be defined for this to work.
+
+## Editor Styles
+The `main.scss` file defines the boolean `$EDITOR-STYLES` on top of the whole document. This boolean enables us to define editor specific styles which is especially important for things that may be hidden in the frontend by default. The boolean should be used as follows:
+
+```
+.element {
+    @if $EDITOR-STYLES {
+        display: block;
+    } @else {
+        display: none;
+}
+```
+
+Therefore if `$EDITOR-STYLES` is set to true, the `.element` will not be hidden, while the default setting for the frontend is for it to be hidden. Think about the editor styles when writing your styles in the first place to prevent a search and rescue operation once you are finished to locate where styles might be that should show up in the editor.
+
+To create the editor stylesheet it is recommended to set the `$EDITOR-STYLES` variable to true, then run `grunt editorStyles` and immediately after that reset the variable to false. Otherwise you might get unexpected results.
