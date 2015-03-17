@@ -1,5 +1,5 @@
 module.exports = {
-  dist: {
+  main: {
     options: {
       style: 'expanded',
       bundleExec: true,

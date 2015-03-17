@@ -13,7 +13,7 @@ module.exports = {
   },
   styles: {
     files: ['<%= pkg.srcFolders.scss %>**/*.scss'],
-    tasks: ['clean:hashedCss', 'sass', 'autoprefixer', 'cssmin', 'uglify', 'jade', 'hashres', 'hologram']
+    tasks: ['clean:hashedCss', 'sass:main', 'autoprefixer:main', 'cssmin', 'uglify', 'jade', 'hashres', 'hologram']
   },
   images: {
     files: ['<%= pkg.srcFolders.images %>**/*.{png,jpg,gif}'],

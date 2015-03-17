@@ -2,12 +2,12 @@ module.exports = {
   options: {
     browsers: ['last 2 versions']
   },
-  single_files: {
-    src: '<%= sass.dist.dest %>',
+  main: {
+    src: '<%= sass.main.dest %>',
     dest: '<%= destFolder %>style.css'
   },
   editorStyles: {
-    src: '<%=sass.ckstyles.dest %>',
+    src: '<%=sass.editorStyles.dest %>',
     dest: '<%= destFolder %>editor-styles.css'
   }
 }
