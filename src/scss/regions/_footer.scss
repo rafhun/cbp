@@ -14,6 +14,13 @@ $footer-meta-font-size: rem-calc(16) !default;
 $footer-meta-height: $navigation-height !default;
 $footer-meta-link-padding: rem-calc(6) !default;
 
+$footer-human-height: rem-calc(254) !default;
+$footer-human-offset-top: $footer-human-height + $page-footer-padding-top !default;
+$footer-human-offset-left: rem-calc(80) !default;
+
+// defined down here because image height is taken into account
+$page-footer-margin-top: $footer-human-offset-top !default;
+
 /*doc
 ---
 title: Footer
@@ -31,6 +38,9 @@ since the background colors have to span the full width of the page.
 ```html_example
 <footer class="page-footer">
   <div class="footer-container">
+    <div class="footer-human">
+      <img src="//fakeimg.pl/404x254">
+    </div>
     <nav class="footer-navigation" role="navigation">
       <ul class="footer-navigation-list">
         <li class="footer-navigation-list-item">
@@ -96,13 +106,23 @@ since the background colors have to span the full width of the page.
 
 .footer-container {
   @include container($container-width);
+  position: relative; // needed for the footer-human pic
 }
 
 .page-footer {
+  
   background: $footer-color-background;
   color: $footer-color-font;
 
+  margin-top: $page-footer-margin-top;
   padding-top: $page-footer-padding-top;
+}
+
+.footer-human {
+  // pull the image on top of the footer and pull it to the left
+  position: absolute;
+  top: -$footer-human-offset-top;
+  left: -$footer-human-offset-left;
 }
 
 .footer-navigation {
