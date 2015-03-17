@@ -21,13 +21,13 @@ $align-margin-vertical: rem-calc(12) !default;
     display: inline;
     float: left;
     margin-right: $align-margin-horizontal;
-    margin-bottom: $align-margin-vertical;
+    // margin-bottom: $align-margin-vertical;
 }
 
 .alignright {
     display: inline;
     float: right;
-    margin-bottom: $align-margin-vertical;
+    // margin-bottom: $align-margin-vertical;
     margin-left: $align-margin-horizontal;
 }
 
