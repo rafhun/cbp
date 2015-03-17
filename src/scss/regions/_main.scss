@@ -16,12 +16,18 @@ $content-main-padding: 3 * gutter() !default;
 
 .home-content {
   @include susy-media(md) {
-    @include span(8);
+    @include span(8 nest);
+  }
+
+  article {
+    @include clearfix();
   }
 }
 
 .home-sidebar {
-  @include span(4);
+  @include susy-media(md) {
+    @include span(4);
+  }
 }
 
 // ------------------------------------------------
