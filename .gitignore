@@ -62,8 +62,9 @@ bundler_components
 # generated styleguide
 wwwroot/styleguide
 
-# generated SVG sprite
+# generated SVG
 shapes.svg
+icons-min
 
 # compiled html files
 wwwroot/themes/**/*.html
@@ -83,3 +84,10 @@ favicons.html
 # secrets (config files, db passwords, etc)
 secrets.json
 wwwroot/config/configuration.php
+# editor config -> copied from src/config folder
+wwwroot/core/Wysiwyg/ckeditor.config.js.php
+# all customizings come from src folder
+wwwroot/customizing
+
+# contrexx generated sitemaps
+sitemap*.xml
