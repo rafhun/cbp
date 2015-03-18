@@ -113,3 +113,11 @@ placeholders.
     text-decoration: none; // no underline for active and hover states of a
   }
 }
+
+.subnav-icon {
+  // set up the background image
+  background-position: $subnav-icon-position;
+  background-size: $subnav-icon-size;
+
+  padding-left: $subnav-icon-size + $subnav-icon-offset + $subnav-icon-spacing;
+}
