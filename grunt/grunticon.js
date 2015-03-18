@@ -13,7 +13,9 @@ module.exports = {
       },
       'dynamicColorOnly': true,
       'customselectors': {
-        'pdf-hover': ['.icon-pdf:hover']
+        'pdf-hover': ['.icon-pdf:hover'],
+        'plus': ['.accordion-title'],
+        'close': ['.accordion-title.in']
       },
     }
   }
