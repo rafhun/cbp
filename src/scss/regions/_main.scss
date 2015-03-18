@@ -1,5 +1,5 @@
 $content-title-margin-top: $subnav-list-item-margin !default;
-$content-main-padding: 3 * gutter() !default;
+$content-main-padding: 6 * gutter() !default;
 
 .content-container {
   @include container($container-width);
