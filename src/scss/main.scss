@@ -42,9 +42,11 @@ $EDITOR-STYLES: false;
 @import 'regions/header';
 @import 'regions/nav';
 @import 'regions/main';
+@import 'regions/home';
 @import 'regions/footer';
 
 // non-semantic layout helper classes & placeholders
 @import 'helpers/alignments';
+@import 'helpers/image-box';
 @import 'helpers/shadows';
 @import 'helpers/visibility';
