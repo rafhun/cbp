@@ -86,6 +86,10 @@ to include the component's script in your concatenated script file.
   color: $accordion-heading-color;
   line-height: $accordion-heading-height;
 
+  // do not wrap accordion titles if they are too long instead use ellipsis
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   
 
   .in & {
