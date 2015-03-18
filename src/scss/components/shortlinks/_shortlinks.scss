@@ -41,10 +41,10 @@ The shadows are applied through a helper class (see relevant part of style guide
 
   padding: $shortlinks-padding-link;
   // make space for the background image
-  padding-right: $shortlinks-icon-size + $shortlinks-icon-spacing;
+  padding-right: $shortlinks-icon-size + $shortlinks-icon-spacing + $shortlinks-icon-offset-right;
 
   // position background to the right and define its size
-  background-position: right;
+  background-position: $shortlinks-icon-position;
   background-size: $shortlinks-icon-size;
 
   /* &:after {

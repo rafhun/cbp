@@ -8,3 +8,5 @@ $shortlinks-after-content: '>' !default;
 
 $shortlinks-icon-size: .5rem !default;
 $shortlinks-icon-spacing: .25rem !default;
+$shortlinks-icon-offset-right: rem-calc(10);
+$shortlinks-icon-position: right $shortlinks-icon-offset-right center !default;
