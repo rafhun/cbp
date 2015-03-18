@@ -1,0 +1,63 @@
+/*doc
+---
+title: Quicklinks
+category:
+  - Components
+---
+
+The quicklinks are used on the homepage just beneath the header image to grant
+quick access to the most important categories. They are styled more or less as
+button elements with a big link icon and built as an ul.
+
+```html_example
+<ul class="quicklinks-list">
+  <li class="quicklinks-list-item icon-arrow">
+    <a class="quicklinks-link icon-knie" href="#">Knie</a>
+  </li>
+  <li class="quicklinks-list-item icon-arrow">
+    <a class="quicklinks-link icon-huefte" href="#">H&uuml;fte</a>
+  </li>
+</ul>
+```
+*/
+.quicklinks {
+  margin-bottom: $quicklinks-to-content;
+}
+
+.quicklinks-list {
+  @include clearfix();
+}
+
+.quicklinks-list-item {
+  @include span(6);
+
+  display: inline-block;
+
+  background-position: $quicklinks-list-item-icon-position;
+  background-size: $quicklinks-list-item-icon-size;
+
+  padding-right: $quicklinks-list-item-icon-size + $quicklinks-list-item-icon-spacing + $quicklinks-list-item-icon-offset-right;
+
+}
+
+.quicklinks-link {
+  display: block;
+  height: $quicklinks-height;
+
+  font-size: $quicklinks-font-size;
+  line-height: $quicklinks-height;
+  font-weight: $quicklinks-font-weight;
+
+  // set up the icon
+  background-size: $quicklinks-link-icon-size;
+  background-position: $quicklinks-link-icon-position;
+
+  // make space for the icon
+  padding-left: $quicklinks-link-icon-size + $quicklinks-link-icon-spacing;
+
+  &:hover,
+  &:focus,
+  &:active {
+    text-decoration: none;
+  }
+}

@@ -11,7 +11,7 @@ $content-main-padding: 3 * gutter() !default;
 }
 
 .quicklinks {
-  @include span(full);
+  @include span(full nest);
 }
 
 .home-content {
@@ -21,6 +21,12 @@ $content-main-padding: 3 * gutter() !default;
 
   article {
     @include clearfix();
+  }
+
+  .content-title {
+    // no margin top for title on homepage to ensure nice alignment with sidebar
+    // also margin to element above is given by that element (here the quicklinks)
+    margin-top: 0;
   }
 }
 

@@ -1,0 +1,17 @@
+$quicklinks-height: rem-calc(92) !default;
+
+$quicklinks-font-size: rem-calc(24) !default;
+$quicklinks-font-weight: bold !default;
+
+$quicklinks-to-content: $quicklinks-height / 2 !default;
+
+// arrow
+$quicklinks-list-item-icon-size: .5rem !default;
+$quicklinks-list-item-icon-spacing: 1rem !default;
+$quicklinks-list-item-icon-offset-right: rem-calc(18) !default;
+$quicklinks-list-item-icon-position: right $quicklinks-list-item-icon-offset-right center !default;
+
+// pictogram
+$quicklinks-link-icon-size: rem-calc(64) !default;
+$quicklinks-link-icon-spacing: 1rem !default;
+$quicklinks-link-icon-position: left center !default;
