@@ -21,4 +21,7 @@ $image-box-border-color: $white !default;
 
 .image-box {
   border: $image-box-border-width solid $image-box-border-color;
+  
+  // if the image is too small for the whole box, center it within its container
+  text-align: center;
 }
