@@ -65,10 +65,10 @@ to include the component's script in your concatenated script file.
   border-top: 1px solid $accordion-heading-border-color;
 
   // put the background (icon) to the right
-  background-position: right;
+  background-position: $accordion-icon-position;
   background-size: $accordion-icon-size;
   // make space for the icon
-  padding-right: $accordion-icon-size + $accordion-icon-spacing;
+  padding-right: $accordion-icon-size + $accordion-icon-spacing + $accordion-icon-offset-right;
 
   &:last-of-type {
     border-bottom: 1px solid $accordion-heading-border-color;

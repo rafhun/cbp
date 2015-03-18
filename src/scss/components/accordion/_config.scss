@@ -9,3 +9,5 @@ $accordion-container-padding-bottom: $vertical-spacing-xl !default;
 
 $accordion-icon-size: 1.5rem !default;
 $accordion-icon-spacing: .5rem !default;
+$accordion-icon-offset-right: rem-calc(6) !default;
+$accordion-icon-position: right $accordion-icon-offset-right center;
