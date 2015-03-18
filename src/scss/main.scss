@@ -23,6 +23,9 @@ $EDITOR-STYLES: false;
 @import 'base/media';
 @import 'base/code';
 
+// small parts that together make up components or do not fit into the base stuff
+@import 'parts/link-icons';
+
 // modular, reusable UI components
 @import 'components/accordion';
 @import 'components/buttons';
