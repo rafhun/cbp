@@ -12,16 +12,16 @@ The shadows are applied through a helper class (see relevant part of style guide
 ```html_example
 <ul class="shortlinks">
   <li class="shortlinks-list-item shadow">
-    <a class="shortlinks-link" href="#">Anmeldung/Termin</a>
+    <a class="shortlinks-link icon-arrow" href="#">Anmeldung/Termin</a>
   </li>
   <li class="shortlinks-list-item shadow">
-    <a class="shortlinks-link" href="#">SOS (Notfall) 24h</a>
+    <a class="shortlinks-link icon-arrow" href="#">SOS (Notfall) 24h</a>
   </li>
   <li class="shortlinks-list-item shadow">
-    <a class="shortlinks-link" href="#">Fragen &amp; Antworten</a>
+    <a class="shortlinks-link icon-arrow" href="#">Fragen &amp; Antworten</a>
   </li>
   <li class="shortlinks-list-item shadow">
-    <a class="shortlinks-link" href="#">Medizin Lexikon</a>
+    <a class="shortlinks-link icon-arrow" href="#">Medizin Lexikon</a>
   </li>
 </ul>
 ```
@@ -40,11 +40,17 @@ The shadows are applied through a helper class (see relevant part of style guide
   width: 100%;
 
   padding: $shortlinks-padding-link;
+  // make space for the background image
+  padding-right: $shortlinks-icon-size + $shortlinks-icon-spacing;
 
-  &:after {
+  // position background to the right and define its size
+  background-position: right;
+  background-size: $shortlinks-icon-size;
+
+  /* &:after {
     content: $shortlinks-after-content;
     float: right;
-  }
+  } */
 
   &:hover {
     font-weight: $shortlinks-font-weight-hover;
