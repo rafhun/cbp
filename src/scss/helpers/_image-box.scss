@@ -1,0 +1,24 @@
+/*doc
+---
+title: Image Box
+category: Helpers
+---
+
+This helper puts a box with a thick border around an image and applies the shadow
+helper underneath.
+
+```html_example
+<div class="shadow">
+  <div class="image-box">
+    <img src='//fakeimg.pl/720x480'>
+  </div>
+</div>
+```
+*/
+$image-box-border-width: rem-calc(10) !default;
+$image-box-border-color: $white !default;
+
+
+.image-box {
+  border: $image-box-border-width solid $image-box-border-color;
+}
