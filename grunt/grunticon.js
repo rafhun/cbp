@@ -11,7 +11,10 @@ module.exports = {
       'colors': {
         lines: '#CACACA',
       },
-      dynamicColorOnly: true
+      'dynamicColorOnly': true,
+      'customselectors': {
+        'pdf-hover': ['.icon-pdf:hover']
+      },
     }
   }
 }
