@@ -1,0 +1,54 @@
+$content-title-margin-top: $subnav-list-item-margin !default;
+$content-main-padding: 6 * gutter() !default;
+
+$home-sidebar-spacing: 6 * gutter() !default;
+
+$sidebar-address-font-size: rem-calc(18);
+$sidebar-address-font-style: normal !default;
+$sidebar-address-font-color: $color-primary;
+
+// styles for the home page
+.header-img {
+  @include span(full);
+}
+
+.quicklinks {
+  @include span(full nest);
+}
+
+.home-content {
+  @include susy-media(md) {
+    @include span(8 nest);
+  }
+
+  article {
+    @include clearfix();
+  }
+
+  .content-title {
+    // no margin top for title on homepage to ensure nice alignment with sidebar
+    // also margin to element above is given by that element (here the quicklinks)
+    margin-top: 0;
+  }
+}
+
+// sidebar
+.home-sidebar {
+  @include susy-media(md) {
+    @include span(4);
+  }
+}
+
+// spacing of the sidebar elements
+.shortlinks {
+  margin-bottom: $home-sidebar-spacing
+}
+
+// styling the sidebar address
+.sidebar-address {
+  p {
+    font-size: $sidebar-address-font-size;
+    font-style: $sidebar-address-font-style;
+    color: $sidebar-address-font-color;
+  }
+}

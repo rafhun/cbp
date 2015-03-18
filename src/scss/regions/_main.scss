@@ -1,39 +1,8 @@
 $content-title-margin-top: $subnav-list-item-margin !default;
-$content-main-padding: 6 * gutter() !default;
+$content-main-padding: rem-calc(56) !default;
 
 .content-container {
   @include container($container-width);
-}
-
-// styles for the home page
-.header-img {
-  @include span(full);
-}
-
-.quicklinks {
-  @include span(full nest);
-}
-
-.home-content {
-  @include susy-media(md) {
-    @include span(8 nest);
-  }
-
-  article {
-    @include clearfix();
-  }
-
-  .content-title {
-    // no margin top for title on homepage to ensure nice alignment with sidebar
-    // also margin to element above is given by that element (here the quicklinks)
-    margin-top: 0;
-  }
-}
-
-.home-sidebar {
-  @include susy-media(md) {
-    @include span(4);
-  }
 }
 
 // ------------------------------------------------
