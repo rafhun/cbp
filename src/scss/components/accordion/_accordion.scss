@@ -112,6 +112,11 @@ to include the component's script in your concatenated script file.
   .in + & {
     display: block;
   }
+
+  &:last-of-type {
+    // no padding bottom for the last accordion container. This spacing is provided by the content box itself
+    padding-bottom: 0;
+  }
 }
 
 .accordion-subheading {
