@@ -1,6 +1,6 @@
 $news-teaser-padding: rem-calc(18 12) !default; // numbers are relative to grid gutter width <-- check this!!
 $news-teaser-background: $color-background !default;
-$news-teaser-margin-bottom: 3 * gutter() !default;
+$news-teaser-margin-bottom: $vertical-spacing-lg !default;
 
 $news-teaser-date-font-size: rem-calc(14) !default;
 $news-teaser-date-offset-top: rem-calc(10) !default;

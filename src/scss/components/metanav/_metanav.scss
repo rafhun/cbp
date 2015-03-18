@@ -50,7 +50,7 @@ languages displayed?).
 }
 
 .metanav-list {
-  margin-bottom: gutter();
+  margin-bottom: $vertical-spacing;
 
   display: none; // do not display the metanav list in the mobile view
 

@@ -4,7 +4,7 @@
 $susy: (
   gutter-position: split,
   columns: 12,
-  gutters: .25,
+  gutters: .5,
   global-box-sizing: border-box,
   last-flow: to,
   debug: (
@@ -32,8 +32,12 @@ $susy-media: (
   xs-sm: 20rem 40rem,
   sm-md: 40rem 60rem,
   md-lg: 60rem 80rem,
-  to-sm: max-width 39.9375rem
+  to-sm: max-width 39.9375rem,
+  to-md: max-width 59.9375rem,
 );
 
 // standard container max-width
 $container-width: rem-calc(1200) !default;
+$vertical-spacing: gutter() !default;
+$vertical-spacing-lg: 2 * gutter() !default;
+$vertical-spacing-xl: 4 * gutter() !default;

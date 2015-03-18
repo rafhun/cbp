@@ -1,4 +1,4 @@
-$header-padding: gutter() 0 !default;
+$header-padding: $vertical-spacing 0 !default;
 $logo-offset-left: rem-calc(30) !default;
 
 .page-header {

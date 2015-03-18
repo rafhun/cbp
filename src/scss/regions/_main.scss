@@ -1,8 +1,15 @@
 $content-title-margin-top: $subnav-list-item-margin !default;
-$content-main-padding: rem-calc(56) !default;
+$content-main-padding: $vertical-spacing-lg !default;
+// on mobile an additional gutter should be applied to the content through
+// padding to create some more room
+$content-padding-mobile: 0 gutter() !default;
 
 .content-container {
   @include container($container-width);
+
+  @include susy-media(to-md) {
+    padding: $content-padding-mobile;
+  }
 }
 
 // ------------------------------------------------

@@ -57,8 +57,11 @@ placeholders.
   // make space for the triangle to the right
   padding-right: $subnav-triangle-height;
 
-  // set off the main navbar
-  margin-top: $subnav-list-item-height / 2;
+  // set off the main navbar but only for screens where we have 
+  // a multi column layout
+  @include susy-media(sm) {
+    margin-top: $subnav-list-item-height / 2;
+  }
 }
 
 .subnav-list-item {

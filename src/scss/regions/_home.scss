@@ -1,7 +1,7 @@
 $content-title-margin-top: $subnav-list-item-margin !default;
-$content-main-padding: 6 * gutter() !default;
+$content-main-padding: $vertical-spacing-xl !default;
 
-$home-sidebar-spacing: 6 * gutter() !default;
+$home-sidebar-spacing: $vertical-spacing-xl !default;
 
 $sidebar-address-font-size: rem-calc(18);
 $sidebar-address-font-style: normal !default;
