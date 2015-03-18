@@ -110,11 +110,15 @@ to include the component's script in your concatenated script file.
     display: block;
   } @else {
     display: none;
+    opacity: 0;
+    // transition: opacity .5s ease-in-out;
   }
   padding-bottom: $accordion-container-padding-bottom;
 
   .in + & {
     display: block;
+    opacity: 1;
+    animation: blend-in .5s ease-in-out;
   }
 
   &:last-of-type {
@@ -125,4 +129,20 @@ to include the component's script in your concatenated script file.
 
 .accordion-subheading {
   color: $accordion-subheading-color;
+}
+
+// animation to nicely display and hide the accordion container
+// based upon this article by james steinbach: http://jdsteinbach.com/css/snippet-animate-display-transform/
+@keyframes blend-in {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+  1% {
+    display: block;
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
