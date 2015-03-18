@@ -8,4 +8,10 @@
 
   border: $news-teaser-button-border;
   border-radius: $news-teaser-button-border-radius;
+
+  .icon-arrow {
+    background-position: $news-teaser-button-icon-position;
+    background-size: $news-teaser-button-icon-size;
+    padding-right: $news-teaser-button-icon-padding-right;
+  }
 }

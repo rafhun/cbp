@@ -1,7 +1,7 @@
 /*doc
 ---
 title: News Teaser
-category: Components - News Teaser
+category: Components
 ---
 ## News Teaser
 This box will be placed on the landing page automatically filled with news.
@@ -13,7 +13,7 @@ Make sure to create the news teaser templates according to these classes.
   <h3 class="news-teaser-title">Aufnahme ins Board der European Knee Associates (EKA)</h3>
   <p class="news-teaser-text">
   	Im Juni 2014 wurde Bernhard Christen als Mitglied des Boards der European Knee
-  	Associates (EKA) gewählt. Die EKA ver... <a href="#">>>></a>
+  	Associates (EKA) gewählt. Die EKA ver... <a class="icon-arrow" href="#"></a>
   </p>
 </div>
 ```
@@ -24,7 +24,7 @@ where all articles are listed.
 
 ```html_example
 <button class="news-teaser-button">
-  <a href="#">Alle anzeigen >>></a>
+  <a href="#" class="icon-arrow">Alle anzeigen</a>
 </button>
 ```
   */

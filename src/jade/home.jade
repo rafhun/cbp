@@ -1,6 +1,6 @@
 .content-container
   .header-img
-      img(src='//fakeimg.pl/1920x1080')
+      img(src='/images/headers/Landingpage.jpg')
   .quicklinks.shadow
     ul.quicklinks-list
       li.quicklinks-list-item.icon-arrow
@@ -11,7 +11,7 @@
     article
       header.content-header
         h1.content-title {CONTENT_TITLE}
-      main.content-main {CONTENT_TEXT}
+      main.content-main {CONTENT_TEXT} {HEADLINES_FILE}
   section.home-sidebar
     //- shortlinks
     ul.shortlinks
@@ -23,3 +23,4 @@
         a.shortlinks-link.icon-arrow(href='#') Fragen und Antworten
       li.shortlinks-list-item.shadow
         a.shortlinks-link.icon-arrow(href='#') Medizin Lexikon
+    | {BLOCK_6}

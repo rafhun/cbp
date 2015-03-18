@@ -1,5 +1,6 @@
 $news-teaser-padding: rem-calc(18 12) !default; // numbers are relative to grid gutter width <-- check this!!
 $news-teaser-background: $color-background !default;
+$news-teaser-margin-bottom: 3 * gutter() !default;
 
 $news-teaser-date-font-size: rem-calc(14) !default;
 $news-teaser-date-offset-top: rem-calc(10) !default;
@@ -7,6 +8,12 @@ $news-teaser-date-offset-right: $news-teaser-date-offset-top !default;
 
 $news-teaser-button-position: right !default;
 $news-teaser-button-background: $color-background !default;
-$news-teaser-button-padding: rem-calc(12 24);
-$news-teaser-button-border: 0;
-$news-teaser-button-border-radius: rem-calc(4);
+$news-teaser-button-padding: rem-calc(12 24) !default;
+$news-teaser-button-border: 0 !default;
+$news-teaser-button-border-radius: rem-calc(4) !default;
+
+$news-teaser-button-icon-size: .5rem !default;
+$news-teaser-button-icon-offset-right: rem-calc(24) !default;
+$news-teaser-button-icon-position: right $news-teaser-button-icon-offset-right center !default;
+$news-teaser-button-icon-spacing: rem-calc(6) !default;
+$news-teaser-button-icon-padding-right: $news-teaser-button-icon-size + $news-teaser-button-icon-offset-right + $news-teaser-button-icon-spacing !default;

@@ -3,6 +3,11 @@
   padding: $news-teaser-padding;
 
   background: $news-teaser-background;
+
+  margin-bottom: $news-teaser-margin-bottom;
+
+  // the cursor should indicate that the whole box is clickable
+  cursor: pointer;
 }
 
 .news-teaser-title {
@@ -18,5 +23,10 @@
 }
 
 .news-teaser-text {
-
+  .icon-arrow {
+    background-position: $news-teaser-button-icon-position;
+    background-size: $news-teaser-button-icon-size;
+    padding-right: $news-teaser-button-icon-padding-right;
+  }
 }
+
