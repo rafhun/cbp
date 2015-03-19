@@ -10,11 +10,22 @@ module.exports = {
     src: '<%= pkg.srcFolders.config %>configuration.php',
     dest: '<%= pkg.buildFolders.config %>configuration.php'
   },
-  server: {
+  staging: {
     options: {
       patterns: [
         {
-          json: '<%= secrets.server %>'
+          json: '<%= secrets.staging %>'
+        }
+      ]
+    },
+    src: '<%= pkg.srcFolders.config %>configuration.php',
+    dest: '<%= pkg.buildFolders.config %>configuration.php'
+  },
+  production: {
+    options: {
+      patterns: [
+        {
+          json: '<%= secrets.production %>'
         }
       ]
     },
