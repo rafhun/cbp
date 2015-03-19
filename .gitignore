@@ -71,7 +71,7 @@ wwwroot/themes/**/*.html
 
 # generated favicons
 favicon.*
-!wwwroot/themes/**/images/favicon.png
+!src/images/favicon.png
 apple-touch-icon*
 windows-tile-*
 coast-icon-*
