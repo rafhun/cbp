@@ -71,7 +71,7 @@ wwwroot/themes/**/*.html
 
 # generated favicons
 favicon.*
-!wwwroot/themes/**/images/favicon.png
+!src/images/favicon.png
 apple-touch-icon*
 windows-tile-*
 coast-icon-*
@@ -89,5 +89,6 @@ wwwroot/core/Wysiwyg/ckeditor.config.js.php
 # all customizings come from src folder
 wwwroot/customizing
 
-# contrexx generated sitemaps
+# contrexx generated sitemaps and news feeds
 sitemap*.xml
+wwwroot/feed
