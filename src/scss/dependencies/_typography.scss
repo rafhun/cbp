@@ -5,27 +5,27 @@ $font-stack: 'TheSans', Helvetica, Arial, sans- !default;
 $base-font-size: 16px;
 
 // headings
-$headings-font-color:  !default;
-$headings-font-color-secondary:  !default;
+$headings-font-color: $color-primary !default;
+$headings-font-color-secondary: $color-font !default;
 $headings-top-margin: .2rem !default;
 $headings-bottom-margin: .5rem !default;
 $headings-text-rendering: optimizeLegibility !default;
 
-$h1-font-size:  !default;
-$h1-line-height:  !default;
+$h1-font-size: rem-calc(20) !default;
+$h1-line-height: 24/20 !default;
 
-$h2-font-size:  !default;
-$h2-line-height:   !default;
+$h2-font-size: rem-calc(20) !default;
+$h2-line-height:  24/20 !default;
 
-$h3-font-size:  !default;
-$h3-line-height:  !default;
+$h3-font-size: rem-calc(20) !default;
+$h3-line-height: 24/20 !default;
 
 // paragraphs
-$paragraph-font-size:  !default;
-$paragraph-line-height:   !default;
-$paragraph-bottom-margin: rem-calc(20) !default;
+$paragraph-font-size: rem-calc(20) !default;
+$paragraph-line-height: 24/20  !default;
+$paragraph-margin-bottom: rem-calc(20) !default;
 
 // anchors
-$anchor-text-decoration:  !default;
-$anchor-text-decoration-hover:  !default;
-$anchor-font-color:  !default;
+$anchor-text-decoration: none !default;
+$anchor-text-decoration-hover: none !default;
+$anchor-font-color: $color-primary !default;

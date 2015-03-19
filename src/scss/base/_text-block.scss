@@ -63,38 +63,38 @@ td {
 
 /* Default Header Styles */
 h1, h2, h3, h4 {
-  color: ;
-  text-rendering: ;
-  margin-top: ;
-  margin-bottom: ;
+  color: $headings-font-color;
+  text-rendering: $headings-text-rendering;
+  margin-top: $headings-margin-top;
+  margin-bottom: $headings-margin-bottom;
 
   &.secondary {
-    color: ;
+    color: $headings-font-color-secondary;
   }
 }
 
 h1 {
-  font-size: ;
-  line-height: ;
+  font-size: $h1-font-size;
+  line-height: $h1-line-height;
 }
 
 h2 {
-  font-size: ;
-  line-height: ;
+  font-size: $h2-font-size;
+  line-height: $h2-line-height;
 }
 
 h3 {
-  font-size: ;
-  line-height: ;
+  font-size: $h3-font-size;
+  line-height: $h3-line-height;
 }
 
 h4 {
-  font-size: ;
-  line-height: ;
+  font-size: $h4-font-size;
+  line-height: $h4-line-height;
 }
 
 p {
-  font-size: ;
-  line-height: ;
-  margin-bottom: ;
+  font-size: $paragraph-font-size;
+  line-height: $paragraph-line-height;
+  margin-bottom: $paragraph-margin-bottom;
 }
