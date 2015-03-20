@@ -2,7 +2,7 @@
 // flags to enable styling as well
 $font-stack: 'TheSans', Helvetica, Arial, sans- !default;
 
-$base-font-size: 16px;
+$base-font-size: 100% !default;
 
 // headings
 $headings-font-color: $color-primary !default;
