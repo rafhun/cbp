@@ -1,5 +1,6 @@
 $header-padding: $vertical-spacing 0 !default;
 $logo-offset-left: rem-calc(30) !default;
+$navigation-content-margin: rem-calc(36) !default;
 
 .page-header {
   @include container($container-width);
@@ -7,7 +8,7 @@ $logo-offset-left: rem-calc(30) !default;
 }
 
 .logo {
-  @include span(9);
+  @include span(8);
 
   line-height: 0;
 }
@@ -16,6 +17,16 @@ $logo-offset-left: rem-calc(30) !default;
   margin-left: -$logo-offset-left;
 }
 
+.navigation {
+  @include susy-media(md) {
+    margin-bottom: $navigation-content-margin;
+
+    .home & {
+      margin-bottom: 0;
+    }
+  }
+}
+
 .metanav {
-  @include span(3);
+  @include span(4);
 }
