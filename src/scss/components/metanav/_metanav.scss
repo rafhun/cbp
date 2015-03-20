@@ -51,11 +51,16 @@ languages displayed?).
 
 .metanav-list {
   margin-bottom: $vertical-spacing;
-
-  display: none; // do not display the metanav list in the mobile view
+  
+  @if $EDITOR_STYLES {
+    display:block;
+  } @else {
+    display: none; // do not display the metanav list in the mobile view
+  }
 
   @include susy-media(sm) {
     display: block;
+    float: right;
   }
 }
 
@@ -89,6 +94,7 @@ languages displayed?).
 }
 
 .metanav-search {
+  clear: both;
   position: relative;
 
   .icon {
