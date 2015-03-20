@@ -37,7 +37,14 @@ button elements with a big link icon and built as an ul.
   background-size: $quicklinks-list-item-icon-size;
 
   padding-right: $quicklinks-list-item-icon-size + $quicklinks-list-item-icon-spacing + $quicklinks-list-item-icon-offset-right;
+  
+  transition: background-color .5s ease;
 
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: $quicklinks-link-background-hover;
+  }
 }
 
 .quicklinks-link {
