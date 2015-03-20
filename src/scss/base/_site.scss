@@ -21,6 +21,8 @@ html {
   -ms-text-size-adjust: 100%; /* 2 */
   -webkit-text-size-adjust: 100%; /* 2 */
   box-sizing: border-box; /* 3 */
+
+  font-size: $base-font-size;
 }
 
 *,
@@ -38,8 +40,6 @@ html {
 
 body {
   margin: 0;
-
-  font-size: $base-font-size;
 
   color: $color-text;
 }
