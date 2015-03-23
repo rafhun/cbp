@@ -62,8 +62,6 @@ placeholders.
   display: inline-block;
   width: 100%;
 
-  position: relative; // needed for triangle
-
   border-top: 1px solid $subnav-color-border;
 
   &:last-of-type {
@@ -78,20 +76,7 @@ placeholders.
 
     font-weight: $subnav-font-weight-active;
 
-    &:after {
-      width: 0;
-      height: 0;
-      content: '';
-      display: block;
-
-      position: absolute;
-      right: -$subnav-triangle-height; // equal to size of border left
-      top: 0;
-
-      border-top: $subnav-list-item-height / 2 solid transparent; // size == half the height of the li
-      border-bottom: $subnav-list-item-height / 2 solid transparent; // size == half the height of the li
-      border-left: $subnav-triangle-height solid $subnav-color-background-hover;
-    }
+    @include triangle-right($subnav-triangle-height, $subnav-list-item-height, $subnav-color-background-hover);
   }
 }
 
