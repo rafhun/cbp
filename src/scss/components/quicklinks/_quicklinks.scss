@@ -11,39 +11,41 @@ button elements with a big link icon and built as an ul.
 
 ```html_example
 <ul class="quicklinks-list">
-  <li class="quicklinks-list-item icon-arrow">
+  <li class="quicklinks-list-item">
     <a class="quicklinks-link icon-knie" href="#">Knie</a>
   </li>
-  <li class="quicklinks-list-item icon-arrow">
+  <li class="quicklinks-list-item">
     <a class="quicklinks-link icon-huefte" href="#">H&uuml;fte</a>
   </li>
 </ul>
 ```
 */
 .quicklinks {
+  @include clearfix();
   margin-bottom: $quicklinks-to-content;
 }
 
 .quicklinks-list {
   @include clearfix();
+  margin-left: gutter();
+  margin-right: gutter();
+  border: 5px solid $white;
 }
 
 .quicklinks-list-item {
-  @include span(6);
-
+  width: span(6);
+  float: left;
   display: inline-block;
 
-  background-position: $quicklinks-list-item-icon-position;
-  background-size: $quicklinks-list-item-icon-size;
-
-  padding-right: $quicklinks-list-item-icon-size + $quicklinks-list-item-icon-spacing + $quicklinks-list-item-icon-offset-right;
-  
-  transition: background-color .5s ease;
+  &:first-of-type {
+    margin-right: 3 * gutter();
+  }
 
   &:hover,
   &:active,
   &:focus {
     background-color: $quicklinks-link-background-hover;
+    @include triangle-right($quicklinks-triangle-height, $quicklinks-height, $quicklinks-link-background-hover);
   }
 }
 
@@ -60,11 +62,11 @@ button elements with a big link icon and built as an ul.
   background-position: $quicklinks-link-icon-position;
 
   // make space for the icon
-  padding-left: $quicklinks-link-icon-size + $quicklinks-link-icon-spacing;
+  padding-left: $quicklinks-link-icon-size + 2 * $quicklinks-link-icon-spacing;
 
   &:hover,
   &:focus,
   &:active {
-    text-decoration: none;
+    // @include triangle-right($quicklinks-triangle-height, $quicklinks-height, $quicklinks-link-background-hover);
   }
 }
