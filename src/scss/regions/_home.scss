@@ -10,6 +10,7 @@ $sidebar-address-font-color: $color-primary;
 // styles for the home page
 .header-img {
   @include span(full);
+  line-height: 0;
 }
 
 .quicklinks {
