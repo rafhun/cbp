@@ -5,6 +5,7 @@
 // 1) Auto-Separator Mixin
 // 2) Helper mixin for offset positioning
 // 3) Micro Clearfix by Nicolas Gallagher
+// 4) Triangle Right Mixin
 
 /*
 1) Auto-Separator Mixin
@@ -138,5 +139,34 @@ text and padding-left on the pseudo element.
 
   &:after {
     clear: both;
+  }
+}
+
+// 4) Triangle Right Mixin
+// This mixin helps with creating a triangle to the right
+// It takes two arguments
+// 
+// $triangle-height: must be a valid measurment number, will be used to
+// indicate the height of the element and the triangle
+// 
+// $triangle-color: must be a valid color value
+
+@mixin triangle-right($triangle-height, $item-height, $triangle-color) {
+  position: relative;
+  // height: $triangle-height;
+
+  &:after {
+    width: 0;
+    height: 0;
+    content: '';
+    display: block;
+
+    position: absolute;
+    top: 0;
+    right: -$triangle-height;
+
+    border-top: $item-height / 2 solid transparent;
+    border-bottom: $item-height / 2 solid transparent;
+    border-left: $triangle-height solid $triangle-color;
   }
 }
