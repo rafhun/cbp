@@ -19,47 +19,51 @@ html(lang="{ACTIVE_LANGUAGE_NAME}")
     body(class='{CSS_NAME}')
         //- include ../images/shapes.svg
         <!--[if lt IE 8]><p class="browserupgrade">Sie benutzen einen <strong>veralteten</strong> Browser. Bitte <a href="http://browsehappy.com/">aktualisieren Sie Ihren Browser</a> um eine bessere Web Erfahrung geniessen zu k&ouml;nnen.</p><![endif]-->
-        header.page-header
-            .logo
-                a(href='{NODE_HOME}'): img.logo-img(src='/themes/rafhun/images/Logo.png', width='440', height='102')
-            .metanav
-                ul.metanav-list
-                    li.metanav-list-item.language-navbar
-                        | {LANGUAGE_NAVBAR_SHORT}
-                    li.metanav-list-item
-                        a.metanav-link(href='#') Downloads
-                    li.metanav-list-item
-                        a.metanav-link(href='#') Links
-                    li.metanav-list-item
-                        a.metanav-link(href='#') Sitemap
-                form.metanav-search
-                    input.metanav-search-input#search-input(type='search', placeholder='Suchen', name='term')
-                    span.icon-search-lines.icon
-        nav.navigation(role='navigation')
-            | {NAVBAR_FILE}
-        //- content goes here
-        | {CONTENT_FILE}
-        footer.page-footer
-            .footer-container
-                .footer-human
-                    img(src='/themes/rafhun/images/Human-Bottom.png', width='404', height='254')
-                | {NAVBAR2_FILE}
-                address.footer-address
-                    p CHRISTENORTHO AG<br>Dr. med., M. H. A. Bernhard Christen<br>Orthop&auml;dische Klinik Bern<br>Sch&auml;nzlistrasse 39<br>CH-3000 Bern 25
-                    p Telefon +41 31 337 89 24<br>Telefax +41 31 337 89 54<br>
-                        a(href='mailto:info@christenortho.ch') info@christenortho.ch
-                .footer-award
-                    figure
-                        img.footer-award-logo(src='/images/footer/Primo-Medico-Siegel.png')
-                        figcaption.footer-award-caption Ausgezeichnet im Facharzt Verzeichnis Leading Medicine Guide als Facharzt f&uuml;r Orthop&auml;die
-        aside.footer-aside
-            .footer-container
-                .footer-meta
-                    ul.footer-meta-list
-                        li.footer-meta-list-item
-                            a.footer-meta-link(href='#') Impressum
-                        li.footer-meta-list-item
-                            a.footer-meta-link(href='#') Disclaimer
+        .body-container
+            .transformer
+                {NAVBAR3_FILE}
+                .main
+                    header.page-header
+                        .logo
+                            a(href='{NODE_HOME}'): img.logo-img(src='/themes/rafhun/images/Logo.png', width='440', height='102')
+                        .metanav
+                            ul.metanav-list
+                                li.metanav-list-item.language-navbar
+                                    | {LANGUAGE_NAVBAR_SHORT}
+                                li.metanav-list-item
+                                    a.metanav-link(href='#') Downloads
+                                li.metanav-list-item
+                                    a.metanav-link(href='#') Links
+                                li.metanav-list-item
+                                    a.metanav-link(href='#') Sitemap
+                            form.metanav-search
+                                input.metanav-search-input#search-input(type='search', placeholder='Suchen', name='term')
+                                span.icon-search-lines.icon
+                    nav.navigation(role='navigation')
+                        | {NAVBAR_FILE}
+                    //- content goes here
+                    | {CONTENT_FILE}
+                    footer.page-footer
+                        .footer-container
+                            .footer-human
+                                img(src='/themes/rafhun/images/Human-Bottom.png', width='404', height='254')
+                            | {NAVBAR2_FILE}
+                            address.footer-address
+                                p CHRISTENORTHO AG<br>Dr. med., M. H. A. Bernhard Christen<br>Orthop&auml;dische Klinik Bern<br>Sch&auml;nzlistrasse 39<br>CH-3000 Bern 25
+                                p Telefon +41 31 337 89 24<br>Telefax +41 31 337 89 54<br>
+                                    a(href='mailto:info@christenortho.ch') info@christenortho.ch
+                            .footer-award
+                                figure
+                                    img.footer-award-logo(src='/images/footer/Primo-Medico-Siegel.png')
+                                    figcaption.footer-award-caption Ausgezeichnet im Facharzt Verzeichnis Leading Medicine Guide als Facharzt f&uuml;r Orthop&auml;die
+                    aside.footer-aside
+                        .footer-container
+                            .footer-meta
+                                ul.footer-meta-list
+                                    li.footer-meta-list-item
+                                        a.footer-meta-link(href='#') Impressum
+                                    li.footer-meta-list-item
+                                        a.footer-meta-link(href='#') Disclaimer
 
         | <script src= "/themes/rafhun/script.min.js"></script>
 

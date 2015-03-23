@@ -93,11 +93,11 @@ with minimal effort.
 
   border-bottom: $navigation-border-width solid $navigation-border-color;
 
-  .in & { // show the navigation in mobile view when toggled open
+/*   .in & { // show the navigation in mobile view when toggled open
     @include susy-media(to-sm) {
       display: block;
     }
-  }
+  }*/
 
   @include susy-media(sm) {
     display: inline-block;

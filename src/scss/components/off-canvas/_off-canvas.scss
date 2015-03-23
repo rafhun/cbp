@@ -56,8 +56,12 @@ found [here](http://www.zell-weekeat.com/off-canvas-layouts-susy/).
   overflow: hidden;
 }
 
-.transformer.in {
-  transform: translate3d($off-canvas-width, 0, 0);
+.transformer {
+  transition: transform .5s ease;
+
+  &.in {
+    transform: translate3d($off-canvas-width, 0, 0);
+  }
 }
 
 .off-canvas-nav {
@@ -119,4 +123,12 @@ found [here](http://www.zell-weekeat.com/off-canvas-layouts-susy/).
 .main {
   // temporary and for development purposes only!!!
   min-height: 400px;
+}
+
+.off-canvas-toggle {
+  display: block;
+
+  @include susy-media(sm) {
+    display: none;
+  }
 }
