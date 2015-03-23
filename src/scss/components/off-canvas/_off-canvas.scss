@@ -1,0 +1,122 @@
+/*doc
+---
+title: Off Canvas
+category: Components - Navigation
+---
+
+The off canvas navigation is used to display the navigation nicely
+in the mobile view.
+In its structure it follows the tutorial by Zell Liew which can be
+found [here](http://www.zell-weekeat.com/off-canvas-layouts-susy/).
+
+```html_example
+<div class="body-container">
+  <div class="transformer in">
+    <nav role="navigation" class="off-canvas-nav">
+      <ul class="off-canvas-list">
+        <li class="off-canvas-list-item">
+          <a class="level-1 off-canvas-link">&Uuml;ber uns</a>
+        </li>
+        <li class="off-canvas-list-item">
+          <a class="level-1 off-canvas-link">Behandlungen</a>
+          <ul class="menu">
+            <li class="off-canvas-list-item">
+              <a class="level-2 off-canvas-link off-canvas-up">< Zur&uuml;ck</a>
+            </li>
+            <li class="off-canvas-list-item">
+              <a class="level-2 off-canvas-link">Knie</a>
+            </li>
+            <li class="off-canvas-list-item">
+              <a class="level-2 off-canvas-link">Schulter</a>
+            </li>
+            <li class="off-canvas-list-item">
+              <a class="level-2 off-canvas-link">H&uuml;fte</a>
+            </li>
+          </ul>
+        </li>
+        <li class="off-canvas-list-item">
+          <a class="level-1 off-canvas-link">Patienten</a>
+        </li>
+        <li class="off-canvas-list-item">
+          <a class="level-1 off-canvas-link">Medien</a>
+        </li>
+        <li class="off-canvas-list-item">
+          <a class="level-1 off-canvas-link">Kontakt</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="main">
+      <a href="#" class="off-canvas-toggle">Toggle Off-Canvas</a>
+    </div>
+  </div>
+</div>
+```
+*/
+.body-container {
+  overflow: hidden;
+}
+
+.transformer.in {
+  transform: translate3d($off-canvas-width, 0, 0);
+}
+
+.off-canvas-nav {
+  position: absolute;
+  width: $off-canvas-width;
+  left: -$off-canvas-width;
+  top: 0;
+  bottom: 0;
+
+  background: $off-canvas-background;
+
+  // to clearly seperate off-canvas from main content
+  border-right: $off-canvas-border-right;
+}
+
+.off-canvas-list-item {
+  border-bottom: $off-canvas-list-item-border-bottom;
+  text-align: $off-canvas-text-align;
+
+  .menu {
+    // shove level-2 items farther to the left
+    // they will be overlayed on click
+    // 
+    // the off-canvas-nav container is position relative
+    // this means that these submenus will be put on top
+    // of the level-1 items and positioned all the way
+    // at the top
+    position: absolute;
+    left: -$off-canvas-width;
+
+    background: $off-canvas-background;
+
+    &.in {
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+  }
+}
+
+.off-canvas-link {
+  display: block;
+  height: $off-canvas-link-height;
+
+  font-size: $off-canvas-font-size;
+  line-height: $off-canvas-link-height;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &.active,
+  &.starter_active {
+    font-weight: $off-canvas-font-weight-active;
+    text-decoration: $off-canvas-text-decoration-hover;
+  }
+}
+
+.main {
+  // temporary and for development purposes only!!!
+  min-height: 400px;
+}
