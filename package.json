@@ -55,7 +55,7 @@
     "theme": "wwwroot/themes/",
     "img": "images/",
     "icons": "icons/",
-    "contentImg": "wwwroot/images/",
+    "contentImg": "wwwroot/images/content",
     "fonts": "fonts/"
   },
   "srcFolders": {
