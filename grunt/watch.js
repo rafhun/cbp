@@ -25,11 +25,11 @@ module.exports = {
   },
   grunticon: {
     files: ['<%= pkg.srcFolders.icons %>*.svg'],
-    tasks: ['grunticon']
+    tasks: ['svgmin', 'grunticon']
   },
   favicons: {
     files: ['<%= pkg.srcFolders.images %>favicon.png'],
-    tasks: ['clean:hashes','favicons', 'htmlmin', 'jade', 'hashres']
+    tasks: ['clean:hashes', 'clean:favicon','favicons', 'htmlmin', 'jade', 'hashres']
   },
   jade: {
     files: ['<%= pkg.srcFolders.jade %>*.{jade,html}'],
