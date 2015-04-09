@@ -36,7 +36,7 @@ html(lang="{ACTIVE_LANGUAGE_NAME}")
                                     a.metanav-link(href='#') Links
                                 li.metanav-list-item
                                     a.metanav-link(href='{NODE_SITEMAP}') Sitemap
-                            form.metanav-search
+                            form.metanav-search#search-form(action='{NODE_SEARCH}', method='get', role='form')
                                 input.metanav-search-input#search-input(type='search', placeholder='Suchen', name='term')
                                 span.icon-search-lines.icon
                     nav.navigation(role='navigation')
