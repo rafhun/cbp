@@ -13,7 +13,11 @@ module.exports = {
       },
       'dynamicColorOnly': true,
       'customselectors': {
+        'link-hover': ['.icon-link:hover'],
+        'mail-hover': ['.icon-mail:hover'],
+        'movie-hover': ['.icon-movie:hover'],
         'pdf-hover': ['.icon-pdf:hover'],
+        'phone-hover': ['.icon-phone:hover'],
         'plus': ['.accordion-title'],
         'close': ['.accordion-title.in']
       },

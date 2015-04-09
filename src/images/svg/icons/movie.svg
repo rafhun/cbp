@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="25.999px" height="26px" viewBox="0 0 25.999 26" enable-background="new 0 0 25.999 26" xml:space="preserve">
+<g id="Ebene_4">
+</g>
+<g id="Grid_12__x2013__1200_px" display="none">
+</g>
+<g id="Ebene_1">
+	<g>
+		<defs>
+			<rect id="SVGID_3_" x="382.5" y="84.5" width="343" height="202"/>
+		</defs>
+		<clipPath id="SVGID_2_">
+			<use xlink:href="#SVGID_3_"  overflow="visible"/>
+		</clipPath>
+		<g clip-path="url(#SVGID_2_)">
+			
+				<image overflow="visible" width="1174" height="909" xlink:href="../02_Layout/Material/Map_Christen"  transform="matrix(0.9974 0 0 0.9974 -32.5332 -204.564)">
+			</image>
+		</g>
+	</g>
+	<g>
+		<path fill="#ECEAEA" d="M21.488,4.515C19.219,2.249,16.205,1,13,1C9.792,1,6.778,2.249,4.511,4.515
+			c-4.682,4.68-4.683,12.291-0.002,16.97C6.778,23.751,9.792,25,13,25H13c3.207,0,6.222-1.249,8.488-3.515
+			C26.169,16.808,26.169,9.195,21.488,4.515z"/>
+	</g>
+	<path fill="#333366" d="M9,20.929c-0.084,0-0.167-0.021-0.243-0.063C8.598,20.778,8.5,20.61,8.5,20.429V5.571
+		c0-0.181,0.098-0.349,0.257-0.437C8.916,5.046,9.108,5.05,9.263,5.146l12,7.429C21.41,12.666,21.5,12.827,21.5,13
+		s-0.089,0.334-0.237,0.425l-12,7.429C9.182,20.904,9.091,20.929,9,20.929z M9.5,6.468v13.063L20.05,13L9.5,6.468z"/>
+</g>
+</svg>
