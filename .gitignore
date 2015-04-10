@@ -86,6 +86,7 @@ secrets.json
 wwwroot/config/configuration.php
 # editor config -> copied from src/config folder
 wwwroot/core/Wysiwyg/ckeditor.config.js.php
+wwwroot/lib/ckeditor/styles.js
 # all customizings come from src folder
 wwwroot/customizing
 

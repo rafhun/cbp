@@ -55,7 +55,8 @@
     "icons": "icons/",
     "img": "images/",
     "contentImg": "wwwroot/images/content/",
-    "fonts": "fonts/"
+    "fonts": "fonts/",
+    "root": "wwwroot/"
   },
   "srcFolders": {
     "bower": "src/bower_components/",

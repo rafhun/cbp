@@ -28,5 +28,11 @@ module.exports = {
       src: ['**'],
       dest: '<%= pkg.buildFolders.customizing %>'
     }]
+  },
+  editorCustomizing: {
+    files: [{
+      src: '<%= pkg.srcFolders.customizing %>lib/ckeditor/styles.js',
+      dest: '<%= pkg.buildFolders.root%>lib/ckeditor/styles.js'
+    }]
   }
 }

@@ -20,9 +20,10 @@ CKEDITOR.stylesSet.add( 'default', [
   // uncomment what you need
   
   // { name: 'Link Liste',   element: 'ul', attributes: { 'class': 'link-list' } },
-  // { name: 'PDF Link',     element: 'a', attributes: { 'class': 'document-link' } },
-  // { name: 'Mail Link',      element: 'a', attributes: { 'class': 'mail-link' } },
-  // { name: 'Interner Link',      element: 'a', attributes: { 'class': 'intern-link' } },
-  // { name: 'Externer Link',      element: 'a', attributes: { 'class': 'extern-link' } },
+  { name: 'Link',     element: 'a', attributes: { 'class': 'icon-link link-icon' } },
+  { name: 'Mail Link',      element: 'a', attributes: { 'class': 'icon-mail link-icon' } },
+  { name: 'Film Link',      element: 'a', attributes: { 'class': 'icon-movie link-icon' } },
+  { name: 'PDF Link',      element: 'a', attributes: { 'class': 'icon-pdf link-icon' } },
+  { name: 'Phone Link',      element: 'a', attributes: { 'class': 'icon-phone link-icon' } },
 ] );
 
