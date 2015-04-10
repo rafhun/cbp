@@ -6,6 +6,6 @@
 }
 
 .staff {
-  // @include span(4 of 8);
   @include gallery(4 of 8);
+  margin-bottom: gutter();
 }
