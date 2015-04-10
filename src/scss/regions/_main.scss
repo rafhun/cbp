@@ -44,5 +44,10 @@ $content-padding-mobile: 0 gutter() !default;
 
     padding-bottom: $content-main-padding;
   }
-}
 
+  .team-accordion-title {
+    @include span(full);
+
+    margin-bottom: $content-main-padding;
+  }
+}
