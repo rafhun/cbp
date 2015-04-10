@@ -51,3 +51,10 @@ $EDITOR-STYLES: false;
 @import 'helpers/image-box';
 @import 'helpers/shadows';
 @import 'helpers/visibility';
+
+
+// we want to import the svg icon stylesheet if we are putting together the
+// editor styles. This way they also show up in the backend editor
+@if ($EDITOR-STYLES) {
+  @import url('/themes/rafhun/icons/icons.data.svg.css');
+}
