@@ -70,7 +70,8 @@ to include the component's script in your concatenated script file.
   // make space for the icon
   padding-right: $accordion-icon-size + $accordion-icon-spacing + $accordion-icon-offset-right;
 
-  &:last-of-type {
+  &:last-of-type,
+  &.last {
     border-bottom: 1px solid $accordion-heading-border-color;
 
     &.in {
