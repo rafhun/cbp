@@ -126,11 +126,19 @@ since the background colors have to span the full width of the page.
 }
 
 .footer-navigation {
-  @include span(4);
+  @include span(full);
+
+  @include susy-media(sm) {
+    @include span(4);
+  }
 }
 
 .footer-address {
-  @include span(4);
+  @include span(full);
+
+  @include susy-media(sm) {
+    @include span(4);
+  }
 
   p {
     font-size: $footer-address-font-size;
@@ -139,7 +147,11 @@ since the background colors have to span the full width of the page.
 }
 
 .footer-award {
-  @include span(4);
+  @include span(full);
+  
+  @include susy-media(sm) {
+    @include span(4);
+  }
 
   img {
     max-width: rem-calc(120);
