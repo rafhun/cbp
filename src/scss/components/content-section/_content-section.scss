@@ -1,0 +1,64 @@
+/*doc
+---
+title: Content Sections
+category:
+  - Components
+---
+
+The content sections are used to list several sections of content on one page.
+
+These sections can also be used in a nested context by adding the class `nest`
+to the section. Take care to use the content_nested template to ensure proper
+gutters.
+
+```html_example
+<section class="content-section">
+  <h2 class="content-section-title">Titel des Abschnitts</h2>
+  <p class="content-section-meta">Medium, Details, wo veröffentlicht</p>
+  <p>Inhalte</p>
+</section>
+<section class="content-section">
+  <h2 class="content-section-title">Titel des Abschnitts</h2>
+  <p class="content-section-meta">Medium, Details, wo veröffentlicht</p>
+  <p>Inhalte</p>
+</section>
+<section class="content-section-two">
+  <h2 class="content-section-title">Titel des Abschnitts</h2>
+  <p class="content-section-meta">Medium, Details, wo veröffentlicht</p>
+  <p>Inhalte</p>
+</section>
+<section class="content-section-two">
+  <h2 class="content-section-title">Titel des Abschnitts</h2>
+  <p class="content-section-meta">Medium, Details, wo veröffentlicht</p>
+  <p>Inhalte</p>
+</section>
+```
+*/
+
+
+.content-section {
+  @include clearfix;
+  margin-bottom: $paragraph-bottom-margin;
+}
+
+.content-section-title {
+  margin-bottom: 0;
+}
+
+.content-section-meta {
+  margin-bottom: .5 * $paragraph-bottom-margin;
+}
+
+@include nested(8) {
+  .content-main-nested .content-section {
+    @include span(full);
+  }
+
+  .content-section-two {
+    @include span(4 of 8);
+
+    &:nth-of-type(2n+1) {
+      clear: left;
+    }
+  }
+}
