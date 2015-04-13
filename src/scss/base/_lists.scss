@@ -1,6 +1,21 @@
+$symbol-margin: rem-calc(12) !default;
+$symbol-indent: rem-calc(4) !default;
+$list-symbol: '–' !default;
+
 // basic list styling
 ul {
   list-style: none;
+  
+  &.tick-list {
+    margin-left: $symbol-margin + $symbol-indent;
+
+    li:before {
+      content: $list-symbol;
+      position: relative;
+      margin-left: - $symbol-margin;
+      left: - $symbol-indent;
+    }
+  }
 }
 
 ul + h4 {

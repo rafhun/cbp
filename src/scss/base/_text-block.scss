@@ -93,7 +93,8 @@ h4 {
   line-height: $h4-line-height;
 }
 
-p {
+p,
+ul {
   font-size: $paragraph-font-size;
   line-height: $paragraph-line-height;
   margin-bottom: $paragraph-bottom-margin;
