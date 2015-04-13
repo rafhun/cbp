@@ -33,9 +33,13 @@ button elements with a big link icon and built as an ul.
 }
 
 .quicklinks-list-item {
-  width: span(6);
+  @include susy-media(sm) {
+    width: span(6);
+  }
+
   float: left;
   display: inline-block;
+  width: 100%;
 
   &:first-of-type {
     margin-right: 3 * gutter();
