@@ -142,7 +142,7 @@
       function addToAlbum($link) {
         self.album.push({
           link: $link.attr('href'),
-          title: $link.find('figcaption').text() || $link.attr('data-title') || $link.attr('title')
+          title: $link.next('figcaption').text() || $link.attr('data-title') || $link.attr('title')
         });
       }
 
