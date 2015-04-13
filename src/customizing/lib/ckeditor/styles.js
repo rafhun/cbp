@@ -25,5 +25,7 @@ CKEDITOR.stylesSet.add( 'default', [
   { name: 'Film Link',      element: 'a', attributes: { 'class': 'icon-movie link-icon' } },
   { name: 'PDF Link',      element: 'a', attributes: { 'class': 'icon-pdf link-icon' } },
   { name: 'Phone Link',      element: 'a', attributes: { 'class': 'icon-phone link-icon' } },
+  { name: 'Aufzählungszeichen',      element: 'ul', attributes: { 'class': 'tick-list' } },
+  { name: 'Bild links',      element: 'img', attributes: { 'class': 'alignleft' } },
 ] );
 
