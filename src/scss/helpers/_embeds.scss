@@ -1,0 +1,60 @@
+/*doc
+---
+title: Responsive Embed
+category:
+  - Helpers
+---
+
+The responsive embeds are built using a mixin to get different aspect ratios down.
+These should be defined on the go as they are needed so we only have stuff in our
+stylesheets that is actually needed.
+
+Just add the dimensions to the mixin and you will get the correct padding applied
+to the respective style.
+
+```html_example
+<div class="embed-container embed-container-maps">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2723.4813925234575!2d7.453770999999998!3d46.952231!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478e39c2a12607df%3A0xc27eb1db3037329d!2sChristen+Ortho!5e0!3m2!1sde!2sch!4v1428929767606" width="750" height="450" frameborder="0" style="border:0"></iframe>
+</div>
+```
+*/
+
+
+// this section handles responsive embeds.. Especially useful for youtube and
+// google maps embeds, inspired by http://unicorn-ui.com/blog/responsive-svg-mixin.html
+// and bootstrap: https://github.com/twbs/bootstrap/blob/master/less/responsive-embed.less
+// 
+$embed-container-namespace: '.embed-container';
+
+// 1:1 responsive container by default
+#{$embed-container-namespace} {
+  display: block;
+  position: relative;
+  height: 0;
+  width: 100%;
+  padding: 0;
+  padding-bottom: 100%; // default 1:1
+  overflow: hidden;
+  margin-bottom: .5 * $paragraph-bottom-margin;
+}
+
+@mixin embed-responsive ($width: 1, $height: 1, $suffix: '') {
+  $padding-bottom: percentage($height/$width);
+  #{$embed-container-namespace}-#{$suffix} {
+    padding-bottom: $padding-bottom;
+  }
+}
+
+@include embed-responsive (750, 450, 'maps');
+
+iframe,
+embed,
+object,
+video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+}
