@@ -55,7 +55,15 @@ gutters.
   }
 
   .content-section-two {
-    @include span(4 of 8);
+    @include span(full);
+
+    @include susy-media(md) {
+      @include span(4 of 8);
+
+      .heading-spacer {
+        height: ($h2-font-size * $h2-line-height) + $header-top-margin + $header-bottom-margin; // computed height of h2 is font-size times line-height + the margins
+      }
+    }
 
     &:nth-of-type(2n+1) {
       clear: left;

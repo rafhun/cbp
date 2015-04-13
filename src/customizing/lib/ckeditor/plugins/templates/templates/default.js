@@ -6,37 +6,31 @@ CKEDITOR.addTemplates(
   templates:
   [
     {
-      title: "Teaser Block",
+      title: "Section Container",
       image: 'template1.gif',
-      description: 'Vorlage zur Erstellung eines Teaserblocks f&uuml;r die Schnelleinstiege', // description here
+      description: 'Vorlage zur Erstellung eines Inhaltsabschnitts inkl. Metaangaben', // description here
       html:
-        '<div class="col-sm-6">'+
-          '<div class="teaser_box">'+
-          '<h2>Angebot</h2><div class="img-container">'+
-          '<img alt="Angebot" src="http://fakeimg.pl/750x375" /></div>'+
-          '<ul>'+
-          ' <li><a href="#">Erkennungsmerkmale</a></li>'+
-          ' <li><a href="#">Kosten und Pr&auml;vention</a></li>'+
-          ' <li><a href="#">Fragen und Antworten</a></li>'+
-          ' <li><a href="#">Blindtext</a></li>'+
-          ' <li><a href="#">Blindtext 2</a></li>'+
-          '</ul>'+
-          '</div>'+
-          '</div>' // add template html
+        '<section class="content-section">'+
+          '<h2 class="content-section-title">Titel des Abschnitts</h2>'+
+          '<p class="content-section-meta">Metaangaben zum Abschnitt</p>'+
+          '<p>Inhalte</p>'+
+        '</section>' // add template html
     },
     {
-      title: "Beschreibungsliste",
+      title: "Section Container zweispaltig",
       image: 'template1.gif',
-      description: 'Erstellt Liste mit kursiven Titeln plus Beschreibung darunter. Bsp: unter Angebote Klinik.', // description here
+      description: 'Vorlage zur Erstellung zweier Inhaltsabschnitte nebeneinander inkl. Metaangaben. ACHTUNG bei der Verwendung dieses Templates sicherstellen, dass die Inhaltsvorlage content_nested ausgewählt ist und auch alle anderen Inhalte in Abschnitten sind.', // description here
       html:
-        '<ul><li><em>Titel</em><br>Beschreibung</li><li><em>n&auml;chster Titel (einf&uuml;gen mit Enter)</em><br>Beschreibung (auf diese Zeile wechseln mit Shift + Enter)</li></ul>' // add template html
-    },
-    {
-      title: "zwei Bilder nebeneinander",
-      image: 'template1.gif',
-      description: 'Zwei Bilder nebeneinander im Content. Mobile wird nur das erste angezeigt',
-      html:
-        '<div class="row content-image-row"><div class="col-sm-6"><img src="http://fakeimg.pl/750x350"></div><div class="col-sm-6 hidden-xs"><img src="http://fakeimg.pl/750x350"></div></div>'
+        '<section class="content-section-two">'+
+          '<h2 class="content-section-title">Titel des Abschnitts 1</h2>'+
+          '<p class="content-section-meta">Metaangaben zum Abschnitt</p>'+
+          '<p>Inhalte</p>'+
+        '</section>'+
+        '<section class="content-section-two">'+
+          '<h2 class="content-section-title">Titel des Abschnitts 2</h2>'+
+          '<p class="content-section-meta">Metaangaben zum Abschnitt</p>'+
+          '<p>Inhalte</p>'+
+        '</section>' // add template html
     }
   ]
 }); // end addTemplates
