@@ -4,14 +4,18 @@
 
   background: $news-teaser-button-background;
 
-  padding: $news-teaser-button-padding;
-
   border: $news-teaser-button-border;
   border-radius: $news-teaser-button-border-radius;
 
   .icon-arrow {
+    display: block;
+    width: 100%;
+    height: 100%;
+
     background-position: $news-teaser-button-icon-position;
     background-size: $news-teaser-button-icon-size;
+    
+    padding: $news-teaser-button-padding;
     padding-right: $news-teaser-button-icon-padding-right;
   }
 }
