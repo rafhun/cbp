@@ -3,7 +3,8 @@ module.exports = {
     files: [
       {
         expand: true,
-        src: ['<%= pkg.srcFolders.fonts %>*'],
+        cwd: '<%= pkg.srcFolders.fonts %>',
+        src: ['*'],
         dest: '<%= destFolder %><%= pkg.buildFolders.fonts %>',
         filter: 'isFile'
       }
@@ -27,6 +28,14 @@ module.exports = {
       cwd: '<%= pkg.srcFolders.customizing %>',
       src: ['**'],
       dest: '<%= pkg.buildFolders.customizing %>'
+    }]
+  },
+  editorCustomizing: {
+    files: [{
+      expand: true,
+      cwd: '<%= pkg.srcFolders.customizing %>lib/ckeditor/',
+      src: '**/*.js',
+      dest: '<%= pkg.buildFolders.root%>lib/ckeditor/'
     }]
   }
 }
