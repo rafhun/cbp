@@ -27,5 +27,6 @@ CKEDITOR.stylesSet.add( 'default', [
   { name: 'Phone Link',      element: 'a', attributes: { 'class': 'icon-phone link-icon' } },
   { name: 'Aufzählungszeichen',      element: 'ul', attributes: { 'class': 'tick-list' } },
   { name: 'Bild links',      element: 'img', attributes: { 'class': 'alignleft' } },
+  { name: 'Accordion öffnen',      element: 'h3', attributes: { 'class': 'accordion-title in' } },
 ] );
 

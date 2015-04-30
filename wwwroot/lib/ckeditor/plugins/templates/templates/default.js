@@ -1,6 +1,73 @@
-﻿/*
- Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
- For licensing, see LICENSE.md or http://ckeditor.com/license
-*/
-CKEDITOR.addTemplates("default",{imagesPath:CKEDITOR.getUrl(CKEDITOR.plugins.getPath("templates")+"templates/images/"),templates:[{title:"Image and Title",image:"template1.gif",description:"One main image with a title and text that surround the image.",html:'<h3><img src=" " alt="" style="margin-right: 10px" height="100" width="100" align="left" />Type the title here</h3><p>Type the text here</p>'},{title:"Strange Template",image:"template2.gif",description:"A template that defines two colums, each one with a title, and some text.",
-html:'<table cellspacing="0" cellpadding="0" style="width:100%" border="0"><tr><td style="width:50%"><h3>Title 1</h3></td><td></td><td style="width:50%"><h3>Title 2</h3></td></tr><tr><td>Text 1</td><td></td><td>Text 2</td></tr></table><p>More text goes here.</p>'},{title:"Text and Table",image:"template3.gif",description:"A title with some text and a table.",html:'<div style="width: 80%"><h3>Title goes here</h3><table style="width:150px;float: right" cellspacing="0" cellpadding="0" border="1"><caption style="border:solid 1px black"><strong>Table title</strong></caption><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr></table><p>Type the text here</p></div>'}]});
+CKEDITOR.addTemplates(
+  'default',{imagesPath:CKEDITOR.getUrl(CKEDITOR.plugins.getPath('templates')+'templates/images/'),
+
+  // Template definitions
+  // add templates below according to the examples
+  templates:
+  [
+    {
+      title: 'Section Container',
+      image: 'template1.gif',
+      description: 'Vorlage zur Erstellung eines Inhaltsabschnitts inkl. Metaangaben', // description here
+      html:
+        '<section class="content-section">'+
+          '<h2 class="content-section-title">Titel des Abschnitts</h2>'+
+          '<p class="content-section-meta">Metaangaben zum Abschnitt</p>'+
+          '<p>Inhalte</p>'+
+        '</section>' // add template html
+    },
+    {
+      title: 'Section Container zweispaltig',
+      image: 'template1.gif',
+      description: 'Vorlage zur Erstellung zweier Inhaltsabschnitte nebeneinander inkl. Metaangaben. ACHTUNG bei der Verwendung dieses Templates sicherstellen, dass die Inhaltsvorlage content_nested ausgewählt ist und auch alle anderen Inhalte in Abschnitten sind.', // description here
+      html:
+        '<section class="content-section-two">'+
+          '<h2 class="content-section-title">Titel des Abschnitts 1</h2>'+
+          '<p class="content-section-meta">Metaangaben zum Abschnitt</p>'+
+          '<p>Inhalte</p>'+
+        '</section>'+
+        '<section class="content-section-two">'+
+          '<h2 class="content-section-title">Titel des Abschnitts 2</h2>'+
+          '<p class="content-section-meta">Metaangaben zum Abschnitt</p>'+
+          '<p>Inhalte</p>'+
+        '</section>' // add template html
+    },
+    {
+      title: 'Accordion',
+      image: 'template1.gif',
+      description: 'Vorlage zur Erstellung eines Accordions, welches bspw. für Fragen &amp; Antworten verwendet wird.', // description here
+      html:
+        '<h3 class="accordion-title">'+
+          '<a class="accordion-link" href="#">Titel/Frage</a>'+
+        '</h3>'+
+        '<div class="accordion-container>'+
+          '<p>Inhalt des Accordions</p>'+
+          '<h4 class="accordion-subheading">Accordion Untertitel</h4>'+
+          '<ul class="pdf-list">'+
+            '<li><a href="#" class="icon-pdf link-icon">Zur Auflistung von PDF Files</a></li>'+
+            '<li><a href="#" class="icon-pdf link-icon">Falls nicht benötigt, löschen</a></li>'+
+          '</ul>'+
+        '</div>' // add template html
+    },
+    {
+      title: 'Galerie 4 Bilder',
+      image: 'template1.gif',
+      description: 'Vorlage zur Erstellung einer Galerie, mit vier Bildern (siehe Seite Praxis).', // description here
+      html:
+        '<section class="lightbox-previews">'+
+          '<figure class="lightbox-links"><a data-lightbox="gallery-1" data-title="Bild 1" href="//fakeimg.pl/1000x720?text=Bild1"><img alt="" src="//fakeimg.pl/300?text=Bild Praxis" /> </a>'+
+            '<figcaption>Bildbeschrieb</figcaption>'+
+          '</figure>'+
+          '<figure class="lightbox-links"><a data-lightbox="gallery-1" data-title="Bild 1" href="//fakeimg.pl/1000x720?text=Bild2"><img alt="" src="//fakeimg.pl/300?text=Bild Praxis" /> </a>'+
+            '<figcaption>Bildbeschrieb</figcaption>'+
+          '</figure>'+
+          '<figure class="lightbox-links"><a data-lightbox="gallery-1" data-title="Bild 1" href="//fakeimg.pl/1000x720?text=Bild3"><img alt="" src="//fakeimg.pl/300?text=Bild Praxis" /> </a>'+
+            '<figcaption>Bildbeschrieb</figcaption>'+
+          '</figure>'+
+          '<figure class="lightbox-links"><a data-lightbox="gallery-1" data-title="Bild 1" href="//fakeimg.pl/1000x720?text=Bild4"><img alt="" src="//fakeimg.pl/300?text=Bild Praxis" /> </a>'+
+            '<figcaption>Bildbeschrieb</figcaption>'+
+          '</figure>'+
+        '</section>' // add template html
+    }
+  ]
+}); // end addTemplates
