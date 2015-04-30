@@ -40,7 +40,7 @@ module.exports = {
     tasks: ['clean:customizing', 'copy:customizing']
   },
   hologram: {
-    files: ['<%= pkg.srcFolders.scss %>README.md'],
+    files: ['<%= pkg.srcFolders.scss %>readme.md'],
     tasks: ['hologram']
   }
 }
