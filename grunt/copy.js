@@ -31,8 +31,10 @@ module.exports = {
   },
   editorCustomizing: {
     files: [{
-      src: '<%= pkg.srcFolders.customizing %>lib/ckeditor/styles.js',
-      dest: '<%= pkg.buildFolders.root%>lib/ckeditor/styles.js'
+      expand: true,
+      cwd: '<%= pkg.srcFolders.customizing %>lib/ckeditor/',
+      src: '**/*.js',
+      dest: '<%= pkg.buildFolders.root%>lib/ckeditor/'
     }]
   }
 }
