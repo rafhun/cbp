@@ -67,7 +67,8 @@ CKEDITOR.addTemplates(
           '<figure class="lightbox-links"><a data-lightbox="gallery-1" data-title="Bild 1" href="//fakeimg.pl/1000x720?text=Bild4"><img alt="" src="//fakeimg.pl/300?text=Bild Praxis" /> </a>'+
             '<figcaption>Bildbeschrieb</figcaption>'+
           '</figure>'+
-        '</section>' // add template html
+        '</section>' +
+        '<p>weiterer Content oder löschen bei Nichtbedarf</p>' // add template html
     }
   ]
 }); // end addTemplates
