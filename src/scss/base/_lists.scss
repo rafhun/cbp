@@ -5,6 +5,8 @@ $list-symbol: '–' !default;
 // basic list styling
 ul {
   list-style: none;
+  font-size: $paragraph-font-size;
+  line-height: $paragraph-line-height;
   
   &.tick-list {
     margin-left: $symbol-margin + $symbol-indent;
@@ -18,7 +20,8 @@ ul {
   }
 }
 
-ul + h4 {
+ul + h4,
+ul + p {
   // set the h4 the same off a ul as a p
   // for christenortho this is needed within the accordions
   // add more selectors should the situation occur in other
