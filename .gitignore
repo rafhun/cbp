@@ -93,3 +93,6 @@ wwwroot/customizing
 # contrexx generated sitemaps and news feeds
 sitemap*.xml
 wwwroot/feed
+
+# added by GitSavvy
+/wwwroot/lib/ckeditor/plugins/templates/templates/default.js
