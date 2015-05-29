@@ -33,7 +33,6 @@
     "grunt-favicons": "git://github.com/marten-seemann/grunt-favicons#master",
     "grunt-grunticon": "^2.1.6",
     "grunt-hashres": "^0.4.1",
-    "grunt-hologram": "0.0.6",
     "grunt-mysql-dump": "^1.0.0",
     "grunt-newer": "^1.1.0",
     "grunt-replace": "^0.8.0",
@@ -47,6 +46,7 @@
   "dependencies": {},
   "themeName": "rafhun",
   "devUrl": "http://christenortho.dev",
+  "hologramConfig": "hologram/hologram_config.yml",
   "buildFolders": {
     "config": "wwwroot/config/",
     "editorConfig": "wwwroot/core/Wysiwyg/",

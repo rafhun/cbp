@@ -10,5 +10,8 @@ module.exports = {
   },
   bowerUpdate: {
     command: 'bower update'
+  },
+  hologram: {
+    command: 'bundle exec hologram <%= pkg.hologramConfig %>'
   }
 }
