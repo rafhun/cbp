@@ -24,7 +24,7 @@ default:
   - 'htmlmin'
   - 'jade'
   - 'hashres'
-  - 'hologram'
+  - 'shell:hologram'
   - 'browserSync'
   - 'watch'
 
@@ -47,7 +47,7 @@ local:
   - 'htmlmin'
   - 'jade'
   - 'hashres'
-  - 'hologram'
+  - 'shell:hologram'
 
 staging:
   - 'jshint:grunt'
@@ -75,7 +75,7 @@ staging:
   - 'htmlmin'
   - 'jade'
   - 'hashres'
-  - 'hologram'
+  - 'shell:hologram'
 
 ship:
   - 'jshint:grunt'
@@ -103,7 +103,7 @@ ship:
   - 'htmlmin'
   - 'jade'
   - 'hashres'
-  - 'hologram'
+  - 'shell:hologram'
 
 setup:
  - 'shell:bundler'
@@ -125,7 +125,7 @@ bsWatch:
 icons:
   - 'svgmin'
   - 'grunticon'
-  
+
 editorStyles:
   - 'clean:editorStyles'
   - 'sass:editorStyles'
