@@ -38,7 +38,6 @@
     "grunt-rsync": "^0.6.2",
     "grunt-shell": "^1.1.2",
     "grunt-svgmin": "^2.0.1",
-    "grunt-svgstore": "^0.5.0",
     "jshint": "^2.8.0",
     "load-grunt-config": "^0.17.1",
     "time-grunt": "^1.2.1"
