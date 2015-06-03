@@ -10,7 +10,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "tbd"
+    "url": "https://github.com/rafhun/cbp"
   },
   "devDependencies": {
     "bower": "^1.4.1",
