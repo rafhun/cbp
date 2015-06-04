@@ -1,10 +1,10 @@
 module.exports = {
   options: {
-    files: ['package.json', 'bower.json'],
+    files: ['package.json', 'bower.json', 'readme.md'],
     updateConfigs: ['pkg'],
     commit: true,
     commitMessage: 'Release v%VERSION%',
-    commitFiles: ['package.json', 'bower.json'],
+    commitFiles: ['package.json', 'bower.json', 'readme.md'],
     createTag: true,
     tagName: 'v%VERSION%',
     tagMessage: 'Version %VERSION%',
