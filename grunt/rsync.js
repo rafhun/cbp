@@ -7,7 +7,7 @@ module.exports = {
     options: {
       src: 'wwwroot/',
       dest: '<%= secrets.production.ascms_root %>',
-      host: '<%= secrets.production.sshHost',
+      host: '<%= secrets.production.sshHost %>',
       delete: true
     }
   },
