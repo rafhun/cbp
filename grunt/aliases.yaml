@@ -15,7 +15,6 @@ default:
   - 'uglify'
   - 'sass:main'
   - 'imagemin'
-  - 'svgstore'
   - 'autoprefixer:main'
   - 'cssmin'
   - 'favicons'
@@ -39,7 +38,6 @@ local:
   - 'concat'
   - 'uglify'
   - 'imagemin'
-  - 'svgstore'
   - 'sass:main'
   - 'autoprefixer:main'
   - 'cssmin'
@@ -65,7 +63,6 @@ staging:
   - 'concat'
   - 'uglify'
   - 'imagemin'
-  - 'svgstore'
   - 'sass:main'
   - 'autoprefixer:main'
   - 'cssmin'
@@ -93,7 +90,6 @@ production:
   - 'concat'
   - 'uglify'
   - 'imagemin'
-  - 'svgstore'
   - 'sass:main'
   - 'autoprefixer:main'
   - 'cssmin'
@@ -104,6 +100,14 @@ production:
   - 'jade'
   - 'hashres'
   - 'shell:hologram'
+
+pushStaging:
+  - 'staging'
+  - 'rsync:staging'
+
+pushProduction:
+  - production
+  - 'rsync:productionDry'
 
 setup:
  - 'shell:bundler'
