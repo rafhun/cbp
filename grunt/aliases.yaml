@@ -77,7 +77,7 @@ staging:
   - 'hashres'
   - 'shell:hologram'
 
-ship:
+production:
   - 'jshint:grunt'
   - 'jshint:shipping'
   - 'clean:editorConfig'

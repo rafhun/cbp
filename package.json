@@ -68,7 +68,6 @@
     "jsBuild": "src/js/build/",
     "jade": "src/jade/",
     "images": "src/images/",
-    "svg": "src/images/svg/",
     "icons": "src/images/icons/",
     "iconsMin": "src/images/icons/min/",
     "contentImg": "src/images/content/",
