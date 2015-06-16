@@ -112,6 +112,14 @@ production:
   - 'hashres'
   - 'shell:hologram'
 
+pushStaging:
+  - 'staging'
+  - 'rsync:staging'
+
+pushProduction:
+  - 'production'
+  - 'rsync:production'
+
 setup:
  - 'shell:bundler'
  - 'shell:bower'
