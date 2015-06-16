@@ -1,6 +1,6 @@
 {
   "name": "ContrexxDevFramework",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "This framework is to be used to develop Contrexx themes in an efficient manner using tools like grunt and sass.",
   "contributors": [
     {
