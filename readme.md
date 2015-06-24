@@ -206,7 +206,7 @@ As it stands now only one person at a time should be entering content into the C
 This system could also be optimized by using a central db on a server for development to which everybody has access.
 
 # Default Contrexx Customizations
-The boilerplate comes with a few ready-made customizations to the standard Contrexx code. These can simply be removed or edited by working on the respective files in the `src/customizing` folder. The included customizations are explained below.
+The boilerplate comes with a few ready-made customizations to the standard Contrexx code. These can simply be removed or edited by working on the respective files in the `src/customizing` folder. The included customizations are explained below. Customizings within files are usually marked by `// customizing` so they can easily be found for further insight or edits.
 
 ## Core Modules
 

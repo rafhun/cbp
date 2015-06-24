@@ -118,8 +118,15 @@ class MediaManager extends MediaLibrary
         return $this->_objTpl->get();
     }
 
+    // customizing
     /**
      * Remove sorting prefix
+     *
+     * If the path contains a sorting prefix of the form
+     * 01- (two digits followed by a dash) it is stripped
+     * from the variable. Also all _ are replaced by spaces.
+     * 
+     * @return  string  parsed path
      */
     function _formatPathName($path) {
       if (preg_match("/(\A\d{2}+-)/", $path)) {
