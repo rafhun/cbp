@@ -146,3 +146,18 @@ editorStyles:
   - 'sass:editorStyles'
   - 'autoprefixer:editorStyles'
   - 'copy:editorStyles'
+
+patchBump:
+  - 'bump:patch'
+  - 'changelog'
+  - 'shell:addChangelog'
+
+minorBump:
+  - 'bump:minor'
+  - 'changelog'
+  - 'shell:addChangelog'
+
+majorBump:
+  - 'bump:major'
+  - 'changelog'
+  - 'shell:addChangelog'

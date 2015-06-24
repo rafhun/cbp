@@ -13,5 +13,8 @@ module.exports = {
   },
   hologram: {
     command: 'bundle exec hologram <%= pkg.hologramConfig %>'
+  },
+  addChangelog: {
+    command: 'git add CHANGELOG.md && git commit --amend --no-edit && git push'
   }
 }
