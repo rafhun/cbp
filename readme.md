@@ -1,5 +1,5 @@
 # Contrexx Development Framework
-Version: 0.5.1
+Version: 0.5.2
 
 This framework uses advanced methodologies to ensure efficient and clean development of Contrexx websites and especially their themes. It relies on modern technologies such as Grunt to run tasks, libsass to compile scss, susy for grid computation and several more great tools.
 
