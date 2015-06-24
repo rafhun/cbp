@@ -204,3 +204,35 @@ Maybe in the future a standard dump will be prepared containing the most usually
 As it stands now only one person at a time should be entering content into the CMS. When that person is finished he should dump the database and commit the new dump. Before starting to work on content one should always pull in the latest database dump and import it to one's developer database so contents are always up to date. Be very careful not to lose any content!
 
 This system could also be optimized by using a central db on a server for development to which everybody has access.
+
+# Default Contrexx Customizations
+The boilerplate comes with a few ready-made customizations to the standard Contrexx code. These can simply be removed or edited by working on the respective files in the `src/customizing` folder. The included customizations are explained below.
+
+## Core Modules
+
+### Frontend Editing
+Frontend Editing is deactivated for page titles by default. Because of the editor configuration of setting `<p>` elements by default these are automatically put around page titles when Frontend Editing is activated. This usually does not interfere with styles but makes no sense semantically.
+
+@TODO: Maybe find a way to include the title in Frontend Editing through a usual text input field instead of the editor instance. This would prevent the `<p>` tags and reflect the situation in the backend.
+
+### Media (Media Archive)
+The standard media archive is vastly improved through this customizing. Especially to grant an improved user experience the following changes are applied:
+
+* `_` in file or folder names are automatically replaced by spaces. Since Contrexx and its internal file uploader have trouble with spaces in file or folder names this makes it possible for users to get the full and readable name while granting a working upload experience for the administrators.
+
+* The use of a sorting prefix in the form of `01-` is made available. When giving out file and folder names Contrexx now automatically recognizes this pattern and hides it from the user. This makes manual sorting easy while keeping the prefixes out of sight of the user. Should no sorting be needed in certain folders it can just be left out, so one is not forced to use the prefix throughout the installation and the customizing can be applied no matter which file naming system is used.
+
+* An improved sorting algorithm is being applied so we get `1, 2, 3, ..., 10, 11, ...` instead of `1, 10, 11, 2, 3, ...` which makes much more sense. This is done by adding the `SORT_NATURAL` flag to the `array_multisort()` function that is used for sorting.
+
+All text changes (points 1 and 2 above) are applied to the `MEDIA_TREE_NAV_DIR` (name given out in the media navigation bar) and the `MEDIA_FILE_NAME` (name given to the folder or file in the actual file list) placeholders. This ensures that the correct paths are given while the readable name is output.
+
+## Lib
+
+### ckeditor
+Two crucial improvments to the backend editor are configured here. For efficient and easy content editing especially for the end user styles as well as templates are configured here. Since these parts are heavily dependent on the actual template and options given therein only basic outlines are given in the boilerplate.
+
+#### Styles
+To enable the user to easily add things such as a link icon or make an link open in an lightbox styles can be configured. For these to work the menu has to be enabled in the editor configuration (which is saved under `config/ckeditor.config.js.php` and has the styles enabled by default). Follow the given, commented out examples to add your own custom styles. Make sure to document them for the end user in the styleguide.
+
+#### Templates
+Some UI parts can require complex markup which can be saved in these templates. This makes it easy for the end user to add things like complete image galleries or accordions. To add your own templates based on your UI components also follow the given commented out examples. As with styles do not forget to add documentation for your user in the styleguide.
