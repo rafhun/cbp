@@ -226,6 +226,9 @@ The standard media archive is vastly improved through this customizing. Especial
 
 All text changes (points 1 and 2 above) are applied to the `MEDIA_TREE_NAV_DIR` (name given out in the media navigation bar) and the `MEDIA_FILE_NAME` (name given to the folder or file in the actual file list) placeholders. This ensures that the correct paths are given while the readable name is output.
 
+### News
+The news module is changed to completely ignore automatically generated thumbnails. Since we usually optimize news images as thumbs from the start we do not need this uncontrolled resized image. Since auto thumbs might still be needed in other modules or the core we just change the behavior within the news module. To achieve this the `parseImageThumbnail` function has been adapted to ignore all calls to the thumb source. Also one more manual change had to be made for the teasers class, since for some reason there the above mentioned function is not called.
+
 ## Lib
 
 ### ckeditor
