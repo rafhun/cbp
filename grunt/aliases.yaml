@@ -44,6 +44,7 @@ local:
   - 'replace:local'
   - 'concat'
   - 'uglify'
+  - 'imagemin'
   - 'sass:main'
   - 'imagemin'
   - 'autoprefixer:main'

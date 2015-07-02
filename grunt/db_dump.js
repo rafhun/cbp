@@ -8,7 +8,7 @@ module.exports = {
       'pass': '<%= secrets.local.db_password %>',
       'host': '<%= secrets.local.db_host %>',
 
-      'backup_to': '<%= pkg.dbDump %>backup-<%= grunt.template.today("yyyymmdd-HHMMss") %>.sql'
+      'backup_to': '<%= config.dbDump %>backup-<%= grunt.template.today("yyyymmdd-HHMMss") %>.sql'
     }
   }
 }

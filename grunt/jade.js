@@ -7,7 +7,7 @@ module.exports = {
     },
     files: [{
       expand: true,
-      cwd: '<%= pkg.srcFolders.jade %>',
+      cwd: '<%= config.srcFolders.jade %>',
       src: ['*.jade'],
       dest: '<%= destFolder %>',
       ext: '.html'

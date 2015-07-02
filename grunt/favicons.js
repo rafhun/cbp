@@ -1,6 +1,6 @@
 module.exports = {
   options: {
-    html: '<%= pkg.srcFolders.jade %>favicons.html',
+    html: '<%= config.srcFolders.jade %>favicons.html',
     coast: true,
     firefox: true,
     androidHomescreen: true,
@@ -9,7 +9,7 @@ module.exports = {
     tileColor: '#00f', // auto, none or #color -> this is important if above is true
   },
   icons: {
-    src: '<%= pkg.srcFolders.images %>favicon.png',
+    src: '<%= config.srcFolders.images %>favicon.png',
     dest: 'wwwroot/'
   }
 }

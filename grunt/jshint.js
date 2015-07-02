@@ -4,15 +4,15 @@ module.exports = {
   },
   grunt: ['Gruntfile.js', 'grunt/*.js'],
   src: [
-    '<%= pkg.srcFolders.componentsJs %>**',
-    '<%= pkg.srcFolders.js %>script.js'
+    '<%= config.srcFolders.componentsJs %>**',
+    '<%= config.srcFolders.js %>script.js'
     ],
   shipping: {
     options: {
       jshintrc: '.jshintrc-dist',
     },
     files: {
-      src: ['<%= pkg.srcFolders.js %>script.js'],
+      src: ['<%= config.srcFolders.js %>script.js'],
     }
   }
 }
