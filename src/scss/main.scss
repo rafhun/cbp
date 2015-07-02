@@ -37,3 +37,8 @@ $EDITOR-STYLES: false;
 
 // non-semantic layout helper classes & placeholders
 @import 'helpers/visibility';
+
+// add the icons svg to the editor styles css manually so icons show up in editor
+@if $EDITOR-STYLES {
+  @import url('/themes/rafhun/icons/icons.data.svg.css');
+}

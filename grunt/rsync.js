@@ -2,6 +2,16 @@ module.exports = {
   options: {
     args: ['--verbose'],
     recursive: true,
+    exclude: ['.git', '.hg', '.svn', '.DS_Store', '._*', 'Thumbs.db', '/tmp/cache/**'],
+    include: ['/tmp/cache/.htaccess'],
+  },
+  staging: {
+    options: {
+      src: 'wwwroot/',
+      dest: '<%= secrets.staging.ascms_root %>',
+      host: '<%= secrets.staging.sshHost %>',
+      delete: true
+    }
   },
   production: {
     options: {

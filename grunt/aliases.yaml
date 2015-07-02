@@ -7,6 +7,7 @@ default:
   - 'copy:customizing'
   - 'copy:editorConfig'
   - 'copy:editorStyles'
+  - 'copy:editorCustomizing'
   - 'copy:fonts'
   - 'jshint:grunt'
   - 'jshint:src'
@@ -28,20 +29,28 @@ default:
   - 'watch'
 
 local:
-  - 'jshint:grunt'
-  - 'jshint:src'
-  - 'replace:local'
+  - 'clean:editorConfig'
+  - 'clean:customizing'
   - 'clean:dest'
   - 'clean:minSvg'
   - 'clean:favicon'
+  - 'copy:customizing'
+  - 'copy:editorConfig'
+  - 'copy:editorStyles'
+  - 'copy:editorCustomizing'
   - 'copy:fonts'
+  - 'jshint:grunt'
+  - 'jshint:src'
+  - 'replace:local'
   - 'concat'
   - 'uglify'
-  - 'imagemin'
   - 'sass:main'
+  - 'imagemin'
   - 'autoprefixer:main'
   - 'cssmin'
   - 'favicons'
+  - 'svgmin'
+  - 'grunticon'
   - 'htmlmin'
   - 'jade'
   - 'hashres'
@@ -58,6 +67,7 @@ staging:
   - 'replace:staging'
   - 'copy:editorConfig'
   - 'copy:editorStyles'
+  - 'copy:editorCustomizing'
   - 'copy:customizing'
   - 'copy:fonts'
   - 'concat'
@@ -85,6 +95,7 @@ production:
   - 'replace:production'
   - 'copy:editorConfig'
   - 'copy:editorStyles'
+  - 'copy:editorCustomizing'
   - 'copy:customizing'
   - 'copy:fonts'
   - 'concat'
@@ -106,8 +117,8 @@ pushStaging:
   - 'rsync:staging'
 
 pushProduction:
-  - production
-  - 'rsync:productionDry'
+  - 'production'
+  - 'rsync:production'
 
 setup:
  - 'shell:bundler'
@@ -135,3 +146,18 @@ editorStyles:
   - 'sass:editorStyles'
   - 'autoprefixer:editorStyles'
   - 'copy:editorStyles'
+
+patchBump:
+  - 'bump:patch'
+  - 'changelog'
+  - 'shell:addChangelog'
+
+minorBump:
+  - 'bump:minor'
+  - 'changelog'
+  - 'shell:addChangelog'
+
+majorBump:
+  - 'bump:major'
+  - 'changelog'
+  - 'shell:addChangelog'
