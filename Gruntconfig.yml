@@ -1,0 +1,33 @@
+themeName: rafhun
+devUrl: cbp.dev
+hologramConfig: hologram/hologram_config.yml
+
+buildFolders:
+  config: wwwroot/config/
+  editorConfig: wwwroot/core/Wysiwyg/
+  customizing: wwwroot/customizing/
+  theme: wwwroot/themes/
+  img: images/
+  icons: icons/
+  contentImg: wwwroot/images/content
+  fonts: fonts/
+
+srcFolders:
+  bower: src/bower_components/
+  config: src/config/
+  css: src/css/
+  scss: src/scss/
+  js: src/js/
+  componentsJs: src/js/components/
+  customizing: src/customizing/
+  jsBuild: src/js/build/
+  jade: src/jade/
+  images: src/images/
+  icons: src/images/icons/
+  iconsMin: src/images/icons/min/
+  contentImg: src/images/content/
+  themeImg: src/images/theme/
+  fonts: src/fonts/
+  secrets: src/secrets/
+
+dbDump: db/

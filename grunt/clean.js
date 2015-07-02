@@ -3,12 +3,12 @@ module.exports = {
   hashedCss: ['<%= destFolder %>style.min.*.css'],
   hashedJs: ['<%= destFolder %>script.min.*.js'],
   html: ['<%= destFolder %>*.html'],
-  images: ['<%= destFolder %><%= pkg.buildFolders.img %>'],
+  images: ['<%= destFolder %><%= config.buildFolders.img %>'],
   dest: ['<%= destFolder %>'],
   contrexx: ['wwwroot/images/**/*.{jpg,jpeg,gif,png,thumb,pdf,ico,db,html}', 'wwwroot/themes/skeleton_3_0'],
   editorStyles: ['<%= destFolder %>style-ck.css'],
-  editorConfig: ['wwwroot/core/Wysiwyg/ckeditor.config.js.php'],
-  customizing: ['<%= pkg.buildFolders.customizing %>'],
-  minSvg: ['<%= pkg.srcFolders.iconsMin %>**/*.svg'],
-  favicon: ['<%= pkg.srcFolders.jade %>favicons.html']
+  editorConfig: ['<%= config.buildFolders.editorConfig %>ckeditor.config.js.php'],
+  customizing: ['<%= config.buildFolders.customizing %>'],
+  minSvg: ['<%= config.srcFolders.iconsMin %>**/*.svg'],
+  favicon: ['<%= config.srcFolders.jade %>favicons.html']
 }

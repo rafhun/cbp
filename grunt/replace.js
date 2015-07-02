@@ -7,8 +7,8 @@ module.exports = {
         }
       ]
     },
-    src: '<%= pkg.srcFolders.config %>configuration.php',
-    dest: '<%= pkg.buildFolders.config %>configuration.php'
+    src: '<%= config.srcFolders.config %>configuration.php',
+    dest: '<%= config.buildFolders.config %>configuration.php'
   },
   staging: {
     options: {
@@ -18,8 +18,8 @@ module.exports = {
         }
       ]
     },
-    src: '<%= pkg.srcFolders.config %>configuration.php',
-    dest: '<%= pkg.buildFolders.config %>configuration.php'
+    src: '<%= config.srcFolders.config %>configuration.php',
+    dest: '<%= config.buildFolders.config %>configuration.php'
   },
   production: {
     options: {
@@ -29,7 +29,7 @@ module.exports = {
         }
       ]
     },
-    src: '<%= pkg.srcFolders.config %>configuration.php',
-    dest: '<%= pkg.buildFolders.config %>configuration.php'
+    src: '<%= config.srcFolders.config %>configuration.php',
+    dest: '<%= config.buildFolders.config %>configuration.php'
   }
 }

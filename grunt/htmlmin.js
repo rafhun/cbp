@@ -5,7 +5,7 @@ module.exports = {
       collapseWhitespace: true
     },
     files: {
-      '<%= pkg.srcFolders.jade %>favicons.html' : '<%= pkg.srcFolders.jade %>favicons.html'
+      '<%= config.srcFolders.jade %>favicons.html' : '<%= config.srcFolders.jade %>favicons.html'
     }
   }
 }
