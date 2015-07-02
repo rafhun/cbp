@@ -17,10 +17,10 @@
     "Gemfile"
   ],
   "dependencies": {
-    "jquery": "~2.1.3",
-    "susy": "~2.2.2"
+    "jquery": "~2.1.4",
+    "susy": "~2.2.5"
   },
   "devDependencies": {
-    "Cortana": "~1.2.8"
+    "Cortana": "~1.2.9"
   }
 }
