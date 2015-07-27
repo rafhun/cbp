@@ -7,14 +7,14 @@ module.exports = {
         '<%= destFolder %>script.js'
       ],
       excludeMissing: true,
-      readme: 'readme.md',
+      readme: '<%= config.srcFolders.scss %>readme.md',
       theme: 'sassdown/theme.css'
     },
     files: [{
       expand: true,
       cwd: '<%= config.srcFolders.scss %>',
       src: '**/*.scss',
-      dest: '<%= config.buildFolders.styleguide'
+      dest: '<%= config.buildFolders.styleguide %>'
     }]
   }
 }
