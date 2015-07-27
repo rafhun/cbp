@@ -1,12 +1,28 @@
-// every single color that is used throughout the stylesheet should be assigned
-// to a variable in this file
-// also set !default flags to enable theming
+/*
+# Colors
+Every single color that is used throughout the stylesheet should be assigned to a variable in this file. Always assign color names to hex (or rgba or other) values to ensure better readable code. Then assign those variables to the theme ones.
+*/
 
 // colors (no defaults here, as variable name describes color)
-$black-pearl: #041322;
-$black: #000;
+$golden-bell: #eb8714;
+$coffee: #73695a;
+
+// greys
+$dove-grey: #6f6f6f;
+$mercury: #e5e5e5;
+$seashell: #f1f1f1;
 $white: #fff;
+$black: #000;
+
+$darken: rgba(0, 0, 0, .1);
 
 // stylesheet variables
-$color-primary: $black-pearl !default;
-$color-text: $black;
+$color-primary: $golden-bell !default;
+$color-secondary: $coffee !default;
+
+$color-text: $dove-grey !default;
+
+$color-background: $white !default;
+$color-background-grey: $mercury !default;
+
+$color-lines: $darken !default;

@@ -1,0 +1,7 @@
+// molecules are the smallest ui components we define. They usually just add styling to one element respectively.
+
+// import all molecules, for clear code organization put each molecule into its own folder with a config and a styles file then import them as follows:
+// @import 'molecule-name/config';
+// @import 'molecule-name/styles';
+//
+// If you need more functionality you might want to add a lib, functions or mixin file. Keep your code organized!!

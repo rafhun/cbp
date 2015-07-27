@@ -1,31 +1,107 @@
-// all typography variables (and only variables) are assigned here, use !default
-// flags to enable styling as well
-$font-stack: 'TheSans', Helvetica, Arial, sans- !default;
+/*
+# Typography
 
-$base-font-size: 100% !default;
+Here we set all of our typography variables. These define rules that apply to the whole document and also shoud cascade down to the components (where appropriate). Stuff such as font stacks, base values for font size and lineheight as well as headings are set up here.
+
+For lineheight it is strongly recommended to use unitless values that translate well in inheritance instances.
+
+@TODO: Develop a responsive typography, possibly then used through a mixin that is set up and configured here.
+*/
+
+$sans: 'TheSans', Helvetica, Arial, sans-serif !default;
+$serif: Georgia, Utopia, Palatino, 'Palatino Linotype', serif !default;
+$code: Consolas, 'Courier New', Courier, monospace !default;
+
+$base-font-size: 16px !default;
+$base-line-height: 1.2 !default;
+
+$font-smoothing: antialiased !default;
 
 // headings
 $headings-font-color: $color-primary !default;
-$headings-font-color-secondary: $color-font !default;
-$headings-top-margin: .2rem !default;
-$headings-bottom-margin: .5rem !default;
+$headings-font-family: serif !default;
+$headings-font-weight: bold !default;
 $headings-text-rendering: optimizeLegibility !default;
 
-$h1-font-size: rem-calc(20) !default;
-$h1-line-height: 24/20 !default;
-
-$h2-font-size: rem-calc(20) !default;
-$h2-line-height:  24/20 !default;
-
-$h3-font-size: rem-calc(20) !default;
-$h3-line-height: 24/20 !default;
-
-// paragraphs
-$paragraph-font-size: rem-calc(20) !default;
-$paragraph-line-height: 24/20  !default;
-$paragraph-margin-bottom: rem-calc(20) !default;
 
 // anchors
+$anchor-color-font: $color-primary !default;
+$anchor-font-style: normal !default;
 $anchor-text-decoration: none !default;
-$anchor-text-decoration-hover: none !default;
-$anchor-font-color: $color-primary !default;
+$anchor-text-decoration-hover: underline !default;
+
+// this map configures all of our basic styles. set up all properties you need to style the given element. Everything defined in the list below ($typography-config-options) will be read and applied if it exists and has a value other than null.
+$typography: (
+  base: (
+    font-size: rem-calc(18),
+    font-weight: null,
+    line-height: 24/18,
+  ),
+  h1: (
+    font-size: rem-calc(28),
+    font-weight: bold,
+    line-height: 32/28,
+  ),
+  h2: (
+    font-size: rem-calc(22),
+    font-weight: bold,
+    line-height: 26/22,
+  ),
+  h3: (
+    font-size: rem-calc(20),
+    font-weight: bold,
+    line-height: 24/20,
+  )
+);
+
+$typography-config-options: (font-size, font-weight, line-height);
+
+// we compute and set the proper margin bottom for the elements, by setting it equal to the box height of a row of text (font-size * line-height). Here we are using the values for the base text layout to compute a base margin bottom for all possible other elements such as lists, ...
+@if ((map-has-key(map-get($typography, base), font-size) and not (map-get(map-get($typography, base), font-size) == null)) and ((map-has-key(map-get($typography, base), line-height) and not (map-get(map-get($typography, base), line-height) == null)))) {
+  $base-block-margin-bottom: (map-get(map-get($typography, base), font-size)) * (map-get(map-get($typography, base), line-height)) !default;
+} @else {
+  // if the required values are not set in the $typography map we fall back to a rem value defined here.
+  $base-block-margin-bottom: rem-calc(20) !default;
+}
+
+// call this mixin within the element you wish to style. It takes the config key as an argument and falls back to the base config if none is given.
+@mixin get-typography($element: base) {
+  // check that a configuration for the element specified can be found
+  @if (map-has-key($typography, $element)) {
+    // check through all configurable options and add those that are defined for the element
+    // fontsize
+    @each $option in $typography-config-options {
+      // we check that the option is defined for the element (first part) and that it is not set to null (second part), if both conditions are met we write the property otherwise we leave it out. This provides us with flexibility in the configuration map
+      @if ((map-has-key(map-get($typography, $element), $option) and not (map-get(map-get($typography, $element), $option) == null))) {
+        #{$option}: map-get(map-get($typography, $element), $option);
+      } // end $option
+    }
+
+    // we compute and set the proper margin bottom for the elements, by setting it equal to the box height of a row of text (font-size * line-height)
+    @if ((map-has-key(map-get($typography, $element), font-size) and not (map-get(map-get($typography, $element), font-size) == null)) and ((map-has-key(map-get($typography, $element), line-height) and not (map-get(map-get($typography, $element), line-height) == null)))) {
+      margin-top: 0;
+      margin-bottom: (map-get(map-get($typography, $element), font-size)) * (map-get(map-get($typography, $element), line-height));
+    }
+
+  } @else {
+    // the element specified is not defined in the $typography map
+    // clean error reporting
+    @error 'The element specified for the mixin is not defined in the $typography map which can be found in the dependencies/typography partial. Please make sure that the element exists in the map and does not contain any typos where the mixin is called';
+  }
+}
+
+// this mixin sets up the base shared properties of all headings
+//
+@mixin headings-base(
+  $color: $headings-font-color,
+  $font-family: $headings-font-family,
+  $font-weight: $headings-font-weight,
+  $text-rendering: $headings-text-rendering
+) {
+  color: $color;
+
+  font-family: $font-family;
+  font-weight: $font-weight;
+
+  text-rendering: $text-rendering;
+}

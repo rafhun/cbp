@@ -1,0 +1,184 @@
+/*
+# Mixins
+
+Global mixins that are to be used on a variety of components/molecules are set up in this file. Keep component/molecule specific mixins in their respective files only global stuff should be added here.
+
+The following mixins have been prepared for you:
+* Auto Separator Mixin
+* Micro Clearfix by Nicolas Gallagher
+* Text Ellipsis Mixin
+* Triangle
+
+## Auto Separator
+`@mixin separator($margins: rem-calc(6), $separator-color: inherit, $separator: '|', $font-size: inherit) {}`
+
+This mixin automatically puts a separator between list items (or basically any items the mixin is applied to) by adding content to the `::after` pseudoelement and positioning it with margins and paddings.
+
+@TODO: replace dependency on inline-block display method, since a hack is needed to fix alignment. Is it possible and time to use a flexbox approach?
+
+## Micro Clearfix by Nicolas Gallagher
+`@mixin clearfix`
+
+Not much has to be explained about this mixin. Used to clear floats as suggested by Nicolas Gallagher.
+
+## Text Ellipsis
+`@mixin text-ellipsis`
+
+Applies all the styles needed to get a CSS ellipsis if the text overflows its container. Can only be used on single lines of text (therefore we set the white-space to nowrap). Mostly used for teasers and similar.
+
+## triangle
+Creates a triangle on one of the edges of an element
+
+ @author Eduardo Boucas, rafhun
+
+ Minor adjustments/improvments to mixin logic, basically make more configuration options available
+
+ A base configuration is given through preset values to make use of the mixin and it's options clearer.
+
+ Added parameters for height and color of the triangle. Sometimes we want to be able to have more influence over the color of the triangle which is why we are making it a configurable option. The standard value still is the previously given `currentColor` but can now be changed according to the design wishes. Also an additional height variable has been introduced. This defines the height of the triangle why the width describes the width of the base of the triangle. This enables us to easily add a triangle over the whole width of an element (like an off-canvas link's height) while keeping seperate control over the height.
+
+ @param {String}   $pos - Which edge to create the triangle on
+ @param {Length}   $offset - The offset from the origin (top or left) on the edge
+ @param {String}   $direction - Direction of the triangle (in or out)
+ @param {Length}   $width - Width of the triangle
+ @param {Length}   $height - Height of the triangle
+ @param {Color}    $color - Color of the triangle
+ @param {String}   $type - Type of the pseudo-element (before or after)
+
+
+ @example scss - A triangle on the left edge of the parent, 15px from the top, pointing out with a width of 30px
+  @include triangle('left', 15px, 'out', 30px);
+
+ @example scss - A triangle on the bottom edge of the parent, 220px from the left, pointing out, with a width of 60px and using a :before
+  @include triangle('bottom', 220px, 'out', 60px, 'before');
+*/
+@mixin separator($margins: rem-calc(6), $separator-color: inherit, $separator: '|', $font-size: inherit) {
+  display: inline-block;
+
+  margin-left: $margins;
+  margin-right: -4px; // fix inline-block white space
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &::after {
+    content: $separator;
+    color: $separator-color;
+    font-size: $font-size;
+    padding-left: $margins;
+  }
+
+  &:last-child {
+    margin-right: 0; // last element should have the usual white space
+
+    &::after {
+      content: '';
+      padding-left: 0;
+    }
+  }
+}
+
+@mixin clearfix() {
+  & {
+    *zoom: 1;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    display: table;
+  }
+
+  &::after {
+    clear: both;
+  }
+}
+
+@mixin text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+// Triangle mixin
+@mixin triangle(
+  $pos: 'left',
+  $offset: '0',
+  $direction: 'out',
+  $width: '1rem', // defines how wide the triangles base is
+  $height: $width, // describes the height of the triangle
+  $color: currentColor,
+  $type: 'after'
+) {
+  position: relative;
+
+  &:#{$type} {
+    position: absolute;
+    content: '';
+    z-index: 1;
+
+    // Reset position and offsets
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    $h-offset: 0;
+    $v-offset: 0;
+
+    // Triangle: down
+    @if ((($pos == 'top') and ($direction == 'in')) or ($pos == 'bottom') and ($direction == 'out')) {
+      border-top: $height solid $color;
+      border-right: $width / 2 solid transparent;
+      border-bottom: 0;
+      border-left: $width / 2 solid transparent;
+
+      $v-offset: if($direction == 'in', 0, -$height);
+    }
+
+    // Triangle: up
+    @if ((($pos == 'top') and ($direction == 'out')) or ($pos == 'bottom') and ($direction == 'in')) {
+      border-top: 0;
+      border-right: $width / 2 solid transparent;
+      border-bottom: $height solid $color;
+      border-left: $width / 2 solid transparent;
+
+      $v-offset: if($direction == 'in', 0, -$height);
+    }
+
+    // Triangle: right
+    @if ((($pos == 'left') and ($direction == 'in')) or ($pos == 'right') and ($direction == 'out')) {
+      border-top: $width / 2 solid transparent;
+      border-right: 0;
+      border-bottom: $width / 2 solid transparent;
+      border-left: $height solid $color;
+
+      $h-offset: if($direction == 'in', 0, -$height);
+    }
+
+    // Triangle: left
+    @if ((($pos == 'left') and ($direction == 'out')) or ($pos == 'right') and ($direction == 'in')) {
+      border-top: $width / 2 solid transparent;
+      border-right: $height solid $color;
+      border-bottom: $width / 2 solid transparent;
+      border-left: 0;
+
+      $h-offset: if($direction == 'in', 0, -$height);
+    }
+
+    @if ($pos == 'top') {
+      top: $v-offset;
+      left: if($offset == 'center', calc(50% - #{$width}), $offset);
+    } @else if ($pos == 'bottom') {
+      bottom: $v-offset;
+      left: if($offset == 'center', calc(50% - #{$width}), $offset);
+    } @else if ($pos == 'left') {
+      top: if($offset == 'center', calc(50% - #{$width}), $offset);
+      left: $h-offset;
+    } @else if ($pos == 'right') {
+      top: if($offset == 'center', calc(50% - #{$width}), $offset);
+      right: $h-offset;
+    }
+  }
+}

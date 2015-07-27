@@ -81,13 +81,16 @@ linters:
   NestingDepth:
     enabled: true
     max_depth: 3
+    ignore_parent_selectors: false
 
   PlaceholderInExtend:
     enabled: true
 
   PropertySortOrder:
-    enabled: false
-    ignore_unspecified: false
+    enabled: true
+    ignore_unspecified: true
+    order: smacss
+    separate_groups: true
 
   PropertySpelling:
     enabled: true

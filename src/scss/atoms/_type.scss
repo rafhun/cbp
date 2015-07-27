@@ -1,0 +1,73 @@
+/*
+# Type
+
+Sets the default styles for all text. All variables used for these styles are defined in the dependencies/typograph file.
+
+```
+<h1>Team</h1>
+<p>
+  Lorem ipsum dolor <strong>sit amet</strong>, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum <a href="#">sociis</a> natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+</p>
+<h2>Titel des Unternehmens</h2>
+<p>
+  Lorem ipsum dolor <strong>sit amet</strong>, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum <a href="#">sociis</a> natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+</p>
+<h2>Erbrachte Leistungen</h2>
+<p>
+  Lorem ipsum dolor <strong>sit amet</strong>, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum <a href="#">sociis</a> natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+</p>
+<p>
+  Lorem ipsum dolor <strong>sit amet</strong>, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum <a href="#">sociis</a> natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+</p>
+<h3>Erbrachte Leistungen</h3>
+<p>
+  Lorem ipsum dolor <strong>sit amet</strong>, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum <a href="#">sociis</a> natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+</p>
+<h3>Erbrachte Leistungen</h3>
+<p>
+  Lorem ipsum dolor <strong>sit amet</strong>, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum <a href="#">sociis</a> natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+</p>
+```
+*/
+
+// basic html tags
+body,
+p {
+  @include get-typography(base);
+}
+
+// headings //
+
+// set up the base style for the headings as a placeholder selector. This is placed here so the extended selectors are inserted at the correct place
+%headings-base {
+  @include headings-base;
+}
+
+h1 {
+  @extend %headings-base;
+  @include get-typography(h1);
+}
+
+h2 {
+  @extend %headings-base;
+  @include get-typography(h2);
+}
+
+h3 {
+  @extend %headings-base;
+  @include get-typography(h3);
+}
+
+// anchor tags //
+
+a {
+  color: $anchor-color-font;
+  font-style: $anchor-font-style;
+  text-decoration: $anchor-text-decoration;
+
+  &:hover,
+  &:active,
+  &:focus {
+    text-decoration: $anchor-text-decoration-hover;
+  }
+}

@@ -1,0 +1,7 @@
+// layouts mostly add helper classes to lay organisms out on a page. For some we also use semantic class names to distinctly style each section.
+//
+// Create new partials for each new layout context you want to create, i. e. home/_styles.scss for the homepage, content/_styles.scss for your usual content pages.
+//
+// For clear code organization put each layout into its own folder with a config and a styles file then import them as follows:
+// @import 'layout-name/config';
+// @import 'layout-name/styles';

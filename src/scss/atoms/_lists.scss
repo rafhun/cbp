@@ -1,0 +1,55 @@
+/*
+# Lists
+
+Our standard list is without a list style. For content lists we have a special
+class `.dash-ul` which prepends the list items with a symbol chosen in the styles,
+in this case an underscore.
+
+The normal list has no margins at the bottom while the standard paragraph margin
+is applied to the content lists. Further list classes with different symbols might
+be added at a later time.
+
+```
+<ul>
+  <li>Basic List</li>
+  <li>No list style</li>
+  <li>Perfect for link lists, navigations, or other appliances of lists such as i. e. galleries, teasers, ...</li>
+</ul>
+
+<ul class="dash-ul">
+  <li>Redesign Webseite Responsiv-Design</li>
+  <li>Naming und Entwicklung Claim</li>
+  <li>Corporate Identity und Corporate Design</li>
+</ul>
+
+<ul class="dash-ul">
+  <li>Naming und Entwicklung Claim</li>
+  <li>Interne Kommunikation</li>
+  <li>Kundenbindungsinstrumente</li>
+</ul>
+```
+*/
+
+
+// config of the ul's
+$symbol-margin: rem-calc(12) !default;
+$symbol-indent: rem-calc(4) !default;
+$list-symbol: '_' !default;
+
+// ul's should generally not have a style
+ul {
+  list-style: none;
+}
+
+// our dash ul's should be prepended by an underscore
+.dash-ul {
+  margin-left: $symbol-margin + $symbol-indent;
+  margin-bottom: $base-block-margin-bottom;
+
+  li:before {
+    content: $list-symbol;
+    position: relative;
+    margin-left: - $symbol-margin;
+    left: - $symbol-indent;
+  }
+}
