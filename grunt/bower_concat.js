@@ -3,7 +3,8 @@ module.exports = {
     dest: '<%= config.srcFolders.js %>bower.js',
     exclude: [
       'Cortana',
-      'susy'
+      'susy',
+      'normalize-scss'
     ],
   }
 }
