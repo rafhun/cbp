@@ -1,3 +1,13 @@
+<a name="1.1.0"></a>
+# 1.1.0 (2015-07-27)
+
+
+### Features
+
+* **cms:** add .htaccess template ([9bbe8d9](https://github.com/rafhun/cbp/commit/9bbe8d9))
+
+
+
 <a name="1.0.5"></a>
 ## 1.0.5 (2015-07-27)
 
