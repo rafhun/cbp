@@ -148,15 +148,15 @@ editorStyles:
 
 patchBump:
   - 'bump:patch'
-  - 'changelog'
+  - 'conventionalChangelog'
   - 'shell:addChangelog'
 
 minorBump:
   - 'bump:minor'
-  - 'changelog'
+  - 'conventionalChangelog'
   - 'shell:addChangelog'
 
 majorBump:
   - 'bump:major'
-  - 'changelog'
+  - 'conventionalChangelog'
   - 'shell:addChangelog'
