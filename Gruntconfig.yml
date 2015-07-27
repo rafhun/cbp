@@ -15,7 +15,6 @@ buildFolders:
 
 srcFolders:
   bower: src/bower_components/
-  componentsJs: src/js/components/
   config: src/config/
   contentImg: src/images/content/
   css: src/css/
@@ -27,6 +26,7 @@ srcFolders:
   jade: src/jade/
   js: src/js/
   jsBuild: src/js/build/
+  moleculesJs: src/js/molecules/
   scss: src/scss/
   secrets: src/secrets/
   themeImg: src/images/theme/

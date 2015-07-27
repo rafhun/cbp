@@ -1,0 +1,1 @@
+This folder contains molecule specific scripts like the toggle script for an off canvas navigation or accordions. Each molecule gets their own file (molecule.js). All files in this folder are linted, concatenated and imported to the main script file automatically by the grunt workflow.
