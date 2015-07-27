@@ -1,3 +1,14 @@
+<a name="1.0.3"></a>
+## 1.0.3 (2015-07-27)
+
+
+### Bug Fixes
+
+* **build:** correctly generate changelog ([203afa8](https://github.com/rafhun/cbp/commit/203afa8))
+* **build:** fix shell:addChangelog ([01e6dc0](https://github.com/rafhun/cbp/commit/01e6dc0))
+
+
+
 <a name="1.0.2"></a>
 ## 1.0.2 (2015-07-27)
 
