@@ -24,7 +24,7 @@ default:
   - 'htmlmin'
   - 'jade'
   - 'hashres'
-  - 'shell:hologram'
+  - 'sassdown'
   - 'browserSync'
   - 'watch'
 
@@ -55,7 +55,7 @@ local:
   - 'htmlmin'
   - 'jade'
   - 'hashres'
-  - 'shell:hologram'
+  - 'sassdown'
 
 staging:
   - 'jshint:grunt'
@@ -83,7 +83,7 @@ staging:
   - 'htmlmin'
   - 'jade'
   - 'hashres'
-  - 'shell:hologram'
+  - 'sassdown'
 
 production:
   - 'jshint:grunt'
@@ -111,7 +111,7 @@ production:
   - 'htmlmin'
   - 'jade'
   - 'hashres'
-  - 'shell:hologram'
+  - 'sassdown'
 
 pushStaging:
   - 'staging'
@@ -122,12 +122,10 @@ pushProduction:
   - 'rsync:production'
 
 setup:
- - 'shell:bundler'
  - 'shell:bower'
  - 'bower_concat'
 
 setupUpdate:
-  - 'shell:bundlerUpdate'
   - 'shell:bowerUpdate'
   - 'bower_concat'
   - 'concat'

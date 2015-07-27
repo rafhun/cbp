@@ -42,6 +42,7 @@
     "grunt-svgmin": "^2.0.1",
     "jshint": "^2.8.0",
     "load-grunt-config": "^0.17.1",
+    "sassdown": "^0.2.7",
     "time-grunt": "^1.2.1"
   },
   "dependencies": {}

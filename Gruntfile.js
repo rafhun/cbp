@@ -8,6 +8,9 @@ module.exports = function(grunt) {
       config: grunt.file.readYAML('Gruntconfig.yml'),
       destFolder: '<%= config.buildFolders.theme %><%= config.themeName %>/',
       secrets: grunt.file.readJSON('secrets.json')
+    },
+    loadGruntTasks: {
+      pattern: ['grunt-*', 'sassdown']
     }
   });
 };
