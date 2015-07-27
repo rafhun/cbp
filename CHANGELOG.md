@@ -1,3 +1,15 @@
+<a name="1.1.2"></a>
+## 1.1.2 (2015-07-27)
+
+
+### Bug Fixes
+
+* **build:** fix jshint molecules path ([7c3b086](https://github.com/rafhun/cbp/commit/7c3b086))
+* **build:** fix sassdown config ([be4c974](https://github.com/rafhun/cbp/commit/be4c974))
+* **git:** add editorConfig to gitignore ([570c356](https://github.com/rafhun/cbp/commit/570c356))
+
+
+
 <a name="1.1.1"></a>
 ## 1.1.1 (2015-07-27)
 
