@@ -10,6 +10,7 @@ buildFolders:
   fonts: fonts/
   icons: icons/
   img: images/
+  root: wwwroot/
   styleguide: wwwroot/styleguide/
   theme: wwwroot/themes/
 

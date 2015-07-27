@@ -92,3 +92,6 @@ wwwroot/customizing
 # contrexx generated sitemaps and news feeds
 sitemap*.xml
 wwwroot/feed
+
+# we copy the .htaccess template from our src folders therefore ignore it for our builds
+wwwroot/.htaccess
