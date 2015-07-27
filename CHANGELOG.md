@@ -1,3 +1,13 @@
+<a name="1.1.1"></a>
+## 1.1.1 (2015-07-27)
+
+
+### Bug Fixes
+
+* **build:** exclude normalize-scss from bower-concat ([e2f5456](https://github.com/rafhun/cbp/commit/e2f5456))
+
+
+
 <a name="1.1.0"></a>
 # 1.1.0 (2015-07-27)
 
