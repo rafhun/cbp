@@ -5,7 +5,7 @@ module.exports = {
     commit: true,
     commitMessage: 'Release v%VERSION%',
     commitFiles: ['package.json', 'bower.json', 'readme.md'],
-    createTag: true,
+    createTag: false,
     tagName: 'v%VERSION%',
     tagMessage: 'Version %VERSION%',
     push: false,
