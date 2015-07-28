@@ -1,3 +1,13 @@
+<a name="1.1.3"></a>
+## 1.1.3 (2015-07-28)
+
+
+### Bug Fixes
+
+* **contrexx:** add correct timezone to config template ([e0346ae](https://github.com/rafhun/cbp/commit/e0346ae))
+
+
+
 <a name="1.1.2"></a>
 ## 1.1.2 (2015-07-27)
 
