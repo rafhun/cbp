@@ -1,3 +1,19 @@
+<a name="1.1.4"></a>
+## 1.1.4 (2015-07-28)
+
+
+### Bug Fixes
+
+* **git:** ignore minimized svg ([8a76d2e](https://github.com/rafhun/cbp/commit/8a76d2e))
+* **grunt:** watch task now references sassdown instead of hologram ([56cce43](https://github.com/rafhun/cbp/commit/56cce43))
+* **scss:** fix reference to headings-font-family ([fc2c119](https://github.com/rafhun/cbp/commit/fc2c119))
+
+### Features
+
+* **grunt:** add installer folder to contrexx:clean ([1157d29](https://github.com/rafhun/cbp/commit/1157d29))
+
+
+
 <a name="1.1.3"></a>
 ## 1.1.3 (2015-07-28)
 
