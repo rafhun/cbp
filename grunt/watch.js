@@ -13,7 +13,7 @@ module.exports = {
   },
   styles: {
     files: ['<%= config.srcFolders.scss %>**/*.scss'],
-    tasks: ['clean:hashedCss', 'sass:main', 'autoprefixer:main', 'cssmin', 'uglify', 'jade', 'hashres', 'shell:hologram']
+    tasks: ['clean:hashedCss', 'sass:main', 'autoprefixer:main', 'cssmin', 'uglify', 'jade', 'hashres', 'sassdown']
   },
   images: {
     files: ['<%= config.srcFolders.images %>**/*.{png,jpg,gif}'],
@@ -39,8 +39,8 @@ module.exports = {
     files: ['<%= config.srcFolders.customizing %>**'],
     tasks: ['clean:customizing', 'copy:customizing']
   },
-  hologram: {
-    files: ['<%= config.srcFolders.scss %>README.md'],
-    tasks: ['shell:hologram']
+  sassdown: {
+    files: ['<%= config.srcFolders.scss %>readme.md'],
+    tasks: ['sassdown']
   }
 }
