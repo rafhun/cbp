@@ -1,5 +1,5 @@
 module.exports = {
-  contrexx: ['wwwroot/images/**/*.{jpg,jpeg,gif,png,thumb,pdf,ico,db,html}', 'wwwroot/themes/skeleton_3_0'],
+  contrexx: ['wwwroot/images/**/*.{jpg,jpeg,gif,png,thumb,pdf,ico,db,html}', 'wwwroot/themes/skeleton_3_0', 'wwwroot/installer'],
   customizing: ['<%= config.buildFolders.customizing %>'],
   dest: ['<%= destFolder %>'],
   editorConfig: ['<%= config.buildFolders.editorConfig %>ckeditor.config.js.php'],
