@@ -28,7 +28,7 @@ $_DBCONFIG['user'] = '@@db_user'; // Database username
 $_DBCONFIG['password'] = '@@db_password'; // Database password
 $_DBCONFIG['dbType'] = 'mysql';    // Database type (e.g. mysql,postgres ..)
 $_DBCONFIG['charset'] = 'utf8'; // Charset (default, latin1, utf8, ..)
-$_DBCONFIG['timezone'] = 'UTC'; // Controller's timezone for model
+$_DBCONFIG['timezone'] = 'Europe/Zurich'; // Controller's timezone for model
 $_DBCONFIG['collation'] = 'utf8_unicode_ci';
 
 /**
