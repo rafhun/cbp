@@ -1,7 +1,7 @@
 module.exports = {
   dev: {
     bsFiles: {
-      src: '<%= destFolder %>*.css'
+      src: '<%= destFolder %>*.{css,html,js}'
     },
     options: {
       watchTask: true,
