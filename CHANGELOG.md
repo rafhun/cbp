@@ -1,3 +1,14 @@
+<a name="1.1.5"></a>
+## 1.1.5 (2015-07-31)
+
+
+### Features
+
+* **grunt:** add releaseCount option for changelog ([276bef7](https://github.com/rafhun/cbp/commit/276bef7))
+* **grunt:** more files for BrowserSync ([731f472](https://github.com/rafhun/cbp/commit/731f472))
+
+
+
 <a name="1.1.4"></a>
 ## 1.1.4 (2015-07-28)
 
