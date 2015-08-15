@@ -1,3 +1,14 @@
+<a name="1.1.6"></a>
+## [1.1.6](https://github.com/rafhun/cbp/compare/v1.1.5...v1.1.6) (2015-08-15)
+
+
+### Bug Fixes
+
+* **grunt:** reorder tasks more logically ([43f2f12](https://github.com/rafhun/cbp/commit/43f2f12))
+* **js:** relax jshint to allow unused ([24b18de](https://github.com/rafhun/cbp/commit/24b18de))
+
+
+
 <a name="1.1.5"></a>
 ## 1.1.5 (2015-07-31)
 
