@@ -35,7 +35,7 @@
     "grunt-grunticon": "^2.2.1",
     "grunt-hashres": "^0.4.1",
     "grunt-mysql-dump": "^1.1.0",
-    "grunt-replace": "^0.9.3",
+    "grunt-replace": "^0.10.1",
     "grunt-rsync": "^0.6.2",
     "grunt-sass": "^1.0.0",
     "grunt-shell": "^1.1.2",
