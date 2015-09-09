@@ -10,6 +10,6 @@ module.exports = {
   },
   icons: {
     src: '<%= config.srcFolders.images %>favicon.png',
-    dest: 'wwwroot/'
+    dest: '<%= config.buildFolders.root %>'
   }
 }
