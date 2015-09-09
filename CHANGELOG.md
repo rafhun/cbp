@@ -1,3 +1,18 @@
+<a name="1.1.7"></a>
+## 1.1.7 (2015-09-09)
+
+
+### Bug Fixes
+
+* **grunt:** reference favicons dest with config ([8b4fb39](https://github.com/rafhun/cbp/commit/8b4fb39))
+* **grunt:** remove unnecessary reference ([326be0f](https://github.com/rafhun/cbp/commit/326be0f))
+
+### Features
+
+* **cms:** add settings template ([7ea46e1](https://github.com/rafhun/cbp/commit/7ea46e1))
+
+
+
 <a name="1.1.6"></a>
 ## [1.1.6](https://github.com/rafhun/cbp/compare/v1.1.5...v1.1.6) (2015-08-15)
 
