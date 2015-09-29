@@ -1,3 +1,13 @@
+<a name="1.1.8"></a>
+## 1.1.8 (2015-09-29)
+
+
+### Bug Fixes
+
+* **cms:** allow for custom styles.js file for ckeditor ([2050776](https://github.com/rafhun/cbp/commit/2050776))
+
+
+
 <a name="1.1.7"></a>
 ## 1.1.7 (2015-09-09)
 
