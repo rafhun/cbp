@@ -6,7 +6,7 @@
  * @link      http://www.contrexx.com
  * @copyright Comvation AG 2007-2014
  * @version   Contrexx 4.0
- * 
+ *
  * According to our dual licensing model, this program can be used either
  * under the terms of the GNU Affero General Public License, version 3,
  * or under a proprietary license.
@@ -52,6 +52,8 @@ $linkBrowser      = ASCMS_PATH_OFFSET . ASCMS_BACKEND_PATH.'/'.CONTREXX_DIRECTOR
 
 $defaultTemplateFilePath = substr(\Env::get('ClassLoader')->getFilePath('/lib/ckeditor/plugins/templates/templates/default.js'), strlen(ASCMS_PATH));
 
+$defaultStylesPath = substr(\Env::get('ClassLoader')->getFilePath('/lib/ckeditor/styles.js'), strlen(ASCMS_PATH));
+
 
 ?>
 CKEDITOR.editorConfig = function( config )
@@ -64,12 +66,12 @@ CKEDITOR.editorConfig = function( config )
     config.forcePasteAsPlainText = true;
     config.enterMode = CKEDITOR.ENTER_P;
     config.shiftEnterMode = CKEDITOR.ENTER_BR;
-    config.startupOutlineBlocks = true; // if true blocks get shown by a border and their type
+    config.startupOutlineBlocks = true;
     config.allowedContent = true;
 
-    config.contentsCss = '/themes/rafhun/editor-styles.css'; // apply custom stylesheet
+    config.contentsCss = '/themes/rafhun/editor-styles.css';
     config.templates_replaceContent = false;
-    
+
     config.ignoreEmptyParagraph = true;
     config.protectedSource.push(/<i[^>]*><\/i>/g);
     config.protectedSource.push(/<span[^>]*><\/span>/g);
@@ -83,6 +85,8 @@ CKEDITOR.editorConfig = function( config )
     config.baseHref = 'http://<?php echo $_CONFIG['domainUrl'] . ASCMS_PATH_OFFSET; ?>/';
 
     config.templates_files = [ '<?php echo $defaultTemplateFilePath; ?>' ];
+    // load custom styles
+    config.stylesSet = 'default:<?php echo $defaultStylesPath; ?>';
 
     config.toolbar_Full = config.toolbar_Small = [
         ['Source','-','NewPage','Templates'],
